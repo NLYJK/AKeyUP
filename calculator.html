@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About</title>
+
+  <style>
+    /* 🔥 Global styles (reuse everywhere) */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #111;
+      color: white;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    .wrapper {
+      padding: clamp(10px, 4vw, 60px);
+      max-width: 1000px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .title {
+      font-size: clamp(2rem, 6vw, 4rem);
+      margin-bottom: clamp(10px, 2vw, 30px);
+    }
+    /* 🔥 Menu container */
+.menu-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}
+
+/* 🔥 Three dot button */
+.menu-btn {
+  font-size: 24px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  background: #222;
+  color: white;
+  cursor: pointer;
+}
+
+/* 🔥 Dropdown menu */
+.menu {
+  display: none;
+  margin-top: 10px;
+  background: #222;
+  border-radius: 10px;
+  overflow: hidden;
+  min-width: 150px;
+}
+
+/* 🔥 Menu links */
+.menu a {
+  display: block;
+  padding: 12px;
+  color: white;
+  text-decoration: none;
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
+}
+
+.menu a:hover {
+  background: #333;
+}
+
+
+
+    .text {
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      max-width: 800px;
+      margin: auto;
+      margin-bottom: clamp(20px, 4vw, 50px);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: clamp(10px, 2vw, 18px) clamp(20px, 4vw, 40px);
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      background: #ff4444;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #ff2222;
+      transform: scale(1.05);
+    }
+.calculator {
+  max-width: 420px;
+  margin: auto;
+}
+
+#display {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.4rem;
+  border-radius: 10px;
+  background: #222;
+  color: white;
+  border: none;
+}
+
+#preview {
+  text-align: right;
+  font-size: 0.9rem;
+  color: #aaa;
+  margin: 5px 5px 10px;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+button {
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  background: #333;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #444;
+  transform: scale(1.05);
+}
+
+#history {
+  margin-top: 15px;
+  font-size: 0.85rem;
+  color: #aaa;
+  max-height: 150px;
+  overflow-y: auto;
+}
+  </style>
+</head>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  // 🔥 Elements (now they exist safely)
+  const display = document.getElementById("display");
+  const preview = document.getElementById("preview");
+  const historyDiv = document.getElementById("history");
+
+  // 🔥 Degree → Radian
+  function toRad(x) {
+    return x * Math.PI / 180;
+  }
+
+  // 🔥 Safe math functions
+  const math = {
+    sin: x => Math.sin(toRad(x)),
+    cos: x => Math.cos(toRad(x)),
+    tan: x => Math.tan(toRad(x)),
+    log: x => Math.log10(x),
+    sqrt: x => Math.sqrt(x)
+  };
+
+  // 🔥 Append input
+  window.append = function(val) {
+    display.value += val;
+    livePreview();
+  };
+
+  // 🔥 Clear
+  window.clearDisplay = function() {
+    display.value = "";
+    preview.innerText = "";
+  };
+
+  // 🔥 Delete last char
+  window.del = function() {
+    display.value = display.value.slice(0, -1);
+    livePreview();
+  };
+
+  // 🔥 Safe evaluation
+  function safeEval(expr) {
+    try {
+      return Function("math", "with(math) { return " + expr + " }")(math);
+    } catch {
+      return null;
+    }
+  }
+
+  // 🔥 Calculate final result
+  window.calculate = function() {
+    let result = safeEval(display.value);
+
+    if (result !== null) {
+      historyDiv.innerHTML =
+        `<div>${display.value} = ${result}</div>` + historyDiv.innerHTML;
+
+      display.value = result;
+      preview.innerText = "";
+    } else {
+      display.value = "Error";
+    }
+  };
+
+  // 🔥 Live preview
+  function livePreview() {
+    let result = safeEval(display.value);
+    preview.innerText = result !== null ? result : "";
+  }
+
+  // 🔥 Keyboard support (fixed)
+  document.addEventListener("keydown", (e) => {
+    if (!display) return;
+
+    if ("0123456789+-*/().".includes(e.key)) {
+      display.value += e.key;
+      livePreview();
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      calculate();
+    } else if (e.key === "Backspace") {
+      del();
+    }
+  });
+
+});
+</script>
+
+<body>
+<script>
+function toggleMenu() {
+  const menu = document.getElementById("menu");
+  menu.style.display = (menu.style.display === "block") ? "none" : "block";
+}
+</script>
+
+<div class="menu-container">
+  <button class="menu-btn" onclick="toggleMenu()">⋮</button>
+
+  <div class="menu" id="menu">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="download.html">Download</a>
+  </div>
+</div>
+
+<div class="wrapper">
+   <div class="calculator">
+
+  <input type="text" id="display" placeholder="Enter expression..." />
+  <div id="preview"></div>
+
+  <div class="buttons">
+
+    <!-- Top row -->
+    <button onclick="clearDisplay()">C</button>
+    <button onclick="del()">⌫</button>
+    <button onclick="append('(')">(</button>
+    <button onclick="append(')')">)</button>
+
+    <!-- Scientific -->
+    <button onclick="append('sin(')">sin</button>
+    <button onclick="append('cos(')">cos</button>
+    <button onclick="append('tan(')">tan</button>
+    <button onclick="append('sqrt(')">√</button>
+
+    <button onclick="append('log(')">log</button>
+    <button onclick="append('**')">^</button>
+    <button onclick="append('/100')">%</button>
+    <button onclick="append('/')">÷</button>
+
+    <!-- Numbers -->
+    <button onclick="append('7')">7</button>
+    <button onclick="append('8')">8</button>
+    <button onclick="append('9')">9</button>
+    <button onclick="append('*')">×</button>
+
+    <button onclick="append('4')">4</button>
+    <button onclick="append('5')">5</button>
+    <button onclick="append('6')">6</button>
+    <button onclick="append('-')">−</button>
+
+    <button onclick="append('1')">1</button>
+    <button onclick="append('2')">2</button>
+    <button onclick="append('3')">3</button>
+    <button onclick="append('+')">+</button>
+
+    <button onclick="append('0')">0</button>
+    <button onclick="append('.')">.</button>
+    <button onclick="calculate()">=</button>
+
+  </div>
+
+  <div id="history"></div>
+
+</div>
+  
+  <a href="tool.html" class="btn">⬅ Back to Tools</a>
+
+</div>
+
+</body>
+</html>
