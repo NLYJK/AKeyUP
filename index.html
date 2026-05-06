@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AKeyUP</title>
+
+<style>
+  /* 🔥 Global reset */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: white;
+    line-height: 1.6;
+  }
+
+  /* 🔥 Container spacing auto scales */
+  .wrapper {
+    padding: clamp(10px, 4vw, 60px);
+    max-width: 1200px;
+    margin: auto;
+  }
+
+  /* 🔥 Title scales automatically */
+  h1 {
+    font-size: clamp(2rem, 6vw, 4rem);
+    text-align: center;
+    margin-bottom: clamp(10px, 2vw, 30px);
+  }
+ /* 🔥 Menu container */
+.menu-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}
+
+/* 🔥 Three dot button */
+.menu-btn {
+  font-size: 24px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  background: #222;
+  color: white;
+  cursor: pointer;
+}
+
+/* 🔥 Dropdown menu */
+.menu {
+  display: none;
+  margin-top: 10px;
+  background: #222;
+  border-radius: 10px;
+  overflow: hidden;
+  min-width: 150px;
+}
+
+/* 🔥 Menu links */
+.menu a {
+  display: block;
+  padding: 12px;
+  color: white;
+  text-decoration: none;
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
+}
+
+.menu a:hover {
+  background: #333;
+}
+
+  /* 🔥 Text scales automatically */
+  p {
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    text-align: center;
+    margin-bottom: clamp(15px, 3vw, 40px);
+  }
+
+  /* 🔥 Auto grid layout (NO media queries) */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: clamp(10px, 2vw, 30px);
+  }
+
+  /* 🔥 Cards auto scale */
+  .card {
+    background: #222;
+    padding: clamp(15px, 3vw, 30px);
+    border-radius: 12px;
+    text-align: center;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    transition: 0.3s;
+  }
+
+  .card:hover {
+    transform: scale(1.05);
+  }
+
+  /* 🔥 Download button auto scales */
+  .btn {
+    display: inline-block;
+    margin-top: clamp(15px, 3vw, 40px);
+    padding: clamp(10px, 2vw, 18px) clamp(20px, 4vw, 40px);
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    background: #ff4444;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: 0.3s;
+  }
+
+  .btn:hover {
+    background: #ff2222;
+    transform: scale(1.08);
+  }
+
+  footer {
+    margin-top: clamp(20px, 5vw, 60px);
+    text-align: center;
+    font-size: clamp(0.8rem, 2vw, 1.2rem);
+    opacity: 0.7;
+  }
+
+</style>
+</head>
+<script>
+function toggleMenu() {
+  const menu = document.getElementById("menu");
+  menu.style.display = (menu.style.display === "block") ? "none" : "block";
+}
+</script>
+<body>
+<!-- 🔥 Three dot button -->
+<div class="menu-container">
+  <button class="menu-btn" onclick="toggleMenu()">⋮</button>
+
+  <div class="menu" id="menu">
+    <a href="index.html">Home</a>
+    <a href="donation.html">Donation</a>
+     </div>
+</div>
+
+<div class="wrapper">
+
+  <h1>AKeyUP</h1>
+
+  <p>
+    <h2>Why to use AKeyUP?</h2>
+  </p>
+
+  <div class="grid">
+    <div class="card">Open Websites with key combinations</div>
+    <div class="card">No data collection. Local storage only</div>
+    <div class="card">Minimal design</div>
+    <div class="card">Make every key powerful</div>
+  </div>
+  <h1> Important </h1>
+  <div class="grid">
+    <div class="card">Not for Smartphones</div>
+    <div class="card">Not for MacOS and Linux</div>
+    <div class="card">Some bugs may exist but will be removed</div>
+    <div class="card">Will work better on newer Windows</div>
+
+  </div>
+<!-- 🔥 Download button --> 
+<div style="text-align:center;"> 
+<a href="AKeyUP.zip" download class="btn">Download Now for Windows</a> 
+</div>
+  <footer>
+    © 2026 AKeyUP
+  </footer>
+
+</div>
+
+</body>
+</html>
