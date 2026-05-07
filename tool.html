@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tools</title>
+
+  <style>
+    /* 🔥 Global styles (reuse everywhere) */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #111;
+      color: white;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    .wrapper {
+      padding: clamp(10px, 4vw, 60px);
+      max-width: 1000px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .title {
+      font-size: clamp(2rem, 6vw, 4rem);
+      margin-bottom: clamp(10px, 2vw, 30px);
+    }
+    /* 🔥 Menu container */
+.menu-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}
+
+/* 🔥 Three dot button */
+.menu-btn {
+  font-size: 24px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  background: #222;
+  color: white;
+  cursor: pointer;
+}
+
+/* 🔥 Dropdown menu */
+.menu {
+  display: none;
+  margin-top: 10px;
+  background: #222;
+  border-radius: 10px;
+  overflow: hidden;
+  min-width: 150px;
+}
+
+/* 🔥 Menu links */
+.menu a {
+  display: block;
+  padding: 12px;
+  color: white;
+  text-decoration: none;
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
+}
+
+.menu a:hover {
+  background: #333;
+}
+
+
+
+    .text {
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      max-width: 800px;
+      margin: auto;
+      margin-bottom: clamp(20px, 4vw, 50px);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: clamp(10px, 2vw, 18px) clamp(20px, 4vw, 40px);
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      background: #ff4444;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #ff2222;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+
+<body>
+<script>
+function toggleMenu() {
+  const menu = document.getElementById("menu");
+  menu.style.display = (menu.style.display === "block") ? "none" : "block";
+}
+</script>
+
+<!-- 🔥 Three dot button -->
+<div class="menu-container">
+  <button class="menu-btn" onclick="toggleMenu()">⋮</button>
+
+  <div class="menu" id="menu">
+    <a href="index.html">Home</a>
+    <a href="donation.html">Donation</a>
+    <a href="tool.html">Tools</a>
+    <a href="pp.html">Privacy Policy</a>
+
+     </div>
+</div>
+
+
+
+<div class="wrapper">
+
+  <h1 class="title">Tools</h1>
+   <p> <a href ="calculator.html"class="btn">1.Calculator<a></p><br>
+   <a href="index.html" class="btn">⬅ Back to Home</a>
+
+</div>
+
+</body>
+</html>
