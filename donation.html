@@ -104,9 +104,8 @@
 }
 
 .logo {
-  font-size: clamp(50px, 8vw, 80px);
+  width: clamp(50px, 8vw, 80px);
   margin-bottom: 10px;
-  display: block;
 }
   </style>
 </head>
@@ -125,6 +124,7 @@ function copy(id) {
 }
 </script>
 
+<!-- 🔥 Three dot button -->
 <div class="menu-container">
   <button class="menu-btn" onclick="toggleMenu()">⋮</button>
 
@@ -133,9 +133,10 @@ function copy(id) {
     <a href="donation.html">Donation</a>
     <a href="tool.html">Tools</a>
     <a href="pp.html">Privacy Policy</a>
-
+         <a href="about.html">About</a>
      </div>
 </div>
+
 
 <div class="wrapper">
 
@@ -148,7 +149,7 @@ function copy(id) {
 <!-- 🪙 Bitcoin Donation -->
 <div class="coin">
 
-  <div class="logo">₿</div>
+  <img src="btc.png" class="logo">
 
   <h2>Bitcoin (BTC)</h2>
 

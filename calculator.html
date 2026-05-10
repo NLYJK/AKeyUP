@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About</title>
+  <title>Simple Calculator</title>
 
   <style>
     /* 🔥 Global styles (reuse everywhere) */
@@ -244,6 +244,7 @@ function toggleMenu() {
 }
 </script>
 
+<!-- 🔥 Three dot button -->
 <div class="menu-container">
   <button class="menu-btn" onclick="toggleMenu()">⋮</button>
 
@@ -252,8 +253,12 @@ function toggleMenu() {
     <a href="donation.html">Donation</a>
     <a href="tool.html">Tools</a>
     <a href="pp.html">Privacy Policy</a>
-  </div>
+      <a href="about.html">About</a>
+
+
+     </div>
 </div>
+
 
 <div class="wrapper">
    <div class="calculator">
@@ -266,7 +271,7 @@ function toggleMenu() {
     <!-- Top row -->
     <button onclick="clearDisplay()">C</button>
     <button onclick="del()">⌫</button>
-    <button onclick="append('(')">( </button>
+    <button onclick="append('(')">(</button>
     <button onclick="append(')')">)</button>
 
     <!-- Scientific -->
