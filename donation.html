@@ -1,130 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Donation</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    /* 🔥 Global styles (reuse everywhere) */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<title>Donation</title>
 
-    body {
-      background: #111;
-      color: white;
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-    }
+<style>
 
-    .wrapper {
-      padding: clamp(10px, 4vw, 60px);
-      max-width: 1000px;
-      margin: auto;
-      text-align: center;
-    }
-
-    .title {
-      font-size: clamp(2rem, 6vw, 4rem);
-      margin-bottom: clamp(10px, 2vw, 30px);
-    }
-    /* 🔥 Menu container */
-.menu-container {
-  position: fixed;
-  top: 20px;
-  right: 20px;
+/* 🔥 Reset */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
-/* 🔥 Three dot button */
-.menu-btn {
-  font-size: 24px;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 8px;
-  background: #222;
-  color: white;
-  cursor: pointer;
+body{
+  background:#111;
+  color:white;
+  font-family:Arial,sans-serif;
+  line-height:1.6;
 }
 
-/* 🔥 Dropdown menu */
-.menu {
-  display: none;
-  margin-top: 10px;
-  background: #222;
-  border-radius: 10px;
-  overflow: hidden;
-  min-width: 150px;
+/* 🔥 Layout */
+.wrapper{
+  max-width:900px;
+  margin:auto;
+  padding:clamp(20px,5vw,60px);
+  text-align:center;
 }
 
-/* 🔥 Menu links */
-.menu a {
-  display: block;
-  padding: 12px;
-  color: white;
-  text-decoration: none;
-  font-size: clamp(0.9rem, 2vw, 1.2rem);
+.title{
+  font-size:clamp(2rem,6vw,4rem);
+  margin-bottom:20px;
 }
 
-.menu a:hover {
-  background: #333;
+.text{
+  font-size:clamp(1rem,2.2vw,1.4rem);
+  max-width:700px;
+  margin:auto;
+  margin-bottom:30px;
 }
 
-
-
-    .text {
-      font-size: clamp(1rem, 2.5vw, 1.5rem);
-      max-width: 800px;
-      margin: auto;
-      margin-bottom: clamp(20px, 4vw, 50px);
-    }
-
-    .btn {
-      display: inline-block;
-      padding: clamp(10px, 2vw, 18px) clamp(20px, 4vw, 40px);
-      font-size: clamp(1rem, 2.5vw, 1.3rem);
-      background: #ff4444;
-      color: white;
-      text-decoration: none;
-      border-radius: 10px;
-      transition: 0.3s;
-    }
-
-    .btn:hover {
-      background: #ff2222;
-      transform: scale(1.05);
-    }
-     .coin {
-  background: #222;
-  padding: clamp(15px, 3vw, 30px);
-  border-radius: 12px;
-  margin-top: 20px;
+/* 🔥 Menu */
+.menu-container{
+  position:fixed;
+  top:15px;
+  right:15px;
+  z-index:999;
 }
 
-.logo {
-  width: clamp(50px, 8vw, 80px);
-  margin-bottom: 10px;
+.menu-btn{
+  font-size:24px;
+  padding:10px 15px;
+  border:none;
+  border-radius:10px;
+  background:#222;
+  color:white;
+  cursor:pointer;
 }
-  </style>
+
+.menu{
+  display:none;
+  margin-top:10px;
+  background:#222;
+  border-radius:10px;
+  overflow:hidden;
+  min-width:180px;
+}
+
+.menu.show{
+  display:block;
+}
+
+.menu a{
+  display:block;
+  padding:14px;
+  color:white;
+  text-decoration:none;
+}
+
+.menu a:hover{
+  background:#333;
+}
+
+/* 🔥 Coin box */
+.coin{
+  background:#222;
+  padding:25px;
+  border-radius:15px;
+  margin-top:25px;
+}
+
+/* 🔥 Image fix */
+.logo{
+  width:100%;
+  max-width:120px;
+  height:auto;
+  display:block;
+  margin:0 auto 15px auto;
+  object-fit:contain;
+}
+
+/* 🔥 Button */
+.btn{
+  display:inline-block;
+  margin-top:15px;
+  padding:12px 25px;
+  font-size:1rem;
+  background:#ff4444;
+  color:white;
+  border:none;
+  border-radius:10px;
+  text-decoration:none;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.btn:hover{
+  background:#ff2222;
+  transform:scale(1.05);
+}
+
+/* 🔥 Back button spacing */
+.back{
+  margin-top:40px;
+  display:inline-block;
+}
+
+</style>
 </head>
+
 <body>
+
+<!-- 🔥 MENU FIX (Edge + Chrome safe) -->
 <script>
-function toggleMenu() {
-  const menu = document.getElementById("menu");
-  menu.style.display = (menu.style.display === "block") ? "none" : "block";
-}
-</script>
-<script>
-function copy(id) {
-  const text = document.getElementById(id).innerText;
-  navigator.clipboard.writeText(text);
-  alert("Address copied!");
+function toggleMenu(){
+  document.getElementById("menu").classList.toggle("show");
 }
 </script>
 
-<!-- 🔥 Three dot button -->
+<script>
+function copy(id){
+  const text = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(text)
+    .then(()=>alert("Address copied!"))
+    .catch(()=>alert("Copy failed"));
+}
+</script>
+
+<!-- 🔥 Menu -->
 <div class="menu-container">
   <button class="menu-btn" onclick="toggleMenu()">⋮</button>
 
@@ -133,37 +158,41 @@ function copy(id) {
     <a href="donation.html">Donation</a>
     <a href="tool.html">Tools</a>
     <a href="pp.html">Privacy Policy</a>
-         <a href="about.html">About</a>
-     </div>
+    <a href="about.html">About</a>
+  </div>
 </div>
 
-
+<!-- 🔥 Content -->
 <div class="wrapper">
 
   <h1 class="title">AKeyUP Donation</h1>
 
   <p class="text">
-    Help us in other projects by considering donation.
- </p>
+    Help support future projects by donating.
+  </p>
 
-<!-- 🪙 Bitcoin Donation -->
-<div class="coin">
+  <!-- 🪙 Bitcoin -->
+  <div class="coin">
 
-  <img src="btc.avif" class="logo">
+    <!-- 🔥 IMAGE FIX -->
+    <img src="btc.avif" alt="Bitcoin Logo" class="logo">
 
-  <h2>Bitcoin (BTC)</h2>
+    <h2>Bitcoin (BTC)</h2>
 
-  <p style="color:#aaa;">Send using Bitcoin network only</p>
+    <p style="color:#aaa;">Send only via Bitcoin network</p>
 
-  <p id="btc">19okdn9UMfjG95ieFvhRLR4cMkMcYHmhFh</p>
+    <p id="btc" style="word-break:break-all;">
+      19okdn9UMfjG95ieFvhRLR4cMkMcYHmhFh
+    </p>
 
-  <button class="btn" onclick="copy('btc')">Copy Address</button>
+    <button class="btn" onclick="copy('btc')">
+      Copy Address
+    </button>
 
-</div>
+  </div>
 
-<br>
+  <a href="index.html" class="btn back">⬅ Back to Home</a>
 
-<a href="index.html" class="btn">⬅ Back to Home</a>
 </div>
 
 </body>
