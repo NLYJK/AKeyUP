@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nlyjk.github.io/AKeyUP/sitemap.xml
