@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<meta name="description"
+content="Count words, characters, sentences, paragraphs, and spaces instantly with the AKeyUP Word Counter. Fast, accurate, responsive online text analysis tool.">
+
+<title>AKeyUP Word Counter</title>
+
+<style>
+
+:root{
+
+  --bg:#111;
+  --card:#1c1c1c;
+  --box:#222;
+  --accent:#ff4444;
+  --accent-hover:#ff2222;
+  --text:#ffffff;
+  --muted:#aaaaaa;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+
+  background:var(--bg);
+  color:var(--text);
+
+  font-family:Arial,sans-serif;
+
+  min-height:100vh;
+}
+
+/* 🔥 Wrapper */
+
+.wrapper{
+
+  width:min(1200px,95%);
+
+  margin:auto;
+
+  padding:
+  clamp(15px,4vw,60px);
+
+  text-align:center;
+}
+
+/* 🔥 Title */
+
+h1{
+
+  font-size:
+  clamp(2.2rem,6vw,4.5rem);
+
+  margin-top:30px;
+
+  margin-bottom:20px;
+}
+
+.description{
+
+  font-size:
+  clamp(1rem,2vw,1.3rem);
+
+  color:var(--muted);
+
+  max-width:850px;
+
+  margin:auto;
+
+  margin-bottom:35px;
+
+  line-height:1.8;
+}
+
+/* 🔥 Menu */
+
+.menu-container{
+
+  position:fixed;
+
+  top:20px;
+
+  right:20px;
+
+  z-index:1000;
+}
+
+.menu-btn{
+
+  width:
+  clamp(42px,6vw,60px);
+
+  height:
+  clamp(42px,6vw,60px);
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  font-size:
+  clamp(22px,4vw,36px);
+
+  border:none;
+
+  border-radius:14px;
+
+  background:var(--box);
+
+  color:var(--text);
+
+  cursor:pointer;
+
+  transition:0.25s;
+}
+
+.menu-btn:hover{
+
+  background:#333;
+
+  transform:scale(1.05);
+}
+
+/* 🔥 Dropdown */
+
+.menu{
+
+  display:none;
+
+  margin-top:10px;
+
+  background:var(--box);
+
+  border-radius:14px;
+
+  overflow:hidden;
+
+  min-width:190px;
+
+  box-shadow:
+  0 10px 25px rgba(0,0,0,0.4);
+}
+
+.menu a{
+
+  display:block;
+
+  padding:14px;
+
+  color:var(--text);
+
+  text-decoration:none;
+
+  font-size:
+  clamp(0.9rem,2vw,1.05rem);
+
+  transition:0.2s;
+}
+
+.menu a:hover{
+  background:#333;
+}
+
+/* 🔥 Main Box */
+
+.counter-box{
+
+  background:var(--card);
+
+  border-radius:24px;
+
+  padding:
+  clamp(20px,4vw,45px);
+
+  margin-top:30px;
+
+  box-shadow:
+  0 15px 40px rgba(0,0,0,0.35);
+}
+
+/* 🔥 Text Area */
+
+textarea{
+
+  width:100%;
+
+  min-height:340px;
+
+  padding:22px;
+
+  border:none;
+
+  border-radius:18px;
+
+  background:var(--box);
+
+  color:var(--text);
+
+  font-size:1rem;
+
+  resize:vertical;
+
+  outline:none;
+
+  line-height:1.8;
+
+  transition:0.2s;
+
+  border:2px solid transparent;
+}
+
+textarea:focus{
+
+  border-color:var(--accent);
+}
+
+/* 🔥 Stats */
+
+.stats{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(180px,1fr));
+
+  gap:22px;
+
+  margin-top:35px;
+}
+
+.stat-box{
+
+  background:var(--box);
+
+  padding:28px;
+
+  border-radius:18px;
+
+  transition:0.25s;
+}
+
+.stat-box:hover{
+
+  transform:translateY(-3px);
+}
+
+.stat-box p{
+
+  color:var(--muted);
+
+  font-size:1rem;
+}
+
+.stat-box h2{
+
+  font-size:2.2rem;
+
+  color:var(--accent);
+
+  margin-top:12px;
+
+  word-break:break-word;
+}
+
+/* 🔥 Buttons */
+
+.buttons{
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  gap:20px;
+
+  flex-wrap:wrap;
+
+  margin-top:35px;
+}
+
+.btn{
+
+  padding:15px 34px;
+
+  border:none;
+
+  border-radius:14px;
+
+  background:var(--accent);
+
+  color:white;
+
+  font-size:1rem;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  transition:0.25s;
+}
+
+.btn:hover{
+
+  background:var(--accent-hover);
+
+  transform:scale(1.05);
+}
+
+/* 🔥 Footer */
+
+footer{
+
+  margin-top:60px;
+
+  padding-bottom:25px;
+
+  color:var(--muted);
+
+  font-size:0.95rem;
+}
+
+/* 🔥 Mobile */
+
+@media(max-width:600px){
+
+  textarea{
+    min-height:260px;
+  }
+
+  .stat-box h2{
+    font-size:1.8rem;
+  }
+
+  .btn{
+    width:100%;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- 🔥 MENU -->
+
+<div class="menu-container">
+
+  <button
+  class="menu-btn"
+  onclick="toggleMenu()">
+
+    ⋮
+
+  </button>
+
+  <div class="menu" id="menu">
+
+    <a href="index.html">Home</a>
+
+    <a href="donation.html">
+      Donation
+    </a>
+
+    <a href="tool.html">
+      Tools
+    </a>
+
+    <a href="privacy-policy.html">
+      Privacy Policy
+    </a>
+
+    <a href="about.html">
+      About
+    </a>
+
+  </div>
+
+</div>
+
+<!-- 🔥 MAIN -->
+
+<div class="wrapper">
+
+  <h1>AKeyUP Word Counter</h1>
+
+  <p class="description">
+
+    Analyze your text instantly with accurate word, character,
+    sentence, paragraph, and space counting.
+
+  </p>
+
+  <div class="counter-box">
+
+    <textarea
+
+    id="textInput"
+
+    placeholder=
+    "Type or paste your text here..."
+
+    spellcheck="false"
+
+    autocomplete="off"
+
+    autocorrect="off"
+
+    autocapitalize="off"
+
+    ></textarea>
+
+    <!-- 🔥 Stats -->
+
+    <div class="stats">
+
+      <div class="stat-box">
+
+        <p>Words</p>
+
+        <h2 id="words">0</h2>
+
+      </div>
+
+      <div class="stat-box">
+
+        <p>Characters</p>
+
+        <h2 id="characters">0</h2>
+
+      </div>
+
+      <div class="stat-box">
+
+        <p>Characters (No Spaces)</p>
+
+        <h2 id="charactersNoSpaces">0</h2>
+
+      </div>
+
+      <div class="stat-box">
+
+        <p>Sentences</p>
+
+        <h2 id="sentences">0</h2>
+
+      </div>
+
+      <div class="stat-box">
+
+        <p>Paragraphs</p>
+
+        <h2 id="paragraphs">0</h2>
+
+      </div>
+
+      <div class="stat-box">
+
+        <p>Spaces</p>
+
+        <h2 id="spaces">0</h2>
+
+      </div>
+
+    </div>
+
+    <!-- 🔥 Buttons -->
+
+    <div class="buttons">
+
+      <button
+      class="btn"
+      onclick="copyText()">
+
+        Copy Text
+
+      </button>
+
+      <button
+      class="btn"
+      onclick="clearText()">
+
+        Clear Text
+
+      </button>
+
+    </div>
+
+  </div>
+
+  <footer>
+
+    © 2026 AKeyUP
+
+  </footer>
+
+</div>
+
+<script>
+
+/* 🔥 MENU */
+
+function toggleMenu(){
+
+  const menu =
+  document.getElementById("menu");
+
+  menu.style.display =
+  menu.style.display === "block"
+  ? "none"
+  : "block";
+}
+
+/* 🔥 Close Menu Outside Click */
+
+document.addEventListener("click",
+function(event){
+
+  const menu =
+  document.getElementById("menu");
+
+  const button =
+  document.querySelector(".menu-btn");
+
+  if(
+    !menu.contains(event.target)
+    &&
+    !button.contains(event.target)
+  ){
+
+    menu.style.display = "none";
+  }
+});
+
+/* 🔥 Elements */
+
+const textInput =
+document.getElementById("textInput");
+
+const wordsElement =
+document.getElementById("words");
+
+const charactersElement =
+document.getElementById("characters");
+
+const charactersNoSpacesElement =
+document.getElementById(
+"charactersNoSpaces"
+);
+
+const sentencesElement =
+document.getElementById("sentences");
+
+const paragraphsElement =
+document.getElementById("paragraphs");
+
+const spacesElement =
+document.getElementById("spaces");
+
+/* 🔥 Update Stats */
+
+function updateStats(){
+
+  const text =
+  textInput.value;
+
+  /* 🔥 Words */
+
+  const words =
+  text.trim() === ""
+  ? 0
+  : text.trim()
+  .split(/\s+/)
+  .length;
+
+  /* 🔥 Characters */
+
+  const characters =
+  text.length;
+
+  /* 🔥 Characters Without Spaces */
+
+  const charactersNoSpaces =
+  text.replace(/\s/g,"").length;
+
+  /* 🔥 Sentences */
+
+  const sentences =
+  text.trim() === ""
+  ? 0
+  : text
+    .split(/[.!?]+/)
+    .filter(sentence =>
+    sentence.trim().length > 0)
+    .length;
+
+  /* 🔥 Paragraphs */
+
+  const paragraphs =
+  text.trim() === ""
+  ? 0
+  : text
+    .split(/\n+/)
+    .filter(paragraph =>
+    paragraph.trim().length > 0)
+    .length;
+
+  /* 🔥 Spaces */
+
+  const spaces =
+  (text.match(/ /g) || []).length;
+
+  /* 🔥 Update UI */
+
+  wordsElement.innerText =
+  words.toLocaleString();
+
+  charactersElement.innerText =
+  characters.toLocaleString();
+
+  charactersNoSpacesElement.innerText =
+  charactersNoSpaces.toLocaleString();
+
+  sentencesElement.innerText =
+  sentences.toLocaleString();
+
+  paragraphsElement.innerText =
+  paragraphs.toLocaleString();
+
+  spacesElement.innerText =
+  spaces.toLocaleString();
+}
+
+/* 🔥 Live Update */
+
+textInput.addEventListener(
+"input",
+updateStats
+);
+
+/* 🔥 Clear */
+
+function clearText(){
+
+  textInput.value = "";
+
+  updateStats();
+
+  textInput.focus();
+}
+
+/* 🔥 Copy */
+
+async function copyText(){
+
+  try{
+
+    await navigator.clipboard
+    .writeText(textInput.value);
+
+    alert(
+    "Text copied successfully!"
+    );
+
+  }catch(error){
+
+    alert(
+    "Failed to copy text."
+    );
+  }
+}
+
+/* 🔥 Initial Update */
+
+updateStats();
+
+</script>
+
+</body>
+</html>

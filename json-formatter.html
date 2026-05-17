@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<meta name="description"
+content="Format, validate, and beautify JSON instantly with the AKeyUP JSON Formatter. Fast, responsive, and privacy friendly online JSON tool.">
+
+<title>AKeyUP JSON Formatter</title>
+
+<style>
+
+:root{
+
+  --bg:#111;
+  --card:#1c1c1c;
+  --box:#222;
+  --accent:#ff4444;
+  --accent-hover:#ff2222;
+  --text:#ffffff;
+  --muted:#aaaaaa;
+  --success:#00cc66;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+
+  background:var(--bg);
+
+  color:var(--text);
+
+  font-family:Arial,sans-serif;
+
+  min-height:100vh;
+}
+
+/* 🔥 Wrapper */
+
+.wrapper{
+
+  width:min(1200px,95%);
+
+  margin:auto;
+
+  padding:
+  clamp(15px,4vw,60px);
+
+  text-align:center;
+}
+
+/* 🔥 Title */
+
+h1{
+
+  font-size:
+  clamp(2.2rem,6vw,4.5rem);
+
+  margin-top:30px;
+
+  margin-bottom:20px;
+}
+
+.description{
+
+  font-size:
+  clamp(1rem,2vw,1.3rem);
+
+  color:var(--muted);
+
+  max-width:850px;
+
+  margin:auto;
+
+  margin-bottom:35px;
+
+  line-height:1.8;
+}
+
+/* 🔥 Menu */
+
+.menu-container{
+
+  position:fixed;
+
+  top:20px;
+
+  right:20px;
+
+  z-index:1000;
+}
+
+.menu-btn{
+
+  width:
+  clamp(42px,6vw,60px);
+
+  height:
+  clamp(42px,6vw,60px);
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  font-size:
+  clamp(22px,4vw,36px);
+
+  border:none;
+
+  border-radius:14px;
+
+  background:var(--box);
+
+  color:var(--text);
+
+  cursor:pointer;
+
+  transition:0.25s;
+}
+
+.menu-btn:hover{
+
+  background:#333;
+
+  transform:scale(1.05);
+}
+
+/* 🔥 Dropdown */
+
+.menu{
+
+  display:none;
+
+  margin-top:10px;
+
+  background:var(--box);
+
+  border-radius:14px;
+
+  overflow:hidden;
+
+  min-width:190px;
+
+  box-shadow:
+  0 10px 25px rgba(0,0,0,0.4);
+}
+
+.menu a{
+
+  display:block;
+
+  padding:14px;
+
+  color:var(--text);
+
+  text-decoration:none;
+
+  font-size:
+  clamp(0.9rem,2vw,1.05rem);
+
+  transition:0.2s;
+}
+
+.menu a:hover{
+  background:#333;
+}
+
+/* 🔥 Main Box */
+
+.formatter-box{
+
+  background:var(--card);
+
+  border-radius:24px;
+
+  padding:
+  clamp(20px,4vw,45px);
+
+  margin-top:30px;
+
+  box-shadow:
+  0 15px 40px rgba(0,0,0,0.35);
+}
+
+/* 🔥 Textareas */
+
+textarea{
+
+  width:100%;
+
+  min-height:300px;
+
+  padding:20px;
+
+  border:none;
+
+  border-radius:18px;
+
+  background:var(--box);
+
+  color:var(--text);
+
+  font-size:1rem;
+
+  resize:vertical;
+
+  outline:none;
+
+  line-height:1.7;
+
+  font-family:Consolas,monospace;
+
+  border:2px solid transparent;
+
+  transition:0.2s;
+}
+
+textarea:focus{
+
+  border-color:var(--accent);
+}
+
+/* 🔥 Buttons */
+
+.buttons{
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  gap:20px;
+
+  flex-wrap:wrap;
+
+  margin-top:30px;
+}
+
+.btn{
+
+  padding:15px 34px;
+
+  border:none;
+
+  border-radius:14px;
+
+  background:var(--accent);
+
+  color:white;
+
+  font-size:1rem;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  transition:0.25s;
+}
+
+.btn:hover{
+
+  background:var(--accent-hover);
+
+  transform:scale(1.05);
+}
+
+/* 🔥 Status */
+
+.status{
+
+  margin-top:25px;
+
+  font-size:1rem;
+
+  font-weight:bold;
+}
+
+.success{
+  color:var(--success);
+}
+
+.error{
+  color:var(--accent);
+}
+
+/* 🔥 Footer */
+
+footer{
+
+  margin-top:60px;
+
+  padding-bottom:25px;
+
+  color:var(--muted);
+
+  font-size:0.95rem;
+}
+
+/* 🔥 Mobile */
+
+@media(max-width:600px){
+
+  textarea{
+    min-height:240px;
+  }
+
+  .btn{
+    width:100%;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- 🔥 MENU -->
+
+<div class="menu-container">
+
+  <button
+  class="menu-btn"
+  onclick="toggleMenu()">
+
+    ⋮
+
+  </button>
+
+  <div class="menu" id="menu">
+
+    <a href="index.html">Home</a>
+
+    <a href="donation.html">
+      Donation
+    </a>
+
+    <a href="tool.html">
+      Tools
+    </a>
+
+    <a href="privacy-policy.html">
+      Privacy Policy
+    </a>
+
+    <a href="about.html">
+      About
+    </a>
+
+  </div>
+
+</div>
+
+<!-- 🔥 MAIN -->
+
+<div class="wrapper">
+
+  <h1>JSON Formatter</h1>
+
+  <p class="description">
+
+    Format, beautify, validate, and clean JSON instantly directly inside your browser.
+
+  </p>
+
+  <div class="formatter-box">
+
+    <textarea
+
+    id="jsonInput"
+
+    placeholder=
+'Paste your JSON here...'
+
+    spellcheck="false"
+
+    autocomplete="off"
+
+    autocorrect="off"
+
+    autocapitalize="off"
+
+    ></textarea>
+
+    <!-- 🔥 Buttons -->
+
+    <div class="buttons">
+
+      <button
+      class="btn"
+      onclick="formatJSON()">
+
+        Format JSON
+
+      </button>
+
+      <button
+      class="btn"
+      onclick="minifyJSON()">
+
+        Minify JSON
+
+      </button>
+
+      <button
+      class="btn"
+      onclick="copyJSON()">
+
+        Copy JSON
+
+      </button>
+
+      <button
+      class="btn"
+      onclick="clearJSON()">
+
+        Clear
+
+      </button>
+
+    </div>
+
+    <!-- 🔥 Status -->
+
+    <div
+    class="status"
+    id="status">
+
+    </div>
+
+  </div>
+
+  <footer>
+
+    © 2026 AKeyUP
+
+  </footer>
+
+</div>
+
+<script>
+
+/* 🔥 MENU */
+
+function toggleMenu(){
+
+  const menu =
+  document.getElementById("menu");
+
+  menu.style.display =
+  menu.style.display === "block"
+  ? "none"
+  : "block";
+}
+
+/* 🔥 Close Menu Outside Click */
+
+document.addEventListener("click",
+function(event){
+
+  const menu =
+  document.getElementById("menu");
+
+  const button =
+  document.querySelector(".menu-btn");
+
+  if(
+    !menu.contains(event.target)
+    &&
+    !button.contains(event.target)
+  ){
+
+    menu.style.display = "none";
+  }
+});
+
+/* 🔥 Elements */
+
+const jsonInput =
+document.getElementById("jsonInput");
+
+const status =
+document.getElementById("status");
+
+/* 🔥 Status */
+
+function setStatus(message,type){
+
+  status.innerText = message;
+
+  status.className =
+  "status " + type;
+}
+
+/* 🔥 Format JSON */
+
+function formatJSON(){
+
+  try{
+
+    const parsed =
+    JSON.parse(jsonInput.value);
+
+    jsonInput.value =
+    JSON.stringify(
+      parsed,
+      null,
+      2
+    );
+
+    setStatus(
+    "Valid JSON formatted successfully.",
+    "success"
+    );
+
+  }catch(error){
+
+    setStatus(
+    "Invalid JSON: " + error.message,
+    "error"
+    );
+  }
+}
+
+/* 🔥 Minify JSON */
+
+function minifyJSON(){
+
+  try{
+
+    const parsed =
+    JSON.parse(jsonInput.value);
+
+    jsonInput.value =
+    JSON.stringify(parsed);
+
+    setStatus(
+    "JSON minified successfully.",
+    "success"
+    );
+
+  }catch(error){
+
+    setStatus(
+    "Invalid JSON: " + error.message,
+    "error"
+    );
+  }
+}
+
+/* 🔥 Copy JSON */
+
+async function copyJSON(){
+
+  try{
+
+    await navigator.clipboard
+    .writeText(jsonInput.value);
+
+    setStatus(
+    "JSON copied successfully.",
+    "success"
+    );
+
+  }catch(error){
+
+    setStatus(
+    "Failed to copy JSON.",
+    "error"
+    );
+  }
+}
+
+/* 🔥 Clear JSON */
+
+function clearJSON(){
+
+  jsonInput.value = "";
+
+  setStatus(
+  "",
+  ""
+  );
+
+  jsonInput.focus();
+}
+
+</script>
+
+</body>
+</html>

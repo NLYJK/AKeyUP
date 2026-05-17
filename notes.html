@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<meta name="description"
+content="AKeyUP Notes with notes, colors, pinning, search, export and local storage support.">
+
+<title>AKeyUP Notes</title>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#111;
+  color:white;
+  font-family:Arial,sans-serif;
+}
+
+/* 🔥 Wrapper */
+
+.wrapper{
+  max-width:1200px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+/* 🔥 Title */
+
+.title{
+  text-align:center;
+  font-size:clamp(2rem,6vw,4rem);
+  margin-bottom:30px;
+}
+
+/* 🔥 Menu */
+
+.menu-container{
+  position:fixed;
+  top:clamp(10px,2vw,20px);
+  right:clamp(10px,2vw,20px);
+  z-index:1000;
+}
+
+.menu-btn{
+  width:clamp(40px,6vw,60px);
+  height:clamp(40px,6vw,60px);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:clamp(20px,4vw,36px);
+
+  border:none;
+  border-radius:12px;
+
+  background:#222;
+  color:white;
+
+  cursor:pointer;
+
+  transition:0.3s;
+}
+
+.menu-btn:hover{
+  background:#333;
+  transform:scale(1.05);
+}
+
+.menu{
+  display:none;
+
+  margin-top:10px;
+
+  background:#222;
+
+  border-radius:10px;
+
+  overflow:hidden;
+
+  min-width:180px;
+}
+
+.menu a{
+  display:block;
+
+  padding:12px;
+
+  color:white;
+
+  text-decoration:none;
+
+  font-size:clamp(0.9rem,2vw,1.2rem);
+}
+
+.menu a:hover{
+  background:#333;
+}
+
+/* 🔥 Main Box */
+
+.box{
+  background:#1c1c1c;
+  padding:30px;
+  border-radius:20px;
+  margin-bottom:30px;
+}
+
+/* 🔥 Inputs */
+
+input,
+textarea,
+select{
+  width:100%;
+
+  padding:15px;
+
+  margin-bottom:15px;
+
+  border:none;
+  border-radius:12px;
+
+  background:#222;
+  color:white;
+
+  font-size:1rem;
+}
+
+textarea{
+  resize:none;
+  min-height:220px;
+}
+
+/* 🔥 Buttons */
+
+button,
+.btn{
+  display:inline-block;
+
+  padding:14px 28px;
+
+  border:none;
+  border-radius:12px;
+
+  background:#ff4444;
+  color:white;
+
+  cursor:pointer;
+
+  font-size:1rem;
+
+  transition:0.3s;
+
+  margin:5px;
+}
+
+button:hover,
+.btn:hover{
+  background:#ff2222;
+  transform:scale(1.05);
+}
+
+.secondary{
+  background:#333;
+}
+
+.secondary:hover{
+  background:#444;
+}
+
+/* 🔥 Status */
+
+.status{
+  margin-top:10px;
+  color:#00ff88;
+}
+
+/* 🔥 Search */
+
+.search-box{
+  margin-bottom:25px;
+}
+
+/* 🔥 Notes Grid */
+
+.notes-grid{
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(280px,1fr));
+
+  gap:20px;
+}
+
+/* 🔥 Sticky Notes */
+
+.note{
+  padding:20px;
+  border-radius:20px;
+
+  word-wrap:break-word;
+
+  display:flex;
+  flex-direction:column;
+
+  min-height:220px;
+
+  transition:0.3s;
+
+  box-shadow:
+  0 8px 20px rgba(0,0,0,0.3);
+}
+
+.note:hover{
+  transform:translateY(-5px);
+}
+
+.note-title{
+  font-size:1.3rem;
+  margin-bottom:10px;
+}
+
+.note-text{
+  white-space:pre-wrap;
+  margin-bottom:15px;
+  flex:1;
+}
+
+.note-date{
+  font-size:0.85rem;
+  opacity:0.8;
+  margin-bottom:15px;
+}
+
+.note-tag{
+  display:inline-block;
+
+  padding:6px 10px;
+
+  border-radius:8px;
+
+  background:rgba(0,0,0,0.2);
+
+  margin-bottom:10px;
+
+  font-size:0.9rem;
+}
+
+/* 🔥 Empty State */
+
+.empty{
+  text-align:center;
+  color:#888;
+  font-size:1.2rem;
+  margin-top:40px;
+}
+
+/* 🔥 Footer Buttons */
+
+.footer-buttons{
+  text-align:center;
+  margin-top:30px;
+}
+
+/* 🔥 Mobile */
+
+@media(max-width:600px){
+
+  .box{
+    padding:20px;
+  }
+
+  button,
+  .btn{
+    width:100%;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<script>
+
+function toggleMenu(){
+
+  const menu =
+  document.getElementById("menu");
+
+  menu.style.display =
+  (menu.style.display === "block")
+  ? "none"
+  : "block";
+}
+
+</script>
+
+<!-- 🔥 Menu -->
+
+<div class="menu-container">
+
+<button class="menu-btn"
+onclick="toggleMenu()">
+
+⋮
+
+</button>
+
+<div class="menu" id="menu">
+
+<a href="index.html">Home</a>
+
+<a href="donation.html">
+Donation
+</a>
+
+<a href="tool.html">
+Tools
+</a>
+
+<a href="privacy-policy.html">
+Privacy Policy
+</a>
+
+<a href="about.html">
+About
+</a>
+
+</div>
+
+</div>
+
+<div class="wrapper">
+
+<h1 class="title">
+📝 AKeyUP Notes
+</h1>
+
+<!-- 🔥 Notes Editor -->
+
+<div class="box">
+
+<input type="text"
+id="noteTitle"
+placeholder="Enter Note Title">
+
+<textarea
+id="noteText"
+placeholder="Write your note here..."></textarea>
+
+<select id="noteColor">
+
+<option value="#1c1c1c">Dark</option>
+<option value="#ffd54f">Yellow</option>
+<option value="#81d4fa">Blue</option>
+<option value="#a5d6a7">Green</option>
+<option value="#f48fb1">Pink</option>
+<option value="#ffab91">Orange</option>
+
+</select>
+
+<input type="text"
+id="noteTag"
+placeholder="Tag (Example: Work, Ideas)">
+
+<button onclick="saveNote()">
+💾 Save Note
+</button>
+
+<button class="secondary"
+onclick="clearEditor()">
+🗑 Clear
+</button>
+
+<button class="secondary"
+onclick="exportNotes()">
+📥 Export Notes
+</button>
+
+<div class="status"
+id="status">
+
+</div>
+
+</div>
+
+<!-- 🔥 Search -->
+
+<div class="search-box">
+
+<input type="text"
+id="searchInput"
+placeholder="🔍 Search Notes..."
+oninput="displayNotes()">
+
+</div>
+
+<!-- 🔥 Notes -->
+
+<div class="notes-grid"
+id="notesGrid">
+
+</div>
+
+<!-- 🔥 Back -->
+
+<div class="footer-buttons">
+
+<a href="tool.html"
+class="btn">
+
+⬅ Back to Tools
+
+</a>
+
+</div>
+
+</div>
+
+<script>
+
+/* 🔥 Notes Storage */
+
+let notes =
+JSON.parse(
+localStorage.getItem("akeyup_notes")
+) || [];
+
+let editingId = null;
+
+/* 🔥 Draft Restore */
+
+window.onload = () => {
+
+  const draftTitle =
+  localStorage.getItem("draft_title");
+
+  const draftText =
+  localStorage.getItem("draft_text");
+
+  if(draftTitle){
+
+    document.getElementById(
+    "noteTitle").value = draftTitle;
+
+  }
+
+  if(draftText){
+
+    document.getElementById(
+    "noteText").value = draftText;
+
+  }
+
+  displayNotes();
+};
+
+/* 🔥 Auto Draft Save */
+
+document.getElementById(
+"noteTitle"
+).addEventListener("input",saveDraft);
+
+document.getElementById(
+"noteText"
+).addEventListener("input",saveDraft);
+
+function saveDraft(){
+
+  localStorage.setItem(
+  "draft_title",
+  document.getElementById(
+  "noteTitle").value
+  );
+
+  localStorage.setItem(
+  "draft_text",
+  document.getElementById(
+  "noteText").value
+  );
+}
+
+/* 🔥 Save Note */
+
+function saveNote(){
+
+  const title =
+  document.getElementById(
+  "noteTitle").value.trim();
+
+  const text =
+  document.getElementById(
+  "noteText").value.trim();
+
+  const color =
+  document.getElementById(
+  "noteColor").value;
+
+  const tag =
+  document.getElementById(
+  "noteTag").value.trim();
+
+  const status =
+  document.getElementById("status");
+
+  if(title === "" || text === ""){
+
+    status.textContent =
+    "Please fill all fields.";
+
+    return;
+  }
+
+  if(editingId){
+
+    notes = notes.map(note => {
+
+      if(note.id === editingId){
+
+        return{
+          ...note,
+          title,
+          text,
+          color,
+          tag
+        };
+
+      }
+
+      return note;
+
+    });
+
+    status.textContent =
+    "Note Updated.";
+
+  }
+
+  else{
+
+    notes.unshift({
+
+      id:Date.now(),
+
+      title,
+
+      text,
+
+      color,
+
+      tag,
+
+      pinned:false,
+
+      createdAt:
+      new Date().toLocaleString()
+
+    });
+
+    status.textContent =
+    "Note Saved.";
+
+  }
+
+  localStorage.setItem(
+  "akeyup_notes",
+  JSON.stringify(notes)
+  );
+
+  clearEditor();
+
+  displayNotes();
+}
+
+/* 🔥 Display Notes */
+
+function displayNotes(){
+
+  const notesGrid =
+  document.getElementById(
+  "notesGrid"
+  );
+
+  const search =
+  document.getElementById(
+  "searchInput"
+  ).value.toLowerCase();
+
+  notesGrid.innerHTML = "";
+
+  const filtered =
+
+  [...notes]
+
+  .sort((a,b)=>
+  b.pinned - a.pinned)
+
+  .filter(note =>
+
+    note.title.toLowerCase()
+    .includes(search)
+
+    ||
+
+    note.text.toLowerCase()
+    .includes(search)
+
+    ||
+
+    note.tag.toLowerCase()
+    .includes(search)
+
+  );
+
+  if(filtered.length === 0){
+
+    notesGrid.innerHTML =
+
+    `<div class="empty">
+      No notes found.
+    </div>`;
+
+    return;
+  }
+
+  filtered.forEach(note => {
+
+    const noteCard =
+    document.createElement("div");
+
+    noteCard.className = "note";
+
+    noteCard.style.background =
+    note.color || "#1c1c1c";
+
+    if(note.color &&
+    note.color !== "#1c1c1c"){
+
+      noteCard.style.color =
+      "black";
+    }
+
+    /* 🔥 Title */
+
+    const title =
+    document.createElement("h2");
+
+    title.className =
+    "note-title";
+
+    title.textContent =
+
+    note.pinned
+    ? "📌 " + note.title
+    : note.title;
+
+    /* 🔥 Tag */
+
+    const tag =
+    document.createElement("div");
+
+    tag.className =
+    "note-tag";
+
+    tag.textContent =
+    note.tag || "General";
+
+    /* 🔥 Text */
+
+    const text =
+    document.createElement("p");
+
+    text.className =
+    "note-text";
+
+    text.textContent =
+    note.text;
+
+    /* 🔥 Date */
+
+    const date =
+    document.createElement("div");
+
+    date.className =
+    "note-date";
+
+    date.textContent =
+    note.createdAt;
+
+    /* 🔥 Edit Button */
+
+    const editBtn =
+    document.createElement("button");
+
+    editBtn.textContent =
+    "✏ Edit";
+
+    editBtn.onclick = () =>
+    editNote(note.id);
+
+    /* 🔥 Delete Button */
+
+    const deleteBtn =
+    document.createElement("button");
+
+    deleteBtn.textContent =
+    "🗑 Delete";
+
+    deleteBtn.className =
+    "secondary";
+
+    deleteBtn.onclick = () =>
+    deleteNote(note.id);
+
+    /* 🔥 Pin Button */
+
+    const pinBtn =
+    document.createElement("button");
+
+    pinBtn.textContent =
+
+    note.pinned
+    ? "📌 Unpin"
+    : "📌 Pin";
+
+    pinBtn.className =
+    "secondary";
+
+    pinBtn.onclick = () =>
+    pinNote(note.id);
+
+    /* 🔥 Copy Button */
+
+    const copyBtn =
+    document.createElement("button");
+
+    copyBtn.textContent =
+    "📋 Copy";
+
+    copyBtn.className =
+    "secondary";
+
+    copyBtn.onclick = () => {
+
+      navigator.clipboard.writeText(
+      note.text
+      );
+
+      alert("Copied.");
+
+    };
+
+    noteCard.appendChild(title);
+    noteCard.appendChild(tag);
+    noteCard.appendChild(text);
+    noteCard.appendChild(date);
+
+    noteCard.appendChild(editBtn);
+    noteCard.appendChild(deleteBtn);
+    noteCard.appendChild(pinBtn);
+    noteCard.appendChild(copyBtn);
+
+    notesGrid.appendChild(noteCard);
+
+  });
+
+}
+
+/* 🔥 Edit Note */
+
+function editNote(id){
+
+  const note =
+  notes.find(
+  note => note.id === id
+  );
+
+  document.getElementById(
+  "noteTitle"
+  ).value = note.title;
+
+  document.getElementById(
+  "noteText"
+  ).value = note.text;
+
+  document.getElementById(
+  "noteColor"
+  ).value = note.color || "#1c1c1c";
+
+  document.getElementById(
+  "noteTag"
+  ).value = note.tag || "";
+
+  editingId = id;
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+/* 🔥 Delete Note */
+
+function deleteNote(id){
+
+  const confirmDelete =
+  confirm(
+  "Delete this note?"
+  );
+
+  if(!confirmDelete){
+    return;
+  }
+
+  notes =
+  notes.filter(
+  note => note.id !== id
+  );
+
+  localStorage.setItem(
+  "akeyup_notes",
+  JSON.stringify(notes)
+  );
+
+  displayNotes();
+}
+
+/* 🔥 Pin Note */
+
+function pinNote(id){
+
+  notes = notes.map(note => {
+
+    if(note.id === id){
+
+      return{
+        ...note,
+        pinned:!note.pinned
+      };
+
+    }
+
+    return note;
+
+  });
+
+  localStorage.setItem(
+  "akeyup_notes",
+  JSON.stringify(notes)
+  );
+
+  displayNotes();
+}
+
+/* 🔥 Clear */
+
+function clearEditor(){
+
+  document.getElementById(
+  "noteTitle"
+  ).value = "";
+
+  document.getElementById(
+  "noteText"
+  ).value = "";
+
+  document.getElementById(
+  "noteTag"
+  ).value = "";
+
+  document.getElementById(
+  "noteColor"
+  ).value = "#1c1c1c";
+
+  editingId = null;
+
+  localStorage.removeItem(
+  "draft_title"
+  );
+
+  localStorage.removeItem(
+  "draft_text"
+  );
+}
+
+/* 🔥 Export Notes */
+
+function exportNotes(){
+
+  if(notes.length === 0){
+
+    alert("No notes available.");
+
+    return;
+  }
+
+  let content = "";
+
+  notes.forEach(note => {
+
+    content +=
+    `TITLE: ${note.title}\n`;
+
+    content +=
+    `TAG: ${note.tag}\n`;
+
+    content +=
+    `DATE: ${note.createdAt}\n\n`;
+
+    content +=
+    `${note.text}\n`;
+
+    content +=
+    `\n------------------\n\n`;
+
+  });
+
+  const blob =
+  new Blob([content],{
+    type:"text/plain"
+  });
+
+  const url =
+  URL.createObjectURL(blob);
+
+  const a =
+  document.createElement("a");
+
+  a.href = url;
+
+  a.download =
+  "AKeyUP_Notes.txt";
+
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+
+</script>
+
+</body>
+</html>
