@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<meta name="description"
+content="Convert units instantly with the AKeyUP Unit Converter. Supports length, weight, storage, temperature, speed, area, volume, pressure, energy, and more with accurate browser based conversions.">
+
+<meta name="keywords"
+content="unit converter,length converter,weight converter,storage converter,temperature converter,speed converter,area converter,volume converter,pressure converter,energy converter,online converter">
+
+<meta name="author"
+content="AKeyUP">
+
+<meta name="robots"
+content="index, follow">
+
+<title>AKeyUP Unit Converter</title>
+
+<style>
+
+:root{
+
+  --bg:#111;
+  --card:#1c1c1c;
+  --box:#222;
+  --accent:#ff4444;
+  --accent-hover:#ff2222;
+  --text:#ffffff;
+  --muted:#aaaaaa;
+  --success:#00cc66;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+
+  background:var(--bg);
+
+  color:var(--text);
+
+  font-family:Arial,sans-serif;
+
+  min-height:100vh;
+}
+
+/* 🔥 Wrapper */
+
+.wrapper{
+
+  width:min(1300px,95%);
+
+  margin:auto;
+
+  padding:
+  clamp(15px,4vw,60px);
+
+  text-align:center;
+}
+
+/* 🔥 Title */
+
+h1{
+
+  font-size:
+  clamp(2.5rem,6vw,5rem);
+
+  margin-top:30px;
+
+  margin-bottom:20px;
+}
+
+.description{
+
+  font-size:
+  clamp(1rem,2vw,1.3rem);
+
+  color:var(--muted);
+
+  max-width:950px;
+
+  margin:auto;
+
+  margin-bottom:40px;
+
+  line-height:1.8;
+}
+
+/* 🔥 Menu */
+
+.menu-container{
+
+  position:fixed;
+
+  top:20px;
+
+  right:20px;
+
+  z-index:1000;
+}
+
+.menu-btn{
+
+  width:
+  clamp(42px,6vw,60px);
+
+  height:
+  clamp(42px,6vw,60px);
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  font-size:
+  clamp(22px,4vw,36px);
+
+  border:none;
+
+  border-radius:14px;
+
+  background:var(--box);
+
+  color:var(--text);
+
+  cursor:pointer;
+
+  transition:0.25s;
+}
+
+.menu-btn:hover{
+
+  background:#333;
+
+  transform:scale(1.05);
+}
+
+/* 🔥 Dropdown */
+
+.menu{
+
+  display:none;
+
+  margin-top:10px;
+
+  background:var(--box);
+
+  border-radius:14px;
+
+  overflow:hidden;
+
+  min-width:190px;
+
+  box-shadow:
+  0 10px 25px rgba(0,0,0,0.4);
+}
+
+.menu a{
+
+  display:block;
+
+  padding:14px;
+
+  color:var(--text);
+
+  text-decoration:none;
+
+  font-size:
+  clamp(0.9rem,2vw,1.05rem);
+
+  transition:0.2s;
+}
+
+.menu a:hover{
+  background:#333;
+}
+
+/* 🔥 Main Converter */
+
+.converter-box{
+
+  background:var(--card);
+
+  border-radius:24px;
+
+  padding:
+  clamp(20px,4vw,50px);
+
+  margin-top:30px;
+
+  box-shadow:
+  0 15px 40px rgba(0,0,0,0.35);
+}
+
+/* 🔥 Inputs */
+
+.input-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(250px,1fr));
+
+  gap:20px;
+
+  margin-top:30px;
+}
+
+input,
+select{
+
+  width:100%;
+
+  padding:16px;
+
+  border:none;
+
+  border-radius:14px;
+
+  background:var(--box);
+
+  color:var(--text);
+
+  font-size:1rem;
+
+  outline:none;
+
+  border:2px solid transparent;
+
+  transition:0.25s;
+}
+
+input:focus,
+select:focus{
+
+  border-color:var(--accent);
+}
+
+/* 🔥 Result */
+
+.result{
+
+  margin-top:40px;
+
+  background:var(--box);
+
+  padding:35px;
+
+  border-radius:22px;
+
+  word-break:break-word;
+}
+
+.result h2{
+
+  font-size:
+  clamp(1.8rem,5vw,3.5rem);
+
+  color:var(--accent);
+}
+
+.result p{
+
+  margin-top:14px;
+
+  color:var(--muted);
+
+  line-height:1.7;
+}
+
+/* 🔥 Buttons */
+
+.buttons{
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  gap:20px;
+
+  flex-wrap:wrap;
+
+  margin-top:35px;
+}
+
+.btn{
+
+  padding:15px 34px;
+
+  border:none;
+
+  border-radius:14px;
+
+  background:var(--accent);
+
+  color:white;
+
+  font-size:1rem;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  transition:0.25s;
+}
+
+.btn:hover{
+
+  background:var(--accent-hover);
+
+  transform:scale(1.05);
+}
+
+/* 🔥 Info Section */
+
+.info{
+
+  margin-top:55px;
+
+  background:var(--card);
+
+  border-radius:24px;
+
+  padding:
+  clamp(20px,4vw,50px);
+
+  text-align:left;
+
+  line-height:1.9;
+}
+
+.info h2{
+
+  color:var(--accent);
+
+  margin-bottom:20px;
+
+  font-size:
+  clamp(1.5rem,3vw,2.2rem);
+}
+
+.info p{
+
+  color:var(--muted);
+
+  margin-bottom:20px;
+
+  font-size:1rem;
+}
+
+/* 🔥 Footer */
+
+footer{
+
+  margin-top:60px;
+
+  padding-bottom:25px;
+
+  color:var(--muted);
+
+  font-size:0.95rem;
+}
+
+/* 🔥 Scrollbar */
+
+::-webkit-scrollbar{
+  width:10px;
+}
+
+::-webkit-scrollbar-track{
+  background:#111;
+}
+
+::-webkit-scrollbar-thumb{
+  background:#333;
+  border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background:#444;
+}
+
+/* 🔥 Mobile */
+
+@media(max-width:700px){
+
+  .btn{
+    width:100%;
+  }
+
+  .input-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+</style>
+
+</head>
+<body>
+
+<!-- 🔥 MENU -->
+
+<div class="menu-container">
+
+  <button
+  class="menu-btn"
+  onclick="toggleMenu()">
+
+    ⋮
+
+  </button>
+
+  <div class="menu" id="menu">
+
+    <a href="index.html">
+      Home
+    </a>
+
+    <a href="donation.html">
+      Donation
+    </a>
+
+    <a href="tool.html">
+      Tools
+    </a>
+
+    <a href="privacy-policy.html">
+      Privacy Policy
+    </a>
+
+    <a href="about.html">
+      About
+    </a>
+
+  </div>
+
+</div>
+
+<!-- 🔥 MAIN -->
+
+<div class="wrapper">
+
+  <h1>Unit Converter</h1>
+
+  <p class="description">
+
+    Convert units instantly with support for length, weight,
+    temperature, storage, speed, area, volume, pressure,
+    energy, and time directly inside your browser.
+
+  </p>
+
+  <!-- 🔥 Converter -->
+
+  <div class="converter-box">
+
+    <div class="input-grid">
+
+      <!-- 🔥 Category -->
+
+      <select id="category">
+
+        <option value="length">
+          Length
+        </option>
+
+        <option value="weight">
+          Weight
+        </option>
+
+        <option value="temperature">
+          Temperature
+        </option>
+
+        <option value="storage">
+          Storage
+        </option>
+
+        <option value="speed">
+          Speed
+        </option>
+
+        <option value="time">
+          Time
+        </option>
+
+        <option value="area">
+          Area
+        </option>
+
+        <option value="volume">
+          Volume
+        </option>
+
+        <option value="energy">
+          Energy
+        </option>
+
+        <option value="pressure">
+          Pressure
+        </option>
+
+      </select>
+
+      <!-- 🔥 Input -->
+
+      <input
+      type="number"
+      id="inputValue"
+      placeholder="Enter value">
+
+      <!-- 🔥 From -->
+
+      <select id="fromUnit"></select>
+
+      <!-- 🔥 To -->
+
+      <select id="toUnit"></select>
+
+    </div>
+
+    <!-- 🔥 Buttons -->
+
+    <div class="buttons">
+
+      <button
+      class="btn"
+      onclick="convertUnit()">
+
+        Convert
+
+      </button>
+
+      <button
+      class="btn"
+      onclick="swapUnits()">
+
+        Swap Units
+
+      </button>
+
+      <button
+      class="btn"
+      onclick="clearAll()">
+
+        Clear
+
+      </button>
+
+    </div>
+
+    <!-- 🔥 Result -->
+
+    <div class="result">
+
+      <h2 id="result">
+
+        0
+
+      </h2>
+
+      <p>
+
+        Accurate browser based conversion with instant results
+        and no external uploads.
+
+      </p>
+
+    </div>
+
+  </div>
+
+  <!-- 🔥 Information -->
+
+  <div class="info">
+
+    <h2>
+      About This Unit Converter
+    </h2>
+
+    <p>
+
+      The AKeyUP Unit Converter is a fast and responsive online tool
+      designed to help users convert units instantly across multiple
+      categories including length, weight, storage, speed, pressure,
+      area, energy, temperature, volume, and time.
+
+    </p>
+
+    <p>
+
+      This converter works fully inside your browser which means
+      your values remain private and are never uploaded to external
+      servers. All calculations happen locally on your device for
+      better speed, privacy, and performance.
+
+    </p>
+
+    <p>
+
+      Students, developers, engineers, writers, and everyday users
+      can use this tool for quick calculations and accurate unit
+      conversions on both desktop and mobile devices.
+
+    </p>
+
+    <h2>
+      Supported Conversion Categories
+    </h2>
+
+    <p>
+
+      Length conversions include kilometers, meters, centimeters,
+      millimeters, yards, feet, inches, miles, and nautical miles.
+
+    </p>
+
+    <p>
+
+      Storage conversions support bits, bytes, kilobytes,
+      megabytes, gigabytes, terabytes, petabytes, exabytes,
+      zettabytes, and yottabytes.
+
+    </p>
+
+    <p>
+
+      Additional categories include temperature, weight, speed,
+      area, energy, pressure, volume, and time with accurate
+      real world conversion formulas.
+
+    </p>
+
+  </div>
+
+  <!-- 🔥 Footer -->
+
+  <footer>
+
+    © 2026 AKeyUP
+
+  </footer>
+
+</div>
+
+<script>
+
+/* 🔥 MENU */
+
+function toggleMenu(){
+
+  const menu =
+  document.getElementById("menu");
+
+  menu.style.display =
+  menu.style.display === "block"
+  ? "none"
+  : "block";
+}
+
+/* 🔥 Close Menu Outside Click */
+
+document.addEventListener(
+"click",
+function(event){
+
+  const menu =
+  document.getElementById("menu");
+
+  const button =
+  document.querySelector(".menu-btn");
+
+  if(
+    !menu.contains(event.target)
+    &&
+    !button.contains(event.target)
+  ){
+
+    menu.style.display = "none";
+  }
+});
+
+/* 🔥 Units */
+
+const units = {
+
+  length:{
+
+    Nanometer:0.000000001,
+
+    Micrometer:0.000001,
+
+    Millimeter:0.001,
+
+    Centimeter:0.01,
+
+    Meter:1,
+
+    Kilometer:1000,
+
+    Inch:0.0254,
+
+    Foot:0.3048,
+
+    Yard:0.9144,
+
+    Mile:1609.344,
+
+    "Nautical Mile":1852
+  },
+
+  weight:{
+
+    Milligram:0.000001,
+
+    Gram:0.001,
+
+    Kilogram:1,
+
+    Ton:1000,
+
+    Ounce:0.0283495,
+
+    Pound:0.453592,
+
+    Stone:6.35029
+  },
+
+  storage:{
+
+    Bit:0.125,
+
+    Byte:1,
+
+    Kilobyte:1024,
+
+    Megabyte:1024 ** 2,
+
+    Gigabyte:1024 ** 3,
+
+    Terabyte:1024 ** 4,
+
+    Petabyte:1024 ** 5,
+
+    Exabyte:1024 ** 6,
+
+    Zettabyte:1024 ** 7,
+
+    Yottabyte:1024 ** 8
+  },
+
+  speed:{
+
+    "Meters/Second":1,
+
+    "Kilometers/Hour":0.277778,
+
+    "Miles/Hour":0.44704,
+
+    Knot:0.514444,
+
+    Mach:343
+  },
+
+  time:{
+
+    Millisecond:0.001,
+
+    Second:1,
+
+    Minute:60,
+
+    Hour:3600,
+
+    Day:86400,
+
+    Week:604800,
+
+    Month:2628000,
+
+    Year:31536000
+  },
+
+  area:{
+
+    "Square Millimeter":0.000001,
+
+    "Square Centimeter":0.0001,
+
+    "Square Meter":1,
+
+    Hectare:10000,
+
+    Acre:4046.86,
+
+    "Square Kilometer":1000000,
+
+    "Square Mile":2589988.11
+  },
+
+  volume:{
+
+    Milliliter:0.001,
+
+    Liter:1,
+
+    CubicMeter:1000,
+
+    Gallon:3.78541,
+
+    Pint:0.473176
+  },
+
+  energy:{
+
+    Joule:1,
+
+    Kilojoule:1000,
+
+    Calorie:4.184,
+
+    Kilocalorie:4184,
+
+    WattHour:3600,
+
+    KilowattHour:3600000
+  },
+
+  pressure:{
+
+    Pascal:1,
+
+    Kilopascal:1000,
+
+    Bar:100000,
+
+    PSI:6894.76,
+
+    Atmosphere:101325
+  }
+};
+
+/* 🔥 Elements */
+
+const category =
+document.getElementById("category");
+
+const fromUnit =
+document.getElementById("fromUnit");
+
+const toUnit =
+document.getElementById("toUnit");
+
+const inputValue =
+document.getElementById("inputValue");
+
+const result =
+document.getElementById("result");
+
+/* 🔥 Load Units */
+
+function loadUnits(){
+
+  const selected =
+  category.value;
+
+  fromUnit.innerHTML = "";
+
+  toUnit.innerHTML = "";
+
+  if(selected === "temperature"){
+
+    const tempUnits = [
+
+      "Celsius",
+
+      "Fahrenheit",
+
+      "Kelvin"
+    ];
+
+    tempUnits.forEach(unit => {
+
+      fromUnit.innerHTML +=
+      `<option>${unit}</option>`;
+
+      toUnit.innerHTML +=
+      `<option>${unit}</option>`;
+    });
+
+    return;
+  }
+
+  Object.keys(units[selected])
+  .forEach(unit => {
+
+    fromUnit.innerHTML +=
+    `<option>${unit}</option>`;
+
+    toUnit.innerHTML +=
+    `<option>${unit}</option>`;
+  });
+}
+
+/* 🔥 Initial Load */
+
+loadUnits();
+
+category.addEventListener(
+"change",
+loadUnits
+);
+
+/* 🔥 Convert */
+
+function convertUnit(){
+
+  const selected =
+  category.value;
+
+  const from =
+  fromUnit.value;
+
+  const to =
+  toUnit.value;
+
+  const value =
+  parseFloat(inputValue.value);
+
+  if(isNaN(value)){
+
+    result.innerText =
+    "Enter a valid number";
+
+    return;
+  }
+
+  let converted;
+
+  if(selected === "temperature"){
+
+    if(from === to){
+
+      converted = value;
+    }
+
+    else if(
+      from === "Celsius"
+      &&
+      to === "Fahrenheit"
+    ){
+
+      converted =
+      (value * 9/5) + 32;
+    }
+
+    else if(
+      from === "Fahrenheit"
+      &&
+      to === "Celsius"
+    ){
+
+      converted =
+      (value - 32) * 5/9;
+    }
+
+    else if(
+      from === "Celsius"
+      &&
+      to === "Kelvin"
+    ){
+
+      converted =
+      value + 273.15;
+    }
+
+    else if(
+      from === "Kelvin"
+      &&
+      to === "Celsius"
+    ){
+
+      converted =
+      value - 273.15;
+    }
+
+    else if(
+      from === "Fahrenheit"
+      &&
+      to === "Kelvin"
+    ){
+
+      converted =
+      ((value - 32) * 5/9)
+      + 273.15;
+    }
+
+    else if(
+      from === "Kelvin"
+      &&
+      to === "Fahrenheit"
+    ){
+
+      converted =
+      ((value - 273.15)
+      * 9/5) + 32;
+    }
+  }
+
+  else{
+
+    converted =
+    value
+    *
+    units[selected][from]
+    /
+    units[selected][to];
+  }
+
+  result.innerText =
+  converted.toLocaleString(
+  undefined,
+  {
+    maximumFractionDigits:12
+  });
+}
+
+/* 🔥 Swap */
+
+function swapUnits(){
+
+  const temp =
+  fromUnit.value;
+
+  fromUnit.value =
+  toUnit.value;
+
+  toUnit.value =
+  temp;
+
+  convertUnit();
+}
+
+/* 🔥 Clear */
+
+function clearAll(){
+
+  inputValue.value = "";
+
+  result.innerText = "0";
+}
+
+/* 🔥 Auto Convert */
+
+inputValue.addEventListener(
+"input",
+convertUnit
+);
+
+fromUnit.addEventListener(
+"change",
+convertUnit
+);
+
+toUnit.addEventListener(
+"change",
+convertUnit
+);
+
+category.addEventListener(
+"change",
+() => {
+
+  loadUnits();
+
+  convertUnit();
+});
+
+</script>
+<!-- 🔥 Privacy Popup -->
+
+<style>
+
+/* 🔥 Privacy Popup */
+
+.privacy-popup{
+
+  position:fixed;
+
+  inset:0;
+
+  background:
+  rgba(0,0,0,0.75);
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  z-index:9999;
+
+  padding:20px;
+}
+
+.privacy-box{
+
+  background:#1c1c1c;
+
+  width:min(420px,100%);
+
+  padding:35px;
+
+  border-radius:24px;
+
+  text-align:center;
+
+  box-shadow:
+  0 15px 40px rgba(0,0,0,0.5);
+
+  animation:
+  popupFade 0.3s ease;
+}
+
+.privacy-box h2{
+
+  font-size:2rem;
+
+  margin-bottom:15px;
+
+  color:white;
+}
+
+.privacy-box p{
+
+  color:#aaaaaa;
+
+  line-height:1.8;
+
+  font-size:1rem;
+}
+
+.privacy-box a{
+
+  color:#4da6ff;
+
+  text-decoration:none;
+
+  font-weight:bold;
+}
+
+.privacy-box a:hover{
+
+  text-decoration:underline;
+}
+
+.accept-btn{
+
+  margin-top:25px;
+
+  padding:14px 30px;
+
+  border:none;
+
+  border-radius:14px;
+
+  background:#ff4444;
+
+  color:white;
+
+  font-size:1rem;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  transition:0.25s;
+}
+
+.accept-btn:hover{
+
+  background:#ff2222;
+
+  transform:scale(1.05);
+}
+
+/* 🔥 Animation */
+
+@keyframes popupFade{
+
+  from{
+
+    opacity:0;
+
+    transform:scale(0.9);
+  }
+
+  to{
+
+    opacity:1;
+
+    transform:scale(1);
+  }
+}
+
+</style>
+
+<div
+class="privacy-popup"
+id="privacyPopup">
+
+  <div class="privacy-box">
+
+    <h2>
+      Privacy Notice
+    </h2>
+
+    <p>
+
+      By using AKeyUP, you agree to our
+
+      <a href="privacy-policy.html">
+
+        Privacy Policy
+
+      </a>.
+
+    </p>
+
+    <button
+    class="accept-btn"
+    onclick="acceptPrivacy()">
+
+      Accept
+
+    </button>
+
+  </div>
+
+</div>
+
+<script>
+
+/* 🔥 Accept */
+
+function acceptPrivacy(){
+
+  localStorage.setItem(
+    "privacyAccepted",
+    "true"
+  );
+
+  document.getElementById(
+    "privacyPopup"
+  ).style.display = "none";
+}
+
+/* 🔥 Check */
+
+window.addEventListener(
+"load",
+function(){
+
+  const accepted =
+  localStorage.getItem(
+    "privacyAccepted"
+  );
+
+  if(accepted === "true"){
+
+    document.getElementById(
+      "privacyPopup"
+    ).style.display = "none";
+  }
+});
+
+</script>
+
+</body>
+</html>
