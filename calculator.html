@@ -1,321 +1,1291 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Meta Description -->
-<meta name="description" content="AKeyUP Calculator is a fast and simple online calculator with basic tools to help users solve calculations quickly and improve productivity.">
-  <title>Simple Calculator</title>
 
-  <style>
-    /* 🔥 Global styles (reuse everywhere) */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8">
 
-    body {
-      background: #111;
-      color: white;
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-    }
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-    .wrapper {
-      padding: clamp(10px, 4vw, 60px);
-      max-width: 1000px;
-      margin: auto;
-      text-align: center;
-    }
+<meta name="description"
+content="AKeyUP Calculator is a fast, modern, responsive, and privacy-friendly online calculator with scientific functions, history, keyboard support, and live calculation preview.">
 
-    .title {
-      font-size: clamp(2rem, 6vw, 4rem);
-      margin-bottom: clamp(10px, 2vw, 30px);
-    }
-    /* 🔥 Menu container */
-.menu-container {
-  position: fixed;
-  top: 20px;
-  right: 20px;
+<script async
+src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591"
+crossorigin="anonymous"></script>
+
+<title>AKeyUP Calculator</title>
+
+<style>
+
+:root{
+
+  --bg:#111111;
+  --card:#1c1c1c;
+  --box:#242424;
+
+  --accent:#ff4444;
+  --accent-hover:#ff2222;
+
+  --text:#ffffff;
+  --muted:#aaaaaa;
+
+  --border:#333333;
+
+  --shadow:
+  0 15px 40px rgba(0,0,0,0.35);
 }
 
-/* 🔥 Three dot button */
-.menu-btn {
-  font-size: 24px;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 8px;
-  background: #222;
-  color: white;
-  cursor: pointer;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
-/* 🔥 Dropdown menu */
-.menu {
-  display: none;
-  margin-top: 10px;
-  background: #222;
-  border-radius: 10px;
-  overflow: hidden;
-  min-width: 150px;
+html{
+  scroll-behavior:smooth;
 }
 
-/* 🔥 Menu links */
-.menu a {
-  display: block;
-  padding: 12px;
-  color: white;
-  text-decoration: none;
-  font-size: clamp(0.9rem, 2vw, 1.2rem);
+body{
+
+  background:var(--bg);
+
+  color:var(--text);
+
+  font-family:Arial,sans-serif;
+
+  min-height:100vh;
 }
 
-.menu a:hover {
-  background: #333;
+/* 🔥 Wrapper */
+
+.wrapper{
+
+  width:min(1200px,95%);
+
+  margin:auto;
+
+  padding:
+  clamp(15px,4vw,60px);
+
+  text-align:center;
 }
 
+/* 🔥 Menu */
 
+.menu-container{
 
-    .text {
-      font-size: clamp(1rem, 2.5vw, 1.5rem);
-      max-width: 800px;
-      margin: auto;
-      margin-bottom: clamp(20px, 4vw, 50px);
-    }
+  position:fixed;
 
-    .btn {
-      display: inline-block;
-      padding: clamp(10px, 2vw, 18px) clamp(20px, 4vw, 40px);
-      font-size: clamp(1rem, 2.5vw, 1.3rem);
-      background: #ff4444;
-      color: white;
-      text-decoration: none;
-      border-radius: 10px;
-      transition: 0.3s;
-    }
+  top:20px;
 
-    .btn:hover {
-      background: #ff2222;
-      transform: scale(1.05);
-    }
-.calculator {
-  max-width: 420px;
-  margin: auto;
+  right:20px;
+
+  z-index:1000;
 }
 
-#display {
-  width: 100%;
-  padding: 15px;
-  font-size: 1.4rem;
-  border-radius: 10px;
-  background: #222;
-  color: white;
-  border: none;
+.menu-btn{
+
+  width:
+  clamp(42px,6vw,60px);
+
+  height:
+  clamp(42px,6vw,60px);
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  font-size:
+  clamp(22px,4vw,34px);
+
+  border:none;
+
+  border-radius:14px;
+
+  background:var(--box);
+
+  color:var(--text);
+
+  cursor:pointer;
+
+  transition:0.25s;
 }
 
-#preview {
-  text-align: right;
-  font-size: 0.9rem;
-  color: #aaa;
-  margin: 5px 5px 10px;
+.menu-btn:hover{
+
+  background:#333;
+
+  transform:scale(1.05);
 }
 
-.buttons {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+.menu{
+
+  display:none;
+
+  margin-top:10px;
+
+  background:var(--box);
+
+  border-radius:14px;
+
+  overflow:hidden;
+
+  min-width:190px;
+
+  box-shadow:
+  0 10px 25px rgba(0,0,0,0.4);
 }
 
-button {
-  padding: 14px;
-  border-radius: 10px;
-  border: none;
-  background: #333;
-  color: white;
-  font-size: 1rem;
-  cursor: pointer;
+.menu a{
+
+  display:block;
+
+  padding:14px;
+
+  color:var(--text);
+
+  text-decoration:none;
+
+  font-size:
+  clamp(0.95rem,2vw,1.05rem);
+
+  transition:0.2s;
 }
 
-button:hover {
-  background: #444;
-  transform: scale(1.05);
+.menu a:hover{
+  background:#333;
 }
 
-#history {
-  margin-top: 15px;
-  font-size: 0.85rem;
-  color: #aaa;
-  max-height: 150px;
-  overflow-y: auto;
+/* 🔥 Hero */
+
+.hero{
+
+  margin-top:40px;
+
+  margin-bottom:40px;
 }
-  </style>
+
+.hero h1{
+
+  font-size:
+  clamp(2.5rem,7vw,5rem);
+
+  margin-bottom:20px;
+}
+
+.hero p{
+
+  color:var(--muted);
+
+  font-size:
+  clamp(1rem,2vw,1.2rem);
+
+  max-width:850px;
+
+  margin:auto;
+
+  line-height:1.8;
+}
+
+/* 🔥 Calculator */
+
+.calculator-box{
+
+  background:var(--card);
+
+  border-radius:28px;
+
+  padding:
+  clamp(20px,4vw,40px);
+
+  box-shadow:var(--shadow);
+
+  margin-top:20px;
+}
+
+/* 🔥 Display */
+
+.display-box{
+
+  background:var(--box);
+
+  border-radius:20px;
+
+  padding:20px;
+
+  margin-bottom:25px;
+
+  border:2px solid transparent;
+
+  transition:0.25s;
+}
+
+.display-box:focus-within{
+
+  border-color:var(--accent);
+}
+
+#display{
+
+  width:100%;
+
+  border:none;
+
+  background:transparent;
+
+  color:white;
+
+  font-size:
+  clamp(1.4rem,4vw,2rem);
+
+  outline:none;
+
+  text-align:right;
+}
+
+#preview{
+
+  text-align:right;
+
+  margin-top:10px;
+
+  color:var(--muted);
+
+  font-size:1rem;
+
+  min-height:20px;
+}
+
+/* 🔥 Buttons Grid */
+
+.buttons{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(4,1fr);
+
+  gap:14px;
+}
+
+.buttons button{
+
+  border:none;
+
+  border-radius:16px;
+
+  padding:18px;
+
+  background:var(--box);
+
+  color:white;
+
+  font-size:
+  clamp(1rem,2vw,1.15rem);
+
+  cursor:pointer;
+
+  transition:0.25s;
+
+  font-weight:bold;
+}
+
+.buttons button:hover{
+
+  background:#333;
+
+  transform:scale(1.04);
+}
+
+/* 🔥 Accent Buttons */
+
+.equal-btn,
+.operator{
+
+  background:var(--accent)!important;
+}
+
+.equal-btn:hover,
+.operator:hover{
+
+  background:var(--accent-hover)!important;
+}
+
+/* 🔥 History */
+
+.history-box{
+
+  margin-top:35px;
+
+  background:var(--box);
+
+  border-radius:20px;
+
+  padding:25px;
+
+  text-align:left;
+}
+
+.history-title{
+
+  font-size:1.3rem;
+
+  margin-bottom:15px;
+}
+
+#history{
+
+  max-height:220px;
+
+  overflow-y:auto;
+}
+
+.history-item{
+
+  padding:12px;
+
+  border-bottom:
+  1px solid rgba(255,255,255,0.08);
+
+  color:var(--muted);
+
+  word-break:break-word;
+}
+
+/* 🔥 About Section */
+
+.about-section{
+
+  margin-top:50px;
+}
+
+.about-card{
+
+  background:var(--card);
+
+  border-radius:28px;
+
+  padding:
+  clamp(25px,4vw,45px);
+
+  box-shadow:var(--shadow);
+}
+
+.about-card h2{
+
+  font-size:
+  clamp(2rem,5vw,3rem);
+
+  margin-bottom:20px;
+}
+
+.about-text{
+
+  color:var(--muted);
+
+  line-height:1.9;
+
+  max-width:900px;
+
+  margin:auto;
+
+  margin-bottom:40px;
+
+  font-size:1.05rem;
+}
+
+/* 🔥 Features */
+
+.feature-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(220px,1fr));
+
+  gap:22px;
+
+  margin-top:25px;
+}
+
+.feature-box{
+
+  background:var(--box);
+
+  border-radius:22px;
+
+  padding:28px;
+
+  transition:0.25s;
+}
+
+.feature-box:hover{
+
+  transform:translateY(-5px);
+}
+
+.feature-box span{
+
+  font-size:2.3rem;
+
+  display:block;
+
+  margin-bottom:14px;
+}
+
+.feature-box h3{
+
+  margin-bottom:12px;
+
+  font-size:1.2rem;
+}
+
+.feature-box p{
+
+  color:var(--muted);
+
+  line-height:1.7;
+
+  font-size:0.98rem;
+}
+
+/* 🔥 Buttons */
+
+.footer-buttons{
+
+  margin-top:40px;
+}
+
+.btn{
+
+  display:inline-block;
+
+  padding:16px 34px;
+
+  border-radius:14px;
+
+  background:var(--accent);
+
+  color:white;
+
+  text-decoration:none;
+
+  font-size:1rem;
+
+  font-weight:bold;
+
+  transition:0.25s;
+}
+
+.btn:hover{
+
+  background:var(--accent-hover);
+
+  transform:scale(1.05);
+}
+
+/* 🔥 Footer */
+
+footer{
+
+  margin-top:55px;
+
+  padding-bottom:25px;
+
+  color:var(--muted);
+
+  font-size:0.95rem;
+}
+
+/* 🔥 Mobile */
+
+@media(max-width:600px){
+
+  .buttons{
+    gap:10px;
+  }
+
+  .buttons button{
+    padding:15px;
+  }
+
+  .btn{
+    width:100%;
+  }
+}
+
+</style>
+
 </head>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-
-  // 🔥 Elements (now they exist safely)
-  const display = document.getElementById("display");
-  const preview = document.getElementById("preview");
-  const historyDiv = document.getElementById("history");
-
-  // 🔥 Degree → Radian
-  function toRad(x) {
-    return x * Math.PI / 180;
-  }
-
-  // 🔥 Safe math functions
-  const math = {
-    sin: x => Math.sin(toRad(x)),
-    cos: x => Math.cos(toRad(x)),
-    tan: x => Math.tan(toRad(x)),
-    log: x => Math.log10(x),
-    sqrt: x => Math.sqrt(x)
-  };
-
-  // 🔥 Append input
-  window.append = function(val) {
-    display.value += val;
-    livePreview();
-  };
-
-  // 🔥 Clear
-  window.clearDisplay = function() {
-    display.value = "";
-    preview.innerText = "";
-  };
-
-  // 🔥 Delete last char
-  window.del = function() {
-    display.value = display.value.slice(0, -1);
-    livePreview();
-  };
-
-  // 🔥 Safe evaluation
-  function safeEval(expr) {
-    try {
-      return Function("math", "with(math) { return " + expr + " }")(math);
-    } catch {
-      return null;
-    }
-  }
-
-  // 🔥 Calculate final result
-  window.calculate = function() {
-    let result = safeEval(display.value);
-
-    if (result !== null) {
-      historyDiv.innerHTML =
-        `<div>${display.value} = ${result}</div>` + historyDiv.innerHTML;
-
-      display.value = result;
-      preview.innerText = "";
-    } else {
-      display.value = "Error";
-    }
-  };
-
-  // 🔥 Live preview
-  function livePreview() {
-    let result = safeEval(display.value);
-    preview.innerText = result !== null ? result : "";
-  }
-
-  // 🔥 Keyboard support (fixed)
-  document.addEventListener("keydown", (e) => {
-    if (!display) return;
-
-    if ("0123456789+-*/().".includes(e.key)) {
-      display.value += e.key;
-      livePreview();
-    } else if (e.key === "Enter") {
-      e.preventDefault();
-      calculate();
-    } else if (e.key === "Backspace") {
-      del();
-    }
-  });
-
-});
-</script>
 
 <body>
-<script>
-function toggleMenu() {
-  const menu = document.getElementById("menu");
-  menu.style.display = (menu.style.display === "block") ? "none" : "block";
-}
-</script>
 
-<!-- 🔥 Three dot button -->
+<!-- 🔥 MENU -->
+
 <div class="menu-container">
-  <button class="menu-btn" onclick="toggleMenu()">⋮</button>
+
+  <button
+  class="menu-btn"
+  onclick="toggleMenu()">
+
+    ⋮
+
+  </button>
 
   <div class="menu" id="menu">
+
     <a href="index.html">Home</a>
-    <a href="donation.html">Donation</a>
-    <a href="tool.html">Tools</a>
-    <a href="privacy-policy.html">Privacy Policy</a>
-    <a href="about.html">About</a>
 
+    <a href="donation.html">
+      Donation
+    </a>
 
-     </div>
-</div>
+    <a href="tool.html">
+      Tools
+    </a>
 
+    <a href="privacy-policy.html">
+      Privacy Policy
+    </a>
 
-<div class="wrapper">
-   <div class="calculator">
-
-  <input type="text" id="display" placeholder="Enter expression..." />
-  <div id="preview"></div>
-
-  <div class="buttons">
-
-    <!-- Top row -->
-    <button onclick="clearDisplay()">C</button>
-    <button onclick="del()">⌫</button>
-    <button onclick="append('(')">(</button>
-    <button onclick="append(')')">)</button>
-
-    <!-- Scientific -->
-    <button onclick="append('sin(')">sin</button>
-    <button onclick="append('cos(')">cos</button>
-    <button onclick="append('tan(')">tan</button>
-    <button onclick="append('sqrt(')">√</button>
-
-    <button onclick="append('log(')">log</button>
-    <button onclick="append('**')">^</button>
-    <button onclick="append('/100')">%</button>
-    <button onclick="append('/')">÷</button>
-
-    <!-- Numbers -->
-    <button onclick="append('7')">7</button>
-    <button onclick="append('8')">8</button>
-    <button onclick="append('9')">9</button>
-    <button onclick="append('*')">×</button>
-
-    <button onclick="append('4')">4</button>
-    <button onclick="append('5')">5</button>
-    <button onclick="append('6')">6</button>
-    <button onclick="append('-')">−</button>
-
-    <button onclick="append('1')">1</button>
-    <button onclick="append('2')">2</button>
-    <button onclick="append('3')">3</button>
-    <button onclick="append('+')">+</button>
-
-    <button onclick="append('0')">0</button>
-    <button onclick="append('.')">.</button>
-    <button onclick="calculate()">=</button>
+    <a href="about.html">
+      About
+    </a>
 
   </div>
 
-  <div id="history"></div>
+</div>
+
+<!-- 🔥 MAIN -->
+
+<div class="wrapper">
+
+  <!-- 🔥 Hero -->
+
+  <section class="hero">
+
+    <h1>
+      🧮 AKeyUP Calculator
+    </h1>
+
+    <p>
+
+      Perform quick calculations instantly with a modern scientific calculator featuring live preview, history tracking, keyboard support, and responsive design directly inside your browser.
+
+    </p>
+
+  </section>
+
+  <!-- 🔥 Calculator -->
+
+  <div class="calculator-box">
+
+    <!-- 🔥 Display -->
+
+    <div class="display-box">
+
+      <input
+      type="text"
+      id="display"
+      placeholder="Enter expression..."
+      autocomplete="off"
+      spellcheck="false">
+
+      <div id="preview"></div>
+
+    </div>
+
+    <!-- 🔥 Buttons -->
+
+    <div class="buttons">
+
+      <!-- 🔥 Top -->
+
+      <button
+      class="operator"
+      onclick="clearDisplay()">
+
+        C
+
+      </button>
+
+      <button
+      class="operator"
+      onclick="del()">
+
+        ⌫
+
+      </button>
+
+      <button
+      class="operator"
+      onclick="append('(')">
+
+        (
+
+      </button>
+
+      <button
+      class="operator"
+      onclick="append(')')">
+
+        )
+
+      </button>
+
+      <!-- 🔥 Scientific -->
+
+      <button onclick="append('sin(')">
+        sin
+      </button>
+
+      <button onclick="append('cos(')">
+        cos
+      </button>
+
+      <button onclick="append('tan(')">
+        tan
+      </button>
+
+      <button onclick="append('sqrt(')">
+        √
+      </button>
+
+      <button onclick="append('log(')">
+        log
+      </button>
+
+      <button onclick="append('**')">
+        ^
+      </button>
+
+      <button onclick="append('/100')">
+        %
+      </button>
+
+      <button
+      class="operator"
+      onclick="append('/')">
+
+        ÷
+
+      </button>
+
+      <!-- 🔥 Numbers -->
+
+      <button onclick="append('7')">
+        7
+      </button>
+
+      <button onclick="append('8')">
+        8
+      </button>
+
+      <button onclick="append('9')">
+        9
+      </button>
+
+      <button
+      class="operator"
+      onclick="append('*')">
+
+        ×
+
+      </button>
+
+      <button onclick="append('4')">
+        4
+      </button>
+
+      <button onclick="append('5')">
+        5
+      </button>
+
+      <button onclick="append('6')">
+        6
+      </button>
+
+      <button
+      class="operator"
+      onclick="append('-')">
+
+        −
+
+      </button>
+
+      <button onclick="append('1')">
+        1
+      </button>
+
+      <button onclick="append('2')">
+        2
+      </button>
+
+      <button onclick="append('3')">
+        3
+      </button>
+
+      <button
+      class="operator"
+      onclick="append('+')">
+
+        +
+
+      </button>
+
+      <button onclick="append('0')">
+        0
+      </button>
+
+      <button onclick="append('.')">
+        .
+      </button>
+
+      <button
+      class="equal-btn"
+      style="grid-column:span 2;"
+      onclick="calculate()">
+
+        =
+
+      </button>
+
+    </div>
+
+    <!-- 🔥 History -->
+
+    <div class="history-box">
+
+      <h2 class="history-title">
+        📜 Calculation History
+      </h2>
+
+      <div id="history"></div>
+
+    </div>
+
+  </div>
+
+  <!-- 🔥 About -->
+
+  <section class="about-section">
+
+    <div class="about-card">
+
+      <h2>
+        ⚡ About AKeyUP Calculator
+      </h2>
+
+      <p class="about-text">
+
+        AKeyUP Calculator is a fast, responsive, and lightweight online calculator designed for quick calculations and productivity. It supports scientific operations, live previews, keyboard shortcuts, and calculation history while maintaining a clean modern design for desktop and mobile users.
+
+      </p>
+
+      <div class="feature-grid">
+
+        <div class="feature-box">
+
+          <span>
+            ⚡
+          </span>
+
+          <h3>
+            Fast Performance
+          </h3>
+
+          <p>
+
+            Smooth calculations with instant live results directly inside your browser.
+
+          </p>
+
+        </div>
+
+        <div class="feature-box">
+
+          <span>
+            🧠
+          </span>
+
+          <h3>
+            Scientific Functions
+          </h3>
+
+          <p>
+
+            Includes trigonometry, logarithms, square roots, exponents, and more.
+
+          </p>
+
+        </div>
+
+        <div class="feature-box">
+
+          <span>
+            ⌨
+          </span>
+
+          <h3>
+            Keyboard Support
+          </h3>
+
+          <p>
+
+            Use your keyboard for faster calculations and improved workflow.
+
+          </p>
+
+        </div>
+
+        <div class="feature-box">
+
+          <span>
+            📜
+          </span>
+
+          <h3>
+            History Tracking
+          </h3>
+
+          <p>
+
+            Automatically stores previous calculations during your session.
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- 🔥 Back -->
+
+  <div class="footer-buttons">
+
+    <a href="tool.html"
+    class="btn">
+
+      ⬅ Back to Tools
+
+    </a>
+
+  </div>
+
+  <!-- 🔥 Footer -->
+
+  <footer>
+
+    © 2026-Present AKeyUP
+
+  </footer>
 
 </div>
-  
-  <a href="tool.html" class="btn">⬅ Back to Tools</a>
+
+<script>
+
+/* 🔥 Menu */
+
+function toggleMenu(){
+
+  const menu =
+  document.getElementById("menu");
+
+  menu.style.display =
+
+  menu.style.display === "block"
+
+  ? "none"
+
+  : "block";
+}
+
+/* 🔥 Close Menu */
+
+document.addEventListener("click",
+function(event){
+
+  const menu =
+  document.getElementById("menu");
+
+  const button =
+  document.querySelector(".menu-btn");
+
+  if(
+
+    !menu.contains(event.target)
+
+    &&
+
+    !button.contains(event.target)
+
+  ){
+
+    menu.style.display = "none";
+  }
+});
+
+/* 🔥 Elements */
+
+const display =
+document.getElementById("display");
+
+const preview =
+document.getElementById("preview");
+
+const historyDiv =
+document.getElementById("history");
+
+/* 🔥 Degree → Radian */
+
+function toRad(x){
+
+  return x * Math.PI / 180;
+}
+
+/* 🔥 Math Functions */
+
+const math = {
+
+  sin: x => Math.sin(toRad(x)),
+
+  cos: x => Math.cos(toRad(x)),
+
+  tan: x => Math.tan(toRad(x)),
+
+  log: x => Math.log10(x),
+
+  sqrt: x => Math.sqrt(x)
+};
+
+/* 🔥 Append */
+
+function append(value){
+
+  display.value += value;
+
+  livePreview();
+}
+
+/* 🔥 Clear */
+
+function clearDisplay(){
+
+  display.value = "";
+
+  preview.innerText = "";
+}
+
+/* 🔥 Delete */
+
+function del(){
+
+  display.value =
+
+  display.value.slice(0,-1);
+
+  livePreview();
+}
+
+/* 🔥 Safe Eval */
+
+function safeEval(expr){
+
+  try{
+
+    return Function(
+      "math",
+      "with(math){ return " + expr + " }"
+    )(math);
+
+  }catch{
+
+    return null;
+  }
+}
+
+/* 🔥 Calculate */
+
+function calculate(){
+
+  const expression =
+  display.value;
+
+  const result =
+  safeEval(expression);
+
+  if(result !== null){
+
+    const historyItem =
+    document.createElement("div");
+
+    historyItem.className =
+    "history-item";
+
+    historyItem.innerText =
+
+    `${expression} = ${result}`;
+
+    historyDiv.prepend(historyItem);
+
+    display.value = result;
+
+    preview.innerText = "";
+
+  }else{
+
+    display.value = "Error";
+
+    preview.innerText = "";
+  }
+}
+
+/* 🔥 Live Preview */
+
+function livePreview(){
+
+  const result =
+  safeEval(display.value);
+
+  preview.innerText =
+
+  result !== null
+  ? result
+  : "";
+}
+
+/* 🔥 Keyboard */
+
+document.addEventListener(
+"keydown",
+function(e){
+
+  if(
+
+    "0123456789+-*/()."
+    .includes(e.key)
+
+  ){
+
+    display.value += e.key;
+
+    livePreview();
+  }
+
+  else if(e.key === "Enter"){
+
+    e.preventDefault();
+
+    calculate();
+  }
+
+  else if(e.key === "Backspace"){
+
+    del();
+  }
+});
+
+</script>
+
+<!-- 🔥 Privacy Popup -->
+
+<style>
+
+.privacy-popup{
+
+  position:fixed;
+
+  inset:0;
+
+  background:
+  rgba(0,0,0,0.75);
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  z-index:9999;
+
+  padding:20px;
+}
+
+.privacy-box{
+
+  background:#1c1c1c;
+
+  width:min(420px,100%);
+
+  padding:35px;
+
+  border-radius:24px;
+
+  text-align:center;
+
+  box-shadow:
+  0 15px 40px rgba(0,0,0,0.5);
+
+  animation:
+  popupFade 0.3s ease;
+}
+
+.privacy-box h2{
+
+  font-size:2rem;
+
+  margin-bottom:15px;
+}
+
+.privacy-box p{
+
+  color:#aaaaaa;
+
+  line-height:1.8;
+
+  font-size:1rem;
+}
+
+.privacy-box a{
+
+  color:#4da6ff;
+
+  text-decoration:none;
+
+  font-weight:bold;
+}
+
+.privacy-box a:hover{
+
+  text-decoration:underline;
+}
+
+.accept-btn{
+
+  margin-top:25px;
+
+  padding:14px 30px;
+
+  border:none;
+
+  border-radius:14px;
+
+  background:#ff4444;
+
+  color:white;
+
+  font-size:1rem;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  transition:0.25s;
+}
+
+.accept-btn:hover{
+
+  background:#ff2222;
+
+  transform:scale(1.05);
+}
+
+@keyframes popupFade{
+
+  from{
+
+    opacity:0;
+
+    transform:scale(0.9);
+  }
+
+  to{
+
+    opacity:1;
+
+    transform:scale(1);
+  }
+}
+
+</style>
+
+<div
+class="privacy-popup"
+id="privacyPopup">
+
+  <div class="privacy-box">
+
+    <h2>
+      Privacy Notice
+    </h2>
+
+    <p>
+
+      By using AKeyUP, you agree to our
+
+      <a href="privacy-policy.html">
+
+        Privacy Policy
+
+      </a>.
+
+    </p>
+
+    <button
+    class="accept-btn"
+    onclick="acceptPrivacy()">
+
+      Accept
+
+    </button>
+
+  </div>
 
 </div>
+
+<script>
+
+/* 🔥 Accept */
+
+function acceptPrivacy(){
+
+  localStorage.setItem(
+    "privacyAccepted",
+    "true"
+  );
+
+  document.getElementById(
+    "privacyPopup"
+  ).style.display = "none";
+}
+
+/* 🔥 Check */
+
+window.addEventListener(
+"load",
+function(){
+
+  const accepted =
+  localStorage.getItem(
+    "privacyAccepted"
+  );
+
+  if(accepted === "true"){
+
+    document.getElementById(
+      "privacyPopup"
+    ).style.display = "none";
+  }
+});
+
+</script>
 
 </body>
 </html>

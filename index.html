@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Meta Description -->
 <meta name="description" content="AKeyUP helps users quickly open websites and improve productivity with powerful key combinations.Website also has basic tools for helping.">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591"
+     crossorigin="anonymous"></script>
 <title>AKeyUP</title>
 
 <style>
@@ -188,6 +190,204 @@ function toggleMenu() {
   </footer>
 
 </div>
+<!-- 🔥 Privacy Popup -->
+
+<style>
+
+/* 🔥 Privacy Popup */
+
+.privacy-popup{
+
+  position:fixed;
+
+  inset:0;
+
+  background:
+  rgba(0,0,0,0.75);
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  z-index:9999;
+
+  padding:20px;
+}
+
+.privacy-box{
+
+  background:#1c1c1c;
+
+  width:min(420px,100%);
+
+  padding:35px;
+
+  border-radius:24px;
+
+  text-align:center;
+
+  box-shadow:
+  0 15px 40px rgba(0,0,0,0.5);
+
+  animation:
+  popupFade 0.3s ease;
+}
+
+.privacy-box h2{
+
+  font-size:2rem;
+
+  margin-bottom:15px;
+
+  color:white;
+}
+
+.privacy-box p{
+
+  color:#aaaaaa;
+
+  line-height:1.8;
+
+  font-size:1rem;
+}
+
+.privacy-box a{
+
+  color:#4da6ff;
+
+  text-decoration:none;
+
+  font-weight:bold;
+}
+
+.privacy-box a:hover{
+
+  text-decoration:underline;
+}
+
+.accept-btn{
+
+  margin-top:25px;
+
+  padding:14px 30px;
+
+  border:none;
+
+  border-radius:14px;
+
+  background:#ff4444;
+
+  color:white;
+
+  font-size:1rem;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  transition:0.25s;
+}
+
+.accept-btn:hover{
+
+  background:#ff2222;
+
+  transform:scale(1.05);
+}
+
+/* 🔥 Animation */
+
+@keyframes popupFade{
+
+  from{
+
+    opacity:0;
+
+    transform:scale(0.9);
+  }
+
+  to{
+
+    opacity:1;
+
+    transform:scale(1);
+  }
+}
+
+</style>
+
+<div
+class="privacy-popup"
+id="privacyPopup">
+
+  <div class="privacy-box">
+
+    <h2>
+      Privacy Notice
+    </h2>
+
+    <p>
+
+      By using AKeyUP, you agree to our
+
+      <a href="privacy-policy.html">
+
+        Privacy Policy
+
+      </a>.
+
+    </p>
+
+    <button
+    class="accept-btn"
+    onclick="acceptPrivacy()">
+
+      Accept
+
+    </button>
+
+  </div>
+
+</div>
+
+<script>
+
+/* 🔥 Accept */
+
+function acceptPrivacy(){
+
+  localStorage.setItem(
+    "privacyAccepted",
+    "true"
+  );
+
+  document.getElementById(
+    "privacyPopup"
+  ).style.display = "none";
+}
+
+/* 🔥 Check */
+
+window.addEventListener(
+"load",
+function(){
+
+  const accepted =
+  localStorage.getItem(
+    "privacyAccepted"
+  );
+
+  if(accepted === "true"){
+
+    document.getElementById(
+      "privacyPopup"
+    ).style.display = "none";
+  }
+});
+
+</script>
 
 </body>
 </html>

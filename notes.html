@@ -9,11 +9,32 @@
 content="width=device-width, initial-scale=1.0">
 
 <meta name="description"
-content="AKeyUP Notes with notes, colors, pinning, search, export and local storage support.">
+content="AKeyUP Notes is a modern notes app with local storage, pinning, colors, export, search, and privacy focused note management.">
 
 <title>AKeyUP Notes</title>
 
+<script async
+src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591"
+crossorigin="anonymous"></script>
+
 <style>
+
+/* 🔥 ROOT */
+
+:root{
+
+  --bg:#111111;
+  --card:#1c1c1c;
+  --box:#222222;
+  --border:#2d2d2d;
+  --accent:#ff4444;
+  --accent-hover:#ff2222;
+  --text:#ffffff;
+  --muted:#aaaaaa;
+  --green:#00ff99;
+}
+
+/* 🔥 RESET */
 
 *{
   margin:0;
@@ -21,271 +42,662 @@ content="AKeyUP Notes with notes, colors, pinning, search, export and local stor
   box-sizing:border-box;
 }
 
+/* 🔥 BODY */
+
 body{
-  background:#111;
-  color:white;
+
+  background:var(--bg);
+
+  color:var(--text);
+
   font-family:Arial,sans-serif;
+
+  overflow-x:hidden;
 }
 
-/* 🔥 Wrapper */
+/* 🔥 WRAPPER */
 
 .wrapper{
-  max-width:1200px;
+
+  width:min(1250px,95%);
+
   margin:auto;
-  padding:40px 20px;
+
+  padding:
+  clamp(20px,4vw,60px);
 }
 
-/* 🔥 Title */
+/* 🔥 HERO */
 
-.title{
+.hero{
+
   text-align:center;
-  font-size:clamp(2rem,6vw,4rem);
-  margin-bottom:30px;
+
+  margin-top:40px;
+
+  margin-bottom:50px;
 }
 
-/* 🔥 Menu */
+.hero h1{
+
+  font-size:
+  clamp(2.5rem,7vw,5rem);
+
+  margin-bottom:18px;
+}
+
+.hero p{
+
+  max-width:850px;
+
+  margin:auto;
+
+  color:var(--muted);
+
+  line-height:1.9;
+
+  font-size:
+  clamp(1rem,2vw,1.2rem);
+}
+
+/* 🔥 MENU */
 
 .menu-container{
+
   position:fixed;
-  top:clamp(10px,2vw,20px);
-  right:clamp(10px,2vw,20px);
+
+  top:20px;
+
+  right:20px;
+
   z-index:1000;
 }
 
 .menu-btn{
-  width:clamp(40px,6vw,60px);
-  height:clamp(40px,6vw,60px);
 
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  width:58px;
 
-  font-size:clamp(20px,4vw,36px);
+  height:58px;
 
   border:none;
-  border-radius:12px;
 
-  background:#222;
+  border-radius:18px;
+
+  background:var(--box);
+
   color:white;
+
+  font-size:32px;
 
   cursor:pointer;
 
-  transition:0.3s;
+  transition:0.25s;
 }
 
 .menu-btn:hover{
+
   background:#333;
+
   transform:scale(1.05);
 }
 
 .menu{
+
   display:none;
 
-  margin-top:10px;
+  margin-top:12px;
 
-  background:#222;
+  background:var(--box);
 
-  border-radius:10px;
+  border-radius:16px;
 
   overflow:hidden;
 
-  min-width:180px;
+  min-width:210px;
+
+  box-shadow:
+  0 10px 30px rgba(0,0,0,0.4);
 }
 
 .menu a{
+
   display:block;
 
-  padding:12px;
+  padding:15px 18px;
 
   color:white;
 
   text-decoration:none;
 
-  font-size:clamp(0.9rem,2vw,1.2rem);
+  transition:0.25s;
 }
 
 .menu a:hover{
   background:#333;
 }
 
-/* 🔥 Main Box */
+/* 🔥 GRID */
 
-.box{
-  background:#1c1c1c;
-  padding:30px;
-  border-radius:20px;
-  margin-bottom:30px;
+.main-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  420px 1fr;
+
+  gap:28px;
+
+  align-items:start;
 }
 
-/* 🔥 Inputs */
+/* 🔥 CARD */
+
+.card{
+
+  background:var(--card);
+
+  border:1px solid var(--border);
+
+  border-radius:28px;
+
+  padding:32px;
+
+  box-shadow:
+  0 15px 35px rgba(0,0,0,0.35);
+}
+
+/* 🔥 CARD TITLE */
+
+.card-title{
+
+  font-size:1.6rem;
+
+  margin-bottom:22px;
+}
+
+/* 🔥 LABEL */
+
+label{
+
+  display:block;
+
+  margin-bottom:10px;
+
+  margin-top:20px;
+
+  color:#dddddd;
+}
+
+/* 🔥 INPUT */
 
 input,
 textarea,
 select{
+
   width:100%;
 
-  padding:15px;
-
-  margin-bottom:15px;
+  padding:16px;
 
   border:none;
-  border-radius:12px;
 
-  background:#222;
+  border-radius:16px;
+
+  background:var(--box);
+
   color:white;
 
   font-size:1rem;
+
+  outline:none;
+
+  transition:0.25s;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+
+  background:#2a2a2a;
 }
 
 textarea{
-  resize:none;
+
   min-height:220px;
+
+  resize:vertical;
+
+  line-height:1.7;
 }
 
-/* 🔥 Buttons */
+/* 🔥 BUTTONS */
+
+.button-group{
+
+  display:flex;
+
+  gap:14px;
+
+  flex-wrap:wrap;
+
+  margin-top:24px;
+}
 
 button,
 .btn{
-  display:inline-block;
-
-  padding:14px 28px;
 
   border:none;
-  border-radius:12px;
 
-  background:#ff4444;
+  border-radius:16px;
+
+  background:var(--accent);
+
   color:white;
 
-  cursor:pointer;
+  padding:15px 24px;
 
   font-size:1rem;
 
-  transition:0.3s;
+  cursor:pointer;
 
-  margin:5px;
+  transition:0.25s;
+
+  text-decoration:none;
+
+  display:inline-block;
 }
 
 button:hover,
 .btn:hover{
-  background:#ff2222;
-  transform:scale(1.05);
+
+  background:var(--accent-hover);
+
+  transform:translateY(-2px);
 }
 
 .secondary{
+
   background:#333;
 }
 
 .secondary:hover{
+
   background:#444;
 }
 
-/* 🔥 Status */
+/* 🔥 STATUS */
 
 .status{
-  margin-top:10px;
-  color:#00ff88;
+
+  margin-top:18px;
+
+  color:var(--green);
+
+  font-weight:bold;
 }
 
-/* 🔥 Search */
+/* 🔥 SEARCH */
 
 .search-box{
-  margin-bottom:25px;
+
+  margin-bottom:28px;
 }
 
-/* 🔥 Notes Grid */
+/* 🔥 NOTES GRID */
 
 .notes-grid{
+
   display:grid;
 
   grid-template-columns:
   repeat(auto-fit,minmax(280px,1fr));
 
-  gap:20px;
+  gap:24px;
 }
 
-/* 🔥 Sticky Notes */
+/* 🔥 NOTE */
 
 .note{
-  padding:20px;
-  border-radius:20px;
 
-  word-wrap:break-word;
+  border-radius:24px;
+
+  padding:24px;
+
+  min-height:260px;
 
   display:flex;
+
   flex-direction:column;
 
-  min-height:220px;
-
-  transition:0.3s;
+  transition:0.25s;
 
   box-shadow:
-  0 8px 20px rgba(0,0,0,0.3);
+  0 10px 25px rgba(0,0,0,0.3);
 }
 
 .note:hover{
+
   transform:translateY(-5px);
 }
 
 .note-title{
-  font-size:1.3rem;
-  margin-bottom:10px;
-}
 
-.note-text{
-  white-space:pre-wrap;
-  margin-bottom:15px;
-  flex:1;
-}
+  font-size:1.35rem;
 
-.note-date{
-  font-size:0.85rem;
-  opacity:0.8;
-  margin-bottom:15px;
+  margin-bottom:12px;
 }
 
 .note-tag{
+
   display:inline-block;
 
-  padding:6px 10px;
+  width:max-content;
 
-  border-radius:8px;
+  padding:7px 12px;
 
-  background:rgba(0,0,0,0.2);
+  border-radius:10px;
 
-  margin-bottom:10px;
+  background:rgba(0,0,0,0.15);
+
+  margin-bottom:16px;
 
   font-size:0.9rem;
 }
 
-/* 🔥 Empty State */
+.note-text{
+
+  white-space:pre-wrap;
+
+  line-height:1.7;
+
+  flex:1;
+
+  margin-bottom:20px;
+}
+
+.note-date{
+
+  font-size:0.85rem;
+
+  opacity:0.75;
+
+  margin-bottom:20px;
+}
+
+/* 🔥 NOTE BUTTONS */
+
+.note-buttons{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(2,1fr);
+
+  gap:10px;
+}
+
+.note-buttons button{
+
+  width:100%;
+}
+
+/* 🔥 EMPTY */
 
 .empty{
+
   text-align:center;
+
+  padding:60px 20px;
+
   color:#888;
+
   font-size:1.2rem;
-  margin-top:40px;
 }
 
-/* 🔥 Footer Buttons */
+/* 🔥 ABOUT */
 
-.footer-buttons{
+.about-section{
+
+  margin-top:60px;
+}
+
+.about-card{
+
+  background:var(--card);
+
+  border-radius:30px;
+
+  padding:40px;
+
+  border:1px solid var(--border);
+}
+
+.about-card h2{
+
+  font-size:2rem;
+
+  margin-bottom:20px;
+}
+
+.about-text{
+
+  color:var(--muted);
+
+  line-height:2;
+
+  margin-bottom:35px;
+
+  font-size:1.05rem;
+}
+
+/* 🔥 FEATURES */
+
+.feature-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(240px,1fr));
+
+  gap:22px;
+}
+
+.feature{
+
+  background:var(--box);
+
+  border-radius:22px;
+
+  padding:28px;
+
+  border:1px solid #303030;
+
+  transition:0.25s;
+}
+
+.feature:hover{
+
+  transform:translateY(-5px);
+}
+
+.feature span{
+
+  font-size:2rem;
+
+  display:block;
+
+  margin-bottom:15px;
+}
+
+.feature h3{
+
+  margin-bottom:14px;
+}
+
+.feature p{
+
+  color:var(--muted);
+
+  line-height:1.8;
+}
+
+/* 🔥 ADS */
+
+.ads-box{
+
+  margin-top:35px;
+
+  background:#191919;
+
+  border:1px solid #2d2d2d;
+
+  border-radius:24px;
+
+  padding:28px;
+}
+
+.ads-box h3{
+
+  margin-bottom:15px;
+}
+
+.ads-box p{
+
+  color:var(--muted);
+
+  line-height:1.9;
+}
+
+/* 🔥 FOOTER */
+
+.footer{
+
+  margin-top:50px;
+
   text-align:center;
-  margin-top:30px;
 }
 
-/* 🔥 Mobile */
+.footer p{
+
+  margin-top:30px;
+
+  color:#888;
+}
+
+/* 🔥 PRIVACY */
+
+.privacy-popup{
+
+  position:fixed;
+
+  inset:0;
+
+  background:
+  rgba(0,0,0,0.78);
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  z-index:9999;
+
+  padding:20px;
+}
+
+.privacy-box{
+
+  background:var(--card);
+
+  width:min(430px,100%);
+
+  padding:35px;
+
+  border-radius:30px;
+
+  text-align:center;
+
+  border:1px solid var(--border);
+
+  animation:popupFade 0.25s ease;
+}
+
+.privacy-box h2{
+
+  margin-bottom:18px;
+}
+
+.privacy-box p{
+
+  color:var(--muted);
+
+  line-height:1.9;
+}
+
+.privacy-box a{
+
+  color:#4da6ff;
+
+  text-decoration:none;
+}
+
+.accept-btn{
+
+  margin-top:25px;
+}
+
+/* 🔥 ANIMATION */
+
+@keyframes popupFade{
+
+  from{
+
+    opacity:0;
+
+    transform:scale(0.9);
+  }
+
+  to{
+
+    opacity:1;
+
+    transform:scale(1);
+  }
+}
+
+/* 🔥 MOBILE */
+
+@media(max-width:950px){
+
+  .main-grid{
+
+    grid-template-columns:1fr;
+  }
+}
 
 @media(max-width:600px){
 
-  .box{
-    padding:20px;
+  .card,
+  .about-card{
+
+    padding:24px;
   }
 
-  button,
-  .btn{
+  .button-group{
+
+    flex-direction:column;
+  }
+
+  .button-group button,
+  .button-group .btn{
+
     width:100%;
   }
 
+  .note-buttons{
+
+    grid-template-columns:1fr;
+  }
 }
 
 </style>
@@ -294,22 +706,7 @@ button:hover,
 
 <body>
 
-<script>
-
-function toggleMenu(){
-
-  const menu =
-  document.getElementById("menu");
-
-  menu.style.display =
-  (menu.style.display === "block")
-  ? "none"
-  : "block";
-}
-
-</script>
-
-<!-- 🔥 Menu -->
+<!-- 🔥 MENU -->
 
 <div class="menu-container">
 
@@ -320,16 +717,19 @@ onclick="toggleMenu()">
 
 </button>
 
-<div class="menu" id="menu">
+<div class="menu"
+id="menu">
 
-<a href="index.html">Home</a>
-
-<a href="donation.html">
-Donation
+<a href="index.html">
+Home
 </a>
 
 <a href="tool.html">
 Tools
+</a>
+
+<a href="donation.html">
+Donation
 </a>
 
 <a href="privacy-policy.html">
@@ -344,38 +744,101 @@ About
 
 </div>
 
+<!-- 🔥 MAIN -->
+
 <div class="wrapper">
 
-<h1 class="title">
+<!-- 🔥 HERO -->
+
+<section class="hero">
+
+<h1>
 📝 AKeyUP Notes
 </h1>
 
-<!-- 🔥 Notes Editor -->
+<p>
 
-<div class="box">
+Create, organize, pin, search,
+and export notes instantly with
+AKeyUP Notes.
+
+A fast, modern, and privacy-focused
+notes app that works directly inside
+your browser using local storage.
+
+</p>
+
+</section>
+
+<!-- 🔥 GRID -->
+
+<div class="main-grid">
+
+<!-- 🔥 EDITOR -->
+
+<div class="card">
+
+<h2 class="card-title">
+Create Note
+</h2>
+
+<label>
+Note Title
+</label>
 
 <input type="text"
 id="noteTitle"
-placeholder="Enter Note Title">
+placeholder="Enter note title">
+
+<label>
+Your Note
+</label>
 
 <textarea
 id="noteText"
 placeholder="Write your note here..."></textarea>
 
+<label>
+Note Color
+</label>
+
 <select id="noteColor">
 
-<option value="#1c1c1c">Dark</option>
-<option value="#ffd54f">Yellow</option>
-<option value="#81d4fa">Blue</option>
-<option value="#a5d6a7">Green</option>
-<option value="#f48fb1">Pink</option>
-<option value="#ffab91">Orange</option>
+<option value="#1c1c1c">
+Dark
+</option>
+
+<option value="#ffd54f">
+Yellow
+</option>
+
+<option value="#81d4fa">
+Blue
+</option>
+
+<option value="#a5d6a7">
+Green
+</option>
+
+<option value="#f48fb1">
+Pink
+</option>
+
+<option value="#ffab91">
+Orange
+</option>
 
 </select>
 
+<label>
+Tag
+</label>
+
 <input type="text"
 id="noteTag"
-placeholder="Tag (Example: Work, Ideas)">
+placeholder="Example: Work, Ideas">
+
+<div class="button-group">
 
 <button onclick="saveNote()">
 💾 Save Note
@@ -383,13 +846,19 @@ placeholder="Tag (Example: Work, Ideas)">
 
 <button class="secondary"
 onclick="clearEditor()">
+
 🗑 Clear
+
 </button>
 
 <button class="secondary"
 onclick="exportNotes()">
-📥 Export Notes
+
+📥 Export
+
 </button>
+
+</div>
 
 <div class="status"
 id="status">
@@ -398,27 +867,172 @@ id="status">
 
 </div>
 
-<!-- 🔥 Search -->
+<!-- 🔥 NOTES -->
+
+<div>
 
 <div class="search-box">
 
 <input type="text"
 id="searchInput"
-placeholder="🔍 Search Notes..."
+placeholder="🔍 Search notes..."
 oninput="displayNotes()">
 
 </div>
-
-<!-- 🔥 Notes -->
 
 <div class="notes-grid"
 id="notesGrid">
 
 </div>
 
-<!-- 🔥 Back -->
+</div>
 
-<div class="footer-buttons">
+</div>
+
+<!-- 🔥 ABOUT -->
+
+<section class="about-section">
+
+<div class="about-card">
+
+<h2>
+📖 About AKeyUP Notes
+</h2>
+
+<p class="about-text">
+
+AKeyUP Notes helps you manage
+daily notes, ideas, reminders,
+tasks, and quick information
+without needing an account.
+
+Everything is stored locally
+inside your browser, helping
+you keep your notes private
+while still giving you fast
+access anytime.
+
+The notes tool includes
+pinning, search, note colors,
+tags, export support,
+auto-saving drafts, and a
+responsive design for both
+mobile and desktop devices.
+
+</p>
+
+<div class="feature-grid">
+
+<div class="feature">
+
+<span>
+⚡
+</span>
+
+<h3>
+Fast Experience
+</h3>
+
+<p>
+
+Smooth and lightweight note
+management with instant loading
+and responsive interactions.
+
+</p>
+
+</div>
+
+<div class="feature">
+
+<span>
+🔒
+</span>
+
+<h3>
+Privacy Focused
+</h3>
+
+<p>
+
+Your notes stay stored inside
+your browser using local storage.
+
+No login required.
+
+</p>
+
+</div>
+
+<div class="feature">
+
+<span>
+📌
+</span>
+
+<h3>
+Smart Organization
+</h3>
+
+<p>
+
+Use pinning, note colors,
+search, and tags to keep
+important information organized.
+
+</p>
+
+</div>
+
+<div class="feature">
+
+<span>
+📥
+</span>
+
+<h3>
+Export Support
+</h3>
+
+<p>
+
+Export notes anytime for
+backup, sharing, or offline use.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="ads-box">
+
+<h3>
+📢 Advertisement Support
+</h3>
+
+<p>
+
+AKeyUP may display Google AdSense
+advertisements to support website
+maintenance, hosting costs, and
+future development of free online tools.
+
+Advertisements help keep AKeyUP
+tools accessible without requiring
+subscriptions.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- 🔥 FOOTER -->
+
+<div class="footer">
 
 <a href="tool.html"
 class="btn">
@@ -427,99 +1041,209 @@ class="btn">
 
 </a>
 
+<p>
+© 2026-Present AKeyUP
+</p>
+
+</div>
+
+</div>
+
+<!-- 🔥 PRIVACY -->
+
+<div class="privacy-popup"
+id="privacyPopup">
+
+<div class="privacy-box">
+
+<h2>
+Privacy Notice
+</h2>
+
+<p>
+
+By using AKeyUP,
+you agree to our
+
+<a href="privacy-policy.html">
+
+Privacy Policy
+
+</a>.
+
+</p>
+
+<button class="accept-btn"
+onclick="acceptPrivacy()">
+
+Accept
+
+</button>
+
 </div>
 
 </div>
 
 <script>
 
-/* 🔥 Notes Storage */
+/* 🔥 MENU */
+
+function toggleMenu(){
+
+  const menu =
+  document.getElementById("menu");
+
+  menu.style.display =
+
+  menu.style.display === "block"
+  ? "none"
+  : "block";
+}
+
+/* 🔥 CLOSE MENU */
+
+document.addEventListener(
+"click",
+function(event){
+
+  const menu =
+  document.getElementById("menu");
+
+  const button =
+  document.querySelector(".menu-btn");
+
+  if(
+    !menu.contains(event.target)
+    &&
+    !button.contains(event.target)
+  ){
+
+    menu.style.display = "none";
+  }
+});
+
+/* 🔥 NOTES */
 
 let notes =
+
 JSON.parse(
-localStorage.getItem("akeyup_notes")
+localStorage.getItem(
+"akeyup_notes"
+)
 ) || [];
 
 let editingId = null;
 
-/* 🔥 Draft Restore */
+/* 🔥 LOAD */
 
 window.onload = () => {
 
   const draftTitle =
-  localStorage.getItem("draft_title");
+  localStorage.getItem(
+  "draft_title"
+  );
 
   const draftText =
-  localStorage.getItem("draft_text");
+  localStorage.getItem(
+  "draft_text"
+  );
 
   if(draftTitle){
 
     document.getElementById(
-    "noteTitle").value = draftTitle;
-
+    "noteTitle"
+    ).value = draftTitle;
   }
 
   if(draftText){
 
     document.getElementById(
-    "noteText").value = draftText;
+    "noteText"
+    ).value = draftText;
+  }
 
+  const accepted =
+  localStorage.getItem(
+  "privacyAccepted"
+  );
+
+  if(accepted === "true"){
+
+    document.getElementById(
+    "privacyPopup"
+    ).style.display = "none";
   }
 
   displayNotes();
 };
 
-/* 🔥 Auto Draft Save */
+/* 🔥 AUTO SAVE */
 
 document.getElementById(
 "noteTitle"
-).addEventListener("input",saveDraft);
+).addEventListener(
+"input",
+saveDraft
+);
 
 document.getElementById(
 "noteText"
-).addEventListener("input",saveDraft);
+).addEventListener(
+"input",
+saveDraft
+);
 
 function saveDraft(){
 
   localStorage.setItem(
   "draft_title",
+
   document.getElementById(
-  "noteTitle").value
+  "noteTitle"
+  ).value
   );
 
   localStorage.setItem(
   "draft_text",
+
   document.getElementById(
-  "noteText").value
+  "noteText"
+  ).value
   );
 }
 
-/* 🔥 Save Note */
+/* 🔥 SAVE NOTE */
 
 function saveNote(){
 
   const title =
   document.getElementById(
-  "noteTitle").value.trim();
+  "noteTitle"
+  ).value.trim();
 
   const text =
   document.getElementById(
-  "noteText").value.trim();
+  "noteText"
+  ).value.trim();
 
   const color =
   document.getElementById(
-  "noteColor").value;
+  "noteColor"
+  ).value;
 
   const tag =
   document.getElementById(
-  "noteTag").value.trim();
+  "noteTag"
+  ).value.trim();
 
   const status =
-  document.getElementById("status");
+  document.getElementById(
+  "status"
+  );
 
   if(title === "" || text === ""){
 
-    status.textContent =
+    status.innerText =
     "Please fill all fields.";
 
     return;
@@ -532,25 +1256,23 @@ function saveNote(){
       if(note.id === editingId){
 
         return{
+
           ...note,
+
           title,
           text,
           color,
           tag
         };
-
       }
 
       return note;
-
     });
 
-    status.textContent =
-    "Note Updated.";
+    status.innerText =
+    "Note updated successfully.";
 
-  }
-
-  else{
+  }else{
 
     notes.unshift({
 
@@ -567,13 +1289,12 @@ function saveNote(){
       pinned:false,
 
       createdAt:
-      new Date().toLocaleString()
-
+      new Date()
+      .toLocaleString()
     });
 
-    status.textContent =
-    "Note Saved.";
-
+    status.innerText =
+    "Note saved successfully.";
   }
 
   localStorage.setItem(
@@ -586,7 +1307,7 @@ function saveNote(){
   displayNotes();
 }
 
-/* 🔥 Display Notes */
+/* 🔥 DISPLAY */
 
 function displayNotes(){
 
@@ -611,19 +1332,21 @@ function displayNotes(){
 
   .filter(note =>
 
-    note.title.toLowerCase()
+    note.title
+    .toLowerCase()
     .includes(search)
 
     ||
 
-    note.text.toLowerCase()
+    note.text
+    .toLowerCase()
     .includes(search)
 
     ||
 
-    note.tag.toLowerCase()
+    note.tag
+    .toLowerCase()
     .includes(search)
-
   );
 
   if(filtered.length === 0){
@@ -631,7 +1354,7 @@ function displayNotes(){
     notesGrid.innerHTML =
 
     `<div class="empty">
-      No notes found.
+    No notes found.
     </div>`;
 
     return;
@@ -645,142 +1368,89 @@ function displayNotes(){
     noteCard.className = "note";
 
     noteCard.style.background =
-    note.color || "#1c1c1c";
+    note.color;
 
-    if(note.color &&
-    note.color !== "#1c1c1c"){
+    if(note.color !== "#1c1c1c"){
 
       noteCard.style.color =
       "black";
     }
 
-    /* 🔥 Title */
+    noteCard.innerHTML =
 
-    const title =
-    document.createElement("h2");
+    `
+    <h2 class="note-title">
+    ${note.pinned ? "📌 " : ""}
+    ${note.title}
+    </h2>
 
-    title.className =
-    "note-title";
+    <div class="note-tag">
+    ${note.tag || "General"}
+    </div>
 
-    title.textContent =
+    <div class="note-text">
+    ${note.text}
+    </div>
 
-    note.pinned
-    ? "📌 " + note.title
-    : note.title;
+    <div class="note-date">
+    ${note.createdAt}
+    </div>
 
-    /* 🔥 Tag */
+    <div class="note-buttons">
 
-    const tag =
-    document.createElement("div");
+      <button
+      onclick="editNote(${note.id})">
 
-    tag.className =
-    "note-tag";
+      ✏ Edit
 
-    tag.textContent =
-    note.tag || "General";
+      </button>
 
-    /* 🔥 Text */
+      <button
+      class="secondary"
+      onclick="deleteNote(${note.id})">
 
-    const text =
-    document.createElement("p");
+      🗑 Delete
 
-    text.className =
-    "note-text";
+      </button>
 
-    text.textContent =
-    note.text;
+      <button
+      class="secondary"
+      onclick="pinNote(${note.id})">
 
-    /* 🔥 Date */
+      ${note.pinned
+      ? "📌 Unpin"
+      : "📌 Pin"}
 
-    const date =
-    document.createElement("div");
+      </button>
 
-    date.className =
-    "note-date";
+      <button
+      class="secondary"
+      onclick="copyNote(\`${note.text.replace(/`/g,"\\`")}\`)">
 
-    date.textContent =
-    note.createdAt;
+      📋 Copy
 
-    /* 🔥 Edit Button */
+      </button>
 
-    const editBtn =
-    document.createElement("button");
+    </div>
+    `;
 
-    editBtn.textContent =
-    "✏ Edit";
-
-    editBtn.onclick = () =>
-    editNote(note.id);
-
-    /* 🔥 Delete Button */
-
-    const deleteBtn =
-    document.createElement("button");
-
-    deleteBtn.textContent =
-    "🗑 Delete";
-
-    deleteBtn.className =
-    "secondary";
-
-    deleteBtn.onclick = () =>
-    deleteNote(note.id);
-
-    /* 🔥 Pin Button */
-
-    const pinBtn =
-    document.createElement("button");
-
-    pinBtn.textContent =
-
-    note.pinned
-    ? "📌 Unpin"
-    : "📌 Pin";
-
-    pinBtn.className =
-    "secondary";
-
-    pinBtn.onclick = () =>
-    pinNote(note.id);
-
-    /* 🔥 Copy Button */
-
-    const copyBtn =
-    document.createElement("button");
-
-    copyBtn.textContent =
-    "📋 Copy";
-
-    copyBtn.className =
-    "secondary";
-
-    copyBtn.onclick = () => {
-
-      navigator.clipboard.writeText(
-      note.text
-      );
-
-      alert("Copied.");
-
-    };
-
-    noteCard.appendChild(title);
-    noteCard.appendChild(tag);
-    noteCard.appendChild(text);
-    noteCard.appendChild(date);
-
-    noteCard.appendChild(editBtn);
-    noteCard.appendChild(deleteBtn);
-    noteCard.appendChild(pinBtn);
-    noteCard.appendChild(copyBtn);
-
-    notesGrid.appendChild(noteCard);
-
+    notesGrid.appendChild(
+    noteCard
+    );
   });
-
 }
 
-/* 🔥 Edit Note */
+/* 🔥 COPY */
+
+function copyNote(text){
+
+  navigator.clipboard
+  .writeText(text);
+
+  alert("Copied.");
+}
+
+/* 🔥 EDIT */
 
 function editNote(id){
 
@@ -799,22 +1469,23 @@ function editNote(id){
 
   document.getElementById(
   "noteColor"
-  ).value = note.color || "#1c1c1c";
+  ).value = note.color;
 
   document.getElementById(
   "noteTag"
-  ).value = note.tag || "";
+  ).value = note.tag;
 
   editingId = id;
 
   window.scrollTo({
+
     top:0,
+
     behavior:"smooth"
   });
-
 }
 
-/* 🔥 Delete Note */
+/* 🔥 DELETE */
 
 function deleteNote(id){
 
@@ -827,8 +1498,7 @@ function deleteNote(id){
     return;
   }
 
-  notes =
-  notes.filter(
+  notes = notes.filter(
   note => note.id !== id
   );
 
@@ -840,7 +1510,7 @@ function deleteNote(id){
   displayNotes();
 }
 
-/* 🔥 Pin Note */
+/* 🔥 PIN */
 
 function pinNote(id){
 
@@ -849,14 +1519,14 @@ function pinNote(id){
     if(note.id === id){
 
       return{
+
         ...note,
+
         pinned:!note.pinned
       };
-
     }
 
     return note;
-
   });
 
   localStorage.setItem(
@@ -867,7 +1537,7 @@ function pinNote(id){
   displayNotes();
 }
 
-/* 🔥 Clear */
+/* 🔥 CLEAR */
 
 function clearEditor(){
 
@@ -898,7 +1568,7 @@ function clearEditor(){
   );
 }
 
-/* 🔥 Export Notes */
+/* 🔥 EXPORT */
 
 function exportNotes(){
 
@@ -926,12 +1596,12 @@ function exportNotes(){
     `${note.text}\n`;
 
     content +=
-    `\n------------------\n\n`;
-
+    `\n-------------------\n\n`;
   });
 
   const blob =
   new Blob([content],{
+
     type:"text/plain"
   });
 
@@ -951,7 +1621,22 @@ function exportNotes(){
   URL.revokeObjectURL(url);
 }
 
+/* 🔥 PRIVACY */
+
+function acceptPrivacy(){
+
+  localStorage.setItem(
+  "privacyAccepted",
+  "true"
+  );
+
+  document.getElementById(
+  "privacyPopup"
+  ).style.display = "none";
+}
+
 </script>
 
 </body>
+
 </html>

@@ -1,13 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Convert images instantly with the AKeyUP Image Converter. Supports JPG, PNG, WEBP, GIF, BMP, and more with fast, simple, and easy-to-use tools.">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<meta name="description"
+content="Convert images instantly with the AKeyUP Image Converter. Supports JPG, PNG, WEBP, GIF, BMP, AVIF, TIFF and more with fast browser-based image conversion tools.">
+
+<script async
+src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591"
+crossorigin="anonymous"></script>
 
 <title>AKeyUP Image Converter</title>
 
 <style>
+
+/* 🔥 ROOT */
+
+:root{
+
+  --bg:#111111;
+  --card:#1b1b1b;
+  --box:#232323;
+  --border:#2f2f2f;
+
+  --text:#ffffff;
+  --muted:#aaaaaa;
+
+  --accent:#ff4444;
+  --accent-hover:#ff2222;
+
+  --green:#00ff99;
+}
+
+/* 🔥 RESET */
 
 *{
   margin:0;
@@ -15,58 +45,90 @@
   box-sizing:border-box;
 }
 
+/* 🔥 BODY */
+
 body{
-  background:#111;
-  color:white;
+
+  background:var(--bg);
+
+  color:var(--text);
+
   font-family:Arial,sans-serif;
-  min-height:100vh;
+
+  overflow-x:hidden;
 }
 
-/* 🔥 Wrapper */
+/* 🔥 WRAPPER */
+
 .wrapper{
-  max-width:1200px;
+
+  width:min(1200px,95%);
+
   margin:auto;
-  padding:clamp(15px,4vw,60px);
+
+  padding:
+  clamp(20px,4vw,60px);
+}
+
+/* 🔥 TITLE */
+
+.title{
+
   text-align:center;
-}
 
-/* 🔥 Title */
-h1{
-  font-size:clamp(2rem,6vw,4rem);
+  font-size:
+  clamp(2.4rem,6vw,4.8rem);
+
   margin-top:30px;
-  margin-bottom:20px;
+
+  margin-bottom:15px;
 }
 
-p{
-  font-size:clamp(1rem,2vw,1.3rem);
-  opacity:0.8;
-  margin-bottom:30px;
+.subtitle{
+
+  text-align:center;
+
+  color:var(--muted);
+
+  max-width:850px;
+
+  margin:auto;
+
+  line-height:1.9;
+
+  font-size:
+  clamp(1rem,2vw,1.15rem);
+
+  margin-bottom:50px;
 }
 
-/* 🔥 Menu */
+/* 🔥 MENU */
+
 .menu-container{
+
   position:fixed;
+
   top:20px;
+
   right:20px;
+
   z-index:1000;
 }
 
 .menu-btn{
 
-  width:clamp(42px,6vw,60px);
-  height:clamp(42px,6vw,60px);
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  font-size:clamp(22px,4vw,36px);
+  width:58px;
+  height:58px;
 
   border:none;
-  border-radius:12px;
 
-  background:#222;
+  border-radius:16px;
+
+  background:var(--card);
+
   color:white;
+
+  font-size:32px;
 
   cursor:pointer;
 
@@ -74,326 +136,1081 @@ p{
 }
 
 .menu-btn:hover{
-  background:#333;
+
+  background:#2b2b2b;
+
   transform:scale(1.05);
 }
 
-/* 🔥 Dropdown */
 .menu{
+
   display:none;
+
   margin-top:10px;
-  background:#222;
-  border-radius:12px;
+
+  background:var(--card);
+
+  border-radius:16px;
+
   overflow:hidden;
-  min-width:180px;
+
+  min-width:210px;
+
+  box-shadow:
+  0 10px 30px rgba(0,0,0,0.4);
 }
 
 .menu a{
+
   display:block;
-  padding:14px;
+
+  padding:15px 18px;
+
   color:white;
+
   text-decoration:none;
-  font-size:clamp(0.9rem,2vw,1.1rem);
+
+  transition:0.2s;
 }
 
 .menu a:hover{
-  background:#333;
+  background:#2a2a2a;
 }
 
-/* 🔥 Main converter */
-.converter{
-  background:#1c1c1c;
-  border-radius:20px;
-  padding:clamp(20px,4vw,40px);
-  margin-top:30px;
+/* 🔥 GRID */
+
+.grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(340px,1fr));
+
+  gap:28px;
 }
 
-/* 🔥 Upload area */
+/* 🔥 CARD */
+
+.card{
+
+  background:var(--card);
+
+  border-radius:28px;
+
+  padding:32px;
+
+  box-shadow:
+  0 10px 35px rgba(0,0,0,0.35);
+}
+
+/* 🔥 SECTION TITLE */
+
+.section-title{
+
+  font-size:1.5rem;
+
+  margin-bottom:25px;
+}
+
+/* 🔥 UPLOAD */
+
 .upload-box{
-  border:2px dashed #555;
-  border-radius:16px;
-  padding:clamp(30px,6vw,70px);
-}
 
-.upload-box h2{
-  margin-bottom:20px;
-}
+  border:2px dashed #444;
 
-input[type="file"]{
-  color:white;
-  font-size:1rem;
-}
+  border-radius:22px;
 
-/* 🔥 Preview */
-.preview{
-  margin-top:30px;
-}
+  padding:45px 20px;
 
-.preview img{
-  max-width:100%;
-  max-height:400px;
-  border-radius:14px;
-}
-
-/* 🔥 Format dropdown */
-select{
-  width:min(350px,90%);
-  margin-top:30px;
-  padding:14px;
-
-  border:none;
-  border-radius:12px;
-
-  background:#222;
-  color:white;
-
-  font-size:1rem;
-}
-
-/* 🔥 Button */
-.btn{
-  margin-top:30px;
-
-  padding:15px 35px;
-
-  border:none;
-  border-radius:12px;
-
-  background:#ff4444;
-  color:white;
-
-  font-size:1rem;
-
-  cursor:pointer;
+  background:#181818;
 
   transition:0.3s;
 }
 
-.btn:hover{
-  background:#ff2222;
-  transform:scale(1.05);
+.upload-box:hover{
+
+  border-color:var(--accent);
 }
 
-/* 🔥 Footer */
+.upload-icon{
+
+  font-size:4rem;
+
+  margin-bottom:15px;
+}
+
+.upload-text{
+
+  color:var(--muted);
+
+  line-height:1.8;
+
+  margin-bottom:20px;
+}
+
+/* 🔥 FILE INPUT */
+
+input[type="file"]{
+
+  width:100%;
+
+  padding:16px;
+
+  border:none;
+
+  border-radius:16px;
+
+  background:var(--box);
+
+  color:white;
+
+  font-size:1rem;
+}
+
+/* 🔥 SELECT */
+
+select{
+
+  width:100%;
+
+  padding:16px;
+
+  border:none;
+
+  border-radius:16px;
+
+  background:var(--box);
+
+  color:white;
+
+  font-size:1rem;
+
+  margin-top:22px;
+
+  outline:none;
+}
+
+/* 🔥 BUTTON */
+
+button,
+.btn{
+
+  display:inline-block;
+
+  width:100%;
+
+  padding:17px;
+
+  margin-top:28px;
+
+  border:none;
+
+  border-radius:18px;
+
+  background:var(--accent);
+
+  color:white;
+
+  font-size:1rem;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  transition:0.3s;
+
+  text-decoration:none;
+
+  text-align:center;
+}
+
+button:hover,
+.btn:hover{
+
+  background:var(--accent-hover);
+
+  transform:translateY(-2px);
+}
+
+/* 🔥 PREVIEW */
+
+.preview-box{
+
+  background:#181818;
+
+  border-radius:22px;
+
+  padding:20px;
+
+  min-height:450px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  flex-direction:column;
+
+  text-align:center;
+}
+
+.preview-placeholder{
+
+  color:#777;
+
+  line-height:1.8;
+}
+
+.preview-image{
+
+  max-width:100%;
+
+  max-height:420px;
+
+  border-radius:18px;
+
+  display:none;
+}
+
+/* 🔥 INFO */
+
+.info{
+
+  margin-top:55px;
+
+  background:var(--card);
+
+  padding:38px;
+
+  border-radius:28px;
+
+  line-height:1.9;
+}
+
+.info h2{
+
+  margin-bottom:22px;
+
+  font-size:2rem;
+}
+
+.info p{
+
+  color:#cccccc;
+
+  margin-bottom:20px;
+}
+
+/* 🔥 FEATURES */
+
+.feature-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(220px,1fr));
+
+  gap:20px;
+
+  margin-top:35px;
+}
+
+.feature{
+
+  background:#222;
+
+  border-radius:22px;
+
+  padding:25px;
+
+  transition:0.3s;
+}
+
+.feature:hover{
+
+  transform:translateY(-4px);
+}
+
+.feature span{
+
+  font-size:2rem;
+
+  display:block;
+
+  margin-bottom:15px;
+}
+
+.feature h3{
+
+  margin-bottom:12px;
+}
+
+.feature p{
+
+  color:#bbbbbb;
+
+  line-height:1.8;
+
+  font-size:0.95rem;
+}
+
+/* 🔥 EXTRA */
+
+.extra-box{
+
+  margin-top:35px;
+
+  background:#222;
+
+  padding:28px;
+
+  border-radius:22px;
+}
+
+.extra-box h3{
+
+  margin-bottom:15px;
+}
+
+.extra-box p{
+
+  color:#bbbbbb;
+
+  line-height:1.9;
+}
+
+/* 🔥 FOOTER */
+
 footer{
-  margin-top:50px;
-  padding-bottom:20px;
-  opacity:0.7;
-  font-size:0.9rem;
+
+  text-align:center;
+
+  margin-top:45px;
+
+  color:#888;
+
+  padding-bottom:25px;
+}
+
+/* 🔥 PRIVACY */
+
+.privacy-popup{
+
+  position:fixed;
+
+  inset:0;
+
+  background:
+  rgba(0,0,0,0.78);
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  z-index:9999;
+
+  padding:20px;
+}
+
+.privacy-box{
+
+  background:#1c1c1c;
+
+  width:min(430px,100%);
+
+  padding:35px;
+
+  border-radius:28px;
+
+  text-align:center;
+}
+
+.privacy-box h2{
+
+  margin-bottom:15px;
+}
+
+.privacy-box p{
+
+  color:#bbbbbb;
+
+  line-height:1.8;
+}
+
+.privacy-box a{
+
+  color:#4da6ff;
+
+  text-decoration:none;
+}
+
+.accept-btn{
+
+  margin-top:25px;
+}
+
+/* 🔥 MOBILE */
+
+@media(max-width:700px){
+
+  .card{
+    padding:24px;
+  }
+
+  .preview-box{
+    min-height:320px;
+  }
+
 }
 
 </style>
+
 </head>
 
 <body>
 
 <!-- 🔥 MENU -->
+
 <div class="menu-container">
 
-  <button class="menu-btn" onclick="toggleMenu()">⋮</button>
+<button class="menu-btn"
+onclick="toggleMenu()">
 
-  <div class="menu" id="menu">
+⋮
 
-    <a href="index.html">Home</a>
-    <a href="donation.html">Donation</a>
-    <a href="tool.html">Tools</a>
-    <a href="privacy-policy.html">Privacy Policy</a>
-    <a href="about.html">About</a>
+</button>
 
-  </div>
+<div class="menu"
+id="menu">
+
+<a href="index.html">
+Home
+</a>
+
+<a href="tool.html">
+Tools
+</a>
+
+<a href="donation.html">
+Donation
+</a>
+
+<a href="privacy-policy.html">
+Privacy Policy
+</a>
+
+<a href="about.html">
+About
+</a>
 
 </div>
 
+</div>
+
+<!-- 🔥 MAIN -->
+
 <div class="wrapper">
 
-  <h1>Image Converter</h1>
+<h1 class="title">
+🖼 Image Converter
+</h1>
 
-  <p>
-    Upload images and convert them instantly in your browser.
-  </p>
-  <p>
-     Do not refresh until image starts downloading otherwise it may interrupt the process.
-  </p>
+<p class="subtitle">
 
-  <div class="converter">
+Convert JPG, PNG, WEBP, GIF, BMP,
+AVIF, TIFF, ICO and more directly
+inside your browser with the
+AKeyUP Image Converter.
 
-    <!-- 🔥 Upload -->
-    <div class="upload-box">
+No uploads, no accounts,
+and no complicated steps.
 
-      <h2>Select Image</h2>
+</p>
 
-      <input type="file" id="imageInput" accept="image/*">
+<div class="grid">
 
-      <div class="preview">
-        <img id="previewImage" style="display:none;">
-      </div>
+<!-- 🔥 LEFT -->
 
-    </div>
+<div class="card">
 
-    <!-- 🔥 Format -->
-    <select id="formatSelect">
+<h2 class="section-title">
+Upload & Convert
+</h2>
 
-      <option value="png">PNG</option>
-      <option value="jpeg">JPG / JPEG</option>
-      <option value="webp">WEBP</option>
-      <option value="bmp">BMP</option>
-      <option value="gif">GIF</option>
-      <option value="avif">AVIF</option>
-      <option value="ico">ICO</option>
-      <option value="tiff">TIFF</option>
+<div class="upload-box">
 
-    </select>
+<div class="upload-icon">
+📤
+</div>
 
-    <br>
+<p class="upload-text">
 
-    <!-- 🔥 Convert -->
-    <button class="btn" onclick="convertImage()">
+Choose an image from your device
+and convert it instantly into
+another image format.
 
-      Convert & Download
+</p>
 
-    </button>
+<input
+type="file"
+id="imageInput"
+accept="image/*">
 
-  </div>
+</div>
 
-  <footer>
-    © 2026 AKeyUP
-  </footer>
+<select id="formatSelect">
+
+<option value="png">
+PNG
+</option>
+
+<option value="jpeg">
+JPG / JPEG
+</option>
+
+<option value="webp">
+WEBP
+</option>
+
+<option value="bmp">
+BMP
+</option>
+
+<option value="gif">
+GIF
+</option>
+
+<option value="avif">
+AVIF
+</option>
+
+<option value="ico">
+ICO
+</option>
+
+<option value="tiff">
+TIFF
+</option>
+
+</select>
+
+<button onclick="convertImage()">
+
+Convert & Download
+
+</button>
+
+</div>
+
+<!-- 🔥 RIGHT -->
+
+<div class="card">
+
+<h2 class="section-title">
+Image Preview
+</h2>
+
+<div class="preview-box">
+
+<img
+id="previewImage"
+class="preview-image">
+
+<div
+class="preview-placeholder"
+id="previewPlaceholder">
+
+🖼 Your uploaded image preview
+will appear here.
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- 🔥 INFO -->
+
+<div class="info">
+
+<h2>
+About AKeyUP Image Converter
+</h2>
+
+<p>
+
+AKeyUP Image Converter is a fast,
+modern, and privacy-focused image
+conversion tool that works directly
+inside your browser.
+
+Convert images into popular formats
+like PNG, JPG, WEBP, BMP, GIF,
+AVIF, TIFF, and ICO instantly
+without complicated software.
+
+</p>
+
+<p>
+
+Your files stay on your device
+during the conversion process.
+Images are not uploaded to servers,
+making the tool fast, lightweight,
+and privacy friendly.
+
+</p>
+
+<p>
+
+This tool is useful for reducing
+file size, improving compatibility,
+preparing website assets,
+sharing images across platforms,
+and converting photos into
+modern image formats.
+
+</p>
+
+<!-- 🔥 FEATURES -->
+
+<div class="feature-grid">
+
+<div class="feature">
+
+<span>
+⚡
+</span>
+
+<h3>
+Fast Conversion
+</h3>
+
+<p>
+
+Convert images instantly
+inside your browser with
+smooth performance.
+
+</p>
+
+</div>
+
+<div class="feature">
+
+<span>
+🔒
+</span>
+
+<h3>
+Privacy Friendly
+</h3>
+
+<p>
+
+Your images remain on
+your device and are not
+stored on servers.
+
+</p>
+
+</div>
+
+<div class="feature">
+
+<span>
+📱
+</span>
+
+<h3>
+Mobile Responsive
+</h3>
+
+<p>
+
+Works smoothly across
+phones, tablets,
+and desktop devices.
+
+</p>
+
+</div>
+
+<div class="feature">
+
+<span>
+🖼
+</span>
+
+<h3>
+Multiple Formats
+</h3>
+
+<p>
+
+Supports PNG, JPG,
+WEBP, BMP, GIF,
+AVIF, TIFF and more.
+
+</p>
+
+</div>
+
+</div>
+
+<!-- 🔥 EXTRA -->
+
+<div class="extra-box">
+
+<h3>
+📢 Supported By Ads
+</h3>
+
+<p>
+
+AKeyUP may display advertisements
+through Google AdSense to help
+support hosting, maintenance,
+future development, and free
+online tools for everyone.
+
+</p>
+
+</div>
+
+</div>
+
+<!-- 🔥 BACK -->
+
+<a href="tool.html"
+class="btn">
+
+⬅ Back to Tools
+
+</a>
+
+<footer>
+
+© 2026-Present AKeyUP
+
+</footer>
+
+</div>
+
+<!-- 🔥 PRIVACY -->
+
+<div
+class="privacy-popup"
+id="privacyPopup">
+
+<div class="privacy-box">
+
+<h2>
+Privacy Notice
+</h2>
+
+<p>
+
+By using AKeyUP,
+you agree to our
+
+<a href="privacy-policy.html">
+
+Privacy Policy
+
+</a>.
+
+</p>
+
+<button
+class="accept-btn"
+onclick="acceptPrivacy()">
+
+Accept
+
+</button>
+
+</div>
 
 </div>
 
 <script>
 
-/* 🔥 Menu */
+/* 🔥 MENU */
+
 function toggleMenu(){
 
-  const menu = document.getElementById("menu");
+  const menu =
+  document.getElementById(
+    "menu"
+  );
 
-  if(menu.style.display === "block"){
+  menu.style.display =
 
-    menu.style.display = "none";
+  (
+    menu.style.display
+    === "block"
+  )
 
-  }else{
+  ? "none"
 
-    menu.style.display = "block";
-  }
+  : "block";
 }
 
-/* 🔥 Image preview */
+/* 🔥 CLOSE MENU */
 
-const imageInput = document.getElementById("imageInput");
+document.addEventListener(
+"click",
 
-const previewImage = document.getElementById("previewImage");
+function(event){
+
+  const menu =
+  document.getElementById(
+    "menu"
+  );
+
+  const button =
+  document.querySelector(
+    ".menu-btn"
+  );
+
+  if(
+    !menu.contains(event.target)
+    &&
+    !button.contains(event.target)
+  ){
+
+    menu.style.display =
+    "none";
+  }
+
+});
+
+/* 🔥 IMAGE PREVIEW */
+
+const imageInput =
+document.getElementById(
+  "imageInput"
+);
+
+const previewImage =
+document.getElementById(
+  "previewImage"
+);
+
+const previewPlaceholder =
+document.getElementById(
+  "previewPlaceholder"
+);
 
 let uploadedImage = null;
 
-imageInput.addEventListener("change", function(event){
+imageInput.addEventListener(
+"change",
 
-  const file = event.target.files[0];
+function(event){
+
+  const file =
+  event.target.files[0];
 
   if(!file) return;
 
-  const reader = new FileReader();
+  const reader =
+  new FileReader();
 
-  reader.onload = function(e){
+  reader.onload =
+  function(e){
 
-    uploadedImage = new Image();
+    uploadedImage =
+    new Image();
 
-    uploadedImage.src = e.target.result;
+    uploadedImage.src =
+    e.target.result;
 
-    previewImage.src = e.target.result;
+    previewImage.src =
+    e.target.result;
 
-    previewImage.style.display = "block";
+    previewImage.style.display =
+    "block";
+
+    previewPlaceholder.style.display =
+    "none";
   };
 
   reader.readAsDataURL(file);
 });
 
-/* 🔥 Convert image */
+/* 🔥 CONVERT */
 
 function convertImage(){
 
   if(!uploadedImage){
 
-    alert("Please upload an image first.");
+    alert(
+    "Please upload an image first."
+    );
 
     return;
   }
 
-  const format = document.getElementById("formatSelect").value;
+  const format =
+  document.getElementById(
+    "formatSelect"
+  ).value;
 
-  const canvas = document.createElement("canvas");
+  const canvas =
+  document.createElement(
+    "canvas"
+  );
 
-  const ctx = canvas.getContext("2d");
+  const ctx =
+  canvas.getContext("2d");
 
-  canvas.width = uploadedImage.width;
+  canvas.width =
+  uploadedImage.width;
 
-  canvas.height = uploadedImage.height;
+  canvas.height =
+  uploadedImage.height;
 
-  ctx.drawImage(uploadedImage, 0, 0);
+  ctx.drawImage(
+    uploadedImage,
+    0,
+    0
+  );
 
-  let mimeType = "image/png";
+  let mimeType =
+  "image/png";
 
   switch(format){
 
     case "png":
-      mimeType = "image/png";
+      mimeType =
+      "image/png";
       break;
 
     case "jpeg":
-      mimeType = "image/jpeg";
+      mimeType =
+      "image/jpeg";
       break;
 
     case "webp":
-      mimeType = "image/webp";
+      mimeType =
+      "image/webp";
       break;
 
     case "bmp":
-      mimeType = "image/bmp";
+      mimeType =
+      "image/bmp";
       break;
 
     case "gif":
-      mimeType = "image/gif";
+      mimeType =
+      "image/gif";
       break;
 
     case "avif":
-      mimeType = "image/avif";
+      mimeType =
+      "image/avif";
       break;
 
     case "ico":
-      mimeType = "image/x-icon";
+      mimeType =
+      "image/x-icon";
       break;
 
     case "tiff":
-      mimeType = "image/tiff";
+      mimeType =
+      "image/tiff";
       break;
 
     default:
-      mimeType = "image/png";
+      mimeType =
+      "image/png";
   }
 
   try{
 
-    const convertedImage = canvas.toDataURL(mimeType);
+    const convertedImage =
 
-    const link = document.createElement("a");
+    canvas.toDataURL(
+      mimeType
+    );
 
-    link.href = convertedImage;
+    const link =
+    document.createElement(
+      "a"
+    );
 
-    link.download = "converted-image." + format;
+    link.href =
+    convertedImage;
 
-    document.body.appendChild(link);
+    link.download =
+    "converted-image." +
+    format;
+
+    document.body
+    .appendChild(link);
 
     link.click();
 
-    document.body.removeChild(link);
+    document.body
+    .removeChild(link);
 
-  }catch(error){
-
-    alert("This format is not supported in your browser.");
   }
+
+  catch(error){
+
+    alert(
+
+    "This format may not be fully supported in your browser."
+
+    );
+  }
+
 }
+
+/* 🔥 PRIVACY */
+
+function acceptPrivacy(){
+
+  localStorage.setItem(
+    "privacyAccepted",
+    "true"
+  );
+
+  document.getElementById(
+    "privacyPopup"
+  ).style.display =
+  "none";
+}
+
+window.addEventListener(
+"load",
+
+function(){
+
+  const accepted =
+  localStorage.getItem(
+    "privacyAccepted"
+  );
+
+  if(accepted === "true"){
+
+    document.getElementById(
+      "privacyPopup"
+    ).style.display =
+    "none";
+  }
+
+});
 
 </script>
 
 </body>
+
 </html>

@@ -10,6 +10,10 @@ content="width=device-width, initial-scale=1.0">
 <meta name="description"
 content="Count words, characters, sentences, paragraphs, and spaces instantly with the AKeyUP Word Counter. Fast, accurate, responsive online text analysis tool.">
 
+<script async
+src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591"
+crossorigin="anonymous"></script>
+
 <title>AKeyUP Word Counter</title>
 
 <style>
@@ -38,6 +42,7 @@ html{
 body{
 
   background:var(--bg);
+
   color:var(--text);
 
   font-family:Arial,sans-serif;
@@ -64,9 +69,9 @@ body{
 h1{
 
   font-size:
-  clamp(2.2rem,6vw,4.5rem);
+  clamp(2.3rem,6vw,4.5rem);
 
-  margin-top:30px;
+  margin-top:40px;
 
   margin-bottom:20px;
 }
@@ -74,7 +79,7 @@ h1{
 .description{
 
   font-size:
-  clamp(1rem,2vw,1.3rem);
+  clamp(1rem,2vw,1.2rem);
 
   color:var(--muted);
 
@@ -82,9 +87,9 @@ h1{
 
   margin:auto;
 
-  margin-bottom:35px;
+  margin-bottom:40px;
 
-  line-height:1.8;
+  line-height:1.9;
 }
 
 /* 🔥 Menu */
@@ -174,6 +179,7 @@ h1{
 }
 
 .menu a:hover{
+
   background:#333;
 }
 
@@ -250,14 +256,14 @@ textarea:focus{
 
   padding:28px;
 
-  border-radius:18px;
+  border-radius:20px;
 
   transition:0.25s;
 }
 
 .stat-box:hover{
 
-  transform:translateY(-3px);
+  transform:translateY(-5px);
 }
 
 .stat-box p{
@@ -297,6 +303,8 @@ textarea:focus{
 
 .btn{
 
+  display:inline-block;
+
   padding:15px 34px;
 
   border:none;
@@ -311,6 +319,8 @@ textarea:focus{
 
   font-weight:bold;
 
+  text-decoration:none;
+
   cursor:pointer;
 
   transition:0.25s;
@@ -323,13 +333,154 @@ textarea:focus{
   transform:scale(1.05);
 }
 
+/* 🔥 Back Button */
+
+.footer-buttons{
+
+  margin-top:40px;
+
+  text-align:center;
+}
+
+/* 🔥 About Tool */
+
+.about-tool{
+
+  margin-top:70px;
+}
+
+.about-card{
+
+  background:var(--card);
+
+  border-radius:24px;
+
+  padding:
+  clamp(20px,4vw,45px);
+
+  box-shadow:
+  0 15px 40px rgba(0,0,0,0.35);
+
+  text-align:left;
+}
+
+.about-card h2{
+
+  font-size:
+  clamp(1.8rem,4vw,2.8rem);
+
+  margin-bottom:20px;
+
+  text-align:center;
+}
+
+.about-text{
+
+  color:var(--muted);
+
+  line-height:1.9;
+
+  font-size:
+  clamp(1rem,2vw,1.15rem);
+
+  text-align:center;
+
+  max-width:900px;
+
+  margin:auto;
+
+  margin-bottom:40px;
+}
+
+/* 🔥 Feature Grid */
+
+.feature-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(220px,1fr));
+
+  gap:25px;
+}
+
+.feature-box{
+
+  background:var(--box);
+
+  padding:28px;
+
+  border-radius:20px;
+
+  transition:0.25s;
+}
+
+.feature-box:hover{
+
+  transform:translateY(-5px);
+}
+
+.feature-box span{
+
+  font-size:2rem;
+
+  display:block;
+
+  margin-bottom:15px;
+}
+
+.feature-box h3{
+
+  margin-bottom:12px;
+
+  font-size:1.2rem;
+}
+
+.feature-box p{
+
+  color:var(--muted);
+
+  line-height:1.7;
+
+  font-size:0.98rem;
+}
+
+/* 🔥 Extra */
+
+.about-extra{
+
+  margin-top:40px;
+
+  background:var(--box);
+
+  padding:30px;
+
+  border-radius:20px;
+}
+
+.about-extra h3{
+
+  margin-bottom:15px;
+
+  font-size:1.4rem;
+}
+
+.about-extra p{
+
+  color:var(--muted);
+
+  line-height:1.8;
+}
+
 /* 🔥 Footer */
 
 footer{
 
   margin-top:60px;
 
-  padding-bottom:25px;
+  padding-bottom:30px;
+
+  text-align:center;
 
   color:var(--muted);
 
@@ -354,6 +505,7 @@ footer{
 }
 
 </style>
+
 </head>
 
 <body>
@@ -398,12 +550,15 @@ footer{
 
 <div class="wrapper">
 
-  <h1>AKeyUP Word Counter</h1>
+  <h1>
+    📊 AKeyUP Word Counter
+  </h1>
 
   <p class="description">
 
-    Analyze your text instantly with accurate word, character,
-    sentence, paragraph, and space counting.
+    Analyze your text instantly with accurate
+    word, character, sentence, paragraph,
+    and space counting.
 
   </p>
 
@@ -488,7 +643,7 @@ footer{
       class="btn"
       onclick="copyText()">
 
-        Copy Text
+        📋 Copy Text
 
       </button>
 
@@ -496,7 +651,7 @@ footer{
       class="btn"
       onclick="clearText()">
 
-        Clear Text
+        🗑 Clear Text
 
       </button>
 
@@ -504,9 +659,144 @@ footer{
 
   </div>
 
+  <!-- 🔥 Back To Tools -->
+
+  <div class="footer-buttons">
+
+    <a href="tool.html"
+    class="btn">
+
+      ⬅ Back to Tools
+
+    </a>
+
+  </div>
+
+  <!-- 🔥 About Section -->
+
+  <section class="about-tool">
+
+    <div class="about-card">
+
+      <h2>
+        📖 About AKeyUP Word Counter
+      </h2>
+
+      <p class="about-text">
+
+        AKeyUP Word Counter is a modern,
+        responsive, and privacy-focused
+        online text analysis tool designed
+        for students, writers, bloggers,
+        developers, and professionals.
+
+        Instantly count words, characters,
+        spaces, paragraphs, and sentences
+        directly inside your browser
+        without uploading your text.
+
+      </p>
+
+      <div class="feature-grid">
+
+        <div class="feature-box">
+
+          <span>⚡</span>
+
+          <h3>
+            Real-Time Counting
+          </h3>
+
+          <p>
+
+            Instantly updates all statistics
+            while typing or pasting text.
+
+          </p>
+
+        </div>
+
+        <div class="feature-box">
+
+          <span>🔒</span>
+
+          <h3>
+            Privacy Focused
+          </h3>
+
+          <p>
+
+            Your text stays locally
+            inside your browser and
+            is never uploaded.
+
+          </p>
+
+        </div>
+
+        <div class="feature-box">
+
+          <span>📱</span>
+
+          <h3>
+            Fully Responsive
+          </h3>
+
+          <p>
+
+            Optimized for desktop,
+            tablet, and mobile devices.
+
+          </p>
+
+        </div>
+
+        <div class="feature-box">
+
+          <span>🧠</span>
+
+          <h3>
+            Detailed Statistics
+          </h3>
+
+          <p>
+
+            Analyze text structure
+            using multiple useful
+            metrics instantly.
+
+          </p>
+
+        </div>
+
+      </div>
+
+      <div class="about-extra">
+
+        <h3>
+          📢 Supported By Ads
+        </h3>
+
+        <p>
+
+          AKeyUP may display advertisements
+          through Google AdSense to support
+          hosting, maintenance, and future
+          development of free tools.
+
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- 🔥 Footer -->
+
   <footer>
 
-    © 2026 AKeyUP
+    © 2026-Present AKeyUP
 
   </footer>
 
@@ -527,9 +817,10 @@ function toggleMenu(){
   : "block";
 }
 
-/* 🔥 Close Menu Outside Click */
+/* 🔥 Close Menu */
 
-document.addEventListener("click",
+document.addEventListener(
+"click",
 function(event){
 
   const menu =
@@ -580,8 +871,6 @@ function updateStats(){
   const text =
   textInput.value;
 
-  /* 🔥 Words */
-
   const words =
   text.trim() === ""
   ? 0
@@ -589,17 +878,11 @@ function updateStats(){
   .split(/\s+/)
   .length;
 
-  /* 🔥 Characters */
-
   const characters =
   text.length;
 
-  /* 🔥 Characters Without Spaces */
-
   const charactersNoSpaces =
   text.replace(/\s/g,"").length;
-
-  /* 🔥 Sentences */
 
   const sentences =
   text.trim() === ""
@@ -610,8 +893,6 @@ function updateStats(){
     sentence.trim().length > 0)
     .length;
 
-  /* 🔥 Paragraphs */
-
   const paragraphs =
   text.trim() === ""
   ? 0
@@ -621,12 +902,8 @@ function updateStats(){
     paragraph.trim().length > 0)
     .length;
 
-  /* 🔥 Spaces */
-
   const spaces =
   (text.match(/ /g) || []).length;
-
-  /* 🔥 Update UI */
 
   wordsElement.innerText =
   words.toLocaleString();
@@ -686,9 +963,200 @@ async function copyText(){
   }
 }
 
-/* 🔥 Initial Update */
+/* 🔥 Initial */
 
 updateStats();
+
+</script>
+
+<!-- 🔥 Privacy Popup -->
+
+<style>
+
+.privacy-popup{
+
+  position:fixed;
+
+  inset:0;
+
+  background:
+  rgba(0,0,0,0.75);
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  z-index:9999;
+
+  padding:20px;
+}
+
+.privacy-box{
+
+  background:#1c1c1c;
+
+  width:min(420px,100%);
+
+  padding:35px;
+
+  border-radius:24px;
+
+  text-align:center;
+
+  box-shadow:
+  0 15px 40px rgba(0,0,0,0.5);
+
+  animation:
+  popupFade 0.3s ease;
+}
+
+.privacy-box h2{
+
+  font-size:2rem;
+
+  margin-bottom:15px;
+
+  color:white;
+}
+
+.privacy-box p{
+
+  color:#aaaaaa;
+
+  line-height:1.8;
+
+  font-size:1rem;
+}
+
+.privacy-box a{
+
+  color:#4da6ff;
+
+  text-decoration:none;
+
+  font-weight:bold;
+}
+
+.accept-btn{
+
+  margin-top:25px;
+
+  padding:14px 30px;
+
+  border:none;
+
+  border-radius:14px;
+
+  background:#ff4444;
+
+  color:white;
+
+  font-size:1rem;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  transition:0.25s;
+}
+
+.accept-btn:hover{
+
+  background:#ff2222;
+
+  transform:scale(1.05);
+}
+
+@keyframes popupFade{
+
+  from{
+
+    opacity:0;
+
+    transform:scale(0.9);
+  }
+
+  to{
+
+    opacity:1;
+
+    transform:scale(1);
+  }
+}
+
+</style>
+
+<div
+class="privacy-popup"
+id="privacyPopup">
+
+  <div class="privacy-box">
+
+    <h2>
+      Privacy Notice
+    </h2>
+
+    <p>
+
+      By using AKeyUP,
+      you agree to our
+
+      <a href="privacy-policy.html">
+
+        Privacy Policy
+
+      </a>.
+
+    </p>
+
+    <button
+    class="accept-btn"
+    onclick="acceptPrivacy()">
+
+      Accept
+
+    </button>
+
+  </div>
+
+</div>
+
+<script>
+
+/* 🔥 Accept */
+
+function acceptPrivacy(){
+
+  localStorage.setItem(
+    "privacyAccepted",
+    "true"
+  );
+
+  document.getElementById(
+    "privacyPopup"
+  ).style.display = "none";
+}
+
+/* 🔥 Check */
+
+window.addEventListener(
+"load",
+function(){
+
+  const accepted =
+  localStorage.getItem(
+    "privacyAccepted"
+  );
+
+  if(accepted === "true"){
+
+    document.getElementById(
+      "privacyPopup"
+    ).style.display = "none";
+  }
+});
 
 </script>
 
