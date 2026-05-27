@@ -1,1223 +1,597 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<meta name="description"
-content="Calculate SIP returns instantly with AKeyUP SIP Calculator. Estimate investment growth, total returns, wealth gained, and future value with a modern SIP investment calculator.">
-
-<script async
-src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591"
-crossorigin="anonymous"></script>
-
-<title>AKeyUP SIP Calculator</title>
-
-<style>
-
-/* 🔥 RESET */
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-/* 🔥 ROOT */
-
-:root{
-
-  --bg:#111;
-  --card:#1a1a1a;
-  --box:#222;
-  --accent:#ff4444;
-  --accent-hover:#ff2222;
-  --text:#ffffff;
-  --muted:#bbbbbb;
-}
-
-/* 🔥 BODY */
-
-body{
-
-  background:var(--bg);
-
-  color:var(--text);
-
-  font-family:Arial,sans-serif;
-
-  overflow-x:hidden;
-}
-
-/* 🔥 WRAPPER */
-
-.wrapper{
-
-  max-width:1150px;
-
-  margin:auto;
-
-  padding:40px 20px;
-}
-
-/* 🔥 TITLE */
-
-.title{
-
-  font-size:
-  clamp(2.5rem,6vw,4.8rem);
-
-  text-align:center;
-
-  margin-bottom:15px;
-}
-
-.subtitle{
-
-  text-align:center;
-
-  color:var(--muted);
-
-  line-height:1.8;
-
-  margin-bottom:45px;
-
-  max-width:800px;
-
-  margin-inline:auto;
-}
-
-/* 🔥 MENU */
-
-.menu-container{
-
-  position:fixed;
-
-  top:20px;
-
-  right:20px;
-
-  z-index:1000;
-}
-
-.menu-btn{
-
-  width:58px;
-
-  height:58px;
-
-  border:none;
-
-  border-radius:16px;
-
-  background:#1f1f1f;
-
-  color:white;
-
-  font-size:30px;
-
-  cursor:pointer;
-
-  transition:0.3s;
-}
-
-.menu-btn:hover{
-
-  background:#2b2b2b;
-
-  transform:scale(1.05);
-}
-
-.menu{
-
-  display:none;
-
-  margin-top:10px;
-
-  background:#1d1d1d;
-
-  border-radius:16px;
-
-  overflow:hidden;
-
-  min-width:210px;
-
-  box-shadow:
-  0 10px 30px rgba(0,0,0,0.4);
-}
-
-.menu a{
-
-  display:block;
-
-  padding:15px 18px;
-
-  color:white;
-
-  text-decoration:none;
-
-  transition:0.2s;
-}
-
-.menu a:hover{
-
-  background:#2a2a2a;
-}
-
-/* 🔥 GRID */
-
-.grid{
-
-  display:grid;
-
-  grid-template-columns:
-  repeat(auto-fit,minmax(340px,1fr));
-
-  gap:28px;
-}
-
-/* 🔥 CARD */
-
-.card{
-
-  background:var(--card);
-
-  border-radius:28px;
-
-  padding:30px;
-
-  box-shadow:
-  0 10px 35px rgba(0,0,0,0.35);
-}
-
-/* 🔥 LABEL */
-
-label{
-
-  display:block;
-
-  margin-top:22px;
-
-  margin-bottom:12px;
-
-  color:#dddddd;
-
-  font-size:1rem;
-}
-
-/* 🔥 INPUT */
-
-input[type="number"]{
-
-  width:100%;
-
-  padding:16px;
-
-  border:none;
-
-  border-radius:16px;
-
-  background:#232323;
-
-  color:white;
-
-  font-size:1rem;
-
-  outline:none;
-
-  transition:0.3s;
-}
-
-input[type="number"]:focus{
-
-  background:#2c2c2c;
-}
-
-/* 🔥 RANGE */
-
-input[type="range"]{
-
-  width:100%;
-
-  margin-top:16px;
-
-  cursor:pointer;
-}
-
-.range-value{
-
-  margin-top:10px;
-
-  color:#00ff99;
-
-  font-size:0.95rem;
-}
-
-/* 🔥 BUTTON */
-
-button,
-.btn{
-
-  display:inline-block;
-
-  width:100%;
-
-  padding:17px;
-
-  margin-top:32px;
-
-  border:none;
-
-  border-radius:18px;
-
-  background:var(--accent);
-
-  color:white;
-
-  font-size:1rem;
-
-  font-weight:bold;
-
-  cursor:pointer;
-
-  transition:0.3s;
-
-  text-decoration:none;
-
-  text-align:center;
-}
-
-button:hover,
-.btn:hover{
-
-  background:var(--accent-hover);
-
-  transform:translateY(-2px);
-}
-
-/* 🔥 RESULT */
-
-.result-box{
-
-  margin-top:25px;
-
-  display:grid;
-
-  gap:20px;
-}
-
-.result-item{
-
-  background:var(--box);
-
-  padding:22px;
-
-  border-radius:22px;
-
-  transition:0.3s;
-}
-
-.result-item:hover{
-
-  transform:translateY(-3px);
-}
-
-.result-item h3{
-
-  font-size:0.95rem;
-
-  color:var(--muted);
-
-  margin-bottom:12px;
-}
-
-.result-item p{
-
-  font-size:1.9rem;
-
-  color:#00ff99;
-
-  font-weight:bold;
-}
-
-/* 🔥 EXTRA STATS */
-
-.extra-stats{
-
-  margin-top:25px;
-
-  display:grid;
-
-  grid-template-columns:
-  repeat(auto-fit,minmax(180px,1fr));
-
-  gap:18px;
-}
-
-.stat{
-
-  background:var(--box);
-
-  padding:20px;
-
-  border-radius:18px;
-
-  text-align:center;
-}
-
-.stat h4{
-
-  color:var(--muted);
-
-  margin-bottom:10px;
-
-  font-size:0.9rem;
-}
-
-.stat p{
-
-  color:#00ff99;
-
-  font-size:1.2rem;
-
-  font-weight:bold;
-}
-
-/* 🔥 HELPER */
-
-.helper-text{
-
-  margin-top:10px;
-
-  color:#999999;
-
-  line-height:1.7;
-
-  font-size:0.92rem;
-}
-
-/* 🔥 INFO */
-
-.info{
-
-  margin-top:55px;
-
-  background:var(--card);
-
-  padding:35px;
-
-  border-radius:28px;
-
-  line-height:1.9;
-}
-
-.info h2{
-
-  margin-bottom:20px;
-}
-
-.info p{
-
-  color:#cccccc;
-
-  margin-bottom:18px;
-}
-
-/* 🔥 BACK BUTTON */
-
-.back-btn{
-
-  margin-top:35px;
-}
-
-/* 🔥 FOOTER */
-
-footer{
-
-  margin-top:60px;
-
-  padding-bottom:25px;
-
-  text-align:center;
-
-  color:#999999;
-
-  font-size:0.95rem;
-}
-
-/* 🔥 PRIVACY */
-
-.privacy-popup{
-
-  position:fixed;
-
-  inset:0;
-
-  background:
-  rgba(0,0,0,0.78);
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  z-index:9999;
-
-  padding:20px;
-}
-
-.privacy-box{
-
-  background:#1c1c1c;
-
-  width:min(430px,100%);
-
-  padding:35px;
-
-  border-radius:28px;
-
-  text-align:center;
-
-  animation:
-  popupFade 0.3s ease;
-}
-
-.privacy-box h2{
-
-  margin-bottom:15px;
-}
-
-.privacy-box p{
-
-  color:#bbbbbb;
-
-  line-height:1.8;
-}
-
-.privacy-box a{
-
-  color:#4da6ff;
-
-  text-decoration:none;
-
-  font-weight:bold;
-}
-
-.privacy-box a:hover{
-
-  text-decoration:underline;
-}
-
-.accept-btn{
-
-  margin-top:25px;
-}
-
-/* 🔥 Animation */
-
-@keyframes popupFade{
-
-  from{
-
-    opacity:0;
-
-    transform:scale(0.9);
-  }
-
-  to{
-
-    opacity:1;
-
-    transform:scale(1);
-  }
-}
-
-/* 🔥 MOBILE */
-
-@media(max-width:600px){
-
-  .card{
-    padding:24px;
-  }
-
-  .result-item p{
-    font-size:1.6rem;
-  }
-
-  .btn{
-    width:100%;
-  }
-}
-
-</style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Calculate SIP returns instantly with AKeyUP SIP Calculator. Estimate investment growth, total returns, wealth gained, and future value with a modern SIP investment calculator.">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591" crossorigin="anonymous"></script>
+  <title>AKeyUP - SIP Calculator</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* Reset & Core Styles matching Homepage */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0d0d0d;
+      color: #e5e5e5;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .wrapper {
+      padding: clamp(30px, 6vw, 80px) 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    /* Header & Typography */
+    header {
+      text-align: center;
+      margin-bottom: clamp(40px, 8vw, 60px);
+    }
+
+    .title {
+      font-size: clamp(2.8rem, 8vw, 4.5rem);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #ffffff 0%, #a3a3a3 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      color: #888;
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      font-weight: 400;
+    }
+
+    h2 {
+      font-size: clamp(1.4rem, 4vw, 1.8rem);
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    .section-title-red {
+      border-left: 4px solid #ff4444;
+      padding-left: 15px;
+      margin-top: 50px;
+      text-align: left;
+    }
+
+    /* Interactive Functional Layout Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+      align-items: start;
+    }
+
+    /* Cards Engine Architecture */
+    .card {
+      background: linear-gradient(145deg, #161616, #121212);
+      padding: clamp(22px, 4vw, 35px);
+      border-radius: 16px;
+      border: 1px solid #222;
+      text-align: left;
+      color: #bbb;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Interactive Form Elements styling synced to Dark palette */
+    label {
+      display: block;
+      margin-top: 20px;
+      margin-bottom: 8px;
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid #262626;
+      border-radius: 10px;
+      background: #111;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input[type="number"]:focus {
+      border-color: #ff4444;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      margin-top: 14px;
+      margin-bottom: 4px;
+      cursor: pointer;
+      accent-color: #ff4444;
+    }
+
+    .range-value {
+      color: #00ff99;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .helper-text {
+      margin-top: 6px;
+      color: #666;
+      font-size: 0.85rem;
+    }
+
+    /* Results Interface Nodes */
+    .result-box {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .result-item {
+      background: #0f0f0f;
+      padding: 18px 22px;
+      border-radius: 12px;
+      border: 1px solid #1c1c1c;
+    }
+
+    .result-item h3 {
+      font-size: 0.9rem;
+      color: #777;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .result-item p {
+      font-size: 1.8rem;
+      color: #00ff99;
+      font-weight: 700;
+    }
+
+    .extra-stats {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 14px;
+    }
+
+    .stat {
+      background: #0f0f0f;
+      border: 1px solid #1c1c1c;
+      padding: 16px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .stat h4 {
+      color: #777;
+      font-size: 0.8rem;
+      margin-bottom: 4px;
+    }
+
+    .stat p {
+      color: #00ff99;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    /* Primary Actions System */
+    .btn-container {
+      text-align: center;
+      margin: 40px 0;
+    }
+
+    button, .btn {
+      display: inline-block;
+      width: 100%;
+      padding: 16px;
+      font-size: 1.05rem;
+      background: #ff4444;
+      color: white;
+      border: none;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 15px rgba(255, 68, 68, 0.2);
+      text-align: center;
+    }
+
+    button:hover, .btn:hover {
+      background: #e03333;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 68, 68, 0.4);
+    }
+
+    .btn-secondary {
+      background: #161616;
+      border: 1px solid #262626;
+      color: #ccc;
+      box-shadow: none;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    .btn-secondary:hover {
+      background: #222;
+      color: #fff;
+      border-color: #444;
+      box-shadow: none;
+    }
+
+    /* Content Layout Base Info Panels */
+    .info-container {
+      background: linear-gradient(145deg, #161616, #121212);
+      border: 1px solid #222;
+      padding: clamp(25px, 5vw, 40px);
+      border-radius: 20px;
+      margin: 40px 0 20px 0;
+    }
+
+    .info-container p {
+      color: #aaa;
+      margin-bottom: 16px;
+      font-size: 1rem;
+    }
+    
+    .info-container p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Sticky Dropdown Navigation */
+    .menu-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    .menu-btn {
+      font-size: 22px;
+      width: 45px;
+      height: 45px;
+      border: 1px solid #333;
+      border-radius: 50%;
+      background: rgba(20, 20, 20, 0.8);
+      backdrop-filter: blur(8px);
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .menu-btn:hover {
+      background: #222;
+      border-color: #444;
+    }
+
+    .menu {
+      display: none;
+      margin-top: 10px;
+      background: #161616;
+      border: 1px solid #262626;
+      border-radius: 12px;
+      overflow: hidden;
+      min-width: 180px;
+      position: absolute;
+      right: 0;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+    }
+
+    .menu a {
+      display: block;
+      padding: 12px 20px;
+      color: #ccc;
+      text-decoration: none;
+      font-size: 0.95rem;
+      text-align: left;
+      transition: all 0.2s;
+    }
+
+    .menu a:hover {
+      background: #ff4444;
+      color: white;
+      padding-left: 24px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 0 20px 0;
+      color: #555;
+      font-size: 0.85rem;
+      border-top: 1px solid #161616;
+      margin-top: 60px;
+    }
+
+    /* Privacy Popup */
+    .privacy-popup {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 20px;
+    }
+
+    .privacy-box {
+      background: linear-gradient(145deg, #1c1c1c, #151515);
+      border: 1px solid #262626;
+      width: min(420px, 100%);
+      padding: 35px;
+      border-radius: 24px;
+      text-align: center;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.7);
+      animation: popupFade 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .privacy-box h2 {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+      color: white;
+    }
+
+    .privacy-box p {
+      color: #999;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .privacy-box a {
+      color: #ff4444;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .privacy-box a:hover {
+      text-decoration: underline;
+    }
+
+    .accept-btn {
+      margin-top: 25px;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 10px;
+      background: #ff4444;
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      width: 100%;
+    }
+
+    .accept-btn:hover {
+      background: #e03333;
+    }
+
+    @keyframes popupFade {
+      from { opacity: 0; transform: scale(0.95) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    @media(max-width: 768px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- 🔥 MENU -->
-
 <div class="menu-container">
-
-  <button
-  class="menu-btn"
-  onclick="toggleMenu()">
-
-    ⋮
-
-  </button>
-
-  <div class="menu"
-  id="menu">
-
-    <a href="index.html">
-      Home
-    </a>
-
-    <a href="tool.html">
-      Tools
-    </a>
-
-    <a href="donation.html">
-      Donation
-    </a>
-
-    <a href="privacy-policy.html">
-      Privacy Policy
-    </a> 
-
+  <button class="menu-btn" onclick="toggleMenu()">⋮</button>
+  <div class="menu" id="menu">
+    <a href="index.html">Home</a>
+    <a href="donation.html">Donation</a>
+    <a href="tool.html">Tools</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
     <a href="terms.html">Terms of Service</a>
-
-    <a href="about.html">
-      About
-    </a>
-
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
   </div>
-
 </div>
-
-<!-- 🔥 MAIN -->
 
 <div class="wrapper">
 
-  <h1 class="title">
+  <header>
+    <h1 class="title">SIP Calculator</h1>
+    <p class="subtitle">Estimate your portfolio asset compounding growth projections metrics instantaneously.</p>
+  </header>
 
-    📈 SIP Calculator
+  <main>
+    <h2 class="section-title-red">Calculate Returns</h2>
+    
+    <div class="grid">
+      <section class="card">
+        <label for="monthlyInvestment">Monthly Investment (₹)</label>
+        <input type="number" id="monthlyInvestment" value="5000" min="100" oninput="calculateSIP()">
+        <p class="helper-text">Amount invested systematically every single month.</p>
 
-  </h1>
+        <label for="rateInput">Expected Annual Return (%)</label>
+        <input type="number" id="rateInput" value="12" min="0" oninput="syncRateFromInput()">
+        <input type="range" id="rate" min="0" max="30" value="12" oninput="syncRateFromSlider()">
+        <div class="range-value" id="rateValue">Expected Return: 12%</div>
 
-  <p class="subtitle">
+        <label for="yearsInput">Investment Period (Years)</label>
+        <input type="number" id="yearsInput" value="10" min="1" oninput="syncYearsFromInput()">
+        <input type="range" id="years" min="1" max="40" value="10" oninput="syncYearsFromSlider()">
+        <div class="range-value" id="yearsValue">Investment Duration: 10 Years</div>
 
-    Estimate your SIP investment growth,
-    future value, wealth gained,
-    and long-term investment returns instantly.
+        <button style="margin-top: 30px;" onclick="calculateSIP()">Calculate Plan Growth</button>
+      </section>
 
-  </p>
+      <section class="card">
+        <h2 style="font-size: 1.3rem; margin-bottom: 15px;">Investment Summary</h2>
+        
+        <div class="result-box">
+          <div class="result-item">
+            <h3>Total Invested</h3>
+            <p id="invested">₹0</p>
+          </div>
+          <div class="result-item">
+            <h3>Estimated Returns</h3>
+            <p id="returns">₹0</p>
+          </div>
+          <div class="result-item">
+            <h3>Future Value</h3>
+            <p id="futureValue">₹0</p>
+          </div>
+        </div>
 
-  <div class="grid">
-
-    <!-- 🔥 INPUT CARD -->
-
-    <div class="card">
-
-      <label>
-
-        Monthly Investment (₹)
-
-      </label>
-
-      <input
-      type="number"
-      id="monthlyInvestment"
-      value="5000"
-      min="100"
-      oninput="calculateSIP()">
-
-      <p class="helper-text">
-
-        Enter the amount you invest every month.
-
-      </p>
-
-      <label>
-
-        Expected Annual Return (%)
-
-      </label>
-
-      <input
-      type="number"
-      id="rateInput"
-      value="12"
-      min="0"
-      oninput="syncRateFromInput()">
-
-      <input
-      type="range"
-      id="rate"
-      min="0"
-      max="30"
-      value="12"
-      oninput="syncRateFromSlider()">
-
-      <div
-      class="range-value"
-      id="rateValue">
-
-        Expected Return: 12%
-
-      </div>
-
-      <label>
-
-        Investment Period (Years)
-
-      </label>
-
-      <input
-      type="number"
-      id="yearsInput"
-      value="10"
-      min="1"
-      oninput="syncYearsFromInput()">
-
-      <input
-      type="range"
-      id="years"
-      min="1"
-      max="40"
-      value="10"
-      oninput="syncYearsFromSlider()">
-
-      <div
-      class="range-value"
-      id="yearsValue">
-
-        Investment Duration: 10 Years
-
-      </div>
-
-      <button onclick="calculateSIP()">
-
-        Calculate SIP Returns
-
-      </button>
-
+        <div class="extra-stats">
+          <div class="stat">
+            <h4>Monthly Gain</h4>
+            <p id="monthlyGain">₹0</p>
+          </div>
+          <div class="stat">
+            <h4>Wealth Multiplier</h4>
+            <p id="wealthMultiplier">0x</p>
+          </div>
+        </div>
+      </section>
     </div>
 
-    <!-- 🔥 RESULT CARD -->
-
-    <div class="card">
-
-      <h2>
-
-        Investment Summary
-
-      </h2>
-
-      <div class="result-box">
-
-        <div class="result-item">
-
-          <h3>
-
-            Total Invested
-
-          </h3>
-
-          <p id="invested">
-
-            ₹0
-
-          </p>
-
-        </div>
-
-        <div class="result-item">
-
-          <h3>
-
-            Estimated Returns
-
-          </h3>
-
-          <p id="returns">
-
-            ₹0
-
-          </p>
-
-        </div>
-
-        <div class="result-item">
-
-          <h3>
-
-            Future Value
-
-          </h3>
-
-          <p id="futureValue">
-
-            ₹0
-
-          </p>
-
-        </div>
-
-      </div>
-
-      <!-- 🔥 EXTRA -->
-
-      <div class="extra-stats">
-
-        <div class="stat">
-
-          <h4>
-
-            Monthly Gain
-
-          </h4>
-
-          <p id="monthlyGain">
-
-            ₹0
-
-          </p>
-
-        </div>
-
-        <div class="stat">
-
-          <h4>
-
-            Wealth Multiplier
-
-          </h4>
-
-          <p id="wealthMultiplier">
-
-            0x
-
-          </p>
-
-        </div>
-
-      </div>
-
+    <h2 class="section-title-red">Understand SIP Modeling</h2>
+    <div class="info-container">
+      <p><strong>Systematic Investment Plans (SIP)</strong> provide users a structured pipeline allocating predictable assets into equity formulations or mutual parameters over consistent temporal intervals rather than attempting to optimize live baseline system market conditions tracking curves manually.</p>
+      <p>This structural mechanism benefits over custom vectors via compounding valuation layers along with systematic compounding cost averaging protocols, maximizing total yield projections over durable long range portfolios.</p>
     </div>
 
-  </div>
-
-  <!-- 🔥 INFO -->
-
-  <div class="info">
-
-    <h2>
-
-      What is SIP?
-
-    </h2>
-
-    <p>
-
-      SIP (Systematic Investment Plan)
-      is a disciplined way of investing
-      regularly in mutual funds.
-
-    </p>
-
-    <p>
-
-      SIP investments benefit from
-      compounding and rupee cost averaging,
-      helping investors build long-term wealth.
-
-    </p>
-
-    <p>
-
-      This SIP Calculator helps estimate
-      future returns based on monthly
-      contributions, expected returns,
-      and investment duration.
-
-    </p>
-
-  </div>
-
-  <!-- 🔥 BACK BUTTON -->
-
-  <a href="tool.html"
-  class="btn back-btn">
-
-    ⬅ Back to Tools
-
-  </a>
-
-  <!-- 🔥 FOOTER -->
+    <div class="btn-container">
+      <a href="tool.html" class="btn btn-secondary">⬅ Back to Tools</a>
+    </div>
+  </main>
 
   <footer>
-
-    © 2026-Present AKeyUP
-
+    © 2026-Present AKeyUP. All rights reserved.
   </footer>
 
 </div>
 
-<!-- 🔥 PRIVACY -->
-
-<div
-class="privacy-popup"
-id="privacyPopup">
-
+<div class="privacy-popup" id="privacyPopup">
   <div class="privacy-box">
-
-    <h2>
-
-      Privacy Notice
-
-    </h2>
-
-    <p>
-
-      By using AKeyUP,
-      you agree to our
-
-      <a href="privacy-policy.html">
-
-        Privacy Policy
-
-      </a>.
-
-    </p>
-
-    <button
-    class="btn accept-btn"
-    onclick="acceptPrivacy()">
-
-      Accept
-
-    </button>
-
+    <h2>Privacy Notice</h2>
+    <p>By interacting with this environment, you acknowledge and agree to our systemic <a href="privacy-policy.html">Privacy Policy</a> parameters.</p>
+    <button class="accept-btn" onclick="acceptPrivacy()">Accept & Dismiss</button>
   </div>
-
 </div>
 
 <script>
-
-/* 🔥 MENU */
-
-function toggleMenu(){
-
-  const menu =
-  document.getElementById("menu");
-
-  menu.style.display =
-
-  menu.style.display === "block"
-
-  ? "none"
-
-  : "block";
+function toggleMenu() {
+  const menu = document.getElementById("menu");
+  menu.style.display = (menu.style.display === "block") ? "none" : "block";
 }
 
-/* 🔥 CLOSE MENU OUTSIDE */
-
-document.addEventListener(
-"click",
-
-function(event){
-
-  const menu =
-  document.getElementById("menu");
-
-  const button =
-  document.querySelector(".menu-btn");
-
-  if(
-    !menu.contains(event.target)
-    &&
-    !button.contains(event.target)
-  ){
-
-    menu.style.display = "none";
+document.addEventListener("click", function(event) {
+  const menu = document.getElementById("menu");
+  const button = document.querySelector(".menu-btn");
+  if (menu && button) {
+    if (!menu.contains(event.target) && !button.contains(event.target)) {
+      menu.style.display = "none";
+    }
   }
 });
 
-/* 🔥 FORMAT CURRENCY */
-
-function formatCurrency(num){
-
-  return "₹" +
-
-  Number(num).toLocaleString(
-    "en-IN",
-    {
-      maximumFractionDigits:0
-    }
-  );
+function formatCurrency(num) {
+  return "₹" + Number(num).toLocaleString("en-IN", {
+    maximumFractionDigits: 0
+  });
 }
 
-/* 🔥 RATE SLIDER */
-
-function syncRateFromSlider(){
-
-  const value =
-  document.getElementById("rate").value;
-
-  document.getElementById(
-    "rateInput"
-  ).value = value;
-
-  document.getElementById(
-    "rateValue"
-  ).innerText =
-
-  "Expected Return: " +
-  value + "%";
-
+function syncRateFromSlider() {
+  const value = document.getElementById("rate").value;
+  document.getElementById("rateInput").value = value;
+  document.getElementById("rateValue").innerText = "Expected Return: " + value + "%";
   calculateSIP();
 }
 
-/* 🔥 RATE INPUT */
-
-function syncRateFromInput(){
-
-  let value =
-  document.getElementById(
-    "rateInput"
-  ).value;
-
-  value = Math.max(0,value);
-
-  document.getElementById(
-    "rate"
-  ).max = value > 30
-  ? value
-  : 30;
-
-  document.getElementById(
-    "rate"
-  ).value = value;
-
-  document.getElementById(
-    "rateValue"
-  ).innerText =
-
-  "Expected Return: " +
-  value + "%";
-
+function syncRateFromInput() {
+  let value = document.getElementById("rateInput").value;
+  value = Math.max(0, parseFloat(value) || 0);
+  document.getElementById("rate").max = value > 30 ? value : 30;
+  document.getElementById("rate").value = value;
+  document.getElementById("rateValue").innerText = "Expected Return: " + value + "%";
   calculateSIP();
 }
 
-/* 🔥 YEARS SLIDER */
-
-function syncYearsFromSlider(){
-
-  const value =
-  document.getElementById(
-    "years"
-  ).value;
-
-  document.getElementById(
-    "yearsInput"
-  ).value = value;
-
-  document.getElementById(
-    "yearsValue"
-  ).innerText =
-
-  "Investment Duration: " +
-  value + " Years";
-
+function syncYearsFromSlider() {
+  const value = document.getElementById("years").value;
+  document.getElementById("yearsInput").value = value;
+  document.getElementById("yearsValue").innerText = "Investment Duration: " + value + " Years";
   calculateSIP();
 }
 
-/* 🔥 YEARS INPUT */
-
-function syncYearsFromInput(){
-
-  let value =
-  document.getElementById(
-    "yearsInput"
-  ).value;
-
-  value = Math.max(1,value);
-
-  document.getElementById(
-    "years"
-  ).max = value > 40
-  ? value
-  : 40;
-
-  document.getElementById(
-    "years"
-  ).value = value;
-
-  document.getElementById(
-    "yearsValue"
-  ).innerText =
-
-  "Investment Duration: " +
-  value + " Years";
-
+function syncYearsFromInput() {
+  let value = document.getElementById("yearsInput").value;
+  value = Math.max(1, parseFloat(value) || 1);
+  document.getElementById("years").max = value > 40 ? value : 40;
+  document.getElementById("years").value = value;
+  document.getElementById("yearsValue").innerText = "Investment Duration: " + value + " Years";
   calculateSIP();
 }
 
-/* 🔥 SIP CALCULATOR */
+function calculateSIP() {
+  const monthly = parseFloat(document.getElementById("monthlyInvestment").value) || 0;
+  const annualRate = parseFloat(document.getElementById("rateInput").value) || 0;
+  const years = parseFloat(document.getElementById("yearsInput").value) || 0;
 
-function calculateSIP(){
-
-  const monthly =
-  parseFloat(
-    document.getElementById(
-      "monthlyInvestment"
-    ).value
-  ) || 0;
-
-  const annualRate =
-  parseFloat(
-    document.getElementById(
-      "rate"
-    ).value
-  ) || 0;
-
-  const years =
-  parseFloat(
-    document.getElementById(
-      "years"
-    ).value
-  ) || 0;
-
-  const monthlyRate =
-  annualRate / 12 / 100;
-
-  const months =
-  years * 12;
-
+  const monthlyRate = annualRate / 12 / 100;
+  const months = years * 12;
   let futureValue = 0;
 
-  if(monthlyRate > 0){
-
-    futureValue =
-
-    monthly *
-
-    (
-      (
-        Math.pow(
-          1 + monthlyRate,
-          months
-        ) - 1
-      )
-
-      / monthlyRate
-    )
-
-    * (1 + monthlyRate);
-
-  }else{
-
-    futureValue =
-    monthly * months;
+  if (monthlyRate > 0) {
+    futureValue = monthly * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
+  } else {
+    futureValue = monthly * months;
   }
 
-  const invested =
-  monthly * months;
+  const invested = monthly * months;
+  const returns = Math.max(0, futureValue - invested);
+  const monthlyGain = months > 0 ? returns / months : 0;
+  const multiplier = invested > 0 ? (futureValue / invested).toFixed(1) : 0;
 
-  const returns =
-  futureValue - invested;
-
-  const monthlyGain =
-  months > 0
-  ? returns / months
-  : 0;
-
-  const multiplier =
-  invested > 0
-
-  ? (futureValue / invested)
-  .toFixed(1)
-
-  : 0;
-
-  document.getElementById(
-    "invested"
-  ).innerText =
-
-  formatCurrency(invested);
-
-  document.getElementById(
-    "returns"
-  ).innerText =
-
-  formatCurrency(returns);
-
-  document.getElementById(
-    "futureValue"
-  ).innerText =
-
-  formatCurrency(futureValue);
-
-  document.getElementById(
-    "monthlyGain"
-  ).innerText =
-
-  formatCurrency(monthlyGain);
-
-  document.getElementById(
-    "wealthMultiplier"
-  ).innerText =
-
-  multiplier + "x";
+  document.getElementById("invested").innerText = formatCurrency(invested);
+  document.getElementById("returns").innerText = formatCurrency(returns);
+  document.getElementById("futureValue").innerText = formatCurrency(futureValue);
+  document.getElementById("monthlyGain").innerText = formatCurrency(monthlyGain);
+  document.getElementById("wealthMultiplier").innerText = multiplier + "x";
 }
-
-/* 🔥 INITIAL */
-
-calculateSIP();
-
-/* 🔥 PRIVACY */
 
 function acceptPrivacy(){
-
-  localStorage.setItem(
-    "privacyAccepted",
-    "true"
-  );
-
-  document.getElementById(
-    "privacyPopup"
-  ).style.display = "none";
+  localStorage.setItem("privacyAccepted", "true");
+  document.getElementById("privacyPopup").style.display = "none";
 }
 
-/* 🔥 CHECK PRIVACY */
-
-window.addEventListener(
-"load",
-
-function(){
-
-  const accepted =
-  localStorage.getItem(
-    "privacyAccepted"
-  );
-
+window.addEventListener("load", function(){
+  const accepted = localStorage.getItem("privacyAccepted");
   if(accepted === "true"){
-
-    document.getElementById(
-      "privacyPopup"
-    ).style.display = "none";
+    document.getElementById("privacyPopup").style.display = "none";
   }
+  calculateSIP();
 });
-
 </script>
 
 </body>
-
 </html>

@@ -1,1347 +1,340 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<meta name="description"
-content="Format, beautify, validate, and minify JSON instantly with the AKeyUP JSON Formatter. Fast, responsive, privacy friendly online JSON tool for developers and students.">
-
-<script async
-src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591"
-crossorigin="anonymous"></script>
-
-<title>
-AKeyUP JSON Formatter
-</title>
-
-<style>
-
-:root{
-
-  --bg:#111;
-  --card:#1c1c1c;
-  --box:#232323;
-  --accent:#ff4444;
-  --accent-hover:#ff2222;
-  --text:#ffffff;
-  --muted:#aaaaaa;
-  --success:#00cc66;
-}
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
-body{
-
-  background:var(--bg);
-
-  color:var(--text);
-
-  font-family:Arial,sans-serif;
-
-  overflow-x:hidden;
-}
-
-/* 🔥 WRAPPER */
-
-.wrapper{
-
-  width:min(1200px,95%);
-
-  margin:auto;
-
-  padding:
-  clamp(20px,4vw,60px);
-}
-
-/* 🔥 MENU */
-
-.menu-container{
-
-  position:fixed;
-
-  top:20px;
-
-  right:20px;
-
-  z-index:1000;
-}
-
-.menu-btn{
-
-  width:58px;
-  height:58px;
-
-  border:none;
-
-  border-radius:16px;
-
-  background:#1f1f1f;
-
-  color:white;
-
-  font-size:30px;
-
-  cursor:pointer;
-
-  transition:0.3s;
-}
-
-.menu-btn:hover{
-
-  background:#333;
-
-  transform:scale(1.05);
-}
-
-.menu{
-
-  display:none;
-
-  margin-top:10px;
-
-  background:#1c1c1c;
-
-  border-radius:18px;
-
-  overflow:hidden;
-
-  min-width:220px;
-
-  box-shadow:
-  0 15px 40px rgba(0,0,0,0.4);
-}
-
-.menu a{
-
-  display:block;
-
-  padding:16px 20px;
-
-  color:white;
-
-  text-decoration:none;
-
-  transition:0.2s;
-}
-
-.menu a:hover{
-  background:#2a2a2a;
-}
-
-/* 🔥 HERO */
-
-.hero{
-
-  text-align:center;
-
-  margin-top:60px;
-
-  margin-bottom:50px;
-}
-
-.hero h1{
-
-  font-size:
-  clamp(2.5rem,7vw,5rem);
-
-  margin-bottom:20px;
-
-  line-height:1.2;
-}
-
-.hero p{
-
-  max-width:850px;
-
-  margin:auto;
-
-  color:#bbbbbb;
-
-  line-height:2;
-
-  font-size:
-  clamp(1rem,2vw,1.15rem);
-}
-
-/* 🔥 MAIN CARD */
-
-.main-card{
-
-  background:linear-gradient(
-    145deg,
-    #1d1d1d,
-    #181818
-  );
-
-  border-radius:30px;
-
-  padding:
-  clamp(20px,4vw,45px);
-
-  box-shadow:
-  0 20px 50px rgba(0,0,0,0.35);
-}
-
-/* 🔥 TEXTAREA */
-
-textarea{
-
-  width:100%;
-
-  min-height:340px;
-
-  padding:22px;
-
-  border:none;
-
-  border-radius:22px;
-
-  background:var(--box);
-
-  color:white;
-
-  resize:vertical;
-
-  font-size:1rem;
-
-  font-family:
-  Consolas,
-  monospace;
-
-  line-height:1.8;
-
-  outline:none;
-
-  border:2px solid transparent;
-
-  transition:0.25s;
-}
-
-textarea:focus{
-
-  border-color:var(--accent);
-}
-
-/* 🔥 BUTTONS */
-
-.buttons{
-
-  display:grid;
-
-  grid-template-columns:
-  repeat(auto-fit,minmax(220px,1fr));
-
-  gap:18px;
-
-  margin-top:28px;
-}
-
-.btn{
-
-  padding:16px;
-
-  border:none;
-
-  border-radius:18px;
-
-  background:var(--accent);
-
-  color:white;
-
-  font-size:1rem;
-
-  font-weight:bold;
-
-  cursor:pointer;
-
-  transition:0.25s;
-}
-
-.btn:hover{
-
-  background:var(--accent-hover);
-
-  transform:translateY(-3px);
-}
-
-/* 🔥 STATUS */
-
-.status{
-
-  margin-top:24px;
-
-  text-align:center;
-
-  font-size:1rem;
-
-  font-weight:bold;
-}
-
-.success{
-  color:var(--success);
-}
-
-.error{
-  color:#ff5555;
-}
-
-/* 🔥 INFO SECTION */
-
-.tool-info{
-
-  margin-top:65px;
-
-  display:flex;
-
-  flex-direction:column;
-
-  gap:35px;
-}
-
-/* 🔥 INFO HEADER */
-
-.info-header{
-
-  background:linear-gradient(
-    145deg,
-    #1d1d1d,
-    #171717
-  );
-
-  padding:
-  clamp(25px,4vw,45px);
-
-  border-radius:30px;
-
-  box-shadow:
-  0 15px 40px rgba(0,0,0,0.35);
-}
-
-.info-header h2{
-
-  font-size:
-  clamp(2rem,5vw,3rem);
-
-  margin-bottom:20px;
-}
-
-.info-header p{
-
-  color:#cccccc;
-
-  line-height:2;
-
-  font-size:
-  clamp(1rem,2vw,1.08rem);
-}
-
-/* 🔥 FEATURE GRID */
-
-.feature-grid{
-
-  display:grid;
-
-  grid-template-columns:
-  repeat(auto-fit,minmax(240px,1fr));
-
-  gap:25px;
-}
-
-/* 🔥 FEATURE CARD */
-
-.feature-card{
-
-  background:#1c1c1c;
-
-  padding:30px;
-
-  border-radius:26px;
-
-  transition:0.3s;
-
-  box-shadow:
-  0 12px 35px rgba(0,0,0,0.3);
-}
-
-.feature-card:hover{
-
-  transform:
-  translateY(-6px);
-}
-
-.feature-icon{
-
-  width:70px;
-  height:70px;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  font-size:2rem;
-
-  border-radius:18px;
-
-  background:#2a2a2a;
-
-  margin-bottom:22px;
-}
-
-.feature-card h3{
-
-  font-size:1.35rem;
-
-  margin-bottom:14px;
-}
-
-.feature-card p{
-
-  color:#bbbbbb;
-
-  line-height:1.9;
-}
-
-/* 🔥 HOW TO */
-
-.how-section{
-
-  background:#1c1c1c;
-
-  padding:
-  clamp(25px,4vw,45px);
-
-  border-radius:30px;
-
-  box-shadow:
-  0 12px 35px rgba(0,0,0,0.3);
-}
-
-.how-section h2{
-
-  font-size:
-  clamp(1.8rem,5vw,2.8rem);
-
-  margin-bottom:30px;
-}
-
-.steps{
-
-  display:grid;
-
-  gap:22px;
-}
-
-.step{
-
-  display:flex;
-
-  gap:18px;
-
-  align-items:flex-start;
-
-  background:#232323;
-
-  padding:20px;
-
-  border-radius:20px;
-}
-
-.step span{
-
-  min-width:48px;
-  height:48px;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  background:var(--accent);
-
-  border-radius:14px;
-
-  font-weight:bold;
-
-  font-size:1.1rem;
-}
-
-.step p{
-
-  color:#cccccc;
-
-  line-height:1.9;
-}
-
-/* 🔥 EXTRA */
-
-.extra-info{
-
-  background:#1c1c1c;
-
-  padding:
-  clamp(25px,4vw,45px);
-
-  border-radius:30px;
-
-  box-shadow:
-  0 12px 35px rgba(0,0,0,0.3);
-}
-
-.extra-info h2{
-
-  font-size:
-  clamp(1.8rem,5vw,2.7rem);
-
-  margin-bottom:22px;
-}
-
-.extra-info p{
-
-  color:#cccccc;
-
-  line-height:2;
-
-  margin-bottom:18px;
-}
-
-/* 🔥 BACK */
-
-.back-btn{
-
-  display:inline-block;
-
-  margin-top:50px;
-
-  padding:16px 34px;
-
-  border-radius:18px;
-
-  background:var(--accent);
-
-  color:white;
-
-  text-decoration:none;
-
-  font-weight:bold;
-
-  transition:0.25s;
-}
-
-.back-btn:hover{
-
-  background:var(--accent-hover);
-
-  transform:translateY(-3px);
-}
-
-/* 🔥 FOOTER */
-
-footer{
-
-  text-align:center;
-
-  margin-top:70px;
-
-  padding-bottom:30px;
-
-  color:#999999;
-}
-
-/* 🔥 PRIVACY */
-
-.privacy-popup{
-
-  position:fixed;
-
-  inset:0;
-
-  background:
-  rgba(0,0,0,0.75);
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  z-index:9999;
-
-  padding:20px;
-}
-
-.privacy-box{
-
-  background:#1c1c1c;
-
-  width:min(430px,100%);
-
-  padding:38px;
-
-  border-radius:28px;
-
-  text-align:center;
-
-  box-shadow:
-  0 15px 40px rgba(0,0,0,0.5);
-
-  animation:
-  popupFade 0.3s ease;
-}
-
-.privacy-box h2{
-
-  font-size:2rem;
-
-  margin-bottom:18px;
-}
-
-.privacy-box p{
-
-  color:#bbbbbb;
-
-  line-height:1.9;
-}
-
-.privacy-box a{
-
-  color:#4da6ff;
-
-  text-decoration:none;
-
-  font-weight:bold;
-}
-
-.accept-btn{
-
-  margin-top:28px;
-
-  padding:15px 34px;
-
-  border:none;
-
-  border-radius:16px;
-
-  background:var(--accent);
-
-  color:white;
-
-  font-size:1rem;
-
-  font-weight:bold;
-
-  cursor:pointer;
-
-  transition:0.25s;
-}
-
-.accept-btn:hover{
-
-  background:var(--accent-hover);
-
-  transform:scale(1.05);
-}
-
-/* 🔥 ANIMATION */
-
-@keyframes popupFade{
-
-  from{
-
-    opacity:0;
-
-    transform:scale(0.9);
-  }
-
-  to{
-
-    opacity:1;
-
-    transform:scale(1);
-  }
-}
-
-/* 🔥 MOBILE */
-
-@media(max-width:700px){
-
-  textarea{
-    min-height:260px;
-  }
-
-  .feature-card,
-  .info-header,
-  .how-section,
-  .extra-info{
-
-    padding:24px;
-  }
-
-  .step{
-
-    flex-direction:column;
-  }
-
-  .menu-btn{
-
-    width:52px;
-    height:52px;
-  }
-}
-
-</style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Format, beautify, validate, and minify JSON instantly with the AKeyUP JSON Formatter. Fast, responsive, privacy friendly online JSON tool for developers and students.">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591" crossorigin="anonymous"></script>
+  <title>JSON Formatter - AKeyUP</title>
+  
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* Local JSON Engine Workspace Modules */
+    .counter-box {
+      background: linear-gradient(145deg, #161616, #121212);
+      border: 1px solid #222;
+      border-radius: 24px;
+      padding: clamp(20px, 4vw, 45px);
+      margin-top: 20px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 360px;
+      padding: 22px;
+      border: 2px solid transparent;
+      border-radius: 16px;
+      background: #242424;
+      color: white;
+      font-size: 1rem;
+      font-family: Consolas, Monaco, "Lucida Console", monospace;
+      resize: vertical;
+      outline: none;
+      line-height: 1.7;
+      transition: border-color 0.2s ease;
+    }
+
+    textarea:focus {
+      border-color: #ff4444;
+    }
+
+    /* Target Execution Grid Layout */
+    .action-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 25px;
+    }
+
+    .status-panel {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 600;
+      min-height: 24px;
+      transition: color 0.2s ease;
+    }
+
+    .status-panel.success {
+      color: #00ff99;
+    }
+
+    .status-panel.error {
+      color: #ff4444;
+    }
+
+    /* System Feature Grid Layout Extensions */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .feature-box {
+      background: #141414;
+      border: 1px solid #1f1f1f;
+      border-radius: 16px;
+      padding: 25px;
+      text-align: center;
+      transition: transform 0.25s ease;
+    }
+
+    .feature-box:hover {
+      transform: translateY(-4px);
+    }
+
+    .feature-box .icon {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .feature-box h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+
+    .feature-box p {
+      color: #888;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    /* Procedural Instruction Blocks */
+    .steps-container {
+      display: grid;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      background: #141414;
+      border: 1px solid #1f1f1f;
+      padding: 20px;
+      border-radius: 14px;
+    }
+
+    .step-number {
+      min-width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ff4444;
+      color: white;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .step-item p {
+      color: #aaa;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .about-extra {
+      margin-top: 35px;
+      background: #0d0d0d;
+      border: 1px solid #222;
+      padding: 25px;
+      border-radius: 14px;
+    }
+
+    .about-extra h3 {
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+      color: #fff;
+    }
+
+    .about-extra p {
+      color: #888;
+      font-size: 0.95rem;
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- 🔥 MENU -->
-
 <div class="menu-container">
-
-  <button
-  class="menu-btn"
-  onclick="toggleMenu()">
-
-    ⋮
-
-  </button>
-
-  <div class="menu"
-  id="menu">
-
-    <a href="index.html">
-      Home
-    </a>
-
-    <a href="tool.html">
-      Tools
-    </a>
-
-    <a href="donation.html">
-      Donation
-    </a>
-
-    <a href="privacy-policy.html">
-      Privacy Policy
-    </a>
-
+  <button class="menu-btn" onclick="toggleMenu()">⋮</button>
+  <div class="menu" id="menu">
+    <a href="index.html">Home</a>
+    <a href="tool.html">Tools</a>
+    <a href="donation.html">Donation</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
     <a href="terms.html">Terms of Service</a>
-
-    <a href="about.html">
-      About
-    </a>
-
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
   </div>
-
 </div>
-
-<!-- 🔥 WRAPPER -->
 
 <div class="wrapper">
 
-  <!-- 🔥 HERO -->
+  <header style="text-align: center; margin-top: 40px; margin-bottom: 40px;">
+    <h1 class="title">JSON Formatter</h1>
+    <p class="subtitle">Format, beautify, inspect, and compress your JSON data structures dynamically inside an isolated tracking container.</p>
+  </header>
 
-  <div class="hero">
+  <main>
+    <div class="counter-box">
+      <textarea id="jsonInput" placeholder='Paste your raw JSON string or structured object map here...' spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"></textarea>
 
-    <h1>
-      📄 JSON Formatter
-    </h1>
-
-    <p>
-
-      Format, beautify, validate,
-      and minify JSON instantly
-      with the AKeyUP JSON Formatter.
-
-      Built for developers,
-      API testing, debugging,
-      Firebase projects,
-      and structured data editing.
-
-    </p>
-
-  </div>
-
-  <!-- 🔥 MAIN TOOL -->
-
-  <div class="main-card">
-
-    <textarea
-    id="jsonInput"
-
-    placeholder='Paste your JSON here...'
-
-    spellcheck="false"
-
-    autocomplete="off"
-
-    autocorrect="off"
-
-    autocapitalize="off"
-
-    ></textarea>
-
-    <!-- 🔥 BUTTONS -->
-
-    <div class="buttons">
-
-      <button
-      class="btn"
-      onclick="formatJSON()">
-
-        Format JSON
-
-      </button>
-
-      <button
-      class="btn"
-      onclick="minifyJSON()">
-
-        Minify JSON
-
-      </button>
-
-      <button
-      class="btn"
-      onclick="copyJSON()">
-
-        Copy JSON
-
-      </button>
-
-      <button
-      class="btn"
-      onclick="clearJSON()">
-
-        Clear
-
-      </button>
-
-    </div>
-
-    <!-- 🔥 STATUS -->
-
-    <div
-    class="status"
-    id="status">
-
-    </div>
-
-  </div>
-
-  <!-- 🔥 INFO -->
-
-  <div class="tool-info">
-
-    <div class="info-header">
-
-      <h2>
-        🚀 Powerful Online JSON Formatter
-      </h2>
-
-      <p>
-
-        The AKeyUP JSON Formatter helps you
-        instantly format, beautify, validate,
-        and minify JSON directly in your browser.
-
-        Perfect for developers, API testing,
-        debugging, Firebase projects, configs,
-        and structured data editing.
-
-      </p>
-
-    </div>
-
-    <!-- 🔥 FEATURES -->
-
-    <div class="feature-grid">
-
-      <div class="feature-card">
-
-        <div class="feature-icon">
-          ⚡
-        </div>
-
-        <h3>
-          Instant Formatting
-        </h3>
-
-        <p>
-
-          Beautify messy JSON into clean,
-          readable structured data with
-          proper indentation and spacing.
-
-        </p>
-
+      <div class="action-grid">
+        <button class="btn btn-accent" onclick="processJSON(true)">📄 Format JSON</button>
+        <button class="btn btn-neutral" style="background: rgba(255,255,255,0.02);" onclick="processJSON(false)">🗜 Minify JSON</button>
+        <button class="btn btn-neutral" style="background: rgba(255,255,255,0.02);" onclick="copyJSON()">📋 Copy Result</button>
+        <button class="btn btn-neutral" style="background: rgba(255,255,255,0.02);" onclick="clearJSON()">🗑 Clear</button>
       </div>
 
-      <div class="feature-card">
-
-        <div class="feature-icon">
-          ✅
-        </div>
-
-        <h3>
-          JSON Validation
-        </h3>
-
-        <p>
-
-          Detect invalid JSON instantly
-          and identify formatting issues
-          directly in your browser.
-
-        </p>
-
-      </div>
-
-      <div class="feature-card">
-
-        <div class="feature-icon">
-          🗜
-        </div>
-
-        <h3>
-          JSON Minifier
-        </h3>
-
-        <p>
-
-          Compress JSON into compact
-          production-ready format
-          for APIs and applications.
-
-        </p>
-
-      </div>
-
-      <div class="feature-card">
-
-        <div class="feature-icon">
-          🔒
-        </div>
-
-        <h3>
-          Privacy Friendly
-        </h3>
-
-        <p>
-
-          Everything runs locally in
-          your browser. Your JSON data
-          is never uploaded or stored.
-
-        </p>
-
-      </div>
-
+      <div class="status-panel" id="statusPanel"></div>
     </div>
 
-    <!-- 🔥 HOW -->
+    <div class="btn-container" style="text-align: center; margin-top: 30px;">
+      <a href="tool.html" class="btn btn-neutral">⬅ Back to Tools</a>
+    </div>
 
-    <div class="how-section">
-
-      <h2>
-        📘 How To Use
-      </h2>
-
-      <div class="steps">
-
-        <div class="step">
-
-          <span>
-            1
-          </span>
-
-          <p>
-
-            Paste your JSON inside
-            the editor above.
-
-          </p>
-
+    <section class="content-box" style="text-align: left; margin-top: 50px;">
+      <h2 class="section-title">Powerful Online Data Inspection</h2>
+      <p class="subtitle" style="margin: 0 0 25px 0; text-align: left;">Analyze, validate, and reorganize nested multi-layer variable arrays with structural runtime feedback.</p>
+      
+      <div class="feature-grid">
+        <div class="feature-box">
+          <span class="icon">⚡</span>
+          <h3>Instant Formatting</h3>
+          <p>Beautifies flat unreadable strings into well-spaced structured configurations using custom indentation logs.</p>
         </div>
-
-        <div class="step">
-
-          <span>
-            2
-          </span>
-
-          <p>
-
-            Click "Format JSON"
-            to beautify your JSON
-            structure with spacing.
-
-          </p>
-
+        <div class="feature-box">
+          <span class="icon">✅</span>
+          <h3>Strict Validation</h3>
+          <p>Catches syntax abnormalities and parsing breaks immediately, rendering position parameters to help track faults.</p>
         </div>
-
-        <div class="step">
-
-          <span>
-            3
-          </span>
-
-          <p>
-
-            Use "Minify JSON"
-            to compress JSON
-            into a single line.
-
-          </p>
-
+        <div class="feature-box">
+          <span class="icon">🗜</span>
+          <h3>Clean Minifier</h3>
+          <p>Strips redundant white spaces and carriage lines to export highly optimized network transport data packets.</p>
         </div>
-
-        <div class="step">
-
-          <span>
-            4
-          </span>
-
-          <p>
-
-            Copy the result instantly
-            with the Copy JSON button.
-
-          </p>
-
+        <div class="feature-box">
+          <span class="icon">🔒</span>
+          <h3>Isolated Security</h3>
+          <p>Data strings remain exclusively within local browser memories. Zero external packet routing configurations apply.</p>
         </div>
-
       </div>
+    </section>
 
-    </div>
+    <section class="content-box" style="text-align: left; margin-top: 30px;">
+      <h2 class="section-title">How To Use</h2>
+      <div class="steps-container">
+        <div class="step-item">
+          <div class="step-number">1</div>
+          <p>Input or drop your JSON string contents into the responsive buffer workspace matrix located above.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-number">2</div>
+          <p>Select <strong>Format JSON</strong> to establish beautiful block spacing, or click <strong>Minify JSON</strong> to flatten parameters down to a single production-ready string layer.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-number">3</div>
+          <p>Monitor the live reporting hub. Green values indicate safe structures, while red indicates mapping faults.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-number">4</div>
+          <p>Click <strong>Copy Result</strong> to instantly move data onto your system clipboard for quick storage routing operations.</p>
+        </div>
+      </div>
+    </section>
 
-    <!-- 🔥 EXTRA -->
-
-    <div class="extra-info">
-
-      <h2>
-        💡 Why Use This Tool?
-      </h2>
-
-      <p>
-
-        JSON is one of the most commonly
-        used data formats in modern
-        web development and APIs.
-
-      </p>
-
-      <p>
-
-        Raw JSON can become difficult
-        to read when working with large
-        datasets or nested objects.
-
-      </p>
-
-      <p>
-
-        This tool improves readability,
-        debugging speed, API testing,
-        and overall developer workflow
-        directly from your browser.
-
-      </p>
-
-    </div>
-
-  </div>
-
-  <!-- 🔥 BACK -->
-
-  <a href="tool.html"
-  class="back-btn">
-
-    ⬅ Back to Tools
-
-  </a>
-
-  <!-- 🔥 FOOTER -->
+    <section class="content-box" style="text-align: left; margin-top: 30px;">
+      <h2 class="section-title">Why Use This Tool?</h2>
+      <p class="subtitle" style="margin: 0 0 15px 0; text-align: left;">JSON serves as the core communication layer within modern API integrations, microservices, and databases.</p>
+      <p class="subtitle" style="margin: 0 0 15px 0; text-align: left;">However, working with deeply nested objects or minimized config files makes pinpointing properties difficult. This sandbox increases execution pacing, configuration validation metrics, and reading efficiency directly from an accessible environment window.</p>
+      
+      <div class="about-extra">
+        <h3>📢 Ecosystem Operations Notice</h3>
+        <p>AKeyUP structures native applications alongside web platforms. Elements within these interfaces can occasionally render advertisements authenticated via Google AdSense to offset continuous service pipeline and hosting infrastructure overheads.</p>
+      </div>
+    </section>
+  </main>
 
   <footer>
-
-    © 2026-Present AKeyUP
-
+    © 2026-Present AKeyUP. All rights reserved.
   </footer>
-
-</div>
-
-<!-- 🔥 PRIVACY -->
-
-<div
-class="privacy-popup"
-id="privacyPopup">
-
-  <div class="privacy-box">
-
-    <h2>
-      Privacy Notice
-    </h2>
-
-    <p>
-
-      By using AKeyUP,
-      you agree to our
-
-      <a href="privacy-policy.html">
-
-        Privacy Policy
-
-      </a>.
-
-    </p>
-
-    <button
-    class="accept-btn"
-    onclick="acceptPrivacy()">
-
-      Accept
-
-    </button>
-
-  </div>
-
 </div>
 
 <script>
-
-/* 🔥 MENU */
-
-function toggleMenu(){
-
-  const menu =
-  document.getElementById(
-    "menu"
-  );
-
-  menu.style.display =
-
-  menu.style.display === "block"
-  ? "none"
-  : "block";
+/* Global Menu Dropdown Functional Layer */
+function toggleMenu() {
+  document.getElementById("menu").classList.toggle("show");
 }
 
-/* 🔥 CLOSE MENU */
-
-document.addEventListener(
-"click",
-
-function(event){
-
-  const menu =
-  document.getElementById(
-    "menu"
-  );
-
-  const button =
-  document.querySelector(
-    ".menu-btn"
-  );
-
-  if(
-    !menu.contains(event.target)
-    &&
-    !button.contains(event.target)
-  ){
-
-    menu.style.display =
-    "none";
-  }
-
-});
-
-/* 🔥 ELEMENTS */
-
-const jsonInput =
-document.getElementById(
-  "jsonInput"
-);
-
-const status =
-document.getElementById(
-  "status"
-);
-
-/* 🔥 STATUS */
-
-function setStatus(
-message,
-type
-){
-
-  status.innerText =
-  message;
-
-  status.className =
-  "status " + type;
-}
-
-/* 🔥 FORMAT */
-
-function formatJSON(){
-
-  try{
-
-    const parsed =
-    JSON.parse(
-      jsonInput.value
-    );
-
-    jsonInput.value =
-    JSON.stringify(
-      parsed,
-      null,
-      2
-    );
-
-    setStatus(
-      "Valid JSON formatted successfully.",
-      "success"
-    );
-
-  }
-
-  catch(error){
-
-    setStatus(
-      "Invalid JSON: " +
-      error.message,
-      "error"
-    );
+window.onclick = function(event) {
+  if (!event.target.matches('.menu-btn')) {
+    const menu = document.getElementById("menu");
+    if (menu && menu.classList.contains("show")) {
+      menu.classList.remove("show");
+    }
   }
 }
 
-/* 🔥 MINIFY */
+/* Operational JSON Mutation Pipeline Engine */
+const jsonInput = document.getElementById("jsonInput");
+const statusPanel = document.getElementById("statusPanel");
 
-function minifyJSON(){
+function reportStatus(text, classification) {
+  statusPanel.innerText = text;
+  statusPanel.className = "status-panel " + classification;
+}
 
-  try{
-
-    const parsed =
-    JSON.parse(
-      jsonInput.value
-    );
-
-    jsonInput.value =
-    JSON.stringify(
-      parsed
-    );
-
-    setStatus(
-      "JSON minified successfully.",
-      "success"
-    );
-
+function processJSON(shouldBeautify) {
+  const rawValue = jsonInput.value.trim();
+  if (!rawValue) {
+    reportStatus("Workspace is completely empty. Input structural fields first.", "error");
+    return;
   }
-
-  catch(error){
-
-    setStatus(
-      "Invalid JSON: " +
-      error.message,
-      "error"
-    );
+  
+  try {
+    const parsedData = JSON.parse(rawValue);
+    
+    if (shouldBeautify) {
+      jsonInput.value = JSON.stringify(parsedData, null, 2);
+      reportStatus("Valid structure layout generated successfully.", "success");
+    } else {
+      jsonInput.value = JSON.stringify(parsedData);
+      reportStatus("Data payload systematically minified cleanly.", "success");
+    }
+  } catch (error) {
+    reportStatus("Malformed syntax tracking log: " + error.message, "error");
   }
 }
 
-/* 🔥 COPY */
-
-async function copyJSON(){
-
-  try{
-
-    await navigator.clipboard
-    .writeText(
-      jsonInput.value
-    );
-
-    setStatus(
-      "JSON copied successfully.",
-      "success"
-    );
-
+async function copyJSON() {
+  const content = jsonInput.value.trim();
+  if (!content) {
+    reportStatus("No valid operational strings found to copy.", "error");
+    return;
   }
-
-  catch(error){
-
-    setStatus(
-      "Failed to copy JSON.",
-      "error"
-    );
+  
+  try {
+    await navigator.clipboard.writeText(content);
+    reportStatus("String successfully copied to system clipboard registers!", "success");
+  } catch (err) {
+    reportStatus("System operational failure routing clip actions.", "error");
   }
 }
 
-/* 🔥 CLEAR */
-
-function clearJSON(){
-
+function clearJSON() {
   jsonInput.value = "";
-
-  setStatus(
-    "",
-    ""
-  );
-
+  reportStatus("", "");
   jsonInput.focus();
 }
-
-/* 🔥 PRIVACY */
-
-function acceptPrivacy(){
-
-  localStorage.setItem(
-    "privacyAccepted",
-    "true"
-  );
-
-  document.getElementById(
-    "privacyPopup"
-  ).style.display =
-  "none";
-}
-
-/* 🔥 CHECK */
-
-window.addEventListener(
-"load",
-
-function(){
-
-  const accepted =
-  localStorage.getItem(
-    "privacyAccepted"
-  );
-
-  if(accepted === "true"){
-
-    document.getElementById(
-      "privacyPopup"
-    ).style.display =
-    "none";
-  }
-
-});
-
 </script>
 
 </body>

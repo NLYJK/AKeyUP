@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AKeyUP Tools section containing basic tools to help people.">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591" crossorigin="anonymous"></script>
-  <title>Tools - AKeyUP</title>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591"
+     crossorigin="anonymous"></script>
+  <title>Contact Us - AKeyUP</title>
 
   <style>
     /* Reset & Core Styles */
@@ -23,106 +23,107 @@
     }
 
     .wrapper {
-      padding: clamp(30px, 6vw, 80px) 20px;
-      max-width: 1000px;
+      padding: clamp(40px, 8vw, 100px) 20px;
+      max-width: 800px;
       margin: auto;
     }
 
-    /* Header & Typography */
-    header {
-      text-align: center;
-      margin-bottom: clamp(40px, 8vw, 60px);
-    }
-
+    /* Typography & Header */
     .title {
+      text-align: center;
       font-size: clamp(2.5rem, 7vw, 4rem);
       font-weight: 800;
-      letter-spacing: -1.5px;
-      margin-bottom: 12px;
+      letter-spacing: -1px;
+      margin-bottom: 15px;
       background: linear-gradient(135deg, #ffffff 0%, #a3a3a3 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .subtitle {
+      text-align: center;
       color: #888;
       font-size: clamp(1rem, 2.5vw, 1.25rem);
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    /* Tools Dashboard Grid */
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
       margin-bottom: 50px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    /* Interactive Tool Cards */
-    .tool-card {
-      display: flex;
-      align-items: center;
+    /* High Quality Info Card */
+    .info-card {
       background: linear-gradient(145deg, #161616, #121212);
+      padding: 40px;
+      border-radius: 20px;
       border: 1px solid #222;
-      border-radius: 16px;
-      padding: 24px;
-      text-decoration: none;
-      color: #e5e5e5;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+      text-align: center;
     }
 
-    .tool-card:hover {
-      border-color: #ff4444;
-      transform: translateY(-4px);
-      box-shadow: 0 12px 30px rgba(255, 68, 68, 0.06);
-    }
-
-    /* Numeric Badge Indicator */
-    .tool-id {
-      font-size: 1.1rem;
-      font-weight: 700;
+    .info-card h2 {
+      font-size: 1.8rem;
       color: #ff4444;
-      background: rgba(255, 68, 68, 0.08);
-      width: 42px;
-      height: 42px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 10px;
-      margin-right: 20px;
-      border: 1px solid rgba(255, 68, 68, 0.15);
-      flex-shrink: 0;
+      margin-bottom: 15px;
+      font-weight: 700;
     }
 
-    .tool-name {
-      font-size: 1.2rem;
+    .info-card p {
+      color: #aaa;
+      margin-bottom: 30px;
+      font-size: 1.05rem;
+      max-width: 550px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .email-box {
+      background: #181818;
+      border: 1px solid #282828;
+      padding: 20px;
+      border-radius: 12px;
+      display: inline-block;
+      min-width: 280px;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .email-box:hover {
+      border-color: #ff4444;
+      transform: translateY(-2px);
+    }
+
+    .email-box small {
+      display: block;
+      color: #666;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      letter-spacing: 1.5px;
+      margin-bottom: 6px;
+    }
+
+    .email-link {
+      color: #fff;
+      text-decoration: none;
       font-weight: 600;
+      font-size: 1.25rem;
       transition: color 0.2s;
     }
 
-    .tool-card:hover .tool-name {
-      color: #fff;
+    .email-link:hover {
+      color: #ff4444;
     }
 
-    /* Back Action Button */
-    .btn-container {
-      text-align: center;
-      margin-top: 40px;
-    }
-
+    /* Back Link Button */
     .btn-back {
       display: inline-block;
-      padding: 14px 35px;
+      margin-top: 40px;
+      padding: 12px 25px;
       background: transparent;
       border: 1px solid #333;
       color: #aaa;
       text-decoration: none;
       font-size: 0.95rem;
       font-weight: 600;
-      border-radius: 10px;
+      border-radius: 8px;
       transition: all 0.2s ease;
     }
 
@@ -132,7 +133,7 @@
       border-color: #555;
     }
 
-    /* Sticky Dropdown Navigation Menu */
+    /* Navigation Dropdown */
     .menu-container {
       position: fixed;
       top: 20px;
@@ -189,10 +190,9 @@
       padding-left: 24px;
     }
 
-    /* Footer */
     footer {
       text-align: center;
-      padding: 40px 0 20px 0;
+      padding: 60px 0 20px 0;
       color: #555;
       font-size: 0.85rem;
       border-top: 1px solid #161616;
@@ -219,7 +219,6 @@ window.onclick = function(event) {
 }
 </script>
 
-<!-- Navigation Menu -->
 <div class="menu-container">
   <button class="menu-btn" onclick="toggleMenu()">⋮</button>
   <div class="menu" id="menu">
@@ -235,63 +234,27 @@ window.onclick = function(event) {
 
 <div class="wrapper">
 
-  <!-- Header -->
   <header>
-    <h1 class="title">Web Utilities</h1>
-    <p class="subtitle">Secure web tools executing client-side functions completely inside your browser environment.</p>
+    <h1 class="title">Contact Us</h1>
+    <p class="subtitle">Get in touch with the AKeyUP support and development team.</p>
   </header>
 
-  <main>
-    <!-- Grid of Interactive Tools -->
-    <div class="tools-grid">
-      
-      <a href="calculator.html" class="tool-card">
-        <div class="tool-id">1</div>
-        <div class="tool-name">Calculator</div>
-      </a>
-
-      <a href="image_converter.html" class="tool-card">
-        <div class="tool-id">2</div>
-        <div class="tool-name">Image Converter</div>
-      </a>
-
-      <a href="currency-converter.html" class="tool-card">
-        <div class="tool-id">3</div>
-        <div class="tool-name">Currency Converter</div>
-      </a>
-
-      <a href="notes.html" class="tool-card">
-        <div class="tool-id">4</div>
-        <div class="tool-name">AKeyUP Notes</div>
-      </a>
-
-      <a href="word-counter.html" class="tool-card">
-        <div class="tool-id">5</div>
-        <div class="tool-name">Word Counter</div>
-      </a>
-
-      <a href="json-formatter.html" class="tool-card">
-        <div class="tool-id">6</div>
-        <div class="tool-name">JSON Formatter</div>
-      </a>
-
-      <a href="unit-converter.html" class="tool-card">
-        <div class="tool-id">7</div>
-        <div class="tool-name">Unit Converter</div>
-      </a>
-
-      <a href="sip-calculator.html" class="tool-card">
-        <div class="tool-id">8</div>
-        <div class="tool-name">SIP Calculator</div>
-      </a>
-
+  <!-- Clean, highly professional single card layout -->
+  <div class="info-card">
+    <h2>Reach Out Via Email</h2>
+    <p>
+      Have feedback, spotted a layout bug, or want to suggest a feature request for our utility tools? Drop us an email and our support administration will review your query.
+    </p>
+    
+    <div class="email-box">
+      <small>Official Support Inbox</small>
+      <a href="mailto:AKeyUPsupport@gmail.com" class="email-link">AKeyUPsupport@gmail.com</a>
     </div>
+  </div>
 
-    <!-- Navigation Control -->
-    <div class="btn-container">
-      <a href="index.html" class="btn-back">⬅ Back to Home</a>
-    </div>
-  </main>
+  <div style="text-align: center;">
+    <a href="index.html" class="btn-back">⬅ Back to Home</a>
+  </div>
 
   <footer>
     © 2026-Present AKeyUP. All rights reserved.

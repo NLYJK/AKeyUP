@@ -1,163 +1,315 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Meta Description -->
-<meta name="description" content="Donate Bitcoin if you found the website or AKeyUP useful.">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591"
-     crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Donate Bitcoin if you found the website or AKeyUP useful.">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591" crossorigin="anonymous"></script>
+  <title>Donation - AKeyUP</title>
 
+  <style>
+    /* Reset & Core Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-<title>Donation</title>
+    body {
+      background: #0d0d0d;
+      color: #e5e5e5;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+    }
 
-<style>
+    .wrapper {
+      padding: clamp(30px, 6vw, 80px) 20px;
+      max-width: 850px;
+      margin: auto;
+      text-align: center;
+    }
 
-/* 🔥 Reset */
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+    /* Header & Typography */
+    header {
+      margin-bottom: clamp(30px, 6vw, 50px);
+    }
 
-body{
-  background:#111;
-  color:white;
-  font-family:Arial,sans-serif;
-  line-height:1.6;
-}
+    .title {
+      font-size: clamp(2.5rem, 7vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #ffffff 0%, #a3a3a3 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-/* 🔥 Layout */
-.wrapper{
-  max-width:900px;
-  margin:auto;
-  padding:clamp(20px,5vw,60px);
-  text-align:center;
-}
+    .subtitle {
+      color: #888;
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      max-width: 600px;
+      margin: 0 auto;
+    }
 
-.title{
-  font-size:clamp(2rem,6vw,4rem);
-  margin-bottom:20px;
-}
+    /* Premium Donation Card */
+    .coin-card {
+      background: linear-gradient(145deg, #161616, #121212);
+      border: 1px solid #222;
+      border-radius: 24px;
+      padding: clamp(30px, 6vw, 50px) 24px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+      margin-bottom: 40px;
+    }
 
-.text{
-  font-size:clamp(1rem,2.2vw,1.4rem);
-  max-width:700px;
-  margin:auto;
-  margin-bottom:30px;
-}
+    .logo {
+      width: 100%;
+      max-width: 90px;
+      height: auto;
+      display: block;
+      margin: 0 auto 20px auto;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 12px rgba(247, 147, 26, 0.15));
+    }
 
-/* 🔥 Menu */
-.menu-container{
-  position:fixed;
-  top:15px;
-  right:15px;
-  z-index:999;
-}
+    .coin-card h2 {
+      font-size: clamp(1.4rem, 4vw, 1.8rem);
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
 
-.menu-btn{
-  font-size:24px;
-  padding:10px 15px;
-  border:none;
-  border-radius:10px;
-  background:#222;
-  color:white;
-  cursor:pointer;
-}
+    .network-warning {
+      color: #ff4444;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
 
-.menu{
-  display:none;
-  margin-top:10px;
-  background:#222;
-  border-radius:10px;
-  overflow:hidden;
-  min-width:180px;
-}
+    /* Address Container */
+    .address-box {
+      background: #090909;
+      border: 1px solid #222;
+      padding: 16px 20px;
+      border-radius: 12px;
+      font-family: ui-monospace, SFMono-Regular, SF Pro Mono, Menlo, Monaco, Consolas, monospace;
+      font-size: clamp(0.85rem, 2vw, 1.05rem);
+      color: #ccc;
+      word-break: break-all;
+      max-width: 520px;
+      margin: 0 auto 25px auto;
+    }
 
-.menu.show{
-  display:block;
-}
+    /* Action Buttons */
+    .btn {
+      display: inline-block;
+      padding: 14px 35px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: white;
+      text-decoration: none;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-.menu a{
-  display:block;
-  padding:14px;
-  color:white;
-  text-decoration:none;
-}
+    .btn-primary {
+      background: #ff4444;
+      box-shadow: 0 4px 15px rgba(255, 68, 68, 0.2);
+    }
 
-.menu a:hover{
-  background:#333;
-}
+    .btn-primary:hover {
+      background: #e03333;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 68, 68, 0.4);
+    }
 
-/* 🔥 Coin box */
-.coin{
-  background:#222;
-  padding:25px;
-  border-radius:15px;
-  margin-top:25px;
-}
+    .btn-back {
+      background: transparent;
+      border: 1px solid #333;
+      color: #aaa;
+    }
 
-/* 🔥 Image fix */
-.logo{
-  width:100%;
-  max-width:120px;
-  height:auto;
-  display:block;
-  margin:0 auto 15px auto;
-  object-fit:contain;
-}
+    .btn-back:hover {
+      background: #161616;
+      color: #fff;
+      border-color: #555;
+    }
 
-/* 🔥 Button */
-.btn{
-  display:inline-block;
-  margin-top:15px;
-  padding:12px 25px;
-  font-size:1rem;
-  background:#ff4444;
-  color:white;
-  border:none;
-  border-radius:10px;
-  text-decoration:none;
-  cursor:pointer;
-  transition:0.3s;
-}
+    /* Sticky Dropdown Navigation Menu */
+    .menu-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
 
-.btn:hover{
-  background:#ff2222;
-  transform:scale(1.05);
-}
+    .menu-btn {
+      font-size: 22px;
+      width: 45px;
+      height: 45px;
+      border: 1px solid #333;
+      border-radius: 50%;
+      background: rgba(20, 20, 20, 0.8);
+      backdrop-filter: blur(8px);
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
 
-/* 🔥 Back button spacing */
-.back{
-  margin-top:40px;
-  display:inline-block;
-}
+    .menu-btn:hover {
+      background: #222;
+      border-color: #444;
+    }
 
-</style>
+    .menu {
+      display: none;
+      margin-top: 10px;
+      background: #161616;
+      border: 1px solid #262626;
+      border-radius: 12px;
+      overflow: hidden;
+      min-width: 180px;
+      position: absolute;
+      right: 0;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+    }
+
+    .menu.show {
+      display: block;
+    }
+
+    .menu a {
+      display: block;
+      padding: 12px 20px;
+      color: #ccc;
+      text-decoration: none;
+      font-size: 0.95rem;
+      text-align: left;
+      transition: all 0.2s;
+    }
+
+    .menu a:hover {
+      background: #ff4444;
+      color: white;
+      padding-left: 24px;
+    }
+
+    /* Privacy Consent Popup */
+    .privacy-popup {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 20px;
+    }
+
+    .privacy-box {
+      background: linear-gradient(145deg, #1c1c1c, #151515);
+      border: 1px solid #262626;
+      width: min(420px, 100%);
+      padding: 35px;
+      border-radius: 24px;
+      text-align: center;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.7);
+      animation: popupFade 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .privacy-box h2 {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+      color: white;
+    }
+
+    .privacy-box p {
+      color: #999;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .privacy-box a {
+      color: #ff4444;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .privacy-box a:hover {
+      text-decoration: underline;
+    }
+
+    .accept-btn {
+      margin-top: 25px;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 10px;
+      background: #ff4444;
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      width: 100%;
+    }
+
+    .accept-btn:hover {
+      background: #e03333;
+    }
+
+    /* Animations */
+    @keyframes popupFade {
+      from { opacity: 0; transform: scale(0.95) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 0 20px 0;
+      color: #555;
+      font-size: 0.85rem;
+      border-top: 1px solid #161616;
+      margin-top: 60px;
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- 🔥 MENU FIX (Edge + Chrome safe) -->
+<!-- Functional Scripts -->
 <script>
-function toggleMenu(){
+function toggleMenu() {
   document.getElementById("menu").classList.toggle("show");
 }
-</script>
 
-<script>
-function copy(id){
-  const text = document.getElementById(id).innerText;
+window.onclick = function(event) {
+  if (!event.target.matches('.menu-btn')) {
+    const menu = document.getElementById("menu");
+    if (menu && menu.classList.contains("show")) {
+      menu.classList.remove("show");
+    }
+  }
+}
+
+function copy(id) {
+  const text = document.getElementById(id).innerText.trim();
   navigator.clipboard.writeText(text)
-    .then(()=>alert("Address copied!"))
-    .catch(()=>alert("Copy failed"));
+    .then(() => alert("Address successfully copied to clipboard!"))
+    .catch(() => alert("Copy operations failed."));
 }
 </script>
 
-<!-- 🔥 Menu -->
+<!-- Navigation Menu -->
 <div class="menu-container">
   <button class="menu-btn" onclick="toggleMenu()">⋮</button>
-
   <div class="menu" id="menu">
     <a href="index.html">Home</a>
     <a href="donation.html">Donation</a>
@@ -165,238 +317,66 @@ function copy(id){
     <a href="privacy-policy.html">Privacy Policy</a>
     <a href="terms.html">Terms of Service</a>
     <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
   </div>
 </div>
 
-<!-- 🔥 Content -->
 <div class="wrapper">
 
-  <h1 class="title">AKeyUP Donation</h1>
+  <!-- Header -->
+  <header>
+    <h1 class="title">Support AKeyUP</h1>
+    <p class="subtitle">Help optimize operations and maintain the hosting infrastructure for development assets.</p>
+  </header>
 
-  <p class="text">
-    Help support future projects by donating.
-  </p>
+  <main>
+    <!-- Bitcoin Transaction Card -->
+    <div class="coin-card">
+      <img src="btc.avif" alt="Bitcoin Token Graphic" class="logo">
+      <h2>Bitcoin (BTC)</h2>
+      <p class="network-warning">Execute transactions exclusively over the native Bitcoin Network</p>
+      
+      <div class="address-box" id="btc">
+        19okdn9UMfjG95ieFvhRLR4cMkMcYHmhFh
+      </div>
 
-  <!-- 🪙 Bitcoin -->
-  <div class="coin">
+      <button class="btn btn-primary" onclick="copy('btc')">Copy Address</button>
+    </div>
 
-    <!-- 🔥 IMAGE FIX -->
-    <img src="btc.avif" alt="Bitcoin Logo" class="logo">
+    <!-- Return Actions -->
+    <div>
+      <a href="index.html" class="btn btn-back">⬅ Back to Home</a>
+    </div>
+  </main>
 
-    <h2>Bitcoin (BTC)</h2>
-
-    <p style="color:#aaa;">Send only via Bitcoin network</p>
-
-    <p id="btc" style="word-break:break-all;">
-      19okdn9UMfjG95ieFvhRLR4cMkMcYHmhFh
-    </p>
-
-    <button class="btn" onclick="copy('btc')">
-      Copy Address
-    </button>
-
-  </div>
-
-  <a href="index.html" class="btn back">⬅ Back to Home</a>
+  <footer>
+    © 2026-Present AKeyUP. All rights reserved.
+  </footer>
 
 </div>
-<!-- 🔥 Privacy Popup -->
 
-<style>
-
-/* 🔥 Privacy Popup */
-
-.privacy-popup{
-
-  position:fixed;
-
-  inset:0;
-
-  background:
-  rgba(0,0,0,0.75);
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  z-index:9999;
-
-  padding:20px;
-}
-
-.privacy-box{
-
-  background:#1c1c1c;
-
-  width:min(420px,100%);
-
-  padding:35px;
-
-  border-radius:24px;
-
-  text-align:center;
-
-  box-shadow:
-  0 15px 40px rgba(0,0,0,0.5);
-
-  animation:
-  popupFade 0.3s ease;
-}
-
-.privacy-box h2{
-
-  font-size:2rem;
-
-  margin-bottom:15px;
-
-  color:white;
-}
-
-.privacy-box p{
-
-  color:#aaaaaa;
-
-  line-height:1.8;
-
-  font-size:1rem;
-}
-
-.privacy-box a{
-
-  color:#4da6ff;
-
-  text-decoration:none;
-
-  font-weight:bold;
-}
-
-.privacy-box a:hover{
-
-  text-decoration:underline;
-}
-
-.accept-btn{
-
-  margin-top:25px;
-
-  padding:14px 30px;
-
-  border:none;
-
-  border-radius:14px;
-
-  background:#ff4444;
-
-  color:white;
-
-  font-size:1rem;
-
-  font-weight:bold;
-
-  cursor:pointer;
-
-  transition:0.25s;
-}
-
-.accept-btn:hover{
-
-  background:#ff2222;
-
-  transform:scale(1.05);
-}
-
-/* 🔥 Animation */
-
-@keyframes popupFade{
-
-  from{
-
-    opacity:0;
-
-    transform:scale(0.9);
-  }
-
-  to{
-
-    opacity:1;
-
-    transform:scale(1);
-  }
-}
-
-</style>
-
-<div
-class="privacy-popup"
-id="privacyPopup">
-
+<!-- Privacy Consent Popup -->
+<div class="privacy-popup" id="privacyPopup">
   <div class="privacy-box">
-
-    <h2>
-      Privacy Notice
-    </h2>
-
-    <p>
-
-      By using AKeyUP, you agree to our
-
-      <a href="privacy-policy.html">
-
-        Privacy Policy
-
-      </a>.
-
-    </p>
-
-    <button
-    class="accept-btn"
-    onclick="acceptPrivacy()">
-
-      Accept
-
-    </button>
-
+    <h2>Privacy Notice</h2>
+    <p>By interacting with this environment, you acknowledge and agree to our systemic <a href="privacy-policy.html">Privacy Policy</a> parameters.</p>
+    <button class="accept-btn" onclick="acceptPrivacy()">Accept & Dismiss</button>
   </div>
-
 </div>
 
 <script>
-
-/* 🔥 Accept */
-
 function acceptPrivacy(){
-
-  localStorage.setItem(
-    "privacyAccepted",
-    "true"
-  );
-
-  document.getElementById(
-    "privacyPopup"
-  ).style.display = "none";
+  localStorage.setItem("privacyAccepted", "true");
+  document.getElementById("privacyPopup").style.display = "none";
 }
 
-/* 🔥 Check */
-
-window.addEventListener(
-"load",
-function(){
-
-  const accepted =
-  localStorage.getItem(
-    "privacyAccepted"
-  );
-
+window.addEventListener("load", function(){
+  const accepted = localStorage.getItem("privacyAccepted");
   if(accepted === "true"){
-
-    document.getElementById(
-      "privacyPopup"
-    ).style.display = "none";
+    document.getElementById("privacyPopup").style.display = "none";
   }
 });
-
 </script>
+
 </body>
 </html>

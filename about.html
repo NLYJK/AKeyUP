@@ -1,152 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Meta Description -->
-<meta name="description" content="AKeyUP About Section, Know about the website and software.">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591"
-     crossorigin="anonymous"></script>
-
-
-<title>About - AKeyUP</title>
-
-<style>
-
-/* 🔥 Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  font-size: 16px;
-}
-
-body {
-  background: #111;
-  color: white;
-  font-family: Arial, sans-serif;
-  line-height: 1.7;
-  overflow-x: hidden;
-}
-
-/* 🔥 Wrapper */
-.wrapper {
-  max-width: 900px;
-  margin: auto;
-  padding: clamp(20px, 5vw, 60px);
-  text-align: center;
-}
-
-/* 🔥 Title */
-.title {
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  margin-bottom: 25px;
-  letter-spacing: -0.5px;
-}
-
-/* 🔥 Headings */
-h2 {
-  font-size: clamp(1.4rem, 3vw, 2.2rem);
-  margin-top: 50px;
-  margin-bottom: 20px;
-}
-
-/* 🔥 Grid */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  width: 100%;
-}
-
-/* 🔥 Cards */
-.card {
-  background: #222;
-  padding: clamp(18px, 3.5vw, 30px);
-  border-radius: 15px;
-  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
-  line-height: 1.6;
-  transition: 0.3s;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  background: #2a2a2a;
-}
-
-/* 🔥 Button */
-.btn {
-  display: inline-block;
-  margin-top: 40px;
-  padding: 14px 30px;
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  background: #ff4444;
-  color: white;
-  text-decoration: none;
-  border-radius: 10px;
-  transition: 0.3s;
-}
-
-.btn:hover {
-  background: #ff2222;
-  transform: scale(1.05);
-}
-
-/* 🔥 Menu */
-.menu-container {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  z-index: 1000;
-}
-
-.menu-btn {
-  font-size: 24px;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 10px;
-  background: #222;
-  color: white;
-  cursor: pointer;
-}
-
-.menu {
-  display: none;
-  margin-top: 10px;
-  background: #222;
-  border-radius: 10px;
-  overflow: hidden;
-  min-width: 180px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
-}
-
-.menu a {
-  display: block;
-  padding: 14px;
-  color: white;
-  text-decoration: none;
-  transition: 0.3s;
-}
-
-.menu a:hover {
-  background: #333;
-}
-
-/* 🔥 Mobile */
-@media (max-width: 600px) {
-  .card {
-    padding: 20px;
-  }
-
-  .btn {
-    width: 100%;
-  }
-}
-
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AKeyUP About Section, Know about the website and software.">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591" crossorigin="anonymous"></script>
+  <title>About - AKeyUP</title>
+  
+  <!-- Link the Global CSS Framework -->
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -154,14 +16,22 @@ h2 {
 <script>
 function toggleMenu() {
   const menu = document.getElementById("menu");
-  menu.style.display = (menu.style.display === "block") ? "none" : "block";
+  menu.classList.toggle("show");
+}
+
+window.onclick = function(event) {
+  if (!event.target.matches('.menu-btn')) {
+    const menu = document.getElementById("menu");
+    if (menu && menu.classList.contains("show")) {
+      menu.classList.remove("show");
+    }
+  }
 }
 </script>
 
-<!-- 🔥 Menu -->
+<!-- Global Navigation Menu -->
 <div class="menu-container">
   <button class="menu-btn" onclick="toggleMenu()">⋮</button>
-
   <div class="menu" id="menu">
     <a href="index.html">Home</a>
     <a href="donation.html">Donation</a>
@@ -169,37 +39,52 @@ function toggleMenu() {
     <a href="privacy-policy.html">Privacy Policy</a>
     <a href="terms.html">Terms of Service</a>
     <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
   </div>
 </div>
 
-<!-- 🔥 Content -->
 <div class="wrapper">
 
-  <h1 class="title">About</h1>
+  <!-- Header -->
+  <header>
+    <h1 class="title">About AKeyUP</h1>
+    <p class="subtitle">Discover the project's roots, engineering intent, and core website utilities.</p>
+  </header>
 
-  <h2>What is AKeyUP?</h2>
-
-  <div class="grid">
-    <div class="card">A simple tool to open websites quickly.</div>
-    <div class="card">Helps save time for people who use multiple websites daily.</div>
-    <div class="card">Runs locally on your computer for better privacy.</div>
-  </div>
-
-  <h2>Why AKeyUP was made?</h2>
-
-  <div class="grid">
-    <div class="card">
-      It was created because repeatedly reopening websites after accidentally closing them was frustrating and time-consuming.
+  <main>
+    <!-- Section 1: Definition -->
+    <h2 class="section-title">What is AKeyUP?</h2>
+    <div class="grid-auto">
+      <div class="card">A simple tool to open websites quickly.</div>
+      <div class="card">Helps save time for people who use multiple websites daily.</div>
+      <div class="card">Runs locally on your computer for better privacy.</div>
     </div>
-  </div>
-  <h2> About the Website </h2>
 
-  <div class="grid">
-  <div class="card">
-   The Website contains few tools as of now to help people and the download link for AKeyUP.Information will be updated time to time
-          </div>
-  </div>
-  <a href="index.html" class="btn">⬅ Back to Home</a>
+    <!-- Section 2: Core Purpose -->
+    <h2 class="section-title">Why AKeyUP was made?</h2>
+    <div class="grid-auto">
+      <div class="card" style="text-align: left; justify-content: flex-start; width: 100%;">
+        It was created because repeatedly reopening websites after accidentally closing them was frustrating and time-consuming.
+      </div>
+    </div>
+
+    <!-- Section 3: Web Ecosystem -->
+    <h2 class="section-title">About the Website</h2>
+    <div class="grid-auto">
+      <div class="card" style="text-align: left; justify-content: flex-start; width: 100%;">
+        The Website contains few tools as of now to help people and the download link for AKeyUP. Information will be updated from time to time.
+      </div>
+    </div>
+
+    <!-- Return Actions -->
+    <div class="btn-container">
+      <a href="index.html" class="btn btn-neutral">⬅ Back to Home</a>
+    </div>
+  </main>
+
+  <footer>
+    © 2026-Present AKeyUP. All rights reserved.
+  </footer>
 
 </div>
 
