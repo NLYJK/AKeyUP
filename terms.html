@@ -3,283 +3,101 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591"
-     crossorigin="anonymous"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591" crossorigin="anonymous"></script>
   <title>Terms of Service - AKeyUP</title>
 
-  <style>
-    /* Reset & Core Styles */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: #0d0d0d;
-      color: #e5e5e5;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      line-height: 1.7;
-    }
-
-    .wrapper {
-      padding: clamp(30px, 6vw, 80px) 20px;
-      max-width: 850px;
-      margin: auto;
-    }
-
-    /* Typography & Header */
-    header {
-      text-align: center;
-      margin-bottom: clamp(40px, 8vw, 60px);
-    }
-
-    .title {
-      font-size: clamp(2.2rem, 6vw, 3.5rem);
-      font-weight: 800;
-      letter-spacing: -1px;
-      margin-bottom: 10px;
-      background: linear-gradient(135deg, #ffffff 0%, #a3a3a3 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .subtitle {
-      color: #888;
-      font-size: clamp(0.95rem, 2.5vw, 1.15rem);
-    }
-
-    /* Premium Document Container */
-    .content-box {
-      background: linear-gradient(145deg, #161616, #121212);
-      border: 1px solid #222;
-      padding: clamp(25px, 5vw, 45px);
-      border-radius: 20px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-      margin-bottom: 40px;
-    }
-
-    /* Sections */
-    .section {
-      margin-bottom: 35px;
-    }
-
-    .section:last-child {
-      margin-bottom: 0;
-    }
-
-    .section h2 {
-      font-size: clamp(1.2rem, 3vw, 1.45rem);
-      color: #ff4444;
-      margin-bottom: 12px;
-      font-weight: 700;
-    }
-
-    .section p {
-      color: #b3b3b3;
-      font-size: clamp(0.95rem, 2vw, 1.05rem);
-    }
-
-    .section strong {
-      color: #fff;
-    }
-
-    .email-highlight {
-      color: #ff4444;
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.2s;
-    }
-
-    .email-highlight:hover {
-      color: #e03333;
-      text-decoration: underline;
-    }
-
-    /* Back Navigation Button */
-    .btn-container {
-      text-align: center;
-    }
-
-    .btn-back {
-      display: inline-block;
-      padding: 12px 25px;
-      background: transparent;
-      border: 1px solid #333;
-      color: #aaa;
-      text-decoration: none;
-      font-size: 0.95rem;
-      font-weight: 600;
-      border-radius: 8px;
-      transition: all 0.2s ease;
-    }
-
-    .btn-back:hover {
-      background: #161616;
-      color: #fff;
-      border-color: #555;
-    }
-
-    /* Sticky Dropdown Navigation Menu */
-    .menu-container {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1000;
-    }
-
-    .menu-btn {
-      font-size: 22px;
-      width: 45px;
-      height: 45px;
-      border: 1px solid #333;
-      border-radius: 50%;
-      background: rgba(20, 20, 20, 0.8);
-      backdrop-filter: blur(8px);
-      color: white;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s;
-    }
-
-    .menu-btn:hover {
-      background: #222;
-      border-color: #444;
-    }
-
-    .menu {
-      display: none;
-      margin-top: 10px;
-      background: #161616;
-      border: 1px solid #262626;
-      border-radius: 12px;
-      overflow: hidden;
-      min-width: 180px;
-      position: absolute;
-      right: 0;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
-    }
-
-    .menu a {
-      display: block;
-      padding: 12px 20px;
-      color: #ccc;
-      text-decoration: none;
-      font-size: 0.95rem;
-      transition: all 0.2s;
-    }
-
-    .menu a:hover {
-      background: #ff4444;
-      color: white;
-      padding-left: 24px;
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 60px 0 20px 0;
-      color: #555;
-      font-size: 0.85rem;
-      border-top: 1px solid #161616;
-      margin-top: 60px;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<script>
-function toggleMenu() {
-  const menu = document.getElementById("menu");
-  menu.style.display = (menu.style.display === "block") ? "none" : "block";
-}
+  <div class="menu-container">
+    <button class="menu-btn" onclick="toggleMenu()">⋮</button>
+    <div class="menu" id="menu">
+      <a href="index.html">Home</a>
+      <a href="donation.html">Donation</a>
+      <a href="tool.html">Tools</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
 
-window.onclick = function(event) {
-  if (!event.target.matches('.menu-btn')) {
-    const menu = document.getElementById("menu");
-    if (menu && menu.style.display === "block") {
-      menu.style.display = "none";
+  <div class="wrapper wrapper-narrow">
+
+    <header>
+      <h1 class="title">Terms of Service</h1>
+      <p class="subtitle">Simple rules and basic agreements for using the AKeyUP website.</p>
+    </header>
+
+    <div class="content-box">
+      
+      <div class="content-section">
+        <h2>1. Agreement to Terms</h2>
+        <p>By using AKeyUP ("we", "our", "website"), you agree to follow these basic Terms of Service. If you do not agree with any of these rules, please stop using our website and tools.</p>
+      </div>
+
+      <div class="content-section">
+        <h2>2. Using Our Tools & Storage</h2>
+        <p>Our web tools are made to run right inside your internet browser. Tools that save settings or notes store that information directly on your phone or computer. Other tools, like our word counter, check your text locally and do not copy or save what you type. You are responsible for managing your own device's storage and backups.</p>
+      </div>
+
+      <div class="content-section">
+        <h2>3. No Guarantees & Math Errors</h2>
+        <p>Everything on AKeyUP is provided "as-is". <strong>We are not responsible if our tools give wrong results, calculations, bugs, or errors.</strong> For example, if a calculator makes a mistake or the currency converter shows old exchange rates, AKeyUP cannot be held liable for any decisions or losses that happen because of those numbers.</p>
+      </div>
+
+      <div class="content-section">
+        <h2>4. Ads & Third-Party Content</h2>
+        <p>Even though our main tools run safely on your device, this website uses third-party services like Google AdSense to display advertisements. These ad services use their own cookies and tracking rules. We do not control these ads and are not responsible for any external content you see or click on.</p>
+      </div>
+
+      <div class="content-section">
+        <h2>5. Changes to the Website or Rules</h2>
+        <p>We have the right to change, pause, or remove any tool or feature on this website at any time without warning. We might also update these Terms of Service occasionally. If you keep using AKeyUP after changes are posted, it means you accept the updated rules.</p>
+      </div>
+
+      <div class="content-section">
+        <h2>6. Governing Rules</h2>
+        <p>These terms follow standard website compliance and user guidelines. Any issues or disagreements regarding the use of this website will be handled through standard communication channels.</p>
+      </div>
+
+      <div class="content-section">
+        <h2>7. Contact Us</h2>
+        <p>If you have any questions about our Terms of Service, you can reach us anytime at: <a href="mailto:AKeyUPsupport@gmail.com" class="text-link">AKeyUPsupport@gmail.com</a></p>
+      </div>
+
+    </div>
+
+    <div class="btn-container">
+      <a href="index.html" class="btn btn-neutral">⬅ Back to Home</a>
+    </div>
+
+    <footer class="page-footer">
+      © 2026-Present AKeyUP. All rights reserved.
+    </footer>
+
+  </div>
+
+  <script>
+    /* Context Dropdown Navigation Matrix */
+    function toggleMenu() {
+      const menu = document.getElementById("menu");
+      menu.classList.toggle("show");
     }
-  }
-}
-</script>
 
-<!-- Navigation Menu -->
-<div class="menu-container">
-  <button class="menu-btn" onclick="toggleMenu()">⋮</button>
-  <div class="menu" id="menu">
-    <a href="index.html">Home</a>
-    <a href="donation.html">Donation</a>
-    <a href="tool.html">Tools</a>
-    <a href="privacy-policy.html">Privacy Policy</a>
-    <a href="terms.html">Terms of Service</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </div>
-</div>
-
-<div class="wrapper">
-
-  <!-- Header -->
-  <header>
-    <h1 class="title">Terms of Service</h1>
-    <p class="subtitle">Agreement and operating metrics for utilizing the AKeyUP framework.</p>
-  </header>
-
-  <!-- Content Block -->
-  <div class="content-box">
-    
-    <div class="section">
-      <h2>1. Acceptance of Terms</h2>
-      <p>By accessing and using AKeyUP ("we", "our", "website"), you agree to be bound by these Terms of Service. If you do not agree to all of these terms, please do not use this website or its tools.</p>
-    </div>
-
-    <div class="section">
-      <h2>2. Use of Tools & Browser Storage</h2>
-      <p>Our tools are designed to operate locally within your web browser. Any tools that save configurations or notes store data directly on your own device's local storage. Other utilities, like our word counter, process text securely on your client side and do not send or collect typed data. You are solely responsible for managing your browser storage and data backups.</p>
-    </div>
-
-    <div class="section">
-      <h2>3. Disclaimer of Warranties & Accuracy</h2>
-      <p>All tools and resources provided on AKeyUP are offered on an "as-is" and "as-available" basis without warranties of any kind. <strong>We do not take any responsibility for wrong outputs, calculations, bugs, or errors within our tools.</strong> For example, if a calculator yields an incorrect mathematical output or a currency converter displays outdated financial information, AKeyUP is not legally or financially liable for any losses or decisions made based on that output.</p>
-    </div>
-
-    <div class="section">
-      <h2>4. Third-Party Advertisements & Services</h2>
-      <p>While the core applications of AKeyUP run locally, this website features integrated third-party platforms, such as Google AdSense, to serve advertisements. These external services may use cookies and tracking technologies to display ads. Your interactions with these advertisers are governed purely by their respective policies, and AKeyUP assumes no liability for external advertising content.</p>
-    </div>
-
-    <div class="section">
-      <h2>5. Modifications to Service and Terms</h2>
-      <p>We reserve the right to alter, pause, or terminate any tool or feature on this website at any time without prior notice. Additionally, we may update these Terms of Service periodically. Your continued use of AKeyUP following updates indicates your absolute acceptance of the revised terms.</p>
-    </div>
-
-    <div class="section">
-      <h2>6. Governing Law</h2>
-      <p>These terms are governed by and construed in accordance with standard web compliance regulations. Any disputes arising from your use of this website shall be handled responsibly via alternative dispute avenues.</p>
-    </div>
-
-    <div class="section">
-      <h2>7. Contact Us</h2>
-      <p>If you have questions regarding these Terms of Service, please contact us directly at:<br>
-      Email: <a href="mailto:AKeyUPsupport@gmail.com" class="email-highlight">AKeyUPsupport@gmail.com</a></p>
-    </div>
-
-  </div>
-
-  <!-- Back Controls -->
-  <div class="btn-container">
-    <a href="index.html" class="btn-back">⬅ Back to Home</a>
-  </div>
-
-  <footer>
-    © 2026-Present AKeyUP. All rights reserved.
-  </footer>
-
-</div>
+    /* Close menu if clicked outside */
+    document.addEventListener("click", function(event) {
+      const menu = document.getElementById("menu");
+      const button = document.querySelector(".menu-btn");
+      if (menu && button) {
+        if (!menu.contains(event.target) && !button.contains(event.target)) {
+          menu.classList.remove("show");
+        }
+      }
+    });
+  </script>
 
 </body>
 </html>
