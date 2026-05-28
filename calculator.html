@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AKeyUP Calculator is a fast, modern, responsive, and privacy-friendly online calculator with scientific functions, history, keyboard support, and live calculation preview.">
+  <meta name="description" content="AKeyUP Calculator is a fast, simple, and private online calculator with scientific features, temporary session history, and keyboard support.">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591" crossorigin="anonymous"></script>
   <title>Calculator - AKeyUP</title>
   
@@ -111,14 +111,50 @@
       text-align: left;
     }
 
+    .history-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      gap: 15px;
+    }
+
     .history-title {
       font-size: 1.15rem;
       font-weight: 700;
       color: #fff;
-      margin-bottom: 15px;
       display: flex;
       align-items: center;
       gap: 8px;
+    }
+
+    .history-subtitle {
+      font-size: 0.85rem;
+      color: #666;
+      margin-top: 2px;
+    }
+
+    .history-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-history-action {
+      background: #161616;
+      border: 1px solid #333;
+      color: #bbb;
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-history-action:hover {
+      background: #222;
+      color: #fff;
+      border-color: #555;
     }
 
     #history {
@@ -183,6 +219,9 @@
     @media(max-width: 600px) {
       .buttons-grid { gap: 8px; }
       .buttons-grid button { padding: 14px; }
+      .history-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .history-actions { width: 100%; }
+      .btn-history-action { flex: 1; text-align: center; }
     }
   </style>
 </head>
@@ -206,7 +245,7 @@
 
   <header>
     <h1 class="title">AKeyUP Calculator</h1>
-    <p class="subtitle">An optimized, client-side math engine running computing functions directly inside your browser.</p>
+    <p class="subtitle">A simple, private math tool that runs entirely inside your internet browser.</p>
   </header>
 
   <main>
@@ -254,35 +293,44 @@
       </div>
 
       <div class="history-box">
-        <div class="history-title">📜 Calculation History</div>
+        <div class="history-header">
+          <div>
+            <div class="history-title">📜 Session History</div>
+            <div class="history-subtitle">Clears automatically when you close or reload this page.</div>
+          </div>
+          <div class="history-actions">
+            <button class="btn-history-action" id="btnCopy" onclick="copyHistory()">📋 Copy History</button>
+            <button class="btn-history-action" onclick="exportHistory()">📥 Export (.txt)</button>
+          </div>
+        </div>
         <div id="history"></div>
       </div>
     </div>
 
     <section class="content-box" style="margin-top: 40px; text-align: left;">
-      <h2 class="section-title">Engine Features</h2>
-      <p class="subtitle" style="margin: 0 0 20px 0; text-align: left;">High execution speeds paired with isolated execution security.</p>
+      <h2 class="section-title">About the Calculator</h2>
+      <p class="subtitle" style="margin: 0 0 20px 0; text-align: left;">A clean, reliable tool designed to handle math problems without breaking your privacy.</p>
       
       <div class="feature-grid">
         <div class="feature-box">
           <span class="icon">⚡</span>
-          <h3>Fast Performance</h3>
-          <p>Local calculations with native execution parameters directly inside the window workspace.</p>
+          <h3>Instant Answers</h3>
+          <p>Calculations happen right away on your computer or phone. There are no long loading times or internet delays.</p>
         </div>
         <div class="feature-box">
           <span class="icon">🧠</span>
-          <h3>Scientific Toolkit</h3>
-          <p>Built-in processors handling trigonometric curves, algorithms, roots, and advanced powers.</p>
+          <h3>Everyday & Scientific Math</h3>
+          <p>Easily solve basic math, percentages, and square roots, or use scientific options like exponents and trigonometry.</p>
         </div>
         <div class="feature-box">
           <span class="icon">⌨</span>
-          <h3>Hardware Support</h3>
-          <p>Seamlessly routes standard mechanical keyboard strokes cleanly into equation matrices.</p>
+          <h3>Works with Keyboards</h3>
+          <p>You can type numbers and operators directly using your laptop or desktop physical keys for faster typing.</p>
         </div>
         <div class="feature-box">
-          <span class="icon">📜</span>
-          <h3>History Compilation</h3>
-          <p>Preserves previous computational strings inside sandboxed variable scopes.</p>
+          <span class="icon">🔒</span>
+          <h3>100% Private & Temporary</h3>
+          <p>Your equations are never sent to a server. Your calculation log is temporary and is deleted the moment you leave.</p>
         </div>
       </div>
     </section>
@@ -316,6 +364,7 @@ window.onclick = function(event) {
 const display = document.getElementById("display");
 const preview = document.getElementById("preview");
 const historyDiv = document.getElementById("history");
+let historyLog = []; // Local array tracking session items for copy/export functionality
 
 function toRad(x) { return x * Math.PI / 180; }
 
@@ -356,10 +405,14 @@ function calculate() {
   const result = safeEval(expression);
 
   if (result !== null && !isNaN(result)) {
+    const itemText = `${expression} = ${result}`;
+    historyLog.unshift(itemText); // Keep top item at the start of array
+
     const historyItem = document.createElement("div");
     historyItem.className = "history-item";
-    historyItem.innerText = `${expression} = ${result}`;
+    historyItem.innerText = itemText;
     historyDiv.prepend(historyItem);
+    
     display.value = result;
     preview.innerText = "";
   } else {
@@ -371,6 +424,53 @@ function calculate() {
 function livePreview() {
   const result = safeEval(display.value);
   preview.innerText = (result !== null && !isNaN(result)) ? result : "";
+}
+
+/* Clipboard Copy Engine */
+function copyHistory() {
+  if (historyLog.length === 0) {
+    alert("Your history log is currently empty.");
+    return;
+  }
+
+  const textToCopy = historyLog.join("\n");
+  const btnCopy = document.getElementById("btnCopy");
+
+  navigator.clipboard.writeText(textToCopy).then(() => {
+    const originalText = btnCopy.innerText;
+    btnCopy.innerText = "✅ Copied!";
+    btnCopy.style.borderColor = "#ff4444";
+    btnCopy.style.color = "#ff4444";
+    
+    setTimeout(() => {
+      btnCopy.innerText = originalText;
+      btnCopy.style.borderColor = "";
+      btnCopy.style.color = "";
+    }, 2000);
+  }).catch(err => {
+    alert("Could not copy text: " + err);
+  });
+}
+
+/* File Export Engine */
+function exportHistory() {
+  if (historyLog.length === 0) {
+    alert("Your history log is currently empty.");
+    return;
+  }
+  
+  const fileContent = "AKeyUP Calculator - Session History Log\n" + 
+                      "========================================\n\n" + 
+                      historyLog.join("\n");
+                      
+  const blob = new Blob([fileContent], { type: "text/plain;charset=utf-8" });
+  const tempLink = document.createElement("a");
+  tempLink.href = URL.createObjectURL(blob);
+  tempLink.download = "akeyup-calculator-history.txt";
+  
+  document.body.appendChild(tempLink);
+  tempLink.click();
+  document.body.removeChild(tempLink);
 }
 
 /* Event Routing Listener Rules */

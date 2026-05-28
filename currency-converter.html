@@ -4,14 +4,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Convert currencies instantly with the AKeyUP Currency Converter. Supports USD, INR, EUR, GBP, JPY, AED, SGD and other major currencies with a modern responsive interface.">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591" crossorigin="anonymous"></script>
+
+  <meta name="description"
+    content="Convert currencies instantly with the AKeyUP Currency Converter. Supports USD, INR, EUR, GBP, JPY, AED, SGD and other major currencies with a fast modern interface.">
+
   <title>AKeyUP Currency Converter</title>
+
+  <script async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591"
+    crossorigin="anonymous"></script>
 
   <link rel="stylesheet" href="style.css">
 
   <style>
-    /* Custom utility engine inputs built on top of external style.css */
     label {
       display: block;
       margin-top: 20px;
@@ -32,7 +37,7 @@
       color: #fff;
       font-size: 1rem;
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s ease;
       appearance: none;
       -webkit-appearance: none;
     }
@@ -58,65 +63,61 @@
       align-items: start;
     }
 
-    /* Converter execution specific modules */
     .result-display {
-      margin-top: 20px;
+      margin-top: 22px;
       background: #0f0f0f;
-      padding: 22px;
-      border-radius: 12px;
+      padding: 24px;
+      border-radius: 14px;
       text-align: center;
       border: 1px solid #1c1c1c;
     }
 
     .result-display h3 {
-      color: #777;
-      margin-bottom: 6px;
+      color: #888;
+      margin-bottom: 8px;
       font-size: 0.9rem;
       font-weight: 500;
     }
 
     .result-display p {
       color: #00ff99;
-      font-size: 1.8rem;
+      font-size: 1.9rem;
       font-weight: 700;
       word-break: break-word;
     }
 
-    /* Transparency and data notice layout links */
-    .privacy-notice-linkback {
-      font-size: 0.8rem;
-      color: #666;
+    .privacy-note {
+      font-size: 0.82rem;
+      color: #777;
       margin-top: 15px;
-      text-align: left;
       line-height: 1.5;
+      text-align: left;
     }
 
-    .privacy-notice-linkback a {
+    .privacy-note a {
       color: #ff4444;
       text-decoration: none;
       font-weight: 600;
     }
 
-    .privacy-notice-linkback a:hover {
+    .privacy-note a:hover {
       text-decoration: underline;
     }
 
-    /* Streamlined minimal network telemetry tag */
-    .network-warning-badge {
+    .status-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      margin-top: 8px;
-      font-size: 0.78rem;
-      color: #888;
-      text-align: left;
+      gap: 8px;
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: #999;
     }
 
     .feature-card {
       background: #0f0f0f;
       border: 1px solid #1c1c1c;
       padding: 25px;
-      border-radius: 14px;
+      border-radius: 16px;
       transition: all 0.3s ease;
       text-align: left;
     }
@@ -127,13 +128,13 @@
     }
 
     .feature-icon {
-      width: 50px;
-      height: 50px;
+      width: 52px;
+      height: 52px;
       display: flex;
       align-items: center;
       justify-content: center;
       background: #161616;
-      border-radius: 10px;
+      border-radius: 12px;
       font-size: 1.5rem;
       margin-bottom: 15px;
       border: 1px solid #222;
@@ -141,21 +142,21 @@
 
     .feature-card h4 {
       margin-bottom: 8px;
-      font-size: 1.1rem;
       color: #fff;
+      font-size: 1.05rem;
     }
 
     .feature-card p {
       color: #888 !important;
-      font-size: 0.9rem !important;
-      line-height: 1.5;
+      line-height: 1.6;
+      font-size: 0.92rem !important;
     }
 
     .usage-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-top: 15px;
+      margin-top: 10px;
     }
 
     .usage-tags span {
@@ -164,8 +165,8 @@
       padding: 10px 16px;
       border-radius: 10px;
       color: #ccc;
-      transition: all 0.2s;
       font-size: 0.9rem;
+      transition: all 0.2s ease;
     }
 
     .usage-tags span:hover {
@@ -175,19 +176,24 @@
       transform: translateY(-2px);
     }
 
-    .disclaimer-panel {
-      background: linear-gradient(145deg, #241818, #1e1a1a);
+    .notice-box {
+      background: linear-gradient(145deg, #241818, #1c1818);
       border: 1px solid #442222;
-      padding: 25px;
-      border-radius: 14px;
-      margin-top: 15px;
-      text-align: left;
+      padding: 24px;
+      border-radius: 16px;
+      margin-top: 20px;
     }
 
-    .disclaimer-panel h3 {
-      color: #ff7777;
-      margin-bottom: 8px;
-      font-size: 1.1rem;
+    .notice-box h3 {
+      color: #ff7b7b;
+      margin-bottom: 10px;
+      font-size: 1.05rem;
+    }
+
+    .notice-box p {
+      color: #aaa;
+      font-size: 0.9rem;
+      line-height: 1.6;
     }
 
     .privacy-popup {
@@ -209,7 +215,27 @@
       padding: 35px;
       border-radius: 24px;
       text-align: center;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.7);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
+    }
+
+    .privacy-box h2 {
+      margin-bottom: 12px;
+    }
+
+    .privacy-box p {
+      color: #999;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .text-link {
+      color: #ff4444;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .text-link:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -218,6 +244,7 @@
 
   <div class="menu-container">
     <button class="menu-btn" onclick="toggleMenu()">⋮</button>
+
     <div class="menu" id="menu">
       <a href="index.html">Home</a>
       <a href="donation.html">Donation</a>
@@ -233,19 +260,34 @@
 
     <header>
       <h1 class="title">Currency Converter</h1>
-      <p class="subtitle">Convert global assets instantly using automated network exchange rate parameters.</p>
+
+      <p class="subtitle">
+        Convert currencies instantly using live exchange rates.
+      </p>
     </header>
 
     <main>
-      <div class="grid-split">
-        
-        <section class="content-box" style="margin-bottom: 0;">
-          <h2 class="section-title" style="border-left:none; padding-left:0; margin-bottom:10px;">Exchange Console</h2>
-          
-          <label for="amount">Enter Amount</label>
-          <input type="number" id="amount" value="1" placeholder="Enter Amount" oninput="convertCurrency()">
 
-          <label for="from">From Currency</label>
+      <div class="grid-split">
+
+        <!-- Converter -->
+        <section class="content-box" style="margin-bottom:0;">
+
+          <h2 class="section-title"
+            style="border-left:none; padding-left:0; margin-bottom:10px;">
+            Currency Converter
+          </h2>
+
+          <label for="amount">Enter Amount</label>
+
+          <input type="number"
+            id="amount"
+            value="1"
+            placeholder="Enter amount"
+            oninput="convertCurrency()">
+
+          <label for="from">From</label>
+
           <select id="from" onchange="convertCurrency()">
             <option value="USD">USD - US Dollar</option>
             <option value="INR">INR - Indian Rupee</option>
@@ -259,7 +301,8 @@
             <option value="SGD">SGD - Singapore Dollar</option>
           </select>
 
-          <label for="to">To Currency</label>
+          <label for="to">To</label>
+
           <select id="to" onchange="convertCurrency()">
             <option value="INR" selected>INR - Indian Rupee</option>
             <option value="USD">USD - US Dollar</option>
@@ -273,74 +316,124 @@
             <option value="SGD">SGD - Singapore Dollar</option>
           </select>
 
-          <button class="btn btn-accent" style="margin-top: 25px; width:100%;" onclick="convertCurrency()">Convert Assets</button>
+          <button class="btn btn-accent"
+            style="margin-top:25px; width:100%;"
+            onclick="convertCurrency()">
+            Convert Currency
+          </button>
 
-          <div class="privacy-notice-linkback">
-            Uses third-party operational resources which collect interaction logs in accordance with our <a href="privacy-policy.html">Privacy Policy</a> parameters.
+          <div class="privacy-note">
+            Exchange rates are provided by third-party services.
+            Read our
+            <a href="privacy-policy.html">Privacy Policy</a>.
           </div>
 
-          <div class="network-warning-badge" id="networkBadge">
-            <span id="badgeText">Connecting to data matrix...</span>
+          <div class="status-badge">
+            <span id="badgeText">
+              Connecting to live exchange rates...
+            </span>
           </div>
 
           <div class="result-display">
-            <h3>Converted Value</h3>
+            <h3>Converted Amount</h3>
             <p id="result">1 USD = 83.50 INR</p>
           </div>
+
         </section>
 
-        <section class="content-box" style="margin-bottom: 0;">
-          <h2 class="section-title" style="border-left:none; padding-left:0; margin-bottom:15px;">Asset Parameters</h2>
-          
+        <!-- About -->
+        <section class="content-box" style="margin-bottom:0;">
+
+          <h2 class="section-title"
+            style="border-left:none; padding-left:0; margin-bottom:15px;">
+            About This Tool
+          </h2>
+
           <div class="content-section">
-            <p style="text-align: left;">AKeyUP Currency Converter coordinates calculations comparing high-liquidity global base denominations inside responsive modern viewports.</p>
-          </div>
-          
-          <div class="content-section" style="margin-top: 15px;">
-            <p style="text-align: left;">This tracking framework supports operational modeling for cross-border logistics, vacation layout planning, digital payments routing, and macro investment tracking metrics.</p>
+            <p style="text-align:left;">
+              Convert major world currencies quickly using a fast and responsive interface.
+            </p>
           </div>
 
-          <div class="disclaimer-panel">
-            <h3>📢 Market Notice</h3>
-            <p style="color: #aaa; font-size: 0.88rem; line-height: 1.5;">Denomination trends change rapidly based on active global financial markets. Computed valuations offer direct local approximations and variations may apply at handling banks or payment gateways processing clearance logs.</p>
+          <div class="content-section" style="margin-top:15px;">
+            <p style="text-align:left;">
+              Useful for travel, online shopping, international payments,
+              business calculations, and finance tracking.
+            </p>
           </div>
+
+          <div class="notice-box">
+            <h3>📢 Exchange Rate Notice</h3>
+
+            <p>
+              Exchange rates change frequently. Actual rates from banks,
+              card providers, or payment apps may be slightly different.
+            </p>
+          </div>
+
         </section>
+
       </div>
 
-      <h2 class="section-title">Core Operations Features</h2>
+      <!-- Features -->
+      <h2 class="section-title">Features</h2>
+
       <div class="grid-auto">
+
         <div class="feature-card">
           <div class="feature-icon">⚡</div>
-          <h4>Instant Calculations</h4>
-          <p>Asynchronous runtime processing ensures rapid exchange evaluations directly inside active elements.</p>
+
+          <h4>Instant Results</h4>
+
+          <p>
+            Get real-time currency conversion results instantly.
+          </p>
         </div>
+
         <div class="feature-card">
           <div class="feature-icon">🌍</div>
-          <h4>Denomination Matrix</h4>
-          <p>Integrated tracking hooks mapped into dominant global target currencies seamlessly.</p>
+
+          <h4>Major Currencies</h4>
+
+          <p>
+            Supports popular currencies from countries around the world.
+          </p>
         </div>
+
         <div class="feature-card">
           <div class="feature-icon">📱</div>
-          <h4>Adaptive Form Factor</h4>
-          <p>Viewport fluid variables display clean interface models on desktop environments and mobile nodes.</p>
+
+          <h4>Responsive Design</h4>
+
+          <p>
+            Works smoothly on desktops, tablets, and mobile devices.
+          </p>
         </div>
+
       </div>
 
-      <h2 class="section-title">Integrated Context Deployment</h2>
+      <!-- Uses -->
+      <h2 class="section-title">Popular Uses</h2>
+
       <div class="content-box">
+
         <div class="usage-tags">
           <span>✈ Travel Planning</span>
-          <span>🛒 E-Commerce Transactions</span>
-          <span>💳 Global Remittance</span>
-          <span>📈 Asset Evaluations</span>
-          <span>💼 Business Calculations</span>
-          <span>🌐 Financial Analytics</span>
+          <span>🛒 Online Shopping</span>
+          <span>💳 International Payments</span>
+          <span>📈 Investment Tracking</span>
+          <span>💼 Business Use</span>
+          <span>🌐 Global Finance</span>
         </div>
+
       </div>
 
       <div class="btn-container">
-        <a href="tool.html" class="btn btn-neutral">⬅ Back to Tools</a>
+        <a href="tool.html" class="btn btn-neutral">
+          ⬅ Back to Tools
+        </a>
       </div>
+
     </main>
 
     <footer class="page-footer">
@@ -349,41 +442,72 @@
 
   </div>
 
+  <!-- Privacy Popup -->
   <div class="privacy-popup" id="privacyPopup">
+
     <div class="privacy-box">
+
       <h2>Privacy Notice</h2>
-      <p style="margin-bottom: 20px; color: #999;">By interacting with this environment, you acknowledge and agree to our systemic <a href="privacy-policy.html" class="text-link">Privacy Policy</a> parameters.</p>
-      <button class="btn btn-accent" style="width: 100%; padding: 12px;" onclick="acceptPrivacy()">Accept & Dismiss</button>
+
+      <p>
+        By using AKeyUP, you agree to our
+        <a href="privacy-policy.html" class="text-link">
+          Privacy Policy
+        </a>.
+      </p>
+
+      <button class="btn btn-accent"
+        style="width:100%; padding:12px;"
+        onclick="acceptPrivacy()">
+
+        Accept & Continue
+
+      </button>
+
     </div>
+
   </div>
 
   <script>
-    /* UI Dropdown Context Menu System */
+
     function toggleMenu() {
       const menu = document.getElementById("menu");
       menu.classList.toggle("show");
     }
 
-    document.addEventListener("click", function(event) {
+    document.addEventListener("click", function (event) {
+
       const menu = document.getElementById("menu");
       const button = document.querySelector(".menu-btn");
+
       if (menu && button) {
-        if (!menu.contains(event.target) && !button.contains(event.target)) {
+        if (!menu.contains(event.target) &&
+          !button.contains(event.target)) {
           menu.classList.remove("show");
         }
       }
+
     });
 
     const localFallbackRates = {
-      USD: 1.0, INR: 83.50, EUR: 0.92, GBP: 0.79, JPY: 156.40,
-      AUD: 1.51, CAD: 1.37, CNY: 7.24, AED: 3.67, SGD: 1.35
+      USD: 1.0,
+      INR: 83.50,
+      EUR: 0.92,
+      GBP: 0.79,
+      JPY: 156.40,
+      AUD: 1.51,
+      CAD: 1.37,
+      CNY: 7.24,
+      AED: 3.67,
+      SGD: 1.35
     };
 
-    /* Live API Processing Computation Module with Streamlined Telemetry Flags */
     async function convertCurrency() {
+
       const amountInput = document.getElementById("amount");
       const from = document.getElementById("from").value;
       const to = document.getElementById("to").value;
+
       const result = document.getElementById("result");
       const badgeText = document.getElementById("badgeText");
 
@@ -393,52 +517,78 @@
       }
 
       const amount = parseFloat(amountInput.value);
+
       if (isNaN(amount) || amount <= 0) {
         result.innerText = `0.00 ${to}`;
         return;
       }
 
       try {
-        const response = await fetch(`https://api.exchangerate-api.com/v4/latest/${from}`);
-        if (!response.ok) throw new Error("API Route Failure");
-        
+
+        const response =
+          await fetch(`https://api.exchangerate-api.com/v4/latest/${from}`);
+
+        if (!response.ok)
+          throw new Error("API Error");
+
         const data = await response.json();
+
         const rate = data.rates[to];
-        const converted = (amount * rate);
 
-        // Small, low-profile status updates
-        badgeText.innerHTML = `<span style="color:#00ff99;">●</span> Live rate metrics updated`;
+        const converted = amount * rate;
 
-        result.innerHTML = `${amount.toLocaleString(undefined, { maximumFractionDigits: 4 })} ${from} = ${converted.toLocaleString("en-US", {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 4
-        })} ${to}`;
+        badgeText.innerHTML =
+          `<span style="color:#00ff99;">●</span> Live exchange rates active`;
 
-      } catch (error) {
-        const rateUsed = (1 / localFallbackRates[from]) * localFallbackRates[to];
+        result.innerHTML =
+          `${amount.toLocaleString()} ${from} = ${converted.toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 4
+          })} ${to}`;
+
+      }
+
+      catch (error) {
+
+        const rateUsed =
+          (1 / localFallbackRates[from]) * localFallbackRates[to];
+
         const converted = amount * rateUsed;
 
-        badgeText.innerHTML = `<span style="color:#ff4444;">●</span> Local fallback processing dynamic`;
+        badgeText.innerHTML =
+          `<span style="color:#ff4444;">●</span> Using offline fallback rates`;
 
-        result.innerHTML = `${amount.toLocaleString(undefined, { maximumFractionDigits: 4 })} ${from} = ${converted.toLocaleString("en-US", {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 4
-        })} ${to}`;
+        result.innerHTML =
+          `${amount.toLocaleString()} ${from} = ${converted.toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 4
+          })} ${to}`;
+
       }
+
     }
 
     function acceptPrivacy() {
+
       localStorage.setItem("privacyAccepted", "true");
+
       document.getElementById("privacyPopup").style.display = "none";
+
     }
 
-    window.addEventListener("load", function() {
-      const accepted = localStorage.getItem("privacyAccepted");
+    window.addEventListener("load", function () {
+
+      const accepted =
+        localStorage.getItem("privacyAccepted");
+
       if (accepted === "true") {
         document.getElementById("privacyPopup").style.display = "none";
       }
+
       convertCurrency();
+
     });
+
   </script>
 
 </body>
