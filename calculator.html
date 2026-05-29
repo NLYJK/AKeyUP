@@ -4,34 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="AKeyUP Calculator is a fast, simple, and private online calculator with scientific features, temporary session history, and keyboard support.">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591" crossorigin="anonymous"></script>
   <title>Calculator - AKeyUP</title>
   
   <link rel="stylesheet" href="style.css">
 
   <style>
-    /* Local Calculator Layout Tokens */
-    :root {
-      --calc-box: #242424;
-    }
-
+    /* Local Calculator Ecosystem Overrides */
     .calculator-box {
-      background: linear-gradient(145deg, #161616, #121212);
-      border: 1px solid #222;
-      border-radius: 24px;
-      padding: clamp(20px, 4vw, 40px);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.5);
       margin-top: 20px;
+      position: relative;
     }
 
-    /* Screen UI Components */
+    /* Screen UI Engine (Defaults to Premium Dark Screen) */
     .display-box {
-      background: var(--calc-box);
+      background: #242424;
       border-radius: 16px;
       padding: 20px;
       margin-bottom: 25px;
       border: 2px solid transparent;
-      transition: border-color 0.2s ease;
+      transition: background-color 0.3s ease, border-color 0.2s ease, box-shadow 0.3s ease;
     }
 
     .display-box:focus-within {
@@ -42,11 +33,12 @@
       width: 100%;
       border: none;
       background: transparent;
-      color: white;
+      color: #ffffff;
       font-size: clamp(1.4rem, 4vw, 2.2rem);
       outline: none;
       text-align: right;
       font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      transition: color 0.3s ease;
     }
 
     #preview {
@@ -56,9 +48,52 @@
       font-size: 1.05rem;
       min-height: 24px;
       font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      transition: color 0.3s ease;
     }
 
-    /* Keypad Layout Engine */
+    /* Interactive Interface Theme States */
+    .display-box.light-screen {
+      background: #ffffff !important;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    .display-box.light-screen #display {
+      color: #111111 !important;
+    }
+
+    .display-box.light-screen #preview {
+      color: #666666 !important;
+    }
+
+    /* Layout Toggle Architecture Control */
+    .screen-toggle-container {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 12px;
+    }
+
+    .btn-screen-toggle {
+      background: #161616;
+      border: 1px solid #333;
+      color: #aaa;
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-screen-toggle:hover {
+      background: #222;
+      color: #fff;
+      border-color: #ff4444;
+    }
+
+    /* Keypad Grid Overrides */
     .buttons-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -69,7 +104,7 @@
       border: none;
       border-radius: 12px;
       padding: 18px;
-      background: var(--calc-box);
+      background: #242424;
       color: white;
       font-size: clamp(1rem, 2vw, 1.2rem);
       font-weight: 700;
@@ -82,7 +117,6 @@
       transform: translateY(-2px);
     }
 
-    /* Custom Input Categorization Overrides */
     .buttons-grid button.operator-key {
       background: #1e1e1e;
       color: #ff4444;
@@ -101,7 +135,7 @@
       background: #e03333;
     }
 
-    /* Local Session History Module */
+    /* Session History Layout */
     .history-box {
       margin-top: 35px;
       background: #0a0a0a;
@@ -160,6 +194,7 @@
     #history {
       max-height: 200px;
       overflow-y: auto;
+      scroll-behavior: smooth;
     }
 
     .history-item {
@@ -175,47 +210,7 @@
       border-bottom: none;
     }
 
-    /* System Feature Architecture */
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      margin-top: 30px;
-    }
-
-    .feature-box {
-      background: #141414;
-      border: 1px solid #1f1f1f;
-      border-radius: 16px;
-      padding: 25px;
-      text-align: center;
-      transition: transform 0.25s ease;
-    }
-
-    .feature-box:hover {
-      transform: translateY(-4px);
-    }
-
-    .feature-box .icon {
-      font-size: 2rem;
-      display: block;
-      margin-bottom: 12px;
-    }
-
-    .feature-box h3 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 8px;
-      color: #fff;
-    }
-
-    .feature-box p {
-      color: #888;
-      font-size: 0.9rem;
-      line-height: 1.5;
-    }
-
-    /* Responsive Grid Scaling adjustments */
+    /* Media Adaptive Layout Rules */
     @media(max-width: 600px) {
       .buttons-grid { gap: 8px; }
       .buttons-grid button { padding: 14px; }
@@ -224,12 +219,14 @@
       .btn-history-action { flex: 1; text-align: center; }
     }
   </style>
+  
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591" crossorigin="anonymous"></script>
 </head>
 
 <body>
 
 <div class="menu-container">
-  <button class="menu-btn" onclick="toggleMenu()">⋮</button>
+  <button class="menu-btn" onclick="toggleMenu()" aria-label="Toggle Menu">⋮</button>
   <div class="menu" id="menu">
     <a href="index.html">Home</a>
     <a href="donation.html">Donation</a>
@@ -251,7 +248,13 @@
   <main>
     <div class="calculator-box">
       
-      <div class="display-box">
+      <div class="screen-toggle-container">
+        <button class="btn-screen-toggle" onclick="toggleScreenTheme()" id="screenToggleBtn">
+          <span>🌓</span> <span id="toggleText">Light Screen</span>
+        </button>
+      </div>
+      
+      <div class="display-box" id="calcDisplayContainer">
         <input type="text" id="display" placeholder="0" autocomplete="off" spellcheck="false">
         <div id="preview"></div>
       </div>
@@ -340,13 +343,12 @@
     </div>
   </main>
 
-  <footer>
+  <footer class="page-footer">
     © 2026-Present AKeyUP. All rights reserved.
   </footer>
 </div>
 
 <script>
-/* Global Menu Dropdown Functional Layer */
 function toggleMenu() {
   document.getElementById("menu").classList.toggle("show");
 }
@@ -360,11 +362,24 @@ window.onclick = function(event) {
   }
 }
 
-/* Arithmetic Calculation Engine Controllers */
+/* Screen Theme Switching Mechanics */
+function toggleScreenTheme() {
+  const container = document.getElementById("calcDisplayContainer");
+  const toggleText = document.getElementById("toggleText");
+  
+  if (container.classList.contains("light-screen")) {
+    container.classList.remove("light-screen");
+    toggleText.innerText = "Light Screen";
+  } else {
+    container.classList.add("light-screen");
+    toggleText.innerText = "Dark Screen";
+  }
+}
+
 const display = document.getElementById("display");
 const preview = document.getElementById("preview");
 const historyDiv = document.getElementById("history");
-let historyLog = []; // Local array tracking session items for copy/export functionality
+let historyLog = [];
 
 function toRad(x) { return x * Math.PI / 180; }
 
@@ -375,6 +390,12 @@ const math = {
   log: x => Math.log10(x),
   sqrt: x => Math.sqrt(x)
 };
+
+// Safe Precision Formatter resolving standard float evaluation inaccuracies
+function stripPrecisionError(num) {
+  if (num === null || isNaN(num) || !isFinite(num)) return num;
+  return parseFloat(Number(num).toPrecision(12));
+}
 
 function append(value) {
   display.value += value;
@@ -392,9 +413,21 @@ function del() {
 }
 
 function safeEval(expr) {
-  if (!expr.trim()) return null;
+  let cleanedExpr = expr.trim();
+  if (!cleanedExpr) return null;
+  
+  cleanedExpr = cleanedExpr.replace(/(sin|cos|tan|log|sqrt)\($/, '');
+  
+  const openBrackets = (cleanedExpr.match(/\(/g) || []).length;
+  const closeBrackets = (cleanedExpr.match(/\)/g) || []).length;
+  if (openBrackets > closeBrackets) {
+    cleanedExpr += ")".repeat(openBrackets - closeBrackets);
+  }
+
   try {
-    return Function("math", "with(math){ return " + expr + " }")(math);
+    const evaluator = new Function("math", `with(math){ return ${cleanedExpr} }`);
+    const rawResult = evaluator(math);
+    return stripPrecisionError(rawResult);
   } catch {
     return null;
   }
@@ -402,16 +435,19 @@ function safeEval(expr) {
 
 function calculate() {
   const expression = display.value;
+  if (!expression.trim()) return;
+
   const result = safeEval(expression);
 
-  if (result !== null && !isNaN(result)) {
+  if (result !== null && !isNaN(result) && isFinite(result)) {
     const itemText = `${expression} = ${result}`;
-    historyLog.unshift(itemText); // Keep top item at the start of array
+    historyLog.unshift(itemText);
 
     const historyItem = document.createElement("div");
     historyItem.className = "history-item";
     historyItem.innerText = itemText;
     historyDiv.prepend(historyItem);
+    historyDiv.scrollTop = 0; 
     
     display.value = result;
     preview.innerText = "";
@@ -423,10 +459,9 @@ function calculate() {
 
 function livePreview() {
   const result = safeEval(display.value);
-  preview.innerText = (result !== null && !isNaN(result)) ? result : "";
+  preview.innerText = (result !== null && !isNaN(result) && isFinite(result)) ? result : "";
 }
 
-/* Clipboard Copy Engine */
 function copyHistory() {
   if (historyLog.length === 0) {
     alert("Your history log is currently empty.");
@@ -452,7 +487,6 @@ function copyHistory() {
   });
 }
 
-/* File Export Engine */
 function exportHistory() {
   if (historyLog.length === 0) {
     alert("Your history log is currently empty.");
@@ -473,7 +507,7 @@ function exportHistory() {
   document.body.removeChild(tempLink);
 }
 
-/* Event Routing Listener Rules */
+/* Key Routing Listeners */
 document.addEventListener("keydown", function(e) {
   if ("0123456789+-*/().".includes(e.key)) {
     e.preventDefault();
@@ -491,7 +525,6 @@ document.addEventListener("keydown", function(e) {
   }
 });
 
-// Sync user input transformations typed manually in input
 display.addEventListener("input", livePreview);
 </script>
 

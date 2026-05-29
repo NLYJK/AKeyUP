@@ -10,10 +10,6 @@
 
   <title>AKeyUP Currency Converter</title>
 
-  <script async
-    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591"
-    crossorigin="anonymous"></script>
-
   <link rel="stylesheet" href="style.css">
 
   <style>
@@ -92,16 +88,6 @@
       margin-top: 15px;
       line-height: 1.5;
       text-align: left;
-    }
-
-    .privacy-note a {
-      color: #ff4444;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .privacy-note a:hover {
-      text-decoration: underline;
     }
 
     .status-badge {
@@ -227,16 +213,6 @@
       line-height: 1.6;
       margin-bottom: 20px;
     }
-
-    .text-link {
-      color: #ff4444;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .text-link:hover {
-      text-decoration: underline;
-    }
   </style>
 </head>
 
@@ -262,7 +238,7 @@
       <h1 class="title">Currency Converter</h1>
 
       <p class="subtitle">
-        Convert currencies instantly using live exchange rates.
+        Convert world currencies instantly using live exchange rates.
       </p>
     </header>
 
@@ -270,11 +246,9 @@
 
       <div class="grid-split">
 
-        <!-- Converter -->
-        <section class="content-box" style="margin-bottom:0;">
+        <section class="content-box">
 
-          <h2 class="section-title"
-            style="border-left:none; padding-left:0; margin-bottom:10px;">
+          <h2 class="section-title" style="border-left:none; padding-left:0; margin-bottom:10px;">
             Currency Converter
           </h2>
 
@@ -316,16 +290,13 @@
             <option value="SGD">SGD - Singapore Dollar</option>
           </select>
 
-          <button class="btn btn-accent"
-            style="margin-top:25px; width:100%;"
-            onclick="convertCurrency()">
+          <button class="btn btn-accent" style="margin-top:25px; width:100%;" onclick="convertCurrency()">
             Convert Currency
           </button>
 
           <div class="privacy-note">
-            Exchange rates are provided by third-party services.
-            Read our
-            <a href="privacy-policy.html">Privacy Policy</a>.
+            Exchange rates are provided by online services.
+            Read our <a href="privacy-policy.html" class="text-link">Privacy Policy</a>.
           </div>
 
           <div class="status-badge">
@@ -341,33 +312,28 @@
 
         </section>
 
-        <!-- About -->
-        <section class="content-box" style="margin-bottom:0;">
+        <section class="content-box">
 
-          <h2 class="section-title"
-            style="border-left:none; padding-left:0; margin-bottom:15px;">
+          <h2 class="section-title" style="border-left:none; padding-left:0; margin-bottom:15px;">
             About This Tool
           </h2>
 
           <div class="content-section">
             <p style="text-align:left;">
-              Convert major world currencies quickly using a fast and responsive interface.
+              Convert major world currencies quickly using a simple and clean layout.
             </p>
           </div>
 
-          <div class="content-section" style="margin-top:15px;">
+          <div class="content-section">
             <p style="text-align:left;">
-              Useful for travel, online shopping, international payments,
-              business calculations, and finance tracking.
+              Useful for travel, online shopping, international payments, business tasks, and finance tracking.
             </p>
           </div>
 
           <div class="notice-box">
             <h3>📢 Exchange Rate Notice</h3>
-
             <p>
-              Exchange rates change frequently. Actual rates from banks,
-              card providers, or payment apps may be slightly different.
+              Exchange rates change frequently. Actual rates from banks, card providers, or payment apps may be slightly different.
             </p>
           </div>
 
@@ -375,26 +341,21 @@
 
       </div>
 
-      <!-- Features -->
       <h2 class="section-title">Features</h2>
 
       <div class="grid-auto">
 
         <div class="feature-card">
           <div class="feature-icon">⚡</div>
-
           <h4>Instant Results</h4>
-
           <p>
-            Get real-time currency conversion results instantly.
+            Get live currency conversions right away.
           </p>
         </div>
 
         <div class="feature-card">
           <div class="feature-icon">🌍</div>
-
           <h4>Major Currencies</h4>
-
           <p>
             Supports popular currencies from countries around the world.
           </p>
@@ -402,21 +363,17 @@
 
         <div class="feature-card">
           <div class="feature-icon">📱</div>
-
           <h4>Responsive Design</h4>
-
           <p>
-            Works smoothly on desktops, tablets, and mobile devices.
+            Works smoothly on mobile devices, tablets, and computers.
           </p>
         </div>
 
       </div>
 
-      <!-- Uses -->
       <h2 class="section-title">Popular Uses</h2>
 
       <div class="content-box">
-
         <div class="usage-tags">
           <span>✈ Travel Planning</span>
           <span>🛒 Online Shopping</span>
@@ -425,7 +382,6 @@
           <span>💼 Business Use</span>
           <span>🌐 Global Finance</span>
         </div>
-
       </div>
 
       <div class="btn-container">
@@ -442,51 +398,36 @@
 
   </div>
 
-  <!-- Privacy Popup -->
   <div class="privacy-popup" id="privacyPopup">
-
     <div class="privacy-box">
-
       <h2>Privacy Notice</h2>
-
       <p>
         By using AKeyUP, you agree to our
         <a href="privacy-policy.html" class="text-link">
           Privacy Policy
         </a>.
       </p>
-
-      <button class="btn btn-accent"
-        style="width:100%; padding:12px;"
-        onclick="acceptPrivacy()">
-
+      <button class="btn btn-accent" style="width:100%; padding:12px;" onclick="acceptPrivacy()">
         Accept & Continue
-
       </button>
-
     </div>
-
   </div>
 
   <script>
-
     function toggleMenu() {
       const menu = document.getElementById("menu");
       menu.classList.toggle("show");
     }
 
     document.addEventListener("click", function (event) {
-
       const menu = document.getElementById("menu");
       const button = document.querySelector(".menu-btn");
 
       if (menu && button) {
-        if (!menu.contains(event.target) &&
-          !button.contains(event.target)) {
+        if (!menu.contains(event.target) && !button.contains(event.target)) {
           menu.classList.remove("show");
         }
       }
-
     });
 
     const localFallbackRates = {
@@ -503,7 +444,6 @@
     };
 
     async function convertCurrency() {
-
       const amountInput = document.getElementById("amount");
       const from = document.getElementById("from").value;
       const to = document.getElementById("to").value;
@@ -524,71 +464,49 @@
       }
 
       try {
-
-        const response =
-          await fetch(`https://api.exchangerate-api.com/v4/latest/${from}`);
+        const response = await fetch(`https://api.exchangerate-api.com/v4/latest/${from}`);
 
         if (!response.ok)
           throw new Error("API Error");
 
         const data = await response.json();
-
         const rate = data.rates[to];
-
         const converted = amount * rate;
 
-        badgeText.innerHTML =
-          `<span style="color:#00ff99;">●</span> Live exchange rates active`;
+        badgeText.innerHTML = `<span style="color:#00ff99;">●</span> Live exchange rates active`;
 
-        result.innerHTML =
-          `${amount.toLocaleString()} ${from} = ${converted.toLocaleString("en-US", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 4
-          })} ${to}`;
-
+        result.innerHTML = `${amount.toLocaleString()} ${from} = ${converted.toLocaleString("en-US", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 4
+        })} ${to}`;
       }
-
       catch (error) {
-
-        const rateUsed =
-          (1 / localFallbackRates[from]) * localFallbackRates[to];
-
+        const rateUsed = (1 / localFallbackRates[from]) * localFallbackRates[to];
         const converted = amount * rateUsed;
 
-        badgeText.innerHTML =
-          `<span style="color:#ff4444;">●</span> Using offline fallback rates`;
+        badgeText.innerHTML = `<span style="color:#ff4444;">●</span> Using offline fallback rates`;
 
-        result.innerHTML =
-          `${amount.toLocaleString()} ${from} = ${converted.toLocaleString("en-US", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 4
-          })} ${to}`;
-
+        result.innerHTML = `${amount.toLocaleString()} ${from} = ${converted.toLocaleString("en-US", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 4
+        })} ${to}`;
       }
-
     }
 
     function acceptPrivacy() {
-
       localStorage.setItem("privacyAccepted", "true");
-
       document.getElementById("privacyPopup").style.display = "none";
-
     }
 
     window.addEventListener("load", function () {
-
-      const accepted =
-        localStorage.getItem("privacyAccepted");
+      const accepted = localStorage.getItem("privacyAccepted");
 
       if (accepted === "true") {
         document.getElementById("privacyPopup").style.display = "none";
       }
 
       convertCurrency();
-
     });
-
   </script>
 
 </body>
