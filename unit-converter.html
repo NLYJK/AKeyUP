@@ -7,13 +7,40 @@
   <meta name="keywords" content="unit converter, length converter, weight converter, storage converter, temperature converter, speed converter, area converter, volume converter, pressure converter, energy converter, online converter">
   <meta name="author" content="AKeyUP">
   <meta name="robots" content="index, follow">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591" crossorigin="anonymous"></script>
   <title>AKeyUP Universal Unit Converter - Scientific & Engineering Matrix</title>
 
-  <link rel="stylesheet" href="style.css">
-
   <style>
-    /* Reset & Core Styles matching Homepage */
+    /* Premium Design Tokens with Light/Dark Support */
+    :root {
+      --bg-main: #0d0d0d;
+      --bg-box: linear-gradient(145deg, #161616, #121212);
+      --bg-input: #111;
+      --bg-terminal: #0f0f0f;
+      --border-color: #262626;
+      --border-box: #222;
+      --text-main: #e5e5e5;
+      --text-muted: #888;
+      --text-light: #b3b3b3;
+      --text-inverse: #ffffff;
+      --text-result: #00ff99;
+      --select-arrow: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23888888' viewBox='0 0 16 16'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>");
+    }
+
+    [data-theme="light"] {
+      --bg-main: #f5f5f7;
+      --bg-box: linear-gradient(145deg, #ffffff, #fafafa);
+      --bg-input: #f0f0f2;
+      --bg-terminal: #ededf0;
+      --border-color: #d1d1d6;
+      --border-box: #e5e5ea;
+      --text-main: #1c1c1e;
+      --text-muted: #8e8e93;
+      --text-light: #3a3a3c;
+      --text-inverse: #000000;
+      --text-result: #00875a;
+      --select-arrow: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23555555' viewBox='0 0 16 16'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>");
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -21,11 +48,12 @@
     }
 
     body {
-      background: #0d0d0d;
-      color: #e5e5e5;
+      background: var(--bg-main);
+      color: var(--text-main);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       line-height: 1.6;
       overflow-x: hidden;
+      transition: background 0.3s, color 0.3s;
     }
 
     .wrapper {
@@ -45,13 +73,13 @@
       font-weight: 800;
       letter-spacing: -1.5px;
       margin-bottom: 10px;
-      background: linear-gradient(135deg, #ffffff 0%, #a3a3a3 100%);
+      background: linear-gradient(135deg, var(--text-inverse) 0%, var(--text-muted) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .subtitle {
-      color: #888;
+      color: var(--text-muted);
       font-size: clamp(1.1rem, 2.5vw, 1.4rem);
       font-weight: 400;
     }
@@ -60,7 +88,7 @@
       font-size: clamp(1.4rem, 4vw, 1.8rem);
       font-weight: 700;
       margin-bottom: 20px;
-      color: #fff;
+      color: var(--text-inverse);
     }
 
     .section-title {
@@ -70,12 +98,12 @@
       text-align: left;
     }
 
-    /* Forms Architecture */
+    /* Controls System */
     label { 
       display: block; 
       margin-top: 15px; 
       margin-bottom: 6px; 
-      color: #fff; 
+      color: var(--text-inverse); 
       font-size: 0.9rem; 
       font-weight: 600; 
       text-align: left; 
@@ -84,19 +112,19 @@
     select, input[type="number"] {
       width: 100%; 
       padding: 15px 16px; 
-      border: 1px solid #262626; 
+      border: 1px solid var(--border-color); 
       border-radius: 10px;
-      background: #111; 
-      color: #fff; 
+      background: var(--bg-input); 
+      color: var(--text-main); 
       font-size: 1rem; 
       outline: none; 
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, background 0.3s, color 0.3s;
       appearance: none; 
       -webkit-appearance: none;
     }
 
     select {
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23888888' viewBox='0 0 16 16'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>");
+      background-image: var(--select-arrow);
       background-repeat: no-repeat; 
       background-position: right 16px center; 
       padding-right: 40px; 
@@ -109,11 +137,12 @@
 
     /* Layout Configurations */
     .content-box {
-      background: linear-gradient(145deg, #161616, #121212);
+      background: var(--bg-box);
       padding: clamp(22px, 4vw, 35px);
       border-radius: 16px;
-      border: 1px solid #222;
+      border: 1px solid var(--border-box);
       margin-bottom: 25px;
+      transition: background 0.3s, border 0.3s;
     }
 
     .converter-interface { 
@@ -161,45 +190,44 @@
     }
 
     .action-row .btn-neutral { 
-      background: #161616;
-      border: 1px solid #262626;
-      color: #ccc;
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
       box-shadow: none;
     }
 
     .action-row .btn-neutral:hover {
-      background: #222;
-      color: #fff;
-      border-color: #444;
+      background: var(--border-box);
+      color: var(--text-inverse);
     }
 
     .btn-secondary {
-      background: #161616;
-      border: 1px solid #262626;
-      color: #ccc;
+      background: var(--bg-box);
+      border: 1px solid var(--border-box);
+      color: var(--text-main);
       box-shadow: none;
       max-width: 280px;
       margin: 40px auto;
     }
 
     .btn-secondary:hover {
-      background: #222;
-      color: #fff;
-      border-color: #444;
+      background: var(--border-color);
+      color: var(--text-inverse);
     }
 
     /* Display Terminals */
     .terminal-output { 
       margin-top: 25px; 
-      background: #0f0f0f; 
+      background: var(--bg-terminal); 
       padding: 30px 20px; 
       border-radius: 12px; 
       text-align: center; 
-      border: 1px solid #1c1c1c; 
+      border: 1px solid var(--border-color); 
+      transition: background 0.3s;
     }
 
     .terminal-output h2 { 
-      color: #00ff99; 
+      color: var(--text-result); 
       font-size: clamp(1.8rem, 4vw, 2.6rem); 
       font-weight: 700; 
       word-break: break-word; 
@@ -207,20 +235,48 @@
 
     .terminal-output p { 
       margin-top: 8px; 
-      color: #666; 
+      color: var(--text-muted); 
       font-size: 0.88rem; 
+    }
+
+    /* Inlined Dynamic Label Toggle Module */
+    .theme-inline-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 25px;
+    }
+
+    .theme-inline-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      width: auto;
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 12px 24px;
+      font-size: 0.95rem;
+      border-radius: 30px;
+      box-shadow: none;
+    }
+
+    .theme-inline-btn:hover {
+      background: var(--border-box);
+      color: var(--text-inverse);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
     
     /* Articles Node Styling */
     .article-section h3 { 
-      color: #fff; 
+      color: var(--text-inverse); 
       margin: 25px 0 10px 0; 
       font-size: 1.3rem; 
       font-weight: 600; 
     }
 
     .article-section p { 
-      color: #b3b3b3; 
+      color: var(--text-light); 
       font-size: 1rem; 
       line-height: 1.8; 
       margin-bottom: 15px; 
@@ -228,7 +284,7 @@
     }
 
     .article-section ul {
-      color: #b3b3b3;
+      color: var(--text-light);
       margin-left: 20px;
       margin-bottom: 20px;
       text-align: left;
@@ -239,52 +295,59 @@
       line-height: 1.6;
     }
 
-    /* Menus & Navigation */
-    .menu-container {
+    /* Global Header Menu Controls */
+    .global-controls {
       position: fixed;
       top: 20px;
       right: 20px;
       z-index: 1000;
     }
 
-    .menu-btn {
-      font-size: 22px;
+    .menu-container {
+      position: relative;
+    }
+
+    .control-btn {
+      font-size: 20px;
       width: 45px;
       height: 45px;
-      border: 1px solid #333;
+      border: 1px solid var(--border-color);
       border-radius: 50%;
-      background: rgba(20, 20, 20, 0.8);
-      backdrop-filter: blur(8px);
-      color: white;
+      background: var(--bg-box);
+      color: var(--text-main);
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.2s;
+      transition: background 0.2s, border-color 0.2s;
     }
 
-    .menu-btn:hover {
-      background: #222;
-      border-color: #444;
+    .control-btn:hover {
+      background: var(--border-box);
+      border-color: var(--text-muted);
     }
 
     .menu {
       display: none;
       margin-top: 10px;
-      background: #161616;
-      border: 1px solid #262626;
+      background: var(--bg-box);
+      border: 1px solid var(--border-color);
       border-radius: 12px;
       overflow: hidden;
       min-width: 180px;
       position: absolute;
       right: 0;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    .menu.show {
+      display: block;
     }
 
     .menu a {
       display: block;
       padding: 12px 20px;
-      color: #ccc;
+      color: var(--text-main);
       text-decoration: none;
       font-size: 0.95rem;
       text-align: left;
@@ -300,9 +363,9 @@
     footer {
       text-align: center;
       padding: 40px 0 20px 0;
-      color: #555;
+      color: var(--text-muted);
       font-size: 0.85rem;
-      border-top: 1px solid #161616;
+      border-top: 1px solid var(--border-box);
       margin-top: 60px;
     }
 
@@ -320,24 +383,24 @@
     }
 
     .privacy-box {
-      background: linear-gradient(145deg, #1c1c1c, #151515);
-      border: 1px solid #262626;
+      background: var(--bg-box);
+      border: 1px solid var(--border-color);
       width: min(420px, 100%);
       padding: 35px;
       border-radius: 24px;
       text-align: center;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.7);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.5);
       animation: popupFade 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .privacy-box h2 {
       font-size: 1.8rem;
       margin-bottom: 12px;
-      color: white;
+      color: var(--text-inverse);
     }
 
     .privacy-box p {
-      color: #999;
+      color: var(--text-muted);
       line-height: 1.6;
       font-size: 0.95rem;
     }
@@ -385,16 +448,18 @@
 
 <body>
 
-  <div class="menu-container">
-    <button class="menu-btn" onclick="toggleMenu()">⋮</button>
-    <div class="menu" id="menu">
-      <a href="index.html">Home</a>
-      <a href="donation.html">Donation</a>
-      <a href="tool.html">Tools</a>
-      <a href="privacy-policy.html">Privacy Policy</a>
-      <a href="terms.html">Terms of Service</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+  <div class="global-controls">
+    <div class="menu-container">
+      <button class="control-btn" id="menuBtn" onclick="toggleMenu()">⋮</button>
+      <div class="menu" id="menu">
+        <a href="index.html">Home</a>
+        <a href="donation.html">Donation</a>
+        <a href="tool.html">Tools</a>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
     </div>
   </div>
 
@@ -402,7 +467,7 @@
 
     <header>
       <h1 class="title">Unit Converter</h1>
-      <p class="subtitle">Transpose cross-disciplinary data formats, lengths, temperatures, and physical scales seamlessly.</p>
+      <p class="subtitle">Convert between standard metrics, data dimensions, temperatures, and dynamic formats instantly.</p>
     </header>
 
     <main>
@@ -440,14 +505,22 @@
           </div>
 
           <div class="action-row">
-            <button class="btn" onclick="convertUnit()">Convert Metric</button>
-            <button class="btn btn-neutral" onclick="swapUnits()">Swap Units</button>
+            <button class="btn" onclick="convertUnit()" style="flex: 2; min-width: 180px;">Convert Metric</button>
+            <button class="btn btn-neutral" onclick="swapUnits()" style="flex: 1; min-width: 120px;">Swap Units</button>
             <button class="btn btn-neutral" onclick="clearAll()" style="max-width: 120px;">Clear</button>
           </div>
 
           <div class="terminal-output">
             <h2 id="result">1 Meter = 100 Centimeters</h2>
             <p>Calculations are processed fully inside your browser sandbox to guarantee complete data privacy and execution speed.</p>
+          </div>
+
+          <!-- Repositioned Labeled Theme Module Wrapper -->
+          <div class="theme-inline-container">
+            <button class="btn theme-inline-btn" onclick="toggleTheme()">
+              <span id="themeIcon">🌓</span>
+              <span id="themeText">Switch Interface Theme</span>
+            </button>
           </div>
         </div>
       </section>
@@ -494,23 +567,46 @@
   </div>
 
   <script>
+    // Navigation Dropdown Handler Mechanics
     function toggleMenu() {
       const menu = document.getElementById("menu");
-      menu.style.display = (menu.style.display === "block") ? "none" : "block";
+      menu.classList.toggle("show");
     }
 
     document.addEventListener("click", function(event) {
       const menu = document.getElementById("menu");
-      const button = document.querySelector(".menu-btn");
+      const button = document.getElementById("menuBtn");
       if (menu && button) {
         if (!menu.contains(event.target) && !button.contains(event.target)) {
-          menu.style.display = "none";
+          menu.classList.remove("show");
         }
       }
     });
 
+    // Theme Switching Engine Mechanics
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute("data-theme");
+      const targetTheme = currentTheme === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", targetTheme);
+      localStorage.setItem("themePreference", targetTheme);
+      updateThemeButtonUI(targetTheme);
+    }
+
+    function updateThemeButtonUI(theme) {
+      const textNode = document.getElementById("themeText");
+      const iconNode = document.getElementById("themeIcon");
+      if (theme === "light") {
+        textNode.innerText = "Switch to Dark Mode";
+        iconNode.innerText = "🌙";
+      } else {
+        textNode.innerText = "Switch to Light Mode";
+        iconNode.innerText = "☀️";
+      }
+    }
+
+    // Mathematical Map Constants Engine Setup
     const units = {
-      length: { Nanometer: 0.000000001, Micrometer: 0.000001, Millimeter: 0.001, Centimeter: 0.01, Meter: 1, Kilometer: 1000, Inch: 0.0254, Foot: 0.3048, Yard: 0.9144, Mile: 1609.344, "Nautical Mile": 1852 },
+      length: { Nanometer: 1e-9, Micrometer: 1e-6, Millimeter: 0.001, Centimeter: 0.01, Meter: 1, Kilometer: 1000, Inch: 0.0254, Foot: 0.3048, Yard: 0.9144, Mile: 1609.344, "Nautical Mile": 1852 },
       weight: { Milligram: 0.000001, Gram: 0.001, Kilogram: 1, Ton: 1000, Ounce: 0.0283495, Pound: 0.453592, Stone: 6.35029 },
       storage: { Bit: 0.125, Byte: 1, Kilobyte: 1024, Megabyte: 1024**2, Gigabyte: 1024**3, Terabyte: 1024**4, Petabyte: 1024**5, Exabyte: 1024**6, Zettabyte: 1024**7, Yottabyte: 1024**8 },
       speed: { "Meters/Second": 1, "Kilometers/Hour": 0.277778, "Miles/Hour": 0.44704, Knot: 0.514444, Mach: 343 },
@@ -529,6 +625,9 @@
 
     function loadUnits() {
       const selected = category.value; 
+      const prevFrom = fromUnit.value;
+      const prevTo = toUnit.value;
+
       fromUnit.innerHTML = ""; 
       toUnit.innerHTML = "";
       
@@ -545,7 +644,12 @@
         });
       }
       
-      if(toUnit.options.length > 1) {
+      if (units[selected] && units[selected][prevFrom]) {
+        fromUnit.value = prevFrom;
+      }
+      if (units[selected] && units[selected][prevTo]) {
+        toUnit.value = prevTo;
+      } else if(toUnit.options.length > 1) {
         toUnit.selectedIndex = 1;
       }
     }
@@ -559,12 +663,13 @@
       const selected = category.value;
       const from = fromUnit.value;
       const to = toUnit.value;
-      let value = parseFloat(inputValue.value);
       
       if (inputValue.value === "") {
-        result.innerText = "0";
+        result.innerText = `0 ${to || ''}`;
         return;
       }
+
+      let value = parseFloat(inputValue.value);
       if (isNaN(value)) { 
         result.innerText = "Enter a valid value"; 
         return; 
@@ -581,11 +686,20 @@
         else if (from === "Fahrenheit" && to === "Kelvin") converted = ((value - 32) * 5 / 9) + 273.15;
         else if (from === "Kelvin" && to === "Fahrenheit") converted = ((value - 273.15) * 9 / 5) + 32;
       } else {
-        converted = value * units[selected][from] / units[selected][to];
+        // High precision floating point normalization
+        converted = value * (units[selected][from] / units[selected][to]);
       }
       
       const formattedVal = value.toLocaleString(undefined, { maximumFractionDigits: 6 });
-      const formattedConverted = converted.toLocaleString(undefined, { maximumFractionDigits: 12 });
+      
+      // Fixed Precision Handling for microscopic targets (e.g. Nanometer -> Nautical Mile)
+      let formattedConverted;
+      if (converted > 0 && converted < 1e-4) {
+        formattedConverted = converted.toFixed(16).replace(/\.?0+$/, "");
+      } else {
+        formattedConverted = converted.toLocaleString(undefined, { maximumFractionDigits: 12 });
+      }
+
       result.innerText = `${formattedVal} ${from} = ${formattedConverted} ${to}`;
     }
 
@@ -607,9 +721,14 @@
     }
     
     window.addEventListener("load", function() {
+      const savedTheme = localStorage.getItem("themePreference") || "dark";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+      updateThemeButtonUI(savedTheme);
+
       if (localStorage.getItem("privacyAccepted") === "true") {
         document.getElementById("privacyPopup").style.display = "none";
       }
+      
       loadUnits(); 
       convertUnit();
     });
