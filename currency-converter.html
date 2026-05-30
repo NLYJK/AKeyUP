@@ -6,18 +6,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <meta name="description"
-    content="Convert currencies instantly with the AKeyUP Currency Converter. Supports USD, INR, EUR, GBP, JPY, AED, SGD and other major currencies with a fast modern interface.">
+    content="Convert world currencies instantly with the AKeyUP Currency Converter. Supports USD, INR, EUR, GBP, JPY, AUD, CAD, exchange pairs and major international currencies with a fast, modern interface.">
 
   <title>AKeyUP Currency Converter</title>
 
   <link rel="stylesheet" href="style.css">
 
   <style>
+    /* Theme fallbacks to ensure text visibility regardless of external style.css setup */
+    html[data-theme="light"] {
+      --fallback-bg-box: #f5f5f7;
+      --fallback-bg-input: #ffffff;
+      --fallback-text: #1d1d1f;
+      --fallback-text-muted: #86868b;
+      --fallback-border: #d2d2d7;
+      --fallback-result-bg: #e5e5ea;
+    }
+    html[data-theme="dark"] {
+      --fallback-bg-box: #1c1c1e;
+      --fallback-bg-input: #2c2c2e;
+      --fallback-text: #f5f5f7;
+      --fallback-text-muted: #8e8e93;
+      --fallback-border: #3a3a3c;
+      --fallback-result-bg: #0f0f0f;
+    }
+
     label {
       display: block;
       margin-top: 20px;
       margin-bottom: 8px;
-      color: #fff;
+      color: var(--text-inverse, var(--fallback-text));
+      var(--text-main, var(--fallback-text));
       font-size: 0.95rem;
       font-weight: 600;
       text-align: left;
@@ -27,13 +46,13 @@
     input[type="number"] {
       width: 100%;
       padding: 15px 16px;
-      border: 1px solid #262626;
+      border: 1px solid var(--border-box, var(--fallback-border));
       border-radius: 10px;
-      background: #111;
-      color: #fff;
+      background: var(--bg-input, var(--fallback-bg-input));
+      color: var(--text-main, var(--fallback-text));
       font-size: 1rem;
       outline: none;
-      transition: border-color 0.2s ease;
+      transition: border-color 0.2s ease, background 0.3s ease, color 0.3s ease;
       appearance: none;
       -webkit-appearance: none;
     }
@@ -61,15 +80,15 @@
 
     .result-display {
       margin-top: 22px;
-      background: #0f0f0f;
+      background: var(--fallback-result-bg);
       padding: 24px;
       border-radius: 14px;
       text-align: center;
-      border: 1px solid #1c1c1c;
+      border: 1px solid var(--border-box, var(--fallback-border));
     }
 
     .result-display h3 {
-      color: #888;
+      color: var(--text-muted, var(--fallback-text-muted));
       margin-bottom: 8px;
       font-size: 0.9rem;
       font-weight: 500;
@@ -82,9 +101,13 @@
       word-break: break-word;
     }
 
+    html[data-theme="light"] .result-display p {
+      color: #00aa66;
+    }
+
     .privacy-note {
       font-size: 0.82rem;
-      color: #777;
+      color: var(--text-muted, var(--fallback-text-muted));
       margin-top: 15px;
       line-height: 1.5;
       text-align: left;
@@ -96,12 +119,12 @@
       gap: 8px;
       margin-top: 10px;
       font-size: 0.8rem;
-      color: #999;
+      color: var(--text-muted, var(--fallback-text-muted));
     }
 
     .feature-card {
-      background: #0f0f0f;
-      border: 1px solid #1c1c1c;
+      background: var(--bg-main, var(--fallback-bg-box));
+      border: 1px solid var(--border-box, var(--fallback-border));
       padding: 25px;
       border-radius: 16px;
       transition: all 0.3s ease;
@@ -119,21 +142,21 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #161616;
+      background: var(--bg-input, var(--fallback-bg-input));
       border-radius: 12px;
       font-size: 1.5rem;
       margin-bottom: 15px;
-      border: 1px solid #222;
+      border: 1px solid var(--border-box, var(--fallback-border));
     }
 
     .feature-card h4 {
       margin-bottom: 8px;
-      color: #fff;
+      color: var(--text-inverse, var(--fallback-text));
       font-size: 1.05rem;
     }
 
     .feature-card p {
-      color: #888 !important;
+      color: var(--text-muted, var(--fallback-text-muted)) !important;
       line-height: 1.6;
       font-size: 0.92rem !important;
     }
@@ -146,11 +169,11 @@
     }
 
     .usage-tags span {
-      background: #0f0f0f;
-      border: 1px solid #1c1c1c;
+      background: var(--bg-input, var(--fallback-bg-input));
+      border: 1px solid var(--border-box, var(--fallback-border));
       padding: 10px 16px;
       border-radius: 10px;
-      color: #ccc;
+      color: var(--text-main, var(--fallback-text));
       font-size: 0.9rem;
       transition: all 0.2s ease;
     }
@@ -163,7 +186,7 @@
     }
 
     .notice-box {
-      background: linear-gradient(145deg, #241818, #1c1818);
+      background: linear-gradient(145deg, rgba(255,68,68,0.1), rgba(255,68,68,0.05));
       border: 1px solid #442222;
       padding: 24px;
       border-radius: 16px;
@@ -176,8 +199,12 @@
       font-size: 1.05rem;
     }
 
+    html[data-theme="light"] .notice-box h3 {
+      color: #cc0000;
+    }
+
     .notice-box p {
-      color: #aaa;
+      color: var(--text-main, var(--fallback-text));
       font-size: 0.9rem;
       line-height: 1.6;
     }
@@ -195,23 +222,55 @@
     }
 
     .privacy-box {
-      background: linear-gradient(145deg, #1c1c1c, #151515);
-      border: 1px solid #262626;
+      background: var(--bg-box, var(--fallback-bg-box));
+      border: 1px solid var(--border-box, var(--fallback-border));
       width: min(420px, 100%);
       padding: 35px;
       border-radius: 24px;
       text-align: center;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
     }
 
     .privacy-box h2 {
       margin-bottom: 12px;
+      color: var(--text-inverse, var(--fallback-text));
     }
 
     .privacy-box p {
-      color: #999;
+      color: var(--text-muted, var(--fallback-text-muted));
       line-height: 1.6;
       margin-bottom: 20px;
+    }
+
+    /* Integrated Theme Controller Style Wrapper */
+    .theme-inline-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 25px;
+      border-top: 1px solid var(--border-box, var(--fallback-border));
+      padding-top: 20px;
+    }
+
+    .theme-inline-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      width: auto;
+      background: var(--bg-main, var(--fallback-bg-box));
+      border: 1px solid var(--border-interactive, var(--fallback-border));
+      color: var(--text-main, var(--fallback-text));
+      padding: 12px 24px;
+      font-size: 0.95rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .theme-inline-btn:hover {
+      background: var(--bg-input, var(--fallback-bg-input));
+      color: var(--text-inverse, var(--fallback-text));
+      transform: translateY(-1px);
     }
   </style>
 </head>
@@ -219,7 +278,7 @@
 <body>
 
   <div class="menu-container">
-    <button class="menu-btn" onclick="toggleMenu()">⋮</button>
+    <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">⋮</button>
 
     <div class="menu" id="menu">
       <a href="index.html">Home</a>
@@ -236,7 +295,6 @@
 
     <header>
       <h1 class="title">Currency Converter</h1>
-
       <p class="subtitle">
         Convert world currencies instantly using live exchange rates.
       </p>
@@ -247,21 +305,14 @@
       <div class="grid-split">
 
         <section class="content-box">
-
           <h2 class="section-title" style="border-left:none; padding-left:0; margin-bottom:10px;">
             Currency Converter
           </h2>
 
           <label for="amount">Enter Amount</label>
-
-          <input type="number"
-            id="amount"
-            value="1"
-            placeholder="Enter amount"
-            oninput="convertCurrency()">
+          <input type="number" id="amount" value="1" placeholder="Enter amount" oninput="convertCurrency()">
 
           <label for="from">From</label>
-
           <select id="from" onchange="convertCurrency()">
             <option value="USD">USD - US Dollar</option>
             <option value="INR">INR - Indian Rupee</option>
@@ -273,10 +324,34 @@
             <option value="CNY">CNY - Chinese Yuan</option>
             <option value="AED">AED - UAE Dirham</option>
             <option value="SGD">SGD - Singapore Dollar</option>
+            <option value="NZD">NZD - New Zealand Dollar</option>
+            <option value="CHF">CHF - Swiss Franc</option>
+            <option value="HKD">HKD - Hong Kong Dollar</option>
+            <option value="SEK">SEK - Swedish Krona</option>
+            <option value="KRW">KRW - South Korean Won</option>
+            <option value="TRY">TRY - Turkish Lira</option>
+            <option value="RUB">RUB - Russian Ruble</option>
+            <option value="BRL">BRL - Brazilian Real</option>
+            <option value="ZAR">ZAR - South African Rand</option>
+            <option value="MXN">MXN - Mexican Peso</option>
+            <option value="MYR">MYR - Malaysian Ringgit</option>
+            <option value="IDR">IDR - Indonesian Rupiah</option>
+            <option value="PHP">PHP - Philippine Peso</option>
+            <option value="THB">THB - Thai Baht</option>
+            <option value="NOK">NOK - Norwegian Krone</option>
+            <option value="DKK">DKK - Danish Krone</option>
+            <option value="PLN">PLN - Polish Zloty</option>
+            <option value="ILS">ILS - Israeli New Shekel</option>
+            <option value="EGP">EGP - Egyptian Pound</option>
+            <option value="SAR">SAR - Saudi Riyal</option>
+            <option value="KWD">KWD - Kuwaiti Dinar</option>
+            <option value="QAR">QAR - Qatari Riyal</option>
+            <option value="VND">VND - Vietnamese Dong</option>
+            <option value="COP">COP - Colombian Peso</option>
+            <option value="PKR">PKR - Pakistani Rupee</option>
           </select>
 
           <label for="to">To</label>
-
           <select id="to" onchange="convertCurrency()">
             <option value="INR" selected>INR - Indian Rupee</option>
             <option value="USD">USD - US Dollar</option>
@@ -288,6 +363,31 @@
             <option value="CNY">CNY - Chinese Yuan</option>
             <option value="AED">AED - UAE Dirham</option>
             <option value="SGD">SGD - Singapore Dollar</option>
+            <option value="NZD">NZD - New Zealand Dollar</option>
+            <option value="CHF">CHF - Swiss Franc</option>
+            <option value="HKD">HKD - Hong Kong Dollar</option>
+            <option value="SEK">SEK - Swedish Krona</option>
+            <option value="KRW">KRW - South Korean Won</option>
+            <option value="TRY">TRY - Turkish Lira</option>
+            <option value="RUB">RUB - Russian Ruble</option>
+            <option value="BRL">BRL - Brazilian Real</option>
+            <option value="ZAR">ZAR - South African Rand</option>
+            <option value="MXN">MXN - Mexican Peso</option>
+            <option value="MYR">MYR - Malaysian Ringgit</option>
+            <option value="IDR">IDR - Indonesian Rupiah</option>
+            <option value="PHP">PHP - Philippine Peso</option>
+            <option value="THB">THB - Thai Baht</option>
+            <option value="NOK">NOK - Norwegian Krone</option>
+            <option value="DKK">DKK - Danish Krone</option>
+            <option value="PLN">PLN - Polish Zloty</option>
+            <option value="ILS">ILS - Israeli New Shekel</option>
+            <option value="EGP">EGP - Egyptian Pound</option>
+            <option value="SAR">SAR - Saudi Riyal</option>
+            <option value="KWD">KWD - Kuwaiti Dinar</option>
+            <option value="QAR">QAR - Qatari Riyal</option>
+            <option value="VND">VND - Vietnamese Dong</option>
+            <option value="COP">COP - Colombian Peso</option>
+            <option value="PKR">PKR - Pakistani Rupee</option>
           </select>
 
           <button class="btn btn-accent" style="margin-top:25px; width:100%;" onclick="convertCurrency()">
@@ -300,9 +400,7 @@
           </div>
 
           <div class="status-badge">
-            <span id="badgeText">
-              Connecting to live exchange rates...
-            </span>
+            <span id="badgeText">Connecting to live exchange rates...</span>
           </div>
 
           <div class="result-display">
@@ -310,10 +408,15 @@
             <p id="result">1 USD = 83.50 INR</p>
           </div>
 
+          <div class="theme-inline-container">
+            <button class="theme-inline-btn" onclick="toggleTheme()">
+              <span id="themeIcon">🌓</span>
+              <span id="themeText">Switch Theme</span>
+            </button>
+          </div>
         </section>
 
         <section class="content-box">
-
           <h2 class="section-title" style="border-left:none; padding-left:0; margin-bottom:15px;">
             About This Tool
           </h2>
@@ -336,43 +439,32 @@
               Exchange rates change frequently. Actual rates from banks, card providers, or payment apps may be slightly different.
             </p>
           </div>
-
         </section>
 
       </div>
 
       <h2 class="section-title">Features</h2>
-
-      <div class="grid-auto">
-
+      <div class="grid-auto" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
         <div class="feature-card">
           <div class="feature-icon">⚡</div>
           <h4>Instant Results</h4>
-          <p>
-            Get live currency conversions right away.
-          </p>
+          <p>Get live currency conversions right away as you type.</p>
         </div>
 
         <div class="feature-card">
           <div class="feature-icon">🌍</div>
-          <h4>Major Currencies</h4>
-          <p>
-            Supports popular currencies from countries around the world.
-          </p>
+          <h4>35+ Currencies</h4>
+          <p>Supports popular fiat currencies spanning countries across the globe.</p>
         </div>
 
         <div class="feature-card">
           <div class="feature-icon">📱</div>
           <h4>Responsive Design</h4>
-          <p>
-            Works smoothly on mobile devices, tablets, and computers.
-          </p>
+          <p>Works smoothly on mobile devices, tablets, and desktop computers.</p>
         </div>
-
       </div>
 
-      <h2 class="section-title">Popular Uses</h2>
-
+      <h2 class="section-title" style="margin-top: 40px;">Popular Uses</h2>
       <div class="content-box">
         <div class="usage-tags">
           <span>✈ Travel Planning</span>
@@ -384,15 +476,13 @@
         </div>
       </div>
 
-      <div class="btn-container">
-        <a href="tool.html" class="btn btn-neutral">
-          ⬅ Back to Tools
-        </a>
+      <div class="btn-container" style="text-align: center; margin-top: 30px;">
+        <a href="tool.html" class="btn btn-neutral">⬅ Back to Tools</a>
       </div>
 
     </main>
 
-    <footer class="page-footer">
+    <footer class="page-footer" style="text-align: center; margin-top: 40px; padding: 20px 0;">
       © 2026-Present AKeyUP. All rights reserved.
     </footer>
 
@@ -403,9 +493,7 @@
       <h2>Privacy Notice</h2>
       <p>
         By using AKeyUP, you agree to our
-        <a href="privacy-policy.html" class="text-link">
-          Privacy Policy
-        </a>.
+        <a href="privacy-policy.html" class="text-link">Privacy Policy</a>.
       </p>
       <button class="btn btn-accent" style="width:100%; padding:12px;" onclick="acceptPrivacy()">
         Accept & Continue
@@ -414,6 +502,7 @@
   </div>
 
   <script>
+    /* Menu Navigation Controls Toggle */
     function toggleMenu() {
       const menu = document.getElementById("menu");
       menu.classList.toggle("show");
@@ -421,7 +510,7 @@
 
     document.addEventListener("click", function (event) {
       const menu = document.getElementById("menu");
-      const button = document.querySelector(".menu-btn");
+      const button = document.getElementById("menuBtn");
 
       if (menu && button) {
         if (!menu.contains(event.target) && !button.contains(event.target)) {
@@ -430,17 +519,38 @@
       }
     });
 
+    /* Light / Dark Theme Switching Logic */
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute("data-theme");
+      const targetTheme = currentTheme === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", targetTheme);
+      localStorage.setItem("themePreference", targetTheme);
+      updateThemeButtonUI(targetTheme);
+    }
+
+    function updateThemeButtonUI(theme) {
+      const textNode = document.getElementById("themeText");
+      const iconNode = document.getElementById("themeIcon");
+      if (!textNode || !iconNode) return;
+      
+      if (theme === "light") {
+        textNode.innerText = "Switch to Dark Mode";
+        iconNode.innerText = "🌙";
+      } else {
+        textNode.innerText = "Switch to Light Mode";
+        iconNode.innerText = "☀️";
+      }
+    }
+
+    /* Extended local backup matrix to cover all 35 options */
     const localFallbackRates = {
-      USD: 1.0,
-      INR: 83.50,
-      EUR: 0.92,
-      GBP: 0.79,
-      JPY: 156.40,
-      AUD: 1.51,
-      CAD: 1.37,
-      CNY: 7.24,
-      AED: 3.67,
-      SGD: 1.35
+      USD: 1.0, INR: 83.50, EUR: 0.92, GBP: 0.79, JPY: 156.40,
+      AUD: 1.51, CAD: 1.37, CNY: 7.24, AED: 3.67, SGD: 1.35,
+      NZD: 1.63, CHF: 0.91, HKD: 7.81, SEK: 10.55, KRW: 1365.0,
+      TRY: 32.20, RUB: 90.15, BRL: 5.15, ZAR: 18.45, MXN: 16.70,
+      MYR: 4.71, IDR: 16050.0, PHP: 58.20, THB: 36.50, NOK: 10.60,
+      DKK: 6.87, PLN: 3.93, ILS: 3.68, EGP: 47.30, SAR: 3.75,
+      KWD: 0.31, QAR: 3.64, VND: 25420.0, COP: 3840.0, PKR: 278.50
     };
 
     async function convertCurrency() {
@@ -451,7 +561,7 @@
       const result = document.getElementById("result");
       const badgeText = document.getElementById("badgeText");
 
-      if (amountInput.value === "") {
+      if (!amountInput || amountInput.value === "") {
         result.innerText = `0.00 ${to}`;
         return;
       }
@@ -498,17 +608,20 @@
       document.getElementById("privacyPopup").style.display = "none";
     }
 
+    /* Consolidated Setup Boot Initialization Engine */
     window.addEventListener("load", function () {
       const accepted = localStorage.getItem("privacyAccepted");
-
       if (accepted === "true") {
         document.getElementById("privacyPopup").style.display = "none";
       }
+
+      const savedTheme = localStorage.getItem("themePreference") || "dark";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+      updateThemeButtonUI(savedTheme);
 
       convertCurrency();
     });
   </script>
 
 </body>
-
 </html>

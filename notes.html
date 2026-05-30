@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AKeyUP Notes is a modern notes app with local storage, pinning, colors, export, search, and privacy focused note management.">
+  <meta name="description" content="AKeyUP Notes is a modern notes app with local storage, pinning, colors, export, search, and privacy-focused note management.">
   <title>Notes - AKeyUP</title>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591" crossorigin="anonymous"></script>
   
   <link rel="stylesheet" href="style.css">
 
@@ -20,11 +19,12 @@
     }
 
     .editor-card {
-      background: linear-gradient(145deg, #161616, #121212);
-      border: 1px solid #222;
+      background: var(--bg-box);
+      border: 1px solid var(--border-box);
       border-radius: 24px;
       padding: 30px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+      box-shadow: 0 15px 35px var(--menu-shadow);
+      transition: background 0.3s ease, border 0.3s ease;
     }
 
     .form-group {
@@ -34,7 +34,7 @@
     .form-group label {
       display: block;
       margin-bottom: 8px;
-      color: #aaa;
+      color: var(--text-muted);
       font-size: 0.85rem;
       font-weight: 600;
       text-transform: uppercase;
@@ -44,19 +44,19 @@
     input, textarea, select {
       width: 100%;
       padding: 14px 16px;
-      border: 1px solid #2a2a2a;
+      border: 1px solid var(--border-box);
       border-radius: 12px;
-      background: #1e1e1e;
-      color: white;
+      background: var(--bg-input);
+      color: var(--text-main);
       font-size: 1rem;
       outline: none;
       font-family: inherit;
-      transition: border-color 0.2s ease, background-color 0.2s ease;
+      transition: border-color 0.2s ease, background-color 0.2s ease, color 0.3s ease;
     }
 
     input:focus, textarea:focus, select:focus {
       border-color: #ff4444;
-      background: #242424;
+      background: var(--bg-main);
     }
 
     textarea {
@@ -122,11 +122,17 @@
 
     /* Fallback styles for pure native dark card variant */
     .note-card[style*="#1c1c1c"] {
-      border-color: #2d2d2d;
+      border-color: var(--border-box);
     }
-    .note-card[style*="#1c1c1c"] .note-tag {
+    
+    html[data-theme="dark"] .note-card[style*="#1c1c1c"] .note-tag {
       background: rgba(255, 255, 255, 0.08);
       color: #aaa;
+    }
+    
+    html[data-theme="light"] .note-card[style*="#1c1c1c"] .note-tag {
+      background: rgba(0, 0, 0, 0.05);
+      color: #555;
     }
 
     .note-text {
@@ -161,13 +167,13 @@
       grid-column: 1 / -1;
       text-align: center;
       padding: 80px 20px;
-      color: #666;
+      color: var(--text-muted);
       font-size: 1.1rem;
-      border: 2px dashed #222;
+      border: 2px dashed var(--border-box);
       border-radius: 20px;
     }
 
-    /* System Feature Architecture Layout Components */
+    /* Feature Architecture Layout Components */
     .feature-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -176,12 +182,12 @@
     }
 
     .feature-box {
-      background: #141414;
-      border: 1px solid #1f1f1f;
+      background: var(--bg-main);
+      border: 1px solid var(--border-box);
       border-radius: 16px;
       padding: 25px;
       text-align: center;
-      transition: transform 0.25s ease;
+      transition: transform 0.25s ease, background 0.3s ease, border 0.3s ease;
     }
 
     .feature-box:hover {
@@ -198,32 +204,44 @@
       font-size: 1.1rem;
       font-weight: 600;
       margin-bottom: 8px;
-      color: #fff;
+      color: var(--text-inverse);
     }
 
     .feature-box p {
-      color: #888;
+      color: var(--text-muted);
       font-size: 0.9rem;
       line-height: 1.5;
     }
 
-    .about-extra {
-      margin-top: 35px;
-      background: #0d0d0d;
-      border: 1px solid #222;
-      padding: 25px;
-      border-radius: 14px;
+    /* Theme Layout Controls */
+    .theme-inline-container {
+      margin-top: 20px;
+      border-top: 1px solid var(--border-box);
+      padding-top: 20px;
+      display: flex;
+      justify-content: center;
     }
 
-    .about-extra h3 {
-      margin-bottom: 10px;
-      font-size: 1.2rem;
-      color: #fff;
-    }
-
-    .about-extra p {
-      color: #888;
+    .theme-inline-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border-box);
+      color: var(--text-main);
+      padding: 12px 16px;
       font-size: 0.95rem;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .theme-inline-btn:hover {
+      border-color: var(--border-interactive);
+      transform: translateY(-1px);
     }
 
     /* Media Adaptive Layout Rules */
@@ -244,7 +262,7 @@
 <body>
 
 <div class="menu-container">
-  <button class="menu-btn" onclick="toggleMenu()">⋮</button>
+  <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">⋮</button>
   <div class="menu" id="menu">
     <a href="index.html">Home</a>
     <a href="tool.html">Tools</a>
@@ -259,8 +277,8 @@
 <div class="wrapper">
 
   <header style="text-align: center; margin-top: 40px; margin-bottom: 40px;">
-    <h1 class="title">AKeyUP Notes</h1>
-    <p class="subtitle">Draft, customize, classify, and back up notes instantly inside an sandboxed local database runtime environments.</p>
+    <h1 class="title">Notes</h1>
+    <p class="subtitle">Create, customize, organize, and back up your notes instantly right in your browser.</p>
   </header>
 
   <main>
@@ -271,16 +289,16 @@
         
         <div class="form-group">
           <label for="noteTitle">Note Title</label>
-          <input type="text" id="noteTitle" placeholder="Enter note headline...">
+          <input type="text" id="noteTitle" placeholder="Enter note title...">
         </div>
 
         <div class="form-group">
           <label for="noteText">Your Note</label>
-          <textarea id="noteText" placeholder="Write your internal thoughts or text strings here..."></textarea>
+          <textarea id="noteText" placeholder="Write your note here..."></textarea>
         </div>
 
         <div class="form-group">
-          <label for="noteColor">Note Canvas Color</label>
+          <label for="noteColor">Note Background Color</label>
           <select id="noteColor">
             <option value="#1c1c1c">Default Dark</option>
             <option value="#ffd54f">Soft Yellow</option>
@@ -292,8 +310,8 @@
         </div>
 
         <div class="form-group">
-          <label for="noteTag">Classification Tag</label>
-          <input type="text" id="noteTag" placeholder="e.g., Ideas, Personal, Code">
+          <label for="noteTag">Tag</label>
+          <input type="text" id="noteTag" placeholder="e.g., Ideas, Personal, Work">
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 25px;">
@@ -305,49 +323,51 @@
         </div>
 
         <div class="status-msg" id="status"></div>
+
+        <!-- Integrated Theme Control Unit -->
+        <div class="theme-inline-container">
+          <button class="theme-inline-btn" onclick="toggleTheme()">
+            <span id="themeIcon">🌓</span>
+            <span id="themeText">Switch Theme</span>
+          </button>
+        </div>
       </div>
 
       <div>
         <div class="search-box">
-          <input type="text" id="searchInput" placeholder="🔍 Filter local memory indexes instantly..." oninput="displayNotes()">
+          <input type="text" id="searchInput" placeholder="🔍 Search notes instantly..." oninput="displayNotes()">
         </div>
 
-        <div class="notes-grid" id="notesGrid">
-          </div>
+        <div class="notes-grid" id="notesGrid"></div>
       </div>
 
     </div>
 
     <section class="content-box" style="text-align: left; margin-top: 60px;">
       <h2 class="section-title">About the Workspace</h2>
-      <p class="subtitle" style="margin: 0 0 25px 0; text-align: left;">A completely local offline dashboard layout built to bypass external text streaming dependencies.</p>
+      <p class="subtitle" style="margin: 0 0 25px 0; text-align: left;">A completely local, offline notepad built to work fast without needing internet servers.</p>
       
       <div class="feature-grid">
         <div class="feature-box">
           <span class="icon">⚡</span>
           <h3>Fast Experience</h3>
-          <p>Instant loading frameworks keep memory stacks reading fields synchronously without delay metrics.</p>
+          <p>Loads instantly and responds immediately without saving delays.</p>
         </div>
         <div class="feature-box">
           <span class="icon">🔒</span>
           <h3>Privacy Focused</h3>
-          <p>Text structures persist directly into localized local storage allocations. Zero authorization parameters needed.</p>
+          <p>Your notes are stored directly in your browser layout. No login or accounts are required.</p>
         </div>
         <div class="feature-box">
           <span class="icon">📌</span>
-          <h3>Smart Organization</h3>
-          <p>Leverage prioritization anchors, visual block highlights, tags, and tracking systems seamlessly.</p>
+          <h3>Easy Organization</h3>
+          <p>Pin important notes to the top, apply colored backgrounds, and group them with custom tags.</p>
         </div>
         <div class="feature-box">
           <span class="icon">📥</span>
-          <h3>Export Support</h3>
-          <p>Extract active items systematically into raw flat documentation formats for external utilization arrays.</p>
+          <h3>Backup Support</h3>
+          <p>Export your active notes anytime into standard text files for secure backup storage.</p>
         </div>
-      </div>
-
-      <div class="about-extra">
-        <h3>📢 Ecosystem Operations Notice</h3>
-        <p>AKeyUP structures native applications alongside web platforms. Elements within these interfaces can occasionally render advertisements authenticated via Google AdSense to offset continuous service pipeline and hosting infrastructure overheads.</p>
       </div>
     </section>
   </main>
@@ -362,21 +382,44 @@
 </div>
 
 <script>
-/* Global Menu Dropdown Functional Layer */
+/* Menu Navigation Toggle */
 function toggleMenu() {
   document.getElementById("menu").classList.toggle("show");
 }
 
-window.onclick = function(event) {
-  if (!event.target.matches('.menu-btn')) {
-    const menu = document.getElementById("menu");
-    if (menu && menu.classList.contains("show")) {
+document.addEventListener("click", function(event) {
+  const menu = document.getElementById("menu");
+  const button = document.getElementById("menuBtn");
+  if (menu && button) {
+    if (!menu.contains(event.target) && !button.contains(event.target)) {
       menu.classList.remove("show");
     }
   }
+});
+
+/* Light / Dark Theme Toggle Engine */
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute("data-theme");
+  const targetTheme = currentTheme === "light" ? "dark" : "light";
+  document.documentElement.setAttribute("data-theme", targetTheme);
+  localStorage.setItem("themePreference", targetTheme);
+  updateThemeButtonUI(targetTheme);
+  displayNotes(); // Re-render to correctly align card contrast rules
 }
 
-/* Tracking Storage Core Engine Bindings */
+function updateThemeButtonUI(theme) {
+  const textNode = document.getElementById("themeText");
+  const iconNode = document.getElementById("themeIcon");
+  if (theme === "light") {
+    textNode.innerText = "Switch to Dark Mode";
+    iconNode.innerText = "🌙";
+  } else {
+    textNode.innerText = "Switch to Light Mode";
+    iconNode.innerText = "☀️";
+  }
+}
+
+/* Local Storage Setup */
 let notes = JSON.parse(localStorage.getItem("akeyup_notes")) || [];
 let editingId = null;
 
@@ -388,17 +431,22 @@ const statusElement = document.getElementById("status");
 const editorTitleElement = document.getElementById("editorTitle");
 
 window.addEventListener("DOMContentLoaded", function() {
-  // Restore pending storage buffers
+  // Restore draft inputs if any exist
   const draftTitle = localStorage.getItem("draft_title");
   const draftText = localStorage.getItem("draft_text");
 
   if (draftTitle) noteTitleInput.value = draftTitle;
   if (draftText) noteTextInput.value = draftText;
 
+  // Initialize theme choice
+  const savedTheme = localStorage.getItem("themePreference") || "dark";
+  document.documentElement.setAttribute("data-theme", savedTheme);
+  updateThemeButtonUI(savedTheme);
+
   displayNotes();
 });
 
-/* Realtime Auto Draft Persistence Sync Pipeline */
+/* Realtime Auto Draft Backup */
 function saveDraft() {
   localStorage.setItem("draft_title", noteTitleInput.value);
   localStorage.setItem("draft_text", noteTextInput.value);
@@ -406,7 +454,7 @@ function saveDraft() {
 noteTitleInput.addEventListener("input", saveDraft);
 noteTextInput.addEventListener("input", saveDraft);
 
-/* Core Save Sequence Framework Execution */
+/* Save Operations */
 function saveNote() {
   const title = noteTitleInput.value.trim();
   const text = noteTextInput.value.trim();
@@ -415,7 +463,7 @@ function saveNote() {
 
   if (!title || !text) {
     statusElement.style.color = "#ff4444";
-    statusElement.innerText = "Please provide data inputs for core values.";
+    statusElement.innerText = "Please fill in both title and note fields.";
     return;
   }
 
@@ -427,7 +475,7 @@ function saveNote() {
       return n;
     });
     statusElement.style.color = "#00ff99";
-    statusElement.innerText = "Note context updated successfully.";
+    statusElement.innerText = "Note updated successfully.";
   } else {
     notes.unshift({
       id: Date.now(),
@@ -439,7 +487,7 @@ function saveNote() {
       createdAt: new Date().toLocaleString()
     });
     statusElement.style.color = "#00ff99";
-    statusElement.innerText = "Note indexed cleanly in active matrix.";
+    statusElement.innerText = "Note saved successfully.";
   }
 
   localStorage.setItem("akeyup_notes", JSON.stringify(notes));
@@ -449,10 +497,11 @@ function saveNote() {
   setTimeout(() => { statusElement.innerText = ""; }, 4000);
 }
 
-/* Render Dynamic Display Lists From Memory Arrays */
+/* Render Notes Cards */
 function displayNotes() {
   const notesGrid = document.getElementById("notesGrid");
   const search = document.getElementById("searchInput").value.toLowerCase();
+  const currentGlobalTheme = document.documentElement.getAttribute("data-theme") || "dark";
 
   notesGrid.innerHTML = "";
 
@@ -465,20 +514,21 @@ function displayNotes() {
     );
 
   if (filtered.length === 0) {
-    notesGrid.innerHTML = `<div class="empty-state">No accessible content records currently matches your active memory lookup profile.</div>`;
+    notesGrid.innerHTML = `<div class="empty-state">No matching notes found.</div>`;
     return;
   }
 
   filtered.forEach(n => {
     const noteCard = document.createElement("div");
     noteCard.className = "note-card";
-    noteCard.style.background = n.color;
-
-    // Apply dark visibility logic overlays for dynamic canvas presets
+    
+    // Check if background is dynamic or base layout selection
     if (n.color !== "#1c1c1c") {
+      noteCard.style.background = n.color;
       noteCard.style.color = "#111111";
     } else {
-      noteCard.style.color = "#ffffff";
+      noteCard.style.background = "var(--bg-box)";
+      noteCard.style.color = "var(--text-main)";
     }
 
     const pinLabel = n.pinned ? "📌 Unpin" : "📌 Pin";
@@ -499,7 +549,7 @@ function displayNotes() {
   });
 }
 
-/* Helpers and Workspace Manipulators */
+/* Edit Control Workspace */
 function editNote(id) {
   const target = notes.find(n => n.id === id);
   if (!target) return;
@@ -510,12 +560,12 @@ function editNote(id) {
   noteTagInput.value = target.tag || "";
   
   editingId = id;
-  editorTitleElement.innerText = "Modify Active Note";
+  editorTitleElement.innerText = "Edit Note";
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function deleteNote(id) {
-  if (!confirm("Confirm target memory destruction processing data maps?")) return;
+  if (!confirm("Are you sure you want to delete this note?")) return;
   notes = notes.filter(n => n.id !== id);
   localStorage.setItem("akeyup_notes", JSON.stringify(notes));
   displayNotes();
@@ -539,9 +589,10 @@ function clearEditor() {
   localStorage.removeItem("draft_text");
 }
 
+/* Backup Export Module */
 function exportNotes() {
   if (notes.length === 0) {
-    alert("Empty storage system registers. Command cancelled.");
+    alert("There are no notes available to export.");
     return;
   }
 

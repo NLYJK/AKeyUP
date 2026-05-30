@@ -3,21 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Format, beautify, validate, and minify JSON instantly with the AKeyUP JSON Formatter. Fast, responsive, privacy friendly online JSON tool for developers and students.">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591" crossorigin="anonymous"></script>
+  <meta name="description" content="Format, beautify, validate, and minify JSON instantly with the AKeyUP JSON Formatter. Fast, responsive, privacy-friendly online JSON tool for developers and students.">
   <title>JSON Formatter - AKeyUP</title>
   
   <link rel="stylesheet" href="style.css">
 
   <style>
-    /* Local JSON Engine Workspace Modules */
+    /* Theme fallbacks to ensure text visibility regardless of external style.css setup */
+    html[data-theme="light"] {
+      --fallback-bg-box: #f5f5f7;
+      --fallback-bg-input: #ffffff;
+      --fallback-text: #1d1d1f;
+      --fallback-text-muted: #86868b;
+      --fallback-border: #d2d2d7;
+    }
+    html[data-theme="dark"] {
+      --fallback-bg-box: #1c1c1e;
+      --fallback-bg-input: #2c2c2e;
+      --fallback-text: #f5f5f7;
+      --fallback-text-muted: #8e8e93;
+      --fallback-border: #3a3a3c;
+    }
+
+    /* Workspace Layout Configuration */
     .counter-box {
-      background: linear-gradient(145deg, #161616, #121212);
-      border: 1px solid #222;
+      background: var(--bg-box, var(--fallback-bg-box));
+      border: 1px solid var(--border-box, var(--fallback-border));
       border-radius: 24px;
       padding: clamp(20px, 4vw, 45px);
       margin-top: 20px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+      box-shadow: 0 15px 40px var(--menu-shadow, rgba(0,0,0,0.15));
+      transition: background 0.3s ease, border 0.3s ease;
     }
 
     textarea {
@@ -26,21 +42,21 @@
       padding: 22px;
       border: 2px solid transparent;
       border-radius: 16px;
-      background: #242424;
-      color: white;
+      background: var(--bg-input, var(--fallback-bg-input));
+      color: var(--text-main, var(--fallback-text));
       font-size: 1rem;
       font-family: Consolas, Monaco, "Lucida Console", monospace;
       resize: vertical;
       outline: none;
       line-height: 1.7;
-      transition: border-color 0.2s ease;
+      transition: border-color 0.2s ease, background 0.3s ease, color 0.3s ease;
     }
 
     textarea:focus {
       border-color: #ff4444;
     }
 
-    /* Target Execution Grid Layout */
+    /* Action Control Grid */
     .action-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -65,7 +81,7 @@
       color: #ff4444;
     }
 
-    /* System Feature Grid Layout Extensions */
+    /* Marketing & Feature Matrix Grid */
     .feature-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -74,12 +90,12 @@
     }
 
     .feature-box {
-      background: #141414;
-      border: 1px solid #1f1f1f;
+      background: var(--bg-main, var(--fallback-bg-box));
+      border: 1px solid var(--border-box, var(--fallback-border));
       border-radius: 16px;
       padding: 25px;
       text-align: center;
-      transition: transform 0.25s ease;
+      transition: transform 0.25s ease, background 0.3s ease, border 0.3s ease;
     }
 
     .feature-box:hover {
@@ -96,16 +112,16 @@
       font-size: 1.1rem;
       font-weight: 600;
       margin-bottom: 8px;
-      color: #fff;
+      color: var(--text-inverse, var(--fallback-text));
     }
 
     .feature-box p {
-      color: #888;
+      color: var(--text-muted, var(--fallback-text-muted));
       font-size: 0.9rem;
       line-height: 1.5;
     }
 
-    /* Procedural Instruction Blocks */
+    /* Step Guides Layout Modules */
     .steps-container {
       display: grid;
       gap: 16px;
@@ -116,10 +132,11 @@
       display: flex;
       gap: 16px;
       align-items: flex-start;
-      background: #141414;
-      border: 1px solid #1f1f1f;
+      background: var(--bg-main, var(--fallback-bg-box));
+      border: 1px solid var(--border-box, var(--fallback-border));
       padding: 20px;
       border-radius: 14px;
+      transition: background 0.3s ease, border 0.3s ease;
     }
 
     .step-number {
@@ -136,36 +153,50 @@
     }
 
     .step-item p {
-      color: #aaa;
+      color: var(--text-main, var(--fallback-text));
       font-size: 0.95rem;
       line-height: 1.6;
     }
 
-    .about-extra {
-      margin-top: 35px;
-      background: #0d0d0d;
-      border: 1px solid #222;
-      padding: 25px;
-      border-radius: 14px;
+    /* Integrated Inline Theme Switcher Module */
+    .theme-inline-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 25px;
+      border-top: 1px solid var(--border-box, var(--fallback-border));
+      padding-top: 20px;
     }
 
-    .about-extra h3 {
-      margin-bottom: 10px;
-      font-size: 1.2rem;
-      color: #fff;
-    }
-
-    .about-extra p {
-      color: #888;
+    .theme-inline-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      width: auto;
+      background: var(--bg-main, var(--fallback-bg-box));
+      border: 1px solid var(--border-interactive, var(--fallback-border));
+      color: var(--text-main, var(--fallback-text));
+      padding: 12px 24px;
       font-size: 0.95rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .theme-inline-btn:hover {
+      background: var(--bg-input, var(--fallback-bg-input));
+      color: var(--text-inverse, var(--fallback-text));
+      transform: translateY(-1px);
     }
   </style>
 </head>
 
 <body>
 
+<!-- Header Navigation Bar -->
 <div class="menu-container">
-  <button class="menu-btn" onclick="toggleMenu()">⋮</button>
+  <!-- Fixed: Restored matching id="menuBtn" to align click event target listener parameters -->
+  <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">⋮</button>
   <div class="menu" id="menu">
     <a href="index.html">Home</a>
     <a href="tool.html">Tools</a>
@@ -181,86 +212,93 @@
 
   <header style="text-align: center; margin-top: 40px; margin-bottom: 40px;">
     <h1 class="title">JSON Formatter</h1>
-    <p class="subtitle">Format, beautify, inspect, and compress your JSON data structures dynamically inside an isolated tracking container.</p>
+    <p class="subtitle">Format, clean, inspect, and minimize your JSON data instantly right in your browser.</p>
   </header>
 
   <main>
     <div class="counter-box">
-      <textarea id="jsonInput" placeholder='Paste your raw JSON string or structured object map here...' spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"></textarea>
+      <textarea id="jsonInput" placeholder='Paste your raw JSON text or structured object maps here...' spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"></textarea>
 
+      <!-- Action Grid Options Block -->
       <div class="action-grid">
         <button class="btn btn-accent" onclick="processJSON(true)">📄 Format JSON</button>
-        <button class="btn btn-neutral" style="background: rgba(255,255,255,0.02);" onclick="processJSON(false)">🗜 Minify JSON</button>
-        <button class="btn btn-neutral" style="background: rgba(255,255,255,0.02);" onclick="copyJSON()">📋 Copy Result</button>
-        <button class="btn btn-neutral" style="background: rgba(255,255,255,0.02);" onclick="clearJSON()">🗑 Clear</button>
+        <button class="btn btn-neutral" onclick="processJSON(false)">🗜 Minify JSON</button>
+        <button class="btn btn-neutral" onclick="copyJSON()">📋 Copy Result</button>
+        <button class="btn btn-neutral" onclick="clearJSON()">🗑 Clear</button>
       </div>
 
       <div class="status-panel" id="statusPanel"></div>
+
+      <!-- Integrated Light and Dark Theme Access Bar -->
+      <div class="theme-inline-container">
+        <button class="theme-inline-btn" onclick="toggleTheme()">
+          <span id="themeIcon">🌓</span>
+          <span id="themeText">Switch Theme</span>
+        </button>
+      </div>
     </div>
 
     <div class="btn-container" style="text-align: center; margin-top: 30px;">
       <a href="tool.html" class="btn btn-neutral">⬅ Back to Tools</a>
     </div>
 
+    <!-- Product Marketing Section Details -->
     <section class="content-box" style="text-align: left; margin-top: 50px;">
-      <h2 class="section-title">Powerful Online Data Inspection</h2>
-      <p class="subtitle" style="margin: 0 0 25px 0; text-align: left;">Analyze, validate, and reorganize nested multi-layer variable arrays with structural runtime feedback.</p>
+      <h2 class="section-title">Simple and Powerful Data Inspection</h2>
+      <p class="subtitle" style="margin: 0 0 25px 0; text-align: left;">Analyze, validate, and clean up nested objects and arrays with clear, live formatting feedback.</p>
       
       <div class="feature-grid">
         <div class="feature-box">
           <span class="icon">⚡</span>
           <h3>Instant Formatting</h3>
-          <p>Beautifies flat unreadable strings into well-spaced structured configurations using custom indentation logs.</p>
+          <p>Turns messy, unreadable strings into clear, beautifully structured code with clean margins.</p>
         </div>
         <div class="feature-box">
           <span class="icon">✅</span>
-          <h3>Strict Validation</h3>
-          <p>Catches syntax abnormalities and parsing breaks immediately, rendering position parameters to help track faults.</p>
+          <h3>Syntax Validation</h3>
+          <p>Catches syntax errors immediately, making it easy to find and fix broken brackets or missing commas.</p>
         </div>
         <div class="feature-box">
           <span class="icon">🗜</span>
           <h3>Clean Minifier</h3>
-          <p>Strips redundant white spaces and carriage lines to export highly optimized network transport data packets.</p>
+          <p>Strips away empty spaces and line breaks to compress your text into a perfectly optimized single line.</p>
         </div>
         <div class="feature-box">
           <span class="icon">🔒</span>
-          <h3>Isolated Security</h3>
-          <p>Data strings remain exclusively within local browser memories. Zero external packet routing configurations apply.</p>
+          <h3>100% Private</h3>
+          <p>Your JSON data stays completely on your computer. We never save or send your text over the internet.</p>
         </div>
       </div>
     </section>
 
+    <!-- Operational Step-by-Step Instructions -->
     <section class="content-box" style="text-align: left; margin-top: 30px;">
       <h2 class="section-title">How To Use</h2>
       <div class="steps-container">
         <div class="step-item">
           <div class="step-number">1</div>
-          <p>Input or drop your JSON string contents into the responsive buffer workspace matrix located above.</p>
+          <p>Paste your JSON content directly into the text workspace field shown above.</p>
         </div>
         <div class="step-item">
           <div class="step-number">2</div>
-          <p>Select <strong>Format JSON</strong> to establish beautiful block spacing, or click <strong>Minify JSON</strong> to flatten parameters down to a single production-ready string layer.</p>
+          <p>Click <strong>Format JSON</strong> to create structured spacing, or select <strong>Minify JSON</strong> to compress it into a production-ready block.</p>
         </div>
         <div class="step-item">
           <div class="step-number">3</div>
-          <p>Monitor the live reporting hub. Green values indicate safe structures, while red indicates mapping faults.</p>
+          <p>Check the live status row below. Green logs mean your JSON is secure, while red logs alert you to formatting mistakes.</p>
         </div>
         <div class="step-item">
           <div class="step-number">4</div>
-          <p>Click <strong>Copy Result</strong> to instantly move data onto your system clipboard for quick storage routing operations.</p>
+          <p>Click <strong>Copy Result</strong> to save the outputs instantly straight to your system clipboard.</p>
         </div>
       </div>
     </section>
 
+    <!-- Context Overview Box -->
     <section class="content-box" style="text-align: left; margin-top: 30px;">
       <h2 class="section-title">Why Use This Tool?</h2>
-      <p class="subtitle" style="margin: 0 0 15px 0; text-align: left;">JSON serves as the core communication layer within modern API integrations, microservices, and databases.</p>
-      <p class="subtitle" style="margin: 0 0 15px 0; text-align: left;">However, working with deeply nested objects or minimized config files makes pinpointing properties difficult. This sandbox increases execution pacing, configuration validation metrics, and reading efficiency directly from an accessible environment window.</p>
-      
-      <div class="about-extra">
-        <h3>📢 Ecosystem Operations Notice</h3>
-        <p>AKeyUP structures native applications alongside web platforms. Elements within these interfaces can occasionally render advertisements authenticated via Google AdSense to offset continuous service pipeline and hosting infrastructure overheads.</p>
-      </div>
+      <p class="subtitle" style="margin: 0 0 15px 0; text-align: left;">JSON is the primary format used by web servers, apps, and databases around the world.</p>
+      <p class="subtitle" style="margin: 0 0 15px 0; text-align: left;">However, working with raw database exports or compressed config structures can make details hard to read. This workspace lets you inspect values clearly, correct formatting bugs, and optimize text strings rapidly from a fast and secure environment window.</p>
     </section>
   </main>
 
@@ -269,22 +307,45 @@
   </footer>
 </div>
 
+<!-- Automation Pipeline Scripts -->
 <script>
-/* Global Menu Dropdown Functional Layer */
+/* Menu Navigation Dropdown Controls Toggle Engine */
 function toggleMenu() {
   document.getElementById("menu").classList.toggle("show");
 }
 
-window.onclick = function(event) {
-  if (!event.target.matches('.menu-btn')) {
-    const menu = document.getElementById("menu");
-    if (menu && menu.classList.contains("show")) {
+document.addEventListener("click", function(event) {
+  const menu = document.getElementById("menu");
+  const button = document.getElementById("menuBtn");
+  if (menu && button) {
+    if (!menu.contains(event.target) && !button.contains(event.target)) {
       menu.classList.remove("show");
     }
   }
+});
+
+/* Light / Dark Theme Switching Logic Modules */
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute("data-theme");
+  const targetTheme = currentTheme === "light" ? "dark" : "light";
+  document.documentElement.setAttribute("data-theme", targetTheme);
+  localStorage.setItem("themePreference", targetTheme);
+  updateThemeButtonUI(targetTheme);
 }
 
-/* Operational JSON Mutation Pipeline Engine */
+function updateThemeButtonUI(theme) {
+  const textNode = document.getElementById("themeText");
+  const iconNode = document.getElementById("themeIcon");
+  if (theme === "light") {
+    textNode.innerText = "Switch to Dark Mode";
+    iconNode.innerText = "🌙";
+  } else {
+    textNode.innerText = "Switch to Light Mode";
+    iconNode.innerText = "☀️";
+  }
+}
+
+/* Functional JSON Parser Core Logic Array */
 const jsonInput = document.getElementById("jsonInput");
 const statusPanel = document.getElementById("statusPanel");
 
@@ -296,7 +357,7 @@ function reportStatus(text, classification) {
 function processJSON(shouldBeautify) {
   const rawValue = jsonInput.value.trim();
   if (!rawValue) {
-    reportStatus("Workspace is completely empty. Input structural fields first.", "error");
+    reportStatus("The input field is empty. Please paste your JSON text first.", "error");
     return;
   }
   
@@ -305,28 +366,30 @@ function processJSON(shouldBeautify) {
     
     if (shouldBeautify) {
       jsonInput.value = JSON.stringify(parsedData, null, 2);
-      reportStatus("Valid structure layout generated successfully.", "success");
+      reportStatus("JSON formatted successfully.", "success");
     } else {
       jsonInput.value = JSON.stringify(parsedData);
-      reportStatus("Data payload systematically minified cleanly.", "success");
+      reportStatus("JSON minified successfully.", "success");
     }
   } catch (error) {
-    reportStatus("Malformed syntax tracking log: " + error.message, "error");
+    reportStatus("Invalid JSON structure: " + error.message, "error");
   }
 }
 
 async function copyJSON() {
   const content = jsonInput.value.trim();
   if (!content) {
-    reportStatus("No valid operational strings found to copy.", "error");
+    reportStatus("There is no content in the box to copy.", "error");
     return;
   }
   
   try {
     await navigator.clipboard.writeText(content);
-    reportStatus("String successfully copied to system clipboard registers!", "success");
+    // Keep current class state context alive for seamless parsing UX feedback updates
+    const currentClass = statusPanel.className.includes("error") ? "error" : "success";
+    reportStatus("Text copied to clipboard successfully!", currentClass);
   } catch (err) {
-    reportStatus("System operational failure routing clip actions.", "error");
+    reportStatus("Failed to copy text to your clipboard.", "error");
   }
 }
 
@@ -335,6 +398,13 @@ function clearJSON() {
   reportStatus("", "");
   jsonInput.focus();
 }
+
+/* Page Boot Initialization Handler Routine */
+window.addEventListener("DOMContentLoaded", function(){
+  const savedTheme = localStorage.getItem("themePreference") || "dark";
+  document.documentElement.setAttribute("data-theme", savedTheme);
+  updateThemeButtonUI(savedTheme);
+});
 </script>
 
 </body>

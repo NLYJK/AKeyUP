@@ -13,22 +13,39 @@
   <link rel="stylesheet" href="style.css">
 
   <style>
+    /* Theme fallbacks to ensure text visibility regardless of external style.css setup */
+    html[data-theme="light"] {
+      --fallback-bg-box: #f5f5f7;
+      --fallback-bg-input: #ffffff;
+      --fallback-text: #1d1d1f;
+      --fallback-text-muted: #86868b;
+      --fallback-border: #d2d2d7;
+    }
+    html[data-theme="dark"] {
+      --fallback-bg-box: #1c1c1e;
+      --fallback-bg-input: #2c2c2e;
+      --fallback-text: #f5f5f7;
+      --fallback-text-muted: #8e8e93;
+      --fallback-border: #3a3a3c;
+    }
+
     label { 
       display: block; 
       margin-top: 15px; 
       margin-bottom: 6px; 
-      color: #fff; 
+      color: var(--text-inverse, var(--fallback-text)); 
       font-size: 0.95rem; 
       font-weight: 600; 
       text-align: left; 
     }
+
     select {
       width: 100%; 
       padding: 16px; 
-      border: 1px solid #262626; 
+      border: 1px solid var(--border-box, var(--fallback-border)); 
       border-radius: 16px;
-      background: #111; 
-      color: white; 
+      background: var(--bg-input, var(--fallback-bg-input)); 
+      color: var(--text-main, var(--fallback-text)); 
       font-size: 1rem; 
       margin-top: 22px; 
       outline: none; 
@@ -39,10 +56,13 @@
       background-repeat: no-repeat;
       background-position: right 16px center;
       padding-right: 40px;
+      transition: background 0.3s ease, border-color 0.2s ease, color 0.3s ease;
     }
+
     select:focus {
       border-color: #ff4444;
     }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
@@ -50,54 +70,62 @@
       margin-bottom: 40px;
       align-items: start;
     }
+
     .upload-box {
       display: block;
-      border: 2px dashed #444;
+      border: 2px dashed var(--border-box, var(--fallback-border));
       border-radius: 22px;
       padding: 40px 20px;
-      background: #181818;
+      background: var(--bg-input, var(--fallback-bg-input));
       text-align: center;
-      transition: 0.3s;
+      transition: border-color 0.3s ease, background 0.3s ease;
       cursor: pointer;
     }
+
     .upload-box:hover {
       border-color: #ff4444;
     }
+
     .upload-icon {
       font-size: 3.5rem;
       margin-bottom: 12px;
       display: block;
     }
+
     .upload-text {
-      color: #fff;
+      color: var(--text-inverse, var(--fallback-text));
       font-weight: bold;
       font-size: 1.05rem;
       line-height: 1.5;
       margin-bottom: 6px;
     }
+
     .upload-subtext {
-      color: #aaaaaa;
+      color: var(--text-muted, var(--fallback-text-muted));
       font-size: 0.85rem;
       line-height: 1.5;
       margin-bottom: 15px;
       display: block;
     }
+
     .upload-btn-mock {
       display: inline-block;
       padding: 10px 20px;
-      background: #232323;
-      border: 1px solid #3a3a3a;
+      background: var(--bg-main, var(--fallback-bg-box));
+      border: 1px solid var(--border-box, var(--fallback-border));
       border-radius: 12px;
       font-size: 0.9rem;
       font-weight: 600;
-      color: white;
-      transition: background 0.2s;
+      color: var(--text-main, var(--fallback-text));
+      transition: background 0.2s, color 0.2s;
       max-width: 100%;
       word-break: break-all;
     }
+
     .upload-box:hover .upload-btn-mock {
-      background: #2d2d2d;
+      background: var(--border-box, var(--fallback-border));
     }
+
     .hidden-file-input {
       position: absolute;
       width: 1px;
@@ -108,8 +136,9 @@
       clip: rect(0, 0, 0, 0);
       border: 0;
     }
+
     .preview-box {
-      background: #181818;
+      background: var(--bg-input, var(--fallback-bg-input));
       border-radius: 22px;
       padding: 20px;
       min-height: 400px;
@@ -118,12 +147,15 @@
       justify-content: center;
       flex-direction: column;
       text-align: center;
-      border: 1px solid #2f2f2f;
+      border: 1px solid var(--border-box, var(--fallback-border));
+      transition: background 0.3s, border-color 0.3s;
     }
+
     .preview-placeholder {
-      color: #777;
+      color: var(--text-muted, var(--fallback-text-muted));
       line-height: 1.8;
     }
+
     .preview-image {
       max-width: 100%;
       max-height: 360px;
@@ -132,37 +164,93 @@
     }
     
     .article-section h3 { 
-      color: #fff; 
+      color: var(--text-inverse, var(--fallback-text)); 
       margin: 25px 0 10px 0; 
       font-size: 1.3rem; 
       font-weight: 600; 
     }
+
     .article-section p { 
-      color: #b3b3b3; 
+      color: var(--text-main, var(--fallback-text)); 
       font-size: 1rem; 
       line-height: 1.8; 
       margin-bottom: 15px; 
       text-align: left; 
     }
+
     .article-section ul {
-      color: #b3b3b3;
+      color: var(--text-main, var(--fallback-text));
       margin-left: 20px;
       margin-bottom: 20px;
       text-align: left;
     }
+
     .article-section li {
       margin-bottom: 8px;
       line-height: 1.6;
     }
+
     .disclaimer-panel {
-      background: linear-gradient(145deg, #241818, #1e1a1a);
+      background: linear-gradient(145deg, rgba(255,68,68,0.1), rgba(255,68,68,0.05));
       border: 1px solid #442222;
       padding: 25px;
       border-radius: 14px;
       margin-top: 25px;
     }
+
     .disclaimer-panel h3 { color: #ff7777; margin-bottom: 8px; font-size: 1.1rem; }
-    .disclaimer-panel p { color: #aaa; font-size: 0.88rem; line-height: 1.5; }
+    html[data-theme="light"] .disclaimer-panel h3 { color: #cc0000; }
+    .disclaimer-panel p { color: var(--text-main, var(--fallback-text)); font-size: 0.88rem; line-height: 1.5; }
+
+    .feature-card {
+      background: var(--bg-main, var(--fallback-bg-box)); 
+      border: 1px solid var(--border-box, var(--fallback-border)); 
+      padding: 25px; 
+      border-radius: 14px;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .feature-card h4 {
+      color: var(--text-inverse, var(--fallback-text)); 
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      color: var(--text-muted, var(--fallback-text-muted)); 
+      font-size: 0.9rem; 
+      line-height: 1.5;
+    }
+
+    /* Integrated Theme Controller Style Wrapper */
+    .theme-inline-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 25px;
+      border-top: 1px solid var(--border-box, var(--fallback-border));
+      padding-top: 20px;
+    }
+
+    .theme-inline-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      width: auto;
+      background: var(--bg-main, var(--fallback-bg-box));
+      border: 1px solid var(--border-interactive, var(--fallback-border));
+      color: var(--text-main, var(--fallback-text));
+      padding: 12px 24px;
+      font-size: 0.95rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .theme-inline-btn:hover {
+      background: var(--bg-input, var(--fallback-bg-input));
+      color: var(--text-inverse, var(--fallback-text));
+      transform: translateY(-1px);
+    }
 
     @media(max-width: 768px) { .grid { grid-template-columns: 1fr; } }
   </style>
@@ -171,7 +259,7 @@
 <body>
 
   <div class="menu-container">
-    <button class="menu-btn" onclick="toggleMenu()">⋮</button>
+    <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">⋮</button>
     <div class="menu" id="menu">
       <a href="index.html">Home</a>
       <a href="tool.html">Tools</a>
@@ -219,6 +307,13 @@
           </select>
 
           <button class="btn btn-accent" style="margin-top: 28px; width: 100%;" onclick="convertImage()">Convert & Download</button>
+
+          <div class="theme-inline-container">
+            <button class="theme-inline-btn" onclick="toggleTheme()">
+              <span id="themeIcon">🌓</span>
+              <span id="themeText">Switch Theme</span>
+            </button>
+          </div>
         </section>
 
         <section class="content-box" style="margin-bottom: 0;">
@@ -257,45 +352,70 @@
       </section>
 
       <h2 class="section-title">Features</h2>
-      <div class="grid-auto">
-        <div class="feature-card" style="background:#0f0f0f; border:1px solid #1c1c1c; padding:25px; border-radius:14px;">
-          <h4 style="color:#fff; margin-bottom:8px;">⚡ Super Fast</h4>
-          <p style="color:#888; font-size:0.9rem; line-height:1.5;">Converts image files instantly using your own device's hardware power.</p>
+      <div class="grid-auto" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+        <div class="feature-card">
+          <h4>⚡ Super Fast</h4>
+          <p>Converts image files instantly using your own device's hardware power.</p>
         </div>
-        <div class="feature-card" style="background:#0f0f0f; border:1px solid #1c1c1c; padding:25px; border-radius:14px;">
-          <h4 style="color:#fff; margin-bottom:8px;">🔒 100% Private</h4>
-          <p style="color:#888; font-size:0.9rem; line-height:1.5;">No tracking or history. Your files never leave your computer or phone.</p>
+        <div class="feature-card">
+          <h4>🔒 100% Private</h4>
+          <p>No tracking or history. Your files never leave your computer or phone.</p>
         </div>
-        <div class="feature-card" style="background:#0f0f0f; border:1px solid #1c1c1c; padding:25px; border-radius:14px;">
-          <h4 style="color:#fff; margin-bottom:8px;">🆓 Free to Use</h4>
-          <p style="color:#888; font-size:0.9rem; line-height:1.5;">Enjoy fully unlocked, unlimited access to image conversions without any hidden paywalls.</p>
+        <div class="feature-card">
+          <h4>🆓 Free to Use</h4>
+          <p>Enjoy fully unlocked, unlimited access to image conversions without any hidden paywalls.</p>
         </div>
       </div>
 
-      <div class="btn-container" style="margin-top: 35px;">
+      <div class="btn-container" style="margin-top: 35px; text-align: center;">
         <a href="tool.html" class="btn btn-neutral">⬅ Back to Tools</a>
       </div>
     </main>
 
-    <footer class="page-footer">
+    <footer class="page-footer" style="text-align: center; margin-top: 40px; padding: 20px 0;">
       © 2026-Present AKeyUP. All rights reserved.
     </footer>
 
   </div>
 
   <script>
+    /* Menu Navigation Dropdown Controls Toggle Engine */
     function toggleMenu() {
       document.getElementById("menu").classList.toggle("show");
     }
 
     document.addEventListener("click", function(event) {
       const menu = document.getElementById("menu");
-      const button = document.querySelector(".menu-btn");
+      const button = document.getElementById("menuBtn");
       if (menu && button && !menu.contains(event.target) && !button.contains(event.target)) {
         menu.classList.remove("show");
       }
     });
 
+    /* Light / Dark Theme Switching Logic Modules */
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute("data-theme");
+      const targetTheme = currentTheme === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", targetTheme);
+      localStorage.setItem("themePreference", targetTheme);
+      updateThemeButtonUI(targetTheme);
+    }
+
+    function updateThemeButtonUI(theme) {
+      const textNode = document.getElementById("themeText");
+      const iconNode = document.getElementById("themeIcon");
+      if (!textNode || !iconNode) return;
+
+      if (theme === "light") {
+        textNode.innerText = "Switch to Dark Mode";
+        iconNode.innerText = "🌙";
+      } else {
+        textNode.innerText = "Switch to Light Mode";
+        iconNode.innerText = "☀️";
+      }
+    }
+
+    /* Client-Side Image Transformation Logic Pipeline */
     const imageInput = document.getElementById("imageInput");
     const previewImage = document.getElementById("previewImage");
     const previewPlaceholder = document.getElementById("previewPlaceholder");
@@ -360,6 +480,13 @@
         alert("This image format conversion is not natively supported by your web browser.");
       }
     }
+
+    /* Page Boot Setup Initialization Engine */
+    window.addEventListener("DOMContentLoaded", function() {
+      const savedTheme = localStorage.getItem("themePreference") || "dark";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+      updateThemeButtonUI(savedTheme);
+    });
   </script>
 </body>
 </html>
