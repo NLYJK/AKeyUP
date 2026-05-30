@@ -4,13 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Calculate SIP returns instantly with AKeyUP SIP Calculator. Estimate investment growth, total returns, wealth gained, and future value with a modern SIP investment calculator.">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591" crossorigin="anonymous"></script>
   <title>AKeyUP - SIP Calculator</title>
 
   <link rel="stylesheet" href="style.css">
 
   <style>
-    /* Reset & Core Styles matching Homepage */
+    /* Theme fallbacks to ensure text visibility regardless of external style.css setup */
+    html[data-theme="light"] {
+      --fallback-bg-box: #f5f5f7;
+      --fallback-bg-input: #ffffff;
+      --fallback-text: #1d1d1f;
+      --fallback-text-muted: #86868b;
+      --fallback-border: #d2d2d7;
+    }
+    html[data-theme="dark"] {
+      --fallback-bg-box: #1c1c1e;
+      --fallback-bg-input: #2c2c2e;
+      --fallback-text: #f5f5f7;
+      --fallback-text-muted: #8e8e93;
+      --fallback-border: #3a3a3c;
+    }
+
+    /* Reset & Core Styles matching Workspace */
     * {
       margin: 0;
       padding: 0;
@@ -18,11 +33,12 @@
     }
 
     body {
-      background: #0d0d0d;
-      color: #e5e5e5;
+      background: var(--bg-main, #0d0d0d);
+      color: var(--text-main, var(--fallback-text));
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       line-height: 1.6;
       overflow-x: hidden;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
     .wrapper {
@@ -32,82 +48,96 @@
     }
 
     /* Header & Typography */
-    header {
-      text-align: center;
-      margin-bottom: clamp(40px, 8vw, 60px);
-    }
-
     .title {
       font-size: clamp(2.8rem, 8vw, 4.5rem);
       font-weight: 800;
       letter-spacing: -1.5px;
       margin-bottom: 10px;
-      background: linear-gradient(135deg, #ffffff 0%, #a3a3a3 100%);
+      background: linear-gradient(135deg, var(--text-heading-start, #ffffff) 0%, var(--text-heading-end, #a3a3a3) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .subtitle {
-      color: #888;
+      color: var(--text-muted, var(--fallback-text-muted));
       font-size: clamp(1.1rem, 2.5vw, 1.4rem);
       font-weight: 400;
-    }
-
-    h2 {
-      font-size: clamp(1.4rem, 4vw, 1.8rem);
-      font-weight: 700;
-      margin-bottom: 20px;
-      color: #fff;
     }
 
     .section-title-red {
       border-left: 4px solid #ff4444;
       padding-left: 15px;
       margin-top: 50px;
+      margin-bottom: 20px;
       text-align: left;
+      font-size: clamp(1.4rem, 4vw, 1.8rem);
+      font-weight: 700;
+      color: var(--text-inverse, var(--fallback-text));
     }
 
-    /* Interactive Functional Layout Grid */
+    /* Main Operational Counter Container */
+    .counter-box {
+      background: var(--bg-box, var(--fallback-bg-box));
+      border: 1px solid var(--border-box, var(--fallback-border));
+      border-radius: 24px;
+      padding: clamp(20px, 4vw, 45px);
+      margin-top: 20px;
+      box-shadow: 0 15px 40px var(--menu-shadow, rgba(0,0,0,0.15));
+      transition: background 0.3s ease, border 0.3s ease;
+    }
+
+    /* Interactive Functional Layout Grid inside Container */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 25px;
-      margin-bottom: 40px;
       align-items: start;
     }
 
-    /* Cards Engine Architecture */
+    /* Configuration Engine Panels */
     .card {
-      background: linear-gradient(145deg, #161616, #121212);
-      padding: clamp(22px, 4vw, 35px);
+      background: var(--bg-input, var(--fallback-bg-input));
+      border: 1px solid var(--border-box, var(--fallback-border));
+      padding: clamp(20px, 3vw, 30px);
       border-radius: 16px;
-      border: 1px solid #222;
       text-align: left;
-      color: #bbb;
       display: flex;
       flex-direction: column;
+      transition: background 0.3s ease, border 0.3s ease;
     }
 
-    /* Interactive Form Elements styling synced to Dark palette */
+    .card h2 {
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      font-weight: 700;
+      color: var(--text-inverse, var(--fallback-text));
+    }
+
+    /* Interactive Form Elements */
     label {
       display: block;
-      margin-top: 20px;
+      margin-top: 15px;
       margin-bottom: 8px;
-      color: #fff;
+      color: var(--text-main, var(--fallback-text));
       font-size: 0.95rem;
       font-weight: 600;
+    }
+
+    label:first-of-type {
+      margin-top: 0;
     }
 
     input[type="number"] {
       width: 100%;
       padding: 14px 16px;
-      border: 1px solid #262626;
+      border: 2px solid transparent;
       border-radius: 10px;
-      background: #111;
-      color: #fff;
+      background: var(--bg-main, var(--fallback-bg-box));
+      color: var(--text-main, var(--fallback-text));
       font-size: 1rem;
+      font-family: inherit;
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s ease, background 0.3s ease, color 0.3s ease;
     }
 
     input[type="number"]:focus {
@@ -129,9 +159,13 @@
       margin-top: 4px;
     }
 
+    html[data-theme="light"] .range-value {
+      color: #00aa66;
+    }
+
     .helper-text {
       margin-top: 6px;
-      color: #666;
+      color: var(--text-muted, var(--fallback-text-muted));
       font-size: 0.85rem;
     }
 
@@ -143,15 +177,16 @@
     }
 
     .result-item {
-      background: #0f0f0f;
+      background: var(--bg-main, var(--fallback-bg-box));
       padding: 18px 22px;
       border-radius: 12px;
-      border: 1px solid #1c1c1c;
+      border: 1px solid var(--border-box, var(--fallback-border));
+      transition: background 0.3s ease, border 0.3s ease;
     }
 
     .result-item h3 {
       font-size: 0.9rem;
-      color: #777;
+      color: var(--text-muted, var(--fallback-text-muted));
       font-weight: 500;
       margin-bottom: 4px;
     }
@@ -162,6 +197,11 @@
       font-weight: 700;
     }
 
+    html[data-theme="light"] .result-item p,
+    html[data-theme="light"] .stat p {
+      color: #00aa66;
+    }
+
     .extra-stats {
       margin-top: 16px;
       display: grid;
@@ -170,15 +210,16 @@
     }
 
     .stat {
-      background: #0f0f0f;
-      border: 1px solid #1c1c1c;
+      background: var(--bg-main, var(--fallback-bg-box));
+      border: 1px solid var(--border-box, var(--fallback-border));
       padding: 16px;
       border-radius: 12px;
       text-align: center;
+      transition: background 0.3s ease, border 0.3s ease;
     }
 
     .stat h4 {
-      color: #777;
+      color: var(--text-muted, var(--fallback-text-muted));
       font-size: 0.8rem;
       margin-bottom: 4px;
     }
@@ -189,68 +230,75 @@
       font-weight: 700;
     }
 
-    /* Primary Actions System */
-    .btn-container {
-      text-align: center;
-      margin: 40px 0;
+    /* Marketing & Feature Matrix Grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
     }
 
-    button, .btn {
-      display: inline-block;
-      width: 100%;
-      padding: 16px;
-      font-size: 1.05rem;
-      background: #ff4444;
-      color: white;
-      border: none;
-      text-decoration: none;
+    .feature-box {
+      background: var(--bg-main, var(--fallback-bg-box));
+      border: 1px solid var(--border-box, var(--fallback-border));
+      border-radius: 16px;
+      padding: 25px;
+      text-align: center;
+      transition: transform 0.25s ease, background 0.3s ease, border 0.3s ease;
+    }
+
+    .feature-box:hover {
+      transform: translateY(-4px);
+    }
+
+    .feature-box .icon {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .feature-box h3 {
+      font-size: 1.1rem;
       font-weight: 600;
-      border-radius: 10px;
+      margin-bottom: 8px;
+      color: var(--text-inverse, var(--fallback-text));
+    }
+
+    .feature-box p {
+      color: var(--text-muted, var(--fallback-text-muted));
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    /* Integrated Inline Theme Switcher Module */
+    .theme-inline-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 25px;
+      border-top: 1px solid var(--border-box, var(--fallback-border));
+      padding-top: 20px;
+    }
+
+    .theme-inline-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      width: auto;
+      background: var(--bg-main, var(--fallback-bg-box));
+      border: 1px solid var(--border-interactive, var(--fallback-border));
+      color: var(--text-main, var(--fallback-text));
+      padding: 12px 24px;
+      font-size: 0.95rem;
+      border-radius: 30px;
       cursor: pointer;
+      font-weight: 600;
       transition: all 0.2s ease;
-      box-shadow: 0 4px 15px rgba(255, 68, 68, 0.2);
-      text-align: center;
     }
 
-    button:hover, .btn:hover {
-      background: #e03333;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(255, 68, 68, 0.4);
-    }
-
-    .btn-secondary {
-      background: #161616;
-      border: 1px solid #262626;
-      color: #ccc;
-      box-shadow: none;
-      max-width: 280px;
-      margin: 0 auto;
-    }
-
-    .btn-secondary:hover {
-      background: #222;
-      color: #fff;
-      border-color: #444;
-      box-shadow: none;
-    }
-
-    /* Content Layout Base Info Panels */
-    .info-container {
-      background: linear-gradient(145deg, #161616, #121212);
-      border: 1px solid #222;
-      padding: clamp(25px, 5vw, 40px);
-      border-radius: 20px;
-      margin: 40px 0 20px 0;
-    }
-
-    .info-container p {
-      color: #aaa;
-      margin-bottom: 16px;
-      font-size: 1rem;
-    }
-    
-    .info-container p:last-child {
-      margin-bottom: 0;
+    .theme-inline-btn:hover {
+      background: var(--bg-input, var(--fallback-bg-input));
+      color: var(--text-inverse, var(--fallback-text));
+      transform: translateY(-1px);
     }
 
     /* Sticky Dropdown Navigation */
@@ -265,11 +313,10 @@
       font-size: 22px;
       width: 45px;
       height: 45px;
-      border: 1px solid #333;
+      border: 1px solid var(--border-box, var(--fallback-border));
       border-radius: 50%;
-      background: rgba(20, 20, 20, 0.8);
-      backdrop-filter: blur(8px);
-      color: white;
+      background: var(--bg-box, var(--fallback-bg-box));
+      color: var(--text-main, var(--fallback-text));
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -277,28 +324,27 @@
       transition: background 0.2s;
     }
 
-    .menu-btn:hover {
-      background: #222;
-      border-color: #444;
-    }
-
     .menu {
       display: none;
       margin-top: 10px;
-      background: #161616;
-      border: 1px solid #262626;
+      background: var(--bg-box, var(--fallback-bg-box));
+      border: 1px solid var(--border-box, var(--fallback-border));
       border-radius: 12px;
       overflow: hidden;
       min-width: 180px;
       position: absolute;
       right: 0;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    .menu.show {
+      display: block;
     }
 
     .menu a {
       display: block;
       padding: 12px 20px;
-      color: #ccc;
+      color: var(--text-main, var(--fallback-text));
       text-decoration: none;
       font-size: 0.95rem;
       text-align: left;
@@ -311,17 +357,7 @@
       padding-left: 24px;
     }
 
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 40px 0 20px 0;
-      color: #555;
-      font-size: 0.85rem;
-      border-top: 1px solid #161616;
-      margin-top: 60px;
-    }
-
-    /* Privacy Popup */
+    /* Privacy Popup Nodes */
     .privacy-popup {
       position: fixed;
       inset: 0;
@@ -335,24 +371,24 @@
     }
 
     .privacy-box {
-      background: linear-gradient(145deg, #1c1c1c, #151515);
-      border: 1px solid #262626;
+      background: var(--bg-box, var(--fallback-bg-box));
+      border: 1px solid var(--border-box, var(--fallback-border));
       width: min(420px, 100%);
       padding: 35px;
       border-radius: 24px;
       text-align: center;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.7);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.5);
       animation: popupFade 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .privacy-box h2 {
       font-size: 1.8rem;
       margin-bottom: 12px;
-      color: white;
+      color: var(--text-inverse, var(--fallback-text));
     }
 
     .privacy-box p {
-      color: #999;
+      color: var(--text-muted, var(--fallback-text-muted));
       line-height: 1.6;
       font-size: 0.95rem;
     }
@@ -367,22 +403,51 @@
       text-decoration: underline;
     }
 
-    .accept-btn {
-      margin-top: 25px;
-      padding: 12px 30px;
-      border: none;
-      border-radius: 10px;
+    /* Global Buttons System matches styles reference */
+    button.btn-accent {
+      width: 100%;
+      padding: 16px;
+      font-size: 1.05rem;
       background: #ff4444;
       color: white;
-      font-size: 1rem;
+      border: none;
       font-weight: 600;
+      border-radius: 10px;
       cursor: pointer;
       transition: all 0.2s ease;
-      width: 100%;
+      box-shadow: 0 4px 15px rgba(255, 68, 68, 0.2);
     }
 
-    .accept-btn:hover {
+    button.btn-accent:hover {
       background: #e03333;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 68, 68, 0.4);
+    }
+
+    .btn-neutral {
+      display: inline-block;
+      padding: 14px 28px;
+      background: var(--bg-input, var(--fallback-bg-input));
+      border: 1px solid var(--border-box, var(--fallback-border));
+      color: var(--text-main, var(--fallback-text));
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 10px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-neutral:hover {
+      background: var(--bg-main, var(--fallback-bg-box));
+      color: var(--text-inverse, var(--fallback-text));
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 0 20px 0;
+      color: var(--text-muted, var(--fallback-text-muted));
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border-box, var(--fallback-border));
+      margin-top: 60px;
     }
 
     @keyframes popupFade {
@@ -400,12 +465,13 @@
 
 <body>
 
+<!-- Header Navigation Bar -->
 <div class="menu-container">
-  <button class="menu-btn" onclick="toggleMenu()">⋮</button>
+  <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">⋮</button>
   <div class="menu" id="menu">
     <a href="index.html">Home</a>
-    <a href="donation.html">Donation</a>
     <a href="tool.html">Tools</a>
+    <a href="donation.html">Donation</a>
     <a href="privacy-policy.html">Privacy Policy</a>
     <a href="terms.html">Terms of Service</a>
     <a href="about.html">About</a>
@@ -415,105 +481,169 @@
 
 <div class="wrapper">
 
-  <header>
+  <header style="text-align: center; margin-top: 40px; margin-bottom: 40px;">
     <h1 class="title">SIP Calculator</h1>
     <p class="subtitle">Estimate your portfolio asset compounding growth projections metrics instantaneously.</p>
   </header>
 
   <main>
-    <h2 class="section-title-red">Calculate Returns</h2>
-    
-    <div class="grid">
-      <section class="card">
-        <label for="monthlyInvestment">Monthly Investment (₹)</label>
-        <input type="number" id="monthlyInvestment" value="5000" min="100" oninput="calculateSIP()">
-        <p class="helper-text">Amount invested systematically every single month.</p>
+    <div class="counter-box">
+      <div class="grid">
+        <!-- Parameters Configurations Input Card -->
+        <section class="card">
+          <h2>Configure Parameters</h2>
 
-        <label for="rateInput">Expected Annual Return (%)</label>
-        <input type="number" id="rateInput" value="12" min="0" oninput="syncRateFromInput()">
-        <input type="range" id="rate" min="0" max="30" value="12" oninput="syncRateFromSlider()">
-        <div class="range-value" id="rateValue">Expected Return: 12%</div>
+          <label for="monthlyInvestment">Monthly Investment (₹)</label>
+          <input type="number" id="monthlyInvestment" value="5000" min="100" oninput="calculateSIP()">
+          <p class="helper-text">Amount invested systematically every single month.</p>
 
-        <label for="yearsInput">Investment Period (Years)</label>
-        <input type="number" id="yearsInput" value="10" min="1" oninput="syncYearsFromInput()">
-        <input type="range" id="years" min="1" max="40" value="10" oninput="syncYearsFromSlider()">
-        <div class="range-value" id="yearsValue">Investment Duration: 10 Years</div>
+          <label for="rateInput">Expected Annual Return (%)</label>
+          <input type="number" id="rateInput" value="12" min="0" oninput="syncRateFromInput()">
+          <input type="range" id="rate" min="0" max="30" value="12" oninput="syncRateFromSlider()">
+          <div class="range-value" id="rateValue">Expected Return: 12%</div>
 
-        <button style="margin-top: 30px;" onclick="calculateSIP()">Calculate Plan Growth</button>
-      </section>
+          <label for="yearsInput">Investment Period (Years)</label>
+          <input type="number" id="yearsInput" value="10" min="1" oninput="syncYearsFromInput()">
+          <input type="range" id="years" min="1" max="40" value="10" oninput="syncYearsFromSlider()">
+          <div class="range-value" id="yearsValue">Investment Duration: 10 Years</div>
 
-      <section class="card">
-        <h2 style="font-size: 1.3rem; margin-bottom: 15px;">Investment Summary</h2>
-        
-        <div class="result-box">
-          <div class="result-item">
-            <h3>Total Invested</h3>
-            <p id="invested">₹0</p>
+          <button class="btn-accent" style="margin-top: 30px;" onclick="calculateSIP()">Calculate Plan Growth</button>
+        </section>
+
+        <!-- Dynamic Asset Returns Display Card -->
+        <section class="card">
+          <h2>Investment Summary</h2>
+          
+          <div class="result-box">
+            <div class="result-item">
+              <h3>Total Invested</h3>
+              <p id="invested">₹0</p>
+            </div>
+            <div class="result-item">
+              <h3>Estimated Returns</h3>
+              <p id="returns">₹0</p>
+            </div>
+            <div class="result-item">
+              <h3>Future Value</h3>
+              <p id="futureValue">₹0</p>
+            </div>
           </div>
-          <div class="result-item">
-            <h3>Estimated Returns</h3>
-            <p id="returns">₹0</p>
+
+          <div class="extra-stats">
+            <div class="stat">
+              <h4>Monthly Gain</h4>
+              <p id="monthlyGain">₹0</p>
+            </div>
+            <div class="stat">
+              <h4>Wealth Multiplier</h4>
+              <p id="wealthMultiplier">0x</p>
+            </div>
           </div>
-          <div class="result-item">
-            <h3>Future Value</h3>
-            <p id="futureValue">₹0</p>
-          </div>
+        </section>
+      </div>
+
+      <!-- Integrated Light and Dark Theme Access Bar -->
+      <div class="theme-inline-container">
+        <button class="theme-inline-btn" onclick="toggleTheme()">
+          <span id="themeIcon">🌓</span>
+          <span id="themeText">Switch Theme</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="btn-container" style="text-align: center; margin-top: 30px;">
+      <a href="tool.html" class="btn btn-neutral">⬅ Back to Tools</a>
+    </div>
+
+    <!-- Product Marketing Section Details -->
+    <section class="content-box" style="text-align: left; margin-top: 50px;">
+      <h2 class="section-title-red">Simple and Powerful Data Inspection</h2>
+      <p class="subtitle" style="margin: 0 0 25px 0; text-align: left;">Analyze, validate, and clean up nested objects and arrays with clear, live formatting feedback.</p>
+      
+      <div class="feature-grid">
+        <div class="feature-box">
+          <span class="icon">⚡</span>
+          <h3>Instant Calculation</h3>
+          <p>Turns projection math and formulas into clear, beautifully structured compounding estimations immediately.</p>
         </div>
-
-        <div class="extra-stats">
-          <div class="stat">
-            <h4>Monthly Gain</h4>
-            <p id="monthlyGain">₹0</p>
-          </div>
-          <div class="stat">
-            <h4>Wealth Multiplier</h4>
-            <p id="wealthMultiplier">0x</p>
-          </div>
+        <div class="feature-box">
+          <span class="icon">📈</span>
+          <h3>Dynamic Metrics</h3>
+          <p>Catches wealth multipliers and metrics context seamlessly using real-time parameter tracking ranges.</p>
         </div>
-      </section>
-    </div>
+        <div class="feature-box">
+          <span class="icon">🗜</span>
+          <h3>Clean Visuals</h3>
+          <p>Strips away cluster structures to map numbers and values down into minimal and sleek responsive rows.</p>
+        </div>
+        <div class="feature-box">
+          <span class="icon">🔒</span>
+          <h3>100% Private</h3>
+          <p>Your finance inputs stay completely on your computer. We never save or send your computations over the internet.</p>
+        </div>
+      </div>
+    </section>
 
-    <h2 class="section-title-red">Understand SIP Modeling</h2>
-    <div class="info-container">
-      <p><strong>Systematic Investment Plans (SIP)</strong> provide users a structured pipeline allocating predictable assets into equity formulations or mutual parameters over consistent temporal intervals rather than attempting to optimize live baseline system market conditions tracking curves manually.</p>
-      <p>This structural mechanism benefits over custom vectors via compounding valuation layers along with systematic compounding cost averaging protocols, maximizing total yield projections over durable long range portfolios.</p>
-    </div>
-
-    <div class="btn-container">
-      <a href="tool.html" class="btn btn-secondary">⬅ Back to Tools</a>
-    </div>
+    <!-- Context Overview Box -->
+    <section class="content-box" style="text-align: left; margin-top: 30px;">
+      <h2 class="section-title-red">Why Use This Tool?</h2>
+      <p class="subtitle" style="margin: 0 0 15px 0; text-align: left;">Systematic Investment Plans (SIP) provide users a structured pipeline allocating predictable assets into equity formulations or mutual parameters over consistent temporal intervals rather than attempting to optimize live baseline system market conditions tracking curves manually.</p>
+      <p class="subtitle" style="margin: 0 0 15px 0; text-align: left;">This structural mechanism benefits over custom vectors via compounding valuation layers along with systematic compounding cost averaging protocols, maximizing total yield projections over durable long range portfolios.</p>
+    </section>
   </main>
 
   <footer>
     © 2026-Present AKeyUP. All rights reserved.
   </footer>
-
 </div>
 
 <div class="privacy-popup" id="privacyPopup">
   <div class="privacy-box">
     <h2>Privacy Notice</h2>
     <p>By interacting with this environment, you acknowledge and agree to our systemic <a href="privacy-policy.html">Privacy Policy</a> parameters.</p>
-    <button class="accept-btn" onclick="acceptPrivacy()">Accept & Dismiss</button>
+    <button class="btn-accent" style="margin-top: 25px; padding: 12px 30px;" onclick="acceptPrivacy()">Accept & Dismiss</button>
   </div>
 </div>
 
+<!-- Automation Pipeline Scripts -->
 <script>
+/* Menu Navigation Dropdown Controls Toggle Engine */
 function toggleMenu() {
-  const menu = document.getElementById("menu");
-  menu.style.display = (menu.style.display === "block") ? "none" : "block";
+  document.getElementById("menu").classList.toggle("show");
 }
 
 document.addEventListener("click", function(event) {
   const menu = document.getElementById("menu");
-  const button = document.querySelector(".menu-btn");
+  const button = document.getElementById("menuBtn");
   if (menu && button) {
     if (!menu.contains(event.target) && !button.contains(event.target)) {
-      menu.style.display = "none";
+      menu.classList.remove("show");
     }
   }
 });
 
+/* Light / Dark Theme Switching Logic Modules */
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute("data-theme");
+  const targetTheme = currentTheme === "light" ? "dark" : "light";
+  document.documentElement.setAttribute("data-theme", targetTheme);
+  localStorage.setItem("themePreference", targetTheme);
+  updateThemeButtonUI(targetTheme);
+}
+
+function updateThemeButtonUI(theme) {
+  const textNode = document.getElementById("themeText");
+  const iconNode = document.getElementById("themeIcon");
+  if (theme === "light") {
+    textNode.innerText = "Switch to Dark Mode";
+    iconNode.innerText = "🌙";
+  } else {
+    textNode.innerText = "Switch to Light Mode";
+    iconNode.innerText = "☀️";
+  }
+}
+
+/* Functional SIP Calculation Logic Modules */
 function formatCurrency(num) {
   return "₹" + Number(num).toLocaleString("en-IN", {
     maximumFractionDigits: 0
@@ -584,7 +714,12 @@ function acceptPrivacy(){
   document.getElementById("privacyPopup").style.display = "none";
 }
 
-window.addEventListener("load", function(){
+/* Page Boot Initialization Handler Routine */
+window.addEventListener("DOMContentLoaded", function(){
+  const savedTheme = localStorage.getItem("themePreference") || "dark";
+  document.documentElement.setAttribute("data-theme", savedTheme);
+  updateThemeButtonUI(savedTheme);
+
   const accepted = localStorage.getItem("privacyAccepted");
   if(accepted === "true"){
     document.getElementById("privacyPopup").style.display = "none";
