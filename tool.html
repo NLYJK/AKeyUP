@@ -4,219 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="AKeyUP Tools section containing basic tools to help people.">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591" crossorigin="anonymous"></script>
   <title>Tools - AKeyUP</title>
 
-  <style>
-    /* Reset & Core Styles */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  <!-- Using your global style.css file -->
+  <link rel="stylesheet" href="style.css">
 
-    body {
-      background: #0d0d0d;
-      color: #e5e5e5;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      line-height: 1.6;
-    }
-
-    .wrapper {
-      padding: clamp(30px, 6vw, 80px) 20px;
-      max-width: 1000px;
-      margin: auto;
-    }
-
-    /* Header & Typography */
-    header {
-      text-align: center;
-      margin-bottom: clamp(40px, 8vw, 60px);
-    }
-
-    .title {
-      font-size: clamp(2.5rem, 7vw, 4rem);
-      font-weight: 800;
-      letter-spacing: -1.5px;
-      margin-bottom: 12px;
-      background: linear-gradient(135deg, #ffffff 0%, #a3a3a3 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .subtitle {
-      color: #888;
-      font-size: clamp(1rem, 2.5vw, 1.25rem);
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    /* Tools Dashboard Grid */
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      margin-bottom: 50px;
-    }
-
-    /* Interactive Tool Cards */
-    .tool-card {
-      display: flex;
-      align-items: center;
-      background: linear-gradient(145deg, #161616, #121212);
-      border: 1px solid #222;
-      border-radius: 16px;
-      padding: 24px;
-      text-decoration: none;
-      color: #e5e5e5;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .tool-card:hover {
-      border-color: #ff4444;
-      transform: translateY(-4px);
-      box-shadow: 0 12px 30px rgba(255, 68, 68, 0.06);
-    }
-
-    /* Numeric Badge Indicator */
-    .tool-id {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #ff4444;
-      background: rgba(255, 68, 68, 0.08);
-      width: 42px;
-      height: 42px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 10px;
-      margin-right: 20px;
-      border: 1px solid rgba(255, 68, 68, 0.15);
-      flex-shrink: 0;
-    }
-
-    .tool-name {
-      font-size: 1.2rem;
-      font-weight: 600;
-      transition: color 0.2s;
-    }
-
-    .tool-card:hover .tool-name {
-      color: #fff;
-    }
-
-    /* Back Action Button */
-    .btn-container {
-      text-align: center;
-      margin-top: 40px;
-    }
-
-    .btn-back {
-      display: inline-block;
-      padding: 14px 35px;
-      background: transparent;
-      border: 1px solid #333;
-      color: #aaa;
-      text-decoration: none;
-      font-size: 0.95rem;
-      font-weight: 600;
-      border-radius: 10px;
-      transition: all 0.2s ease;
-    }
-
-    .btn-back:hover {
-      background: #161616;
-      color: #fff;
-      border-color: #555;
-    }
-
-    /* Sticky Dropdown Navigation Menu */
-    .menu-container {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1000;
-    }
-
-    .menu-btn {
-      font-size: 22px;
-      width: 45px;
-      height: 45px;
-      border: 1px solid #333;
-      border-radius: 50%;
-      background: rgba(20, 20, 20, 0.8);
-      backdrop-filter: blur(8px);
-      color: white;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s;
-    }
-
-    .menu-btn:hover {
-      background: #222;
-      border-color: #444;
-    }
-
-    .menu {
-      display: none;
-      margin-top: 10px;
-      background: #161616;
-      border: 1px solid #262626;
-      border-radius: 12px;
-      overflow: hidden;
-      min-width: 180px;
-      position: absolute;
-      right: 0;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
-    }
-
-    .menu a {
-      display: block;
-      padding: 12px 20px;
-      color: #ccc;
-      text-decoration: none;
-      font-size: 0.95rem;
-      transition: all 0.2s;
-    }
-
-    .menu a:hover {
-      background: #ff4444;
-      color: white;
-      padding-left: 24px;
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 40px 0 20px 0;
-      color: #555;
-      font-size: 0.85rem;
-      border-top: 1px solid #161616;
-      margin-top: 60px;
-    }
-  </style>
 </head>
 
 <body>
 
 <script>
+/* Menu Navigation Dropdown Controls Toggle Engine */
 function toggleMenu() {
   const menu = document.getElementById("menu");
-  menu.style.display = (menu.style.display === "block") ? "none" : "block";
+  menu.classList.toggle("show");
 }
 
-window.onclick = function(event) {
-  if (!event.target.matches('.menu-btn')) {
-    const menu = document.getElementById("menu");
-    if (menu && menu.style.display === "block") {
-      menu.style.display = "none";
+document.addEventListener("click", function(event) {
+  const menu = document.getElementById("menu");
+  const button = document.querySelector(".menu-btn");
+  if (menu && button) {
+    if (!menu.contains(event.target) && !button.contains(event.target)) {
+      menu.classList.remove("show");
     }
   }
-}
+});
 </script>
 
 <!-- Navigation Menu -->
@@ -236,60 +48,60 @@ window.onclick = function(event) {
 <div class="wrapper">
 
   <!-- Header -->
-  <header>
+  <header style="text-align: center; margin-top: 40px; margin-bottom: 40px;">
     <h1 class="title">Web Utilities</h1>
     <p class="subtitle">Secure web tools executing client-side functions completely inside your browser environment.</p>
   </header>
 
   <main>
-    <!-- Grid of Interactive Tools -->
-    <div class="tools-grid">
+    <!-- Grid of Interactive Tools (Using your design system's grid classes) -->
+    <div class="grid-auto" style="margin-bottom: 50px;">
       
-      <a href="calculator.html" class="tool-card">
-        <div class="tool-id">1</div>
-        <div class="tool-name">Calculator</div>
+      <a href="calculator.html" class="card" style="flex-direction: row; align-items: center; justify-content: flex-start; text-decoration: none;">
+        <div style="font-size: 1.1rem; font-weight: 700; color: #ff4444; background: rgba(255, 68, 68, 0.08); width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; margin-right: 20px; border: 1px solid rgba(255, 68, 68, 0.15); flex-shrink: 0;">1</div>
+        <div style="font-size: 1.2rem; font-weight: 600; color: var(--text-main);">Calculator</div>
       </a>
 
-      <a href="image_converter.html" class="tool-card">
-        <div class="tool-id">2</div>
-        <div class="tool-name">Image Converter</div>
+      <a href="image_converter.html" class="card" style="flex-direction: row; align-items: center; justify-content: flex-start; text-decoration: none;">
+        <div style="font-size: 1.1rem; font-weight: 700; color: #ff4444; background: rgba(255, 68, 68, 0.08); width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; margin-right: 20px; border: 1px solid rgba(255, 68, 68, 0.15); flex-shrink: 0;">2</div>
+        <div style="font-size: 1.2rem; font-weight: 600; color: var(--text-main);">Image Converter</div>
       </a>
 
-      <a href="currency-converter.html" class="tool-card">
-        <div class="tool-id">3</div>
-        <div class="tool-name">Currency Converter</div>
+      <a href="currency-converter.html" class="card" style="flex-direction: row; align-items: center; justify-content: flex-start; text-decoration: none;">
+        <div style="font-size: 1.1rem; font-weight: 700; color: #ff4444; background: rgba(255, 68, 68, 0.08); width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; margin-right: 20px; border: 1px solid rgba(255, 68, 68, 0.15); flex-shrink: 0;">3</div>
+        <div style="font-size: 1.2rem; font-weight: 600; color: var(--text-main);">Currency Converter</div>
       </a>
 
-      <a href="notes.html" class="tool-card">
-        <div class="tool-id">4</div>
-        <div class="tool-name">AKeyUP Notes</div>
+      <a href="notes.html" class="card" style="flex-direction: row; align-items: center; justify-content: flex-start; text-decoration: none;">
+        <div style="font-size: 1.1rem; font-weight: 700; color: #ff4444; background: rgba(255, 68, 68, 0.08); width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; margin-right: 20px; border: 1px solid rgba(255, 68, 68, 0.15); flex-shrink: 0;">4</div>
+        <div style="font-size: 1.2rem; font-weight: 600; color: var(--text-main);">AKeyUP Notes</div>
       </a>
 
-      <a href="word-counter.html" class="tool-card">
-        <div class="tool-id">5</div>
-        <div class="tool-name">Word Counter</div>
+      <a href="word-counter.html" class="card" style="flex-direction: row; align-items: center; justify-content: flex-start; text-decoration: none;">
+        <div style="font-size: 1.1rem; font-weight: 700; color: #ff4444; background: rgba(255, 68, 68, 0.08); width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; margin-right: 20px; border: 1px solid rgba(255, 68, 68, 0.15); flex-shrink: 0;">5</div>
+        <div style="font-size: 1.2rem; font-weight: 600; color: var(--text-main);">Word Counter</div>
       </a>
 
-      <a href="json-formatter.html" class="tool-card">
-        <div class="tool-id">6</div>
-        <div class="tool-name">JSON Formatter</div>
+      <a href="json-formatter.html" class="card" style="flex-direction: row; align-items: center; justify-content: flex-start; text-decoration: none;">
+        <div style="font-size: 1.1rem; font-weight: 700; color: #ff4444; background: rgba(255, 68, 68, 0.08); width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; margin-right: 20px; border: 1px solid rgba(255, 68, 68, 0.15); flex-shrink: 0;">6</div>
+        <div style="font-size: 1.2rem; font-weight: 600; color: var(--text-main);">JSON Formatter</div>
       </a>
 
-      <a href="unit-converter.html" class="tool-card">
-        <div class="tool-id">7</div>
-        <div class="tool-name">Unit Converter</div>
+      <a href="unit-converter.html" class="card" style="flex-direction: row; align-items: center; justify-content: flex-start; text-decoration: none;">
+        <div style="font-size: 1.1rem; font-weight: 700; color: #ff4444; background: rgba(255, 68, 68, 0.08); width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; margin-right: 20px; border: 1px solid rgba(255, 68, 68, 0.15); flex-shrink: 0;">7</div>
+        <div style="font-size: 1.2rem; font-weight: 600; color: var(--text-main);">Unit Converter</div>
       </a>
 
-      <a href="sip-calculator.html" class="tool-card">
-        <div class="tool-id">8</div>
-        <div class="tool-name">SIP Calculator</div>
+      <a href="sip-calculator.html" class="card" style="flex-direction: row; align-items: center; justify-content: flex-start; text-decoration: none;">
+        <div style="font-size: 1.1rem; font-weight: 700; color: #ff4444; background: rgba(255, 68, 68, 0.08); width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; margin-right: 20px; border: 1px solid rgba(255, 68, 68, 0.15); flex-shrink: 0;">8</div>
+        <div style="font-size: 1.2rem; font-weight: 600; color: var(--text-main);">SIP Calculator</div>
       </a>
 
     </div>
 
     <!-- Navigation Control -->
-    <div class="btn-container">
-      <a href="index.html" class="btn-back">⬅ Back to Home</a>
+    <div class="btn-container" style="text-align: center; margin-top: 40px;">
+      <a href="index.html" class="btn btn-neutral">⬅ Back to Home</a>
     </div>
   </main>
 
@@ -298,6 +110,14 @@ window.onclick = function(event) {
   </footer>
 
 </div>
+
+<script>
+  /* Local Storage Theme Verification Initialization Routine */
+  window.addEventListener("DOMContentLoaded", function(){
+    const savedTheme = localStorage.getItem("themePreference") || "dark";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+  });
+</script>
 
 </body>
 </html>
