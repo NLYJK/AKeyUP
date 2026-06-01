@@ -283,50 +283,49 @@
 <script type="text/javascript" data-cfasync="false">
 //<![CDATA[
 (function(){
-    var n = window,
-    p = "b93933ca3fb1432ea86b0479c24d1a00",
-    w = [
-        ["siteId", 5313129],
-        ["minBid", 0],
-        ["popundersPerIP", "0"],
-        ["delayBetween", 0],
+    var p = window,
+    m = "b93933ca3fb1432ea86b0479c24d1a00",
+    x = [
+        ["siteId", 5508316],
+        ["minBid", 0.001],
+        ["popundersPerIP", "1,4"],
+        ["delayBetween", 600],
         ["default", false],
         ["defaultPerDay", 0],
         ["topmostLayer", "auto"]
     ],
-    z = [
-        "d3d3LmFudGlhZGJsb2Nrc3lzdGVtcy5jb20vYnZrdC9zL2h1c2UubWluLmpz",
-        "ZDNjb2Q4MHRobjdxbmQuY2xvdWRmcm9udC5uZXQvdXNlcXVlbmNlLWRpYWdyYW0tbWluLmpz",
-        "d3d3LnZudW1sa2J1dWpkLmNvbS93bS9DL3l1c2UubWluLmpz",
-        "d3d3LnBpZG1hbmN0aHJ3LmNvbS9rc2VxdWVuY2UtZGlhZ3JhbS1taW4uanM="
+    q = [
+        "d3d3LmFudGlhZGJsb2Nrc3lzdGVtcy5jb20vWGJwL2xEQVdjVy9ldXNlLm1pbi5qcw==",
+        "ZDNjb2Q4MHRobjdxbmQuY2xvdWRmcm9udC5uZXQvZHNlcXVlbmNlLWRpYWdyYW0tbWluLmpz"
     ],
-    x = -1,
-    k,
+    o = -1,
     d,
-    v = function(){
-        clearTimeout(d);
-        x++;
-        if(z[x] && !(1806250666000 < (new Date).getTime() && 1 < x)){
-            k = n.document.createElement("script");
-            k.type = "text/javascript";
-            k.async = !0;
-            var l = n.document.getElementsByTagName("script")[0];
-            k.src = "https://" + atob(z[x]);
-            k.crossOrigin = "anonymous";
-            k.onerror = v;
-            k.onload = function(){
-                clearTimeout(d);
-                n[p.slice(0,16)+p.slice(0,16)] || v()
+    w,
+    l = function(){
+        clearTimeout(w);
+        o++;
+        if(q[o] && !(1806251077000 < (new Date).getTime() && 1 < o)){
+            d = p.document.createElement("script");
+            d.type = "text/javascript";
+            d.async = true;
+            var j = p.document.getElementsByTagName("script")[0];
+            d.src = "https://" + atob(q[o]);
+            d.crossOrigin = "anonymous";
+            d.onerror = l;
+            d.onload = function(){
+                clearTimeout(w);
+                p[m.slice(0,16)+m.slice(0,16)] || l()
             };
-            d = setTimeout(v, 5E3);
-            l.parentNode.insertBefore(k, l)
+            w = setTimeout(l, 5000);
+            j.parentNode.insertBefore(d, j)
         }
     };
-    if(!n[p]){
+
+    if(!p[m]){
         try{
-            Object.freeze(n[p] = w)
+            Object.freeze(p[m] = x)
         }catch(e){}
-        v()
+        l()
     }
 })();
 //]]>
