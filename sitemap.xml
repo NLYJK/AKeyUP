@@ -2,36 +2,93 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://nlyjk.github.io/AKeyUP/</loc>
+    <loc>https://akeyup.akeyup.workers.dev/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>https://nlyjk.github.io/AKeyUP/donation.html</loc>
+    <loc>https://akeyup.akeyup.workers.dev/tool.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://nlyjk.github.io/AKeyUP/tool.html</loc>
+    <loc>https://akeyup.akeyup.workers.dev/calculator.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://nlyjk.github.io/AKeyUP/pp.html</loc>
+    <loc>https://akeyup.akeyup.workers.dev/image_converter.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://nlyjk.github.io/AKeyUP/about.html</loc>
-  </url>
-  <url>
-    <loc>https://nlyjk.github.io/AKeyUP/calculator.html</loc>
-  </url>
-
-  <url>
-    <loc>https://nlyjk.github.io/AKeyUP/image_converter.html</loc>
+    <loc>https://akeyup.akeyup.workers.dev/currency-converter.html</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://nlyjk.github.io/AKeyUP/Currency-Converter.html</loc>
+    <loc>https://akeyup.akeyup.workers.dev/notes.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
-  
 
+  <url>
+    <loc>https://akeyup.akeyup.workers.dev/word-counter.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://akeyup.akeyup.workers.dev/json-formatter.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://akeyup.akeyup.workers.dev/unit-converter.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://akeyup.akeyup.workers.dev/sip-calculator.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://akeyup.akeyup.workers.dev/donation.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://akeyup.akeyup.workers.dev/privacy-policy.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://akeyup.akeyup.workers.dev/terms.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://akeyup.akeyup.workers.dev/about.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://akeyup.akeyup.workers.dev/contact.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
 
 </urlset>
