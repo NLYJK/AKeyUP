@@ -6,10 +6,8 @@
   <meta name="description" content="Welcome to AKeyUP. Explore our free web utilities or download the AKeyUP Hotkeys background software for Windows desktop systems.">
   <title>AKeyUP - Productivity Web Tools & Software</title>
 
-  <!-- Connect directly to your style.css mapping -->
   <link rel="stylesheet" href="style.css">
 
-  <!-- Internal overrides specifically to layer your privacy popup overlay onto core styles -->
   <style>
     .privacy-popup {
       position: fixed;
@@ -52,16 +50,16 @@
       font-style: italic;
     }
   </style>
-<script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
+  <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
 </head>
 
 <body>
 
-  <!-- Navigation Menu Component -->
   <div class="menu-container">
     <button class="menu-btn" onclick="toggleMenu()" aria-label="Toggle Menu">⋮</button>
     <div class="menu" id="menu">
       <a href="index.html">Home</a>
+      <a href="blog.html">Blog</a>
       <a href="donation.html">Donation</a>
       <a href="tool.html">Tools</a>
       <a href="privacy-policy.html">Privacy Policy</a>
@@ -71,17 +69,14 @@
     </div>
   </div>
 
-  <!-- Main Viewport Container -->
   <div class="wrapper">
 
-    <!-- Hero Header -->
     <header>
       <h1 class="title">AKeyUP</h1>
       <p class="subtitle">A helpful hub for free browser utilities and desktop automation software.</p>
     </header>
 
     <main>
-      <!-- Section 1: The Website Hub Features -->
       <h2 class="section-title">About Our Website</h2>
       <div class="grid-auto">
         <div class="card">Offers an array of free web tools like calculators and converters</div>
@@ -90,13 +85,13 @@
         <div class="card">Completely free to use with zero installations required</div>
       </div>
 
-      <div class="btn-container" style="margin: 30px 0 60px 0;"> 
+      <div class="btn-container" style="margin: 30px 0 60px 0; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;"> 
         <a href="tool.html" class="btn btn-neutral">Explore Free Web Tools ➜</a> 
+        <a href="blog.html" class="btn btn-neutral">Read Our Blogs ➜</a> 
       </div>
 
       <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 40px 0;">
 
-      <!-- Section 2: The Desktop Software Presentation -->
       <h2 class="section-title">AKeyUP Hotkeys Software</h2>
       <p style="text-align: center; color: var(--text-muted); margin-top: -10px; margin-bottom: 30px;">Boost your daily workflow with our lightweight background automation companion app.</p>
       
@@ -107,7 +102,6 @@
         <div class="card">Saves your shortcut configurations directly on your local system</div>
       </div>
 
-      <!-- Video Presentation Node -->
       <div class="video-container">
         <video controls autoplay muted playsinline>
           <source src="Tutorial.mp4" type="video/mp4">
@@ -116,39 +110,33 @@
       </div>
       <p class="video-disclaimer">This software demo references sites like ChatGPT for educational context. We are not officially affiliated with them.</p>
 
-      <!-- Interactive Download Action -->
       <div class="btn-container"> 
         <a href="https://drive.google.com/uc?export=download&id=1N441YbTeQRj0euREYCPmuaEMePiacx66" target="_blank" class="btn btn-accent">Download AKeyUP Hotkeys for Windows</a> 
       </div>
     </main>
 
-    <!-- Structural Layout Footer -->
     <footer class="page-footer">
       © 2026-Present AKeyUP. All rights reserved.
     </footer>
 
   </div>
 
-  <!-- Privacy Consent Overlay Modal -->
   <div class="privacy-popup" id="privacyPopup" style="display: none;">
     <div class="content-box privacy-box">
       <div class="content-section">
         <h2>Terms Notice</h2>
         <p>By using this site, you agree to our terms of service and <a href="privacy-policy.html" class="text-link">Privacy Policy</a>.</p>
       </div>
-      <button class="btn btn-accent" style="width: 100%;" onclick="acceptPrivacy()">Accept & Dismiss</button>
+      <button class="btn btn-accent" style="width: 100%; border: none;" onclick="acceptPrivacy()">Accept & Dismiss</button>
     </div>
   </div>
 
-  <!-- Execution Logic Engine -->
   <script>
-    // Toggle application navigation display states
     function toggleMenu() {
       const menu = document.getElementById("menu");
       menu.classList.toggle("show");
     }
 
-    // Context listener to clear navigation menu overlay on global focus drift
     window.onclick = function(event) {
       if (!event.target.matches('.menu-btn')) {
         const menu = document.getElementById("menu");
@@ -158,13 +146,11 @@
       }
     }
 
-    // Local storage management for the explicit privacy banner cycle
     function acceptPrivacy(){
       localStorage.setItem("privacyAccepted", "true");
       document.getElementById("privacyPopup").style.display = "none";
     }
 
-    // Evaluate persistence values on primary render pass
     window.addEventListener("DOMContentLoaded", function(){
       const accepted = localStorage.getItem("privacyAccepted");
       if (accepted !== "true") {
