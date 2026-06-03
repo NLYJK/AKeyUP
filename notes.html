@@ -7,6 +7,8 @@
   <title>Notes - AKeyUP</title>
   
   <link rel="stylesheet" href="style.css">
+   <link rel="icon" type="image/x-icon" href="/favicon.ico?v=3">
+
 
   <style>
     /* Local Notes Board Layout Components */
@@ -265,6 +267,7 @@
   <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">⋮</button>
   <div class="menu" id="menu">
     <a href="index.html">Home</a>
+    <a href="blog.html">Blogs</a>
     <a href="tool.html">Tools</a>
     <a href="donation.html">Donation</a>
     <a href="privacy-policy.html">Privacy Policy</a>
@@ -278,27 +281,27 @@
 
   <header style="text-align: center; margin-top: 40px; margin-bottom: 40px;">
     <h1 class="title">Notes</h1>
-    <p class="subtitle">Create, customize, organize, and back up your notes instantly right in your browser.</p>
+    <p class="subtitle">Create, style, sort, and back up your notes instantly inside your browser.</p>
   </header>
 
   <main>
     <div class="main-grid">
       
       <div class="editor-card">
-        <h2 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 20px;" id="editorTitle">Create Note</h2>
+        <h2 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 20px;" id="editorTitle">New Note</h2>
         
         <div class="form-group">
-          <label for="noteTitle">Note Title</label>
-          <input type="text" id="noteTitle" placeholder="Enter note title...">
+          <label for="noteTitle">Title</label>
+          <input type="text" id="noteTitle" placeholder="Type a title...">
         </div>
 
         <div class="form-group">
-          <label for="noteText">Your Note</label>
-          <textarea id="noteText" placeholder="Write your note here..."></textarea>
+          <label for="noteText">Content</label>
+          <textarea id="noteText" placeholder="Write your note content here..."></textarea>
         </div>
 
         <div class="form-group">
-          <label for="noteColor">Note Background Color</label>
+          <label for="noteColor">Card Background Color</label>
           <select id="noteColor">
             <option value="#1c1c1c">Default Dark</option>
             <option value="#ffd54f">Soft Yellow</option>
@@ -310,8 +313,8 @@
         </div>
 
         <div class="form-group">
-          <label for="noteTag">Tag</label>
-          <input type="text" id="noteTag" placeholder="e.g., Ideas, Personal, Work">
+          <label for="noteTag">Tag Label</label>
+          <input type="text" id="noteTag" placeholder="e.g., Personal, Work, Ideas">
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 25px;">
@@ -324,18 +327,17 @@
 
         <div class="status-msg" id="status"></div>
 
-        <!-- Integrated Theme Control Unit -->
         <div class="theme-inline-container">
           <button class="theme-inline-btn" onclick="toggleTheme()">
             <span id="themeIcon">🌓</span>
-            <span id="themeText">Switch Theme</span>
+            <span id="themeText">Toggle Theme</span>
           </button>
         </div>
       </div>
 
       <div>
         <div class="search-box">
-          <input type="text" id="searchInput" placeholder="🔍 Search notes instantly..." oninput="displayNotes()">
+          <input type="text" id="searchInput" placeholder="🔍 Search notes..." oninput="displayNotes()">
         </div>
 
         <div class="notes-grid" id="notesGrid"></div>
@@ -345,28 +347,28 @@
 
     <section class="content-box" style="text-align: left; margin-top: 60px;">
       <h2 class="section-title">About the Workspace</h2>
-      <p class="subtitle" style="margin: 0 0 25px 0; text-align: left;">A completely local, offline notepad built to work fast without needing internet servers.</p>
+      <p class="subtitle" style="margin: 0 0 25px 0; text-align: left;">A safe, offline notebook built to work instantly without needing remote cloud servers.</p>
       
       <div class="feature-grid">
         <div class="feature-box">
           <span class="icon">⚡</span>
           <h3>Fast Experience</h3>
-          <p>Loads instantly and responds immediately without saving delays.</p>
+          <p>Loads instantly and runs smoothly with zero backend processing lag.</p>
         </div>
         <div class="feature-box">
           <span class="icon">🔒</span>
           <h3>Privacy Focused</h3>
-          <p>Your notes are stored directly in your browser layout. No login or accounts are required.</p>
+          <p>Your notes reside locally inside your browser engine. No profile or signup required.</p>
         </div>
         <div class="feature-box">
           <span class="icon">📌</span>
           <h3>Easy Organization</h3>
-          <p>Pin important notes to the top, apply colored backgrounds, and group them with custom tags.</p>
+          <p>Pin key items to the top, use color variations, and sort them using labels.</p>
         </div>
         <div class="feature-box">
           <span class="icon">📥</span>
           <h3>Backup Support</h3>
-          <p>Export your active notes anytime into standard text files for secure backup storage.</p>
+          <p>Download your collected records at any moment into plain text files for safekeeping.</p>
         </div>
       </div>
     </section>
@@ -404,7 +406,7 @@ function toggleTheme() {
   document.documentElement.setAttribute("data-theme", targetTheme);
   localStorage.setItem("themePreference", targetTheme);
   updateThemeButtonUI(targetTheme);
-  displayNotes(); // Re-render to correctly align card contrast rules
+  displayNotes(); 
 }
 
 function updateThemeButtonUI(theme) {
@@ -419,10 +421,119 @@ function updateThemeButtonUI(theme) {
   }
 }
 
-/* Local Storage Setup */
-let notes = JSON.parse(localStorage.getItem("akeyup_notes")) || [];
+/* IndexedDB Management Engine */
+let db = null;
+let notes = [];
 let editingId = null;
 
+const DB_NAME = "AKeyUPNotesDB";
+const STORE_NAME = "notes";
+
+function initDatabase() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open(DB_NAME, 1);
+
+    request.onupgradeneeded = function(event) {
+      const database = event.target.result;
+      if (!database.objectStoreNames.contains(STORE_NAME)) {
+        database.createObjectStore(STORE_NAME, { keyPath: "id" });
+      }
+    };
+
+    request.onsuccess = function(event) {
+      db = event.target.result;
+      resolve(db);
+    };
+
+    request.onerror = function(event) {
+      console.error("IndexedDB error:", event.target.error);
+      reject(event.target.error);
+    };
+  });
+}
+
+/* Safe Migration Path from LocalStorage */
+function migrateDataIfNecessary() {
+  return new Promise((resolve) => {
+    const legacyNotes = localStorage.getItem("akeyup_notes");
+    if (!legacyNotes) {
+      resolve();
+      return;
+    }
+
+    try {
+      const parsedNotes = JSON.parse(legacyNotes);
+      if (Array.isArray(parsedNotes) && parsedNotes.length > 0) {
+        const transaction = db.transaction([STORE_NAME], "readwrite");
+        const store = transaction.objectStore(STORE_NAME);
+
+        parsedNotes.forEach(note => {
+          store.put(note);
+        });
+
+        transaction.oncomplete = function() {
+          // Clear old storage target safely once confirmed
+          localStorage.removeItem("akeyup_notes");
+          console.log("Migration completed successfully.");
+          resolve();
+        };
+
+        transaction.onerror = function() {
+          console.error("Migration transaction failed.");
+          resolve();
+        };
+      } else {
+        localStorage.removeItem("akeyup_notes");
+        resolve();
+      }
+    } catch (e) {
+      console.error("Error migrating structural metadata:", e);
+      resolve();
+    }
+  });
+}
+
+function fetchNotesFromDB() {
+  return new Promise((resolve) => {
+    const transaction = db.transaction([STORE_NAME], "readonly");
+    const store = transaction.objectStore(STORE_NAME);
+    const request = store.getAll();
+
+    request.onsuccess = function() {
+      // Keep notes sorted chronological desc uniformly initially
+      notes = request.result.sort((a, b) => b.id - a.id);
+      resolve();
+    };
+    
+    request.onerror = function() {
+      resolve();
+    };
+  });
+}
+
+function addOrUpdateNoteInDB(note) {
+  return new Promise((resolve) => {
+    const transaction = db.transaction([STORE_NAME], "readwrite");
+    const store = transaction.objectStore(STORE_NAME);
+    store.put(note);
+
+    transaction.oncomplete = () => resolve(true);
+    transaction.onerror = () => resolve(false);
+  });
+}
+
+function deleteNoteFromDB(id) {
+  return new Promise((resolve) => {
+    const transaction = db.transaction([STORE_NAME], "readwrite");
+    const store = transaction.objectStore(STORE_NAME);
+    store.delete(id);
+
+    transaction.oncomplete = () => resolve(true);
+    transaction.onerror = () => resolve(false);
+  });
+}
+
+/* DOM Element Binding Hook */
 const noteTitleInput = document.getElementById("noteTitle");
 const noteTextInput = document.getElementById("noteText");
 const noteColorInput = document.getElementById("noteColor");
@@ -430,7 +541,7 @@ const noteTagInput = document.getElementById("noteTag");
 const statusElement = document.getElementById("status");
 const editorTitleElement = document.getElementById("editorTitle");
 
-window.addEventListener("DOMContentLoaded", function() {
+window.addEventListener("DOMContentLoaded", async function() {
   // Restore draft inputs if any exist
   const draftTitle = localStorage.getItem("draft_title");
   const draftText = localStorage.getItem("draft_text");
@@ -442,6 +553,14 @@ window.addEventListener("DOMContentLoaded", function() {
   const savedTheme = localStorage.getItem("themePreference") || "dark";
   document.documentElement.setAttribute("data-theme", savedTheme);
   updateThemeButtonUI(savedTheme);
+
+  try {
+    await initDatabase();
+    await migrateDataIfNecessary();
+    await fetchNotesFromDB();
+  } catch (err) {
+    console.error("Failed to set up local core components:", err);
+  }
 
   displayNotes();
 });
@@ -455,7 +574,7 @@ noteTitleInput.addEventListener("input", saveDraft);
 noteTextInput.addEventListener("input", saveDraft);
 
 /* Save Operations */
-function saveNote() {
+async function saveNote() {
   const title = noteTitleInput.value.trim();
   const text = noteTextInput.value.trim();
   const color = noteColorInput.value;
@@ -468,16 +587,20 @@ function saveNote() {
   }
 
   if (editingId) {
-    notes = notes.map(n => {
-      if (n.id === editingId) {
-        return { ...n, title, text, color, tag };
-      }
-      return n;
-    });
+    const existing = notes.find(n => n.id === editingId);
+    const updatedNote = { 
+      ...existing, 
+      title, 
+      text, 
+      color, 
+      tag 
+    };
+    
+    await addOrUpdateNoteInDB(updatedNote);
     statusElement.style.color = "#00ff99";
     statusElement.innerText = "Note updated successfully.";
   } else {
-    notes.unshift({
+    const newNote = {
       id: Date.now(),
       title,
       text,
@@ -485,12 +608,14 @@ function saveNote() {
       tag,
       pinned: false,
       createdAt: new Date().toLocaleString()
-    });
+    };
+    
+    await addOrUpdateNoteInDB(newNote);
     statusElement.style.color = "#00ff99";
     statusElement.innerText = "Note saved successfully.";
   }
 
-  localStorage.setItem("akeyup_notes", JSON.stringify(notes));
+  await fetchNotesFromDB();
   clearEditor();
   displayNotes();
   
@@ -501,7 +626,6 @@ function saveNote() {
 function displayNotes() {
   const notesGrid = document.getElementById("notesGrid");
   const search = document.getElementById("searchInput").value.toLowerCase();
-  const currentGlobalTheme = document.documentElement.getAttribute("data-theme") || "dark";
 
   notesGrid.innerHTML = "";
 
@@ -522,7 +646,6 @@ function displayNotes() {
     const noteCard = document.createElement("div");
     noteCard.className = "note-card";
     
-    // Check if background is dynamic or base layout selection
     if (n.color !== "#1c1c1c") {
       noteCard.style.background = n.color;
       noteCard.style.color = "#111111";
@@ -564,17 +687,21 @@ function editNote(id) {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-function deleteNote(id) {
+async function deleteNote(id) {
   if (!confirm("Are you sure you want to delete this note?")) return;
-  notes = notes.filter(n => n.id !== id);
-  localStorage.setItem("akeyup_notes", JSON.stringify(notes));
+  await deleteNoteFromDB(id);
+  await fetchNotesFromDB();
   displayNotes();
 }
 
-function pinNote(id) {
-  notes = notes.map(n => n.id === id ? { ...n, pinned: !n.pinned } : n);
-  localStorage.setItem("akeyup_notes", JSON.stringify(notes));
-  displayNotes();
+async function pinNote(id) {
+  const target = notes.find(n => n.id === id);
+  if (target) {
+    target.pinned = !target.pinned;
+    await addOrUpdateNoteInDB(target);
+    await fetchNotesFromDB();
+    displayNotes();
+  }
 }
 
 function clearEditor() {
@@ -583,7 +710,7 @@ function clearEditor() {
   noteTagInput.value = "";
   noteColorInput.value = "#1c1c1c";
   editingId = null;
-  editorTitleElement.innerText = "Create Note";
+  editorTitleElement.innerText = "New Note";
   
   localStorage.removeItem("draft_title");
   localStorage.removeItem("draft_text");
