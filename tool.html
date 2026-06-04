@@ -6,10 +6,89 @@
   <meta name="description" content="AKeyUP Tools section containing basic tools to help people.">
   <title>Tools - AKeyUP</title>
 
-    <link rel="stylesheet" href="style.css">
-   <link rel="icon" type="image/x-icon" href="/favicon.ico?v=3">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico?v=3">
 
+  <style>
+    /* ==========================================================================
+       Page-Specific Layouts & Grid Optimizations
+       ========================================================================== */
+    
+    .tool-group {
+      margin-bottom: 45px;
+    }
 
+    h2.section-title {
+      margin-top: 20px;
+      margin-bottom: 25px;
+    }
+
+    /* Override .card core flex centering safely to create beautiful dashboard rows */
+    .tool-link {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
+      text-decoration: none !important;
+      padding: 18px 24px !important;
+    }
+
+    /* Premium index badge icon */
+    .tool-badge {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ff4444;
+      background: rgba(255, 68, 68, 0.08);
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      margin-right: 20px;
+      border: 1px solid rgba(255, 68, 68, 0.15);
+      flex-shrink: 0;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    /* Dynamic interaction highlighting badge element */
+    .tool-link:hover .tool-badge {
+      background: #ff4444;
+      color: white;
+    }
+
+    .tool-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-main);
+      transition: color 0.2s;
+    }
+
+    .tool-link:hover .tool-title {
+      color: var(--text-inverse);
+    }
+
+    /* Legal Notice Disclaimer Bar */
+    .legal-disclaimer {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 40px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .legal-disclaimer a {
+      color: #ff4444;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .legal-disclaimer a:hover {
+      text-decoration: underline;
+      color: #e03333;
+    }
+  </style>
 </head>
 
 <body>
@@ -32,7 +111,6 @@ document.addEventListener("click", function(event) {
 });
 </script>
 
-<!-- Navigation Menu -->
 <div class="menu-container">
   <button class="menu-btn" onclick="toggleMenu()">⋮</button>
   <div class="menu" id="menu">
@@ -49,63 +127,94 @@ document.addEventListener("click", function(event) {
 
 <div class="wrapper">
 
-  <!-- Header -->
-  <header style="text-align: center; margin-top: 40px; margin-bottom: 40px;">
+  <header>
     <h1 class="title">Web Utilities</h1>
     <p class="subtitle">Secure web tools executing client-side functions completely inside your browser environment.</p>
   </header>
-
   <main>
-    <!-- Grid of Interactive Tools (Using your design system's grid classes) -->
-    <div class="grid-auto" style="margin-bottom: 50px;">
-      
-      <a href="calculator.html" class="card" style="flex-direction: row; align-items: center; justify-content: flex-start; text-decoration: none;">
-        <div style="font-size: 1.1rem; font-weight: 700; color: #ff4444; background: rgba(255, 68, 68, 0.08); width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; margin-right: 20px; border: 1px solid rgba(255, 68, 68, 0.15); flex-shrink: 0;">1</div>
-        <div style="font-size: 1.2rem; font-weight: 600; color: var(--text-main);">Calculator</div>
+
+  <section class="tool-group">
+    <h2 class="section-title">Calculators</h2>
+    <div class="grid-auto">
+
+      <a href="calculator.html" class="card tool-link">
+        <div class="tool-badge">1</div>
+        <div class="tool-title">Calculator</div>
       </a>
 
-      <a href="image_converter.html" class="card" style="flex-direction: row; align-items: center; justify-content: flex-start; text-decoration: none;">
-        <div style="font-size: 1.1rem; font-weight: 700; color: #ff4444; background: rgba(255, 68, 68, 0.08); width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; margin-right: 20px; border: 1px solid rgba(255, 68, 68, 0.15); flex-shrink: 0;">2</div>
-        <div style="font-size: 1.2rem; font-weight: 600; color: var(--text-main);">Image Converter</div>
-      </a>
-
-      <a href="currency-converter.html" class="card" style="flex-direction: row; align-items: center; justify-content: flex-start; text-decoration: none;">
-        <div style="font-size: 1.1rem; font-weight: 700; color: #ff4444; background: rgba(255, 68, 68, 0.08); width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; margin-right: 20px; border: 1px solid rgba(255, 68, 68, 0.15); flex-shrink: 0;">3</div>
-        <div style="font-size: 1.2rem; font-weight: 600; color: var(--text-main);">Currency Converter</div>
-      </a>
-
-      <a href="notes.html" class="card" style="flex-direction: row; align-items: center; justify-content: flex-start; text-decoration: none;">
-        <div style="font-size: 1.1rem; font-weight: 700; color: #ff4444; background: rgba(255, 68, 68, 0.08); width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; margin-right: 20px; border: 1px solid rgba(255, 68, 68, 0.15); flex-shrink: 0;">4</div>
-        <div style="font-size: 1.2rem; font-weight: 600; color: var(--text-main);">AKeyUP Notes</div>
-      </a>
-
-      <a href="word-counter.html" class="card" style="flex-direction: row; align-items: center; justify-content: flex-start; text-decoration: none;">
-        <div style="font-size: 1.1rem; font-weight: 700; color: #ff4444; background: rgba(255, 68, 68, 0.08); width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; margin-right: 20px; border: 1px solid rgba(255, 68, 68, 0.15); flex-shrink: 0;">5</div>
-        <div style="font-size: 1.2rem; font-weight: 600; color: var(--text-main);">Word Counter</div>
-      </a>
-
-      <a href="json-formatter.html" class="card" style="flex-direction: row; align-items: center; justify-content: flex-start; text-decoration: none;">
-        <div style="font-size: 1.1rem; font-weight: 700; color: #ff4444; background: rgba(255, 68, 68, 0.08); width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; margin-right: 20px; border: 1px solid rgba(255, 68, 68, 0.15); flex-shrink: 0;">6</div>
-        <div style="font-size: 1.2rem; font-weight: 600; color: var(--text-main);">JSON Formatter</div>
-      </a>
-
-      <a href="unit-converter.html" class="card" style="flex-direction: row; align-items: center; justify-content: flex-start; text-decoration: none;">
-        <div style="font-size: 1.1rem; font-weight: 700; color: #ff4444; background: rgba(255, 68, 68, 0.08); width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; margin-right: 20px; border: 1px solid rgba(255, 68, 68, 0.15); flex-shrink: 0;">7</div>
-        <div style="font-size: 1.2rem; font-weight: 600; color: var(--text-main);">Unit Converter</div>
-      </a>
-
-      <a href="sip-calculator.html" class="card" style="flex-direction: row; align-items: center; justify-content: flex-start; text-decoration: none;">
-        <div style="font-size: 1.1rem; font-weight: 700; color: #ff4444; background: rgba(255, 68, 68, 0.08); width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 10px; margin-right: 20px; border: 1px solid rgba(255, 68, 68, 0.15); flex-shrink: 0;">8</div>
-        <div style="font-size: 1.2rem; font-weight: 600; color: var(--text-main);">SIP Calculator</div>
+      <a href="sip-calculator.html" class="card tool-link">
+        <div class="tool-badge">2</div>
+        <div class="tool-title">SIP Calculator</div>
       </a>
 
     </div>
+  </section>
 
-    <!-- Navigation Control -->
-    <div class="btn-container" style="text-align: center; margin-top: 40px;">
-      <a href="index.html" class="btn btn-neutral">⬅ Back to Home</a>
+  <section class="tool-group">
+    <h2 class="section-title">Converters</h2>
+    <div class="grid-auto">
+
+      <a href="image_converter.html" class="card tool-link">
+        <div class="tool-badge">1</div>
+        <div class="tool-title">Image Converter</div>
+      </a>
+
+      <a href="currency-converter.html" class="card tool-link">
+        <div class="tool-badge">2</div>
+        <div class="tool-title">Currency Converter</div>
+      </a>
+
+      <a href="unit-converter.html" class="card tool-link">
+        <div class="tool-badge">3</div>
+        <div class="tool-title">Unit Converter</div>
+      </a>
+
     </div>
-  </main>
+  </section>
+
+  <section class="tool-group">
+    <h2 class="section-title">Productivity</h2>
+    <div class="grid-auto">
+
+      <a href="notes.html" class="card tool-link">
+        <div class="tool-badge">1</div>
+        <div class="tool-title">AKeyUP Notes</div>
+      </a>
+
+      <a href="word-counter.html" class="card tool-link">
+        <div class="tool-badge">2</div>
+        <div class="tool-title">Word Counter</div>
+      </a>
+
+    </div>
+  </section>
+
+  <section class="tool-group">
+    <h2 class="section-title">Developer Tools</h2>
+    <div class="grid-auto">
+
+      <a href="json-formatter.html" class="card tool-link">
+        <div class="tool-badge">1</div>
+        <div class="tool-title">JSON Formatter</div>
+      </a>
+
+      <a href="base64-converter.html" class="card tool-link">
+                    <div class="tool-badge">2</div>
+                    <div class="tool-title">Base64 Converter</div>
+               </a>
+
+    </div>
+  </section>
+
+  <p class="legal-disclaimer">
+    By using any tool, you agree to our <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.
+  </p>
+
+  <div class="btn-container" style="margin-top: 20px;">
+    <a href="index.html" class="btn btn-neutral">⬅ Back to Home</a>
+  </div>
+
+</main>
 
   <footer>
     © 2026-Present AKeyUP. All rights reserved.

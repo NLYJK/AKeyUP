@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Secure, client-side Base64 encoder and decoder utility by AKeyUP.">
+  <title>Base64 Encoder / Decoder - AKeyUP</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico?v=3">
+
+  <style>
+    /* ==========================================================================
+       Page-Specific Layouts & Functional Components
+       ========================================================================== */
+    
+    .converter-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .flex-group {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .flex-group .btn {
+      flex: 1;
+      min-width: 140px;
+    }
+
+    /* Core Form Input Control */
+    .textarea-control {
+      width: 100%;
+      min-height: 160px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-interactive);
+      border-radius: 12px;
+      padding: 16px;
+      color: var(--text-main);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .textarea-control:focus {
+      border-color: #ff4444;
+      box-shadow: 0 0 0 3px rgba(255, 68, 68, 0.15);
+    }
+
+    /* Drop Zone File Handler */
+    .file-drop-zone {
+      border: 2px dashed var(--border-interactive);
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      background: rgba(20, 20, 20, 0.3);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+      margin-bottom: 20px;
+    }
+
+    .file-drop-zone.dragover {
+      border-color: #ff4444;
+      background: rgba(255, 68, 68, 0.03);
+      color: var(--text-main);
+    }
+
+    .file-drop-zone input {
+      display: none;
+    }
+
+    /* App Error Alert */
+    .error-toast {
+      color: #ff4444;
+      background: rgba(255, 68, 68, 0.08);
+      border: 1px solid rgba(255, 68, 68, 0.2);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: none;
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    .legal-disclaimer {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 40px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .legal-disclaimer a {
+      color: #ff4444;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .legal-disclaimer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+<script>
+/* Menu Navigation Dropdown Controls Toggle Engine */
+function toggleMenu() {
+  const menu = document.getElementById("menu");
+  menu.classList.toggle("show");
+}
+
+document.addEventListener("click", function(event) {
+  const menu = document.getElementById("menu");
+  const button = document.querySelector(".menu-btn");
+  if (menu && button) {
+    if (!menu.contains(event.target) && !button.contains(event.target)) {
+      menu.classList.remove("show");
+    }
+  }
+});
+</script>
+
+<div class="menu-container">
+  <button class="menu-btn" onclick="toggleMenu()">⋮</button>
+  <div class="menu" id="menu">
+    <a href="index.html">Home</a>
+    <a href="blog.html">Blog</a>
+    <a href="donation.html">Donation</a>
+    <a href="tool.html">Tools</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</div>
+
+<div class="wrapper wrapper-narrow">
+
+  <header>
+    <h1 class="title">Base64 Converter</h1>
+    <p class="subtitle">Instantly encode text or files to Base64 payloads, or decode strings back to raw configurations.</p>
+  </header>
+
+  <main>
+    <div class="content-box">
+      <div class="converter-layout">
+        
+        <div class="error-toast" id="errorBox"></div>
+
+        <div class="content-section">
+          <h2 style="border: none; padding: 0;">Input Plain Text / Base64 Payload</h2>
+          <textarea class="textarea-control" id="rawInput" placeholder="Paste source contents or encoded strings here..."></textarea>
+        </div>
+
+        <label class="file-drop-zone" id="dropZone">
+          <span id="dropZoneText">Optional: Drag & drop a file here to generate its Base64 Data URL</span>
+          <input type="file" id="fileInput">
+        </label>
+
+        <div class="flex-group">
+          <button class="btn btn-accent" onclick="processEncode()">🔒 Encode Base64</button>
+          <button class="btn btn-accent" onclick="processDecode()">🔓 Decode Base64</button>
+        </div>
+
+        <hr style="border: none; border-top: 1px solid var(--border-box); margin: 10px 0;">
+
+        <div class="content-section">
+          <h2 style="border: none; padding: 0;">Output Results</h2>
+          <textarea class="textarea-control" id="rawOutput" placeholder="Your transformed output string will appear here..." readonly></textarea>
+        </div>
+
+        <div class="flex-group">
+          <button class="btn btn-neutral" onclick="copyOutput()">📋 Copy Output</button>
+          <button class="btn btn-neutral" onclick="clearAll()">🗑️ Clear</button>
+        </div>
+
+      </div>
+    </div>
+
+    <p class="legal-disclaimer">
+      By using any tool, you agree to our <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.
+    </p>
+
+    <div class="btn-container" style="margin-top: 20px;">
+      <a href="tool.html" class="btn btn-neutral">⬅ Back to Tools</a>
+    </div>
+  </main>
+
+  <footer>
+    © 2026-Present AKeyUP. All rights reserved.
+  </footer>
+
+</div>
+
+<script>
+  const inputField = document.getElementById('rawInput');
+  const outputField = document.getElementById('rawOutput');
+  const errorBox = document.getElementById('errorBox');
+  const dropZone = document.getElementById('dropZone');
+  const fileInput = document.getElementById('fileInput');
+  const dropZoneText = document.getElementById('dropZoneText');
+
+  function showError(msg) {
+    errorBox.innerText = msg;
+    errorBox.style.display = 'block';
+  }
+
+  function hideError() {
+    errorBox.style.display = 'none';
+  }
+
+  // UTF-8 Clean Client-Side Encoding Engine
+  function processEncode() {
+    hideError();
+    const str = inputField.value;
+    if (!str) return;
+    try {
+      // Handles multi-byte/unicode text safely via code point array scaling
+      const codePoints = Array.from(str, c => c.codePointAt(0));
+      const bytes = new Uint8Array(
+        codePoints.flatMap(c => 
+          c <= 0x7f ? [c] :
+          c <= 0x7ff ? [0xc0 | (c >> 6), 0x80 | (c & 0x3f)] :
+          c <= 0xffff ? [0xe0 | (c >> 12), 0x80 | ((c >> 6) & 0x3f), 0x80 | (c & 0x3f)] :
+          [0xf0 | (c >> 18), 0x80 | ((c >> 12) & 0x3f), 0x80 | ((c >> 6) & 0x3f), 0x80 | (c & 0x3f)]
+        )
+      );
+      let binString = "";
+      for (let i = 0; i < bytes.length; i++) {
+        binString += String.fromCharCode(bytes[i]);
+      }
+      outputField.value = btoa(binString);
+    } catch(err) {
+      showError("Encoding pipeline failed. Verify structural format dependencies.");
+    }
+  }
+
+  // UTF-8 Clean Client-Side Decoding Engine
+  function processDecode() {
+    hideError();
+    const base64Str = inputField.value.trim().replace(/\s/g, '');
+    if (!base64Str) return;
+    try {
+      const binString = atob(base64Str);
+      const bytes = new Uint8Array(binString.length);
+      for (let i = 0; i < binString.length; i++) {
+        bytes[i] = binString.charCodeAt(i);
+      }
+      outputField.value = new TextDecoder().decode(bytes);
+    } catch(err) {
+      showError("Invalid Base64 payload sequence. Unable to parse input.");
+      outputField.value = "";
+    }
+  }
+
+  // File to DataURL Reader Core Loop
+  function handleFile(file) {
+    if (!file) return;
+    hideError();
+    const reader = new FileReader();
+    dropZoneText.innerText = `File: ${file.name} (${Math.round(file.size / 1024)} KB)`;
+    
+    reader.onload = function(e) {
+      inputField.value = `[File Target: ${file.name}]`;
+      outputField.value = e.target.result;
+    };
+    reader.onerror = function() {
+      showError("Failed to parse local system assets framework.");
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // Clipboard Copier
+  function copyOutput() {
+    if (!outputField.value) return;
+    navigator.clipboard.writeText(outputField.value)
+      .then(() => alert("Output content safely written to clipboard."))
+      .catch(() => showError("System context block restricted clip extraction operations."));
+  }
+
+  function clearAll() {
+    hideError();
+    inputField.value = "";
+    outputField.value = "";
+    fileInput.value = "";
+    dropZoneText.innerText = "Optional: Drag & drop a file here to generate its Base64 Data URL";
+  }
+
+  // File Interface System Hook Events
+  fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
+  
+  dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.classList.add('dragover');
+  });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+  dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+    if (e.dataTransfer.files.length > 0) {
+      handleFile(e.dataTransfer.files[0]);
+    }
+  });
+
+  /* Theme Verification Sync Initialization */
+  window.addEventListener("DOMContentLoaded", function(){
+    const savedTheme = localStorage.getItem("themePreference") || "dark";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+  });
+</script>
+
+</body>
+</html>
