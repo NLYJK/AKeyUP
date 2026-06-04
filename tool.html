@@ -10,6 +10,22 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico?v=3">
 
   <style>
+    /* Theme fallbacks to ensure structural visibility regardless of external styles configuration */
+    html[data-theme="light"] {
+      --fallback-bg-box: #f5f5f7;
+      --fallback-bg-input: #ffffff;
+      --fallback-text: #1d1d1f;
+      --fallback-text-muted: #86868b;
+      --fallback-border: #d2d2d7;
+    }
+    html[data-theme="dark"] {
+      --fallback-bg-box: #1c1c1e;
+      --fallback-bg-input: #2c2c2e;
+      --fallback-text: #f5f5f7;
+      --fallback-text-muted: #8e8e93;
+      --fallback-border: #3a3a3c;
+    }
+
     /* ==========================================================================
        Page-Specific Layouts & Grid Optimizations
        ========================================================================== */
@@ -60,17 +76,47 @@
     .tool-title {
       font-size: 1.2rem;
       font-weight: 600;
-      color: var(--text-main);
+      color: var(--text-main, var(--fallback-text));
       transition: color 0.2s;
     }
 
     .tool-link:hover .tool-title {
-      color: var(--text-inverse);
+      color: var(--text-inverse, var(--fallback-text));
+    }
+
+    /* Integrated Inline Theme Switcher Module */
+    .theme-inline-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 25px;
+      border-top: 1px solid var(--border-box, var(--fallback-border));
+      padding-top: 20px;
+    }
+
+    .theme-inline-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      width: auto;
+      background: var(--bg-main, var(--fallback-bg-box));
+      border: 1px solid var(--border-interactive, var(--fallback-border));
+      color: var(--text-main, var(--fallback-text));
+      padding: 12px 24px;
+      font-size: 0.95rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .theme-inline-btn:hover {
+      background: var(--bg-input, var(--fallback-bg-input));
+      transform: translateY(-1px);
     }
 
     /* Legal Notice Disclaimer Bar */
     .legal-disclaimer {
-      color: var(--text-muted);
+      color: var(--text-muted, var(--fallback-text-muted));
       font-size: 0.85rem;
       margin-top: 40px;
       margin-bottom: 10px;
@@ -131,90 +177,85 @@ document.addEventListener("click", function(event) {
     <h1 class="title">Web Utilities</h1>
     <p class="subtitle">Secure web tools executing client-side functions completely inside your browser environment.</p>
   </header>
+  
   <main>
 
-  <section class="tool-group">
-    <h2 class="section-title">Calculators</h2>
-    <div class="grid-auto">
+    <section class="tool-group">
+      <h2 class="section-title">Calculators</h2>
+      <div class="grid-auto">
+        <a href="calculator.html" class="card tool-link">
+          <div class="tool-badge">1</div>
+          <div class="tool-title">Calculator</div>
+        </a>
+        <a href="sip-calculator.html" class="card tool-link">
+          <div class="tool-badge">2</div>
+          <div class="tool-title">SIP Calculator</div>
+        </a>
+      </div>
+    </section>
 
-      <a href="calculator.html" class="card tool-link">
-        <div class="tool-badge">1</div>
-        <div class="tool-title">Calculator</div>
-      </a>
+    <section class="tool-group">
+      <h2 class="section-title">Converters</h2>
+      <div class="grid-auto">
+        <a href="image_converter.html" class="card tool-link">
+          <div class="tool-badge">1</div>
+          <div class="tool-title">Image Converter</div>
+        </a>
+        <a href="currency-converter.html" class="card tool-link">
+          <div class="tool-badge">2</div>
+          <div class="tool-title">Currency Converter</div>
+        </a>
+        <a href="unit-converter.html" class="card tool-link">
+          <div class="tool-badge">3</div>
+          <div class="tool-title">Unit Converter</div>
+        </a>
+      </div>
+    </section>
 
-      <a href="sip-calculator.html" class="card tool-link">
-        <div class="tool-badge">2</div>
-        <div class="tool-title">SIP Calculator</div>
-      </a>
+    <section class="tool-group">
+      <h2 class="section-title">Productivity</h2>
+      <div class="grid-auto">
+        <a href="notes.html" class="card tool-link">
+          <div class="tool-badge">1</div>
+          <div class="tool-title">AKeyUP Notes</div>
+        </a>
+        <a href="word-counter.html" class="card tool-link">
+          <div class="tool-badge">2</div>
+          <div class="tool-title">Word Counter</div>
+        </a>
+      </div>
+    </section>
 
+    <section class="tool-group">
+      <h2 class="section-title">Developer Tools</h2>
+      <div class="grid-auto">
+        <a href="json-formatter.html" class="card tool-link">
+          <div class="tool-badge">1</div>
+          <div class="tool-title">JSON Formatter</div>
+        </a>
+        <a href="base64-converter.html" class="card tool-link">
+          <div class="tool-badge">2</div>
+          <div class="tool-title">Base64 Converter</div>
+        </a>
+      </div>
+    </section>
+
+    <div class="theme-inline-container">
+      <button class="theme-inline-btn" onclick="toggleTheme()">
+        <span id="themeIcon">🌓</span>
+        <span id="themeText">Switch Theme</span>
+      </button>
     </div>
-  </section>
 
-  <section class="tool-group">
-    <h2 class="section-title">Converters</h2>
-    <div class="grid-auto">
+    <p class="legal-disclaimer">
+      By using any tool, you agree to our <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.
+    </p>
 
-      <a href="image_converter.html" class="card tool-link">
-        <div class="tool-badge">1</div>
-        <div class="tool-title">Image Converter</div>
-      </a>
-
-      <a href="currency-converter.html" class="card tool-link">
-        <div class="tool-badge">2</div>
-        <div class="tool-title">Currency Converter</div>
-      </a>
-
-      <a href="unit-converter.html" class="card tool-link">
-        <div class="tool-badge">3</div>
-        <div class="tool-title">Unit Converter</div>
-      </a>
-
+    <div class="btn-container" style="margin-top: 20px;">
+      <a href="index.html" class="btn btn-neutral">⬅ Back to Home</a>
     </div>
-  </section>
 
-  <section class="tool-group">
-    <h2 class="section-title">Productivity</h2>
-    <div class="grid-auto">
-
-      <a href="notes.html" class="card tool-link">
-        <div class="tool-badge">1</div>
-        <div class="tool-title">AKeyUP Notes</div>
-      </a>
-
-      <a href="word-counter.html" class="card tool-link">
-        <div class="tool-badge">2</div>
-        <div class="tool-title">Word Counter</div>
-      </a>
-
-    </div>
-  </section>
-
-  <section class="tool-group">
-    <h2 class="section-title">Developer Tools</h2>
-    <div class="grid-auto">
-
-      <a href="json-formatter.html" class="card tool-link">
-        <div class="tool-badge">1</div>
-        <div class="tool-title">JSON Formatter</div>
-      </a>
-
-      <a href="base64-converter.html" class="card tool-link">
-                    <div class="tool-badge">2</div>
-                    <div class="tool-title">Base64 Converter</div>
-               </a>
-
-    </div>
-  </section>
-
-  <p class="legal-disclaimer">
-    By using any tool, you agree to our <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.
-  </p>
-
-  <div class="btn-container" style="margin-top: 20px;">
-    <a href="index.html" class="btn btn-neutral">⬅ Back to Home</a>
-  </div>
-
-</main>
+  </main>
 
   <footer>
     © 2026-Present AKeyUP. All rights reserved.
@@ -223,10 +264,32 @@ document.addEventListener("click", function(event) {
 </div>
 
 <script>
+  /* Light / Dark Theme Switching Logic Modules */
+  function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+    const targetTheme = currentTheme === "light" ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", targetTheme);
+    localStorage.setItem("themePreference", targetTheme);
+    updateThemeButtonUI(targetTheme);
+  }
+
+  function updateThemeButtonUI(theme) {
+    const textNode = document.getElementById("themeText");
+    const iconNode = document.getElementById("themeIcon");
+    if (theme === "light") {
+      textNode.innerText = "Switch to Dark Mode";
+      iconNode.innerText = "🌙";
+    } else {
+      textNode.innerText = "Switch to Light Mode";
+      iconNode.innerText = "☀️";
+    }
+  }
+
   /* Local Storage Theme Verification Initialization Routine */
   window.addEventListener("DOMContentLoaded", function(){
     const savedTheme = localStorage.getItem("themePreference") || "dark";
     document.documentElement.setAttribute("data-theme", savedTheme);
+    updateThemeButtonUI(savedTheme);
   });
 </script>
 
