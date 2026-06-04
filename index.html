@@ -1,19 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Welcome to AKeyUP. Explore our free web utilities or download the AKeyUP Hotkeys background software for Windows desktop systems.">
-  <title>AKeyUP - Productivity Web Tools & Software</title>
+  <meta name="description" content="Welcome to AKeyUP. Explore our growing ecosystem of secure client-side browser utilities and local hotkey shortcuts for rapid web navigation.">
+  <title>AKeyUP - Productivity Ecosystem & Web Launchers</title>
 
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="/favicon.ico?v=3">
 
   <style>
+    /* Force permanent pure black theme parameters across style.css overrides */
+    :root, html, html[data-theme="light"], html[data-theme="dark"] {
+      --bg-main: #000000 !important;
+      --bg-box: #0a0a0a !important;
+      --text-main: #f5f5f7 !important;
+      --text-muted: #8e8e93 !important;
+      --border-box: #222222 !important;
+      background-color: #000000 !important;
+    }
+
+    body {
+      background: #000000 !important;
+      color: #f5f5f7 !important;
+    }
+
+    /* ==========================================================================
+       Ecosystem Main Landing Page Specific Structural Layouts
+       ========================================================================== */
+    
     .privacy-popup {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.85);
+      background: rgba(0, 0, 0, 0.9);
       backdrop-filter: blur(5px);
       display: flex;
       align-items: center;
@@ -23,20 +42,81 @@
     }
     .privacy-box {
       width: min(420px, 100%);
+      background: #0a0a0a !important;
+      border: 1px solid #222222 !important;
       animation: popupFade 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
     @keyframes popupFade {
       from { opacity: 0; transform: scale(0.95) translateY(10px); }
       to { opacity: 1; transform: scale(1) translateY(0); }
     }
+
+    /* Dual Segment Split Framework */
+    .ecosystem-split {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin: 40px 0;
+    }
+
+    .split-pane {
+      background: #0a0a0a;
+      border: 1px solid #222222;
+      border-radius: 24px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.25s ease, border-color 0.2s ease;
+    }
+
+    .split-pane:hover {
+      transform: translateY(-4px);
+      border-color: #ff4444;
+    }
+
+    .split-pane h2 {
+      border: none;
+      padding: 0;
+      margin-bottom: 12px;
+      font-size: 1.5rem;
+      color: #f5f5f7;
+    }
+
+    .split-pane p {
+      color: #8e8e93;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    /* Inline Highlights Matrix Display */
+    .mini-feature-list {
+      margin: 20px 0;
+      text-align: left;
+    }
+    .mini-feature-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.9rem;
+      color: #f5f5f7;
+      margin-bottom: 10px;
+    }
+    .mini-feature-item span {
+      color: #ff4444;
+      font-weight: bold;
+    }
+
     /* Video aspect control sizing inside the content layout ecosystem */
     .video-container {
       background: #121212;
-      border: 1px solid #222;
+      border: 1px solid #222222;
       padding: 15px;
       border-radius: 20px;
-      margin: 40px 0 20px 0;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+      margin: 30px auto 20px auto;
+      max-width: 720px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.6);
     }
     video {
       width: 100%;
@@ -45,13 +125,12 @@
     }
     .video-disclaimer {
       text-align: center;
-      color: #666;
+      color: #555555;
       font-size: 0.85rem;
-      margin-bottom: 50px;
+      margin-bottom: 30px;
       font-style: italic;
     }
   </style>
-  <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
 </head>
 
 <body>
@@ -72,63 +151,94 @@
 
   <div class="wrapper">
 
-    <header>
+    <header style="text-align: center; margin-top: 50px; margin-bottom: 20px;">
       <h1 class="title">AKeyUP</h1>
-      <p class="subtitle">A helpful hub for free browser utilities and desktop automation software.</p>
+      <p class="subtitle" style="color: #8e8e93;">A modern productivity ecosystem offering advanced client-side web tools and local hotkey utilities.</p>
     </header>
 
     <main>
-      <h2 class="section-title">About Our Website</h2>
-      <div class="grid-auto">
-        <div class="card">Offers an array of free web tools like calculators and converters</div>
-        <div class="card">Clean, simple layout focused entirely on utility and use</div>
-        <div class="card">Fast, responsive design built to load instantly anywhere</div>
-        <div class="card">Completely free to use with zero installations required</div>
-      </div>
-
-      <div class="btn-container" style="margin: 30px 0 60px 0; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;"> 
-        <a href="tool.html" class="btn btn-neutral">Explore Free Web Tools ➜</a> 
-        <a href="blog.html" class="btn btn-neutral">Read Our Blogs ➜</a> 
-      </div>
-
-      <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 40px 0;">
-
-      <h2 class="section-title">AKeyUP Hotkeys Software</h2>
-      <p style="text-align: center; color: var(--text-muted); margin-top: -10px; margin-bottom: 30px;">Boost your daily workflow with our lightweight background automation companion app.</p>
       
-      <div class="grid-auto">
-        <div class="card">Launch your favorite websites instantly using custom hotkeys</div>
-        <div class="card">Designed specifically for Windows desktop environments</div>
-        <div class="card">Does not support macOS, Linux, or mobile operating systems</div>
-        <div class="card">Saves your shortcut configurations directly on your local system</div>
-      </div>
+      <section class="ecosystem-split">
+        
+        <div class="split-pane">
+          <div>
+            <h2>🌐 Online Web Utilities</h2>
+            <p>Access a multi-discipline catalog of fast, privacy-focused browser utilities. Optimized for daily workflows with completely client-side processing implementations.</p>
+            
+            <div class="mini-feature-list">
+              <div class="mini-feature-item"><span>✓</span> Secure JSON formatting & minifying</div>
+              <div class="mini-feature-item"><span>✓</span> Safe Unicode Base64 encoding tools</div>
+              <div class="mini-feature-item"><span>✓</span> Calculators, Unit & Asset converters</div>
+              <div class="mini-feature-item"><span>✓</span> 100% private execution workspace</div>
+            </div>
+          </div>
+          
+          <div style="margin-top: 20px;">
+            <a href="tool.html" class="btn btn-accent" style="display: block; text-align: center;">Launch Web Tools Dashboard ➜</a>
+          </div>
+        </div>
 
-      <div class="video-container">
-        <video controls autoplay muted playsinline>
-          <source src="Tutorial.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      </div>
-      <p class="video-disclaimer">This software demo references sites like ChatGPT for educational context. We are not officially affiliated with them.</p>
+        <div class="split-pane">
+          <div>
+            <h2>💻 Web Shortcut Launcher</h2>
+            <p>Accelerate your research workflows using our lightweight background utility built to open your most important target websites instantly via customizable system hotkeys.</p>
+            
+            <div class="mini-feature-list">
+              <div class="mini-feature-item"><span>✓</span> Custom global keyboard shortcut links</div>
+              <div class="mini-feature-item"><span>✓</span> Direct-to-browser portal activation</div>
+              <div class="mini-feature-item"><span>✓</span> Ultra-low running engine system overhead</div>
+              <div class="mini-feature-item"><span>✓</span> Safe, offline local preference storage</div>
+            </div>
+          </div>
+          
+          <div style="margin-top: 20px;">
+            <a href="#hotkeys-software" class="btn btn-neutral" style="display: block; text-align: center;">Explore Website Launcher ⬇</a>
+          </div>
+        </div>
 
-      <div class="btn-container"> 
-        <a href="https://drive.google.com/uc?export=download&id=1N441YbTeQRj0euREYCPmuaEMePiacx66" target="_blank" class="btn btn-accent">Download AKeyUP Hotkeys for Windows</a> 
-      </div>
+      </section>
+
+      <hr style="border: 0; border-top: 1px solid #222222; margin: 50px 0;">
+
+      <section id="hotkeys-software" class="content-box" style="scroll-margin-top: 40px; background: transparent; border: none; padding: 0;">
+        <h2 class="section-title">AKeyUP Hotkeys for Windows</h2>
+        <p style="text-align: center; color: #8e8e93; margin-top: -10px; margin-bottom: 30px; max-width: 680px; margin-left: auto; margin-right: auto;">
+          Our signature background launcher app maps custom system shortcuts directly to web addresses for ultra-fast navigation. (Note: This tool is designed exclusively for Windows environments).
+        </p>
+
+        <div class="video-container">
+          <video controls muted playsinline>
+            <source src="Tutorial.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <p class="video-disclaimer">This software demo references sites like ChatGPT for educational context. We are not officially affiliated with them.</p>
+
+        <div class="btn-container"> 
+          <a href="https://drive.google.com/uc?export=download&id=1N441YbTeQRj0euREYCPmuaEMePiacx66" target="_blank" class="btn btn-accent">Download AKeyUP Hotkeys for Windows</a> 
+        </div>
+      </section>
+
+      <section class="content-box" style="margin-top: 60px; text-align: left; background: #0a0a0a; border: 1px solid #222222; border-radius: 24px; padding: 32px;">
+        <h2 class="section-title" style="text-align: left; margin-top: 0;">Built Around Total Privacy</h2>
+        <p style="margin: 0; text-align: left; color: #8e8e93; line-height: 1.6; font-size: 0.95rem;">Whether you are debugging developer payloads or launching web pages, your configuration data never hits external tracking servers. Everything executes securely on your machine, keeping your workspace confidential.</p>
+      </section>
+
     </main>
 
-    <footer class="page-footer">
+    <footer class="page-footer" style="color: #555555; text-align: center; margin-top: 60px; padding: 20px 0; border-top: 1px solid #222222;">
       © 2026-Present AKeyUP. All rights reserved.
     </footer>
 
   </div>
 
   <div class="privacy-popup" id="privacyPopup" style="display: none;">
-    <div class="content-box privacy-box">
-      <div class="content-section">
-        <h2>Terms Notice</h2>
-        <p>By using this site, you agree to our terms of service and <a href="privacy-policy.html" class="text-link">Privacy Policy</a>.</p>
+    <div class="content-box privacy-box" style="padding: 30px;">
+      <div class="content-section" style="text-align: center; margin-bottom: 20px;">
+        <h2 style="color: #f5f5f7; border: none; padding: 0; font-size: 1.4rem; margin-bottom: 10px;">Terms Notice</h2>
+        <p style="color: #8e8e93; font-size: 0.9rem; line-height: 1.5;">By using this site, you agree to our terms of service and <a href="privacy-policy.html" style="color: #ff4444; text-decoration: none; font-weight: 600;">Privacy Policy</a>.</p>
       </div>
-      <button class="btn btn-accent" style="width: 100%; border: none;" onclick="acceptPrivacy()">Accept & Dismiss</button>
+      <button class="btn btn-accent" style="width: 100%; border: none; padding: 12px;" onclick="acceptPrivacy()">Accept & Dismiss</button>
     </div>
   </div>
 
@@ -153,10 +263,14 @@
     }
 
     window.addEventListener("DOMContentLoaded", function(){
+      /* Local Storage Privacy Banner Checks */
       const accepted = localStorage.getItem("privacyAccepted");
       if (accepted !== "true") {
         document.getElementById("privacyPopup").style.display = "flex";
       }
+      
+      /* Enforce strict dark layout attribute regardless of local theme states */
+      document.documentElement.setAttribute("data-theme", "dark");
     });
   </script>
 
