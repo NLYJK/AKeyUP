@@ -10,6 +10,22 @@
   <link rel="stylesheet" href="style.css">
 
   <style>
+    /* Theme fallbacks to ensure structural visibility across components */
+    html[data-theme="light"] {
+      --fallback-bg-box: #f5f5f7;
+      --fallback-bg-input: #ffffff;
+      --fallback-text: #1d1d1f;
+      --fallback-text-muted: #86868b;
+      --fallback-border: #d2d2d7;
+    }
+    html[data-theme="dark"] {
+      --fallback-bg-box: #1c1c1e;
+      --fallback-bg-input: #2c2c2e;
+      --fallback-text: #f5f5f7;
+      --fallback-text-muted: #8e8e93;
+      --fallback-border: #3a3a3c;
+    }
+
     /* ==========================================================================
        Page-Specific Layouts & Component Modifications
        ========================================================================== */
@@ -20,11 +36,11 @@
 
     /* Premium Donation Card overrides and unique styles */
     .coin-card {
-      background: var(--bg-box);
-      border: 1px solid var(--border-box);
+      background: var(--bg-box, var(--fallback-bg-box));
+      border: 1px solid var(--border-box, var(--fallback-border));
       border-radius: 24px;
       padding: clamp(30px, 6vw, 50px) 24px;
-      box-shadow: 0 15px 35px var(--menu-shadow);
+      box-shadow: 0 15px 35px var(--menu-shadow, rgba(0,0,0,0.15));
       margin-bottom: 40px;
     }
 
@@ -40,7 +56,7 @@
 
     .coin-card h2 {
       font-size: clamp(1.4rem, 4vw, 1.8rem);
-      color: var(--text-inverse);
+      color: var(--text-main, var(--fallback-text));
       font-weight: 700;
       margin-bottom: 6px;
     }
@@ -57,15 +73,69 @@
     /* Crypto Address Container */
     .address-box {
       background: #090909;
-      border: 1px solid var(--border-box);
+      border: 1px solid var(--border-box, var(--fallback-border));
       padding: 16px 20px;
       border-radius: 12px;
       font-family: ui-monospace, SFMono-Regular, SF Pro Mono, Menlo, Monaco, Consolas, monospace;
       font-size: clamp(0.85rem, 2vw, 1.05rem);
-      color: var(--text-card);
+      color: #00ff99;
       word-break: break-all;
       max-width: 520px;
       margin: 0 auto 25px auto;
+    }
+
+    /* Status Notifications Panel */
+    .status-toast {
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: none;
+      margin-bottom: 20px;
+      text-align: center;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .status-toast.error {
+      color: #ff4444;
+      background: rgba(255, 68, 68, 0.08);
+      border: 1px solid rgba(255, 68, 68, 0.2);
+    }
+
+    .status-toast.success {
+      color: #00ff99;
+      background: rgba(0, 255, 153, 0.08);
+      border: 1px solid rgba(0, 255, 153, 0.2);
+    }
+
+    /* Integrated Inline Theme Switcher Module */
+    .theme-inline-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 25px;
+    }
+
+    .theme-inline-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      width: auto;
+      background: transparent;
+      border: 1px solid var(--border-interactive, var(--fallback-border));
+      color: var(--text-main, var(--fallback-text));
+      padding: 12px 24px;
+      font-size: 0.95rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .theme-inline-btn:hover {
+      background: var(--bg-input, var(--fallback-bg-input));
+      transform: translateY(-1px);
     }
 
     /* Privacy Consent Popup Layout Structure */
@@ -83,8 +153,8 @@
     }
 
     .privacy-box {
-      background: var(--bg-box);
-      border: 1px solid var(--border-color);
+      background: var(--bg-box, var(--fallback-bg-box));
+      border: 1px solid var(--border-box, var(--fallback-border));
       width: min(420px, 100%);
       padding: 35px;
       border-radius: 24px;
@@ -96,11 +166,11 @@
     .privacy-box h2 {
       font-size: 1.8rem;
       margin-bottom: 12px;
-      color: var(--text-inverse);
+      color: var(--text-main, var(--fallback-text));
     }
 
     .privacy-box p {
-      color: var(--text-muted);
+      color: var(--text-muted, var(--fallback-text-muted));
       line-height: 1.6;
       font-size: 0.95rem;
     }
@@ -148,20 +218,31 @@ function toggleMenu() {
   document.getElementById("menu").classList.toggle("show");
 }
 
-window.onclick = function(event) {
-  if (!event.target.matches('.menu-btn')) {
-    const menu = document.getElementById("menu");
-    if (menu && menu.classList.contains("show")) {
+document.addEventListener("click", function(event) {
+  const menu = document.getElementById("menu");
+  const button = document.querySelector(".menu-btn");
+  if (menu && button) {
+    if (!menu.contains(event.target) && !button.contains(event.target)) {
       menu.classList.remove("show");
     }
   }
-}
+});
 
 function copy(id) {
+  const statusBox = document.getElementById("statusBox");
   const text = document.getElementById(id).innerText.trim();
+  
   navigator.clipboard.writeText(text)
-    .then(() => alert("Address successfully copied to clipboard!"))
-    .catch(() => alert("Copy operations failed."));
+    .then(() => {
+      statusBox.innerText = "Address copied to clipboard.";
+      statusBox.className = "status-toast success";
+      statusBox.style.display = "block";
+    })
+    .catch(() => {
+      statusBox.innerText = "Copy operation restricted by framework settings.";
+      statusBox.className = "status-toast error";
+      statusBox.style.display = "block";
+    });
 }
 </script>
 
@@ -191,11 +272,20 @@ function copy(id) {
       <h2>Bitcoin (BTC)</h2>
       <p class="network-warning">Execute transactions exclusively over the Mainnet Bitcoin Network</p>
       
+      <div class="status-toast" id="statusBox"></div>
+
       <div class="address-box" id="btc">
         19okdn9UMfjG95ieFvhRLR4cMkMcYHmhFh
       </div>
 
       <button class="btn btn-accent" onclick="copy('btc')">Copy Address</button>
+
+      <div class="theme-inline-container">
+        <button class="theme-inline-btn" onclick="toggleTheme()">
+          <span id="themeIcon">🌓</span>
+          <span id="themeText">Switch Theme</span>
+        </button>
+      </div>
     </div>
 
     <div style="margin: 40px 0;">
@@ -217,12 +307,10 @@ function copy(id) {
 
 </div>
 
-<div class="privacy-popup" id="privacyPopup">
+<div class="privacy-popup" id="privacyPopup" style="display: none;">
   <div class="privacy-box">
     <h2>Privacy Notice</h2>
-    <p>By using AKeyUP,
-      You agree to our <a href="privacy-policy.html">Privacy Policy</a>.
-    </p>
+    <p>By using AKeyUP, you agree to our <a href="privacy-policy.html">Privacy Policy</a>.</p>
     <button class="accept-btn" onclick="acceptPrivacy()">Accept & Dismiss</button>
   </div>
 </div>
@@ -233,11 +321,38 @@ function acceptPrivacy(){
   document.getElementById("privacyPopup").style.display = "none";
 }
 
-window.addEventListener("load", function(){
-  const accepted = localStorage.getItem("privacyAccepted");
-  if(accepted === "true"){
-    document.getElementById("privacyPopup").style.display = "none";
+/* Light / Dark Theme Switching Logic Modules */
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute("data-theme");
+  const targetTheme = currentTheme === "light" ? "dark" : "light";
+  document.documentElement.setAttribute("data-theme", targetTheme);
+  localStorage.setItem("themePreference", targetTheme);
+  updateThemeButtonUI(targetTheme);
+}
+
+function updateThemeButtonUI(theme) {
+  const textNode = document.getElementById("themeText");
+  const iconNode = document.getElementById("themeIcon");
+  if (theme === "light") {
+    textNode.innerText = "Switch to Dark Mode";
+    iconNode.innerText = "🌙";
+  } else {
+    textNode.innerText = "Switch to Light Mode";
+    iconNode.innerText = "☀️";
   }
+}
+
+window.addEventListener("DOMContentLoaded", function(){
+  // Privacy verification validation check
+  const accepted = localStorage.getItem("privacyAccepted");
+  if (accepted !== "true") {
+    document.getElementById("privacyPopup").style.display = "flex";
+  }
+
+  // Master system configuration preference parsing sync
+  const savedTheme = localStorage.getItem("themePreference") || "dark";
+  document.documentElement.setAttribute("data-theme", savedTheme);
+  updateThemeButtonUI(savedTheme);
 });
 </script>
 
