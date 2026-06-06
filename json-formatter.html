@@ -10,30 +10,14 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico?v=3">
 
   <style>
-    /* Theme fallbacks to ensure text visibility regardless of external style.css setup */
-    html[data-theme="light"] {
-      --fallback-bg-box: #f5f5f7;
-      --fallback-bg-input: #ffffff;
-      --fallback-text: #1d1d1f;
-      --fallback-text-muted: #86868b;
-      --fallback-border: #d2d2d7;
-    }
-    html[data-theme="dark"] {
-      --fallback-bg-box: #1c1c1e;
-      --fallback-bg-input: #2c2c2e;
-      --fallback-text: #f5f5f7;
-      --fallback-text-muted: #8e8e93;
-      --fallback-border: #3a3a3c;
-    }
-
     /* Workspace Layout Configuration */
     .counter-box {
-      background: var(--bg-box, var(--fallback-bg-box));
-      border: 1px solid var(--border-box, var(--fallback-border));
+      background: var(--bg-box);
+      border: 1px solid var(--border-box);
       border-radius: 24px;
       padding: clamp(20px, 4vw, 45px);
       margin-top: 20px;
-      box-shadow: 0 15px 40px var(--menu-shadow, rgba(0,0,0,0.15));
+      box-shadow: 0 15px 40px var(--menu-shadow);
       transition: background 0.3s ease, border 0.3s ease;
     }
 
@@ -43,8 +27,8 @@
       padding: 22px;
       border: 2px solid transparent;
       border-radius: 16px;
-      background: var(--bg-input, var(--fallback-bg-input));
-      color: var(--text-main, var(--fallback-text));
+      background: var(--bg-input);
+      color: var(--text-main);
       font-size: 1rem;
       font-family: Consolas, Monaco, "Lucida Console", monospace;
       resize: vertical;
@@ -60,8 +44,9 @@
     /* Action Control Grid */
     .action-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px;
+      /* Dynamic grid configurations to preserve layout integrity with the new action button */
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
       margin-top: 25px;
     }
 
@@ -82,6 +67,36 @@
       color: #ff4444;
     }
 
+    .status-panel.processing {
+      color: #ffaa00;
+    }
+
+    /* Mobile Responsive Ad Wrapper Styles */
+    .ad-wrapper {
+      text-align: center;
+      margin: 25px auto 10px auto;
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    .ad-label {
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+      display: block;
+      opacity: 0.6;
+    }
+
+    .ad-container-box {
+      display: inline-block;
+      width: 100%;
+      max-width: 100%;
+      min-height: 100px;
+    }
+
     /* Marketing & Feature Matrix Grid */
     .feature-grid {
       display: grid;
@@ -91,8 +106,8 @@
     }
 
     .feature-box {
-      background: var(--bg-main, var(--fallback-bg-box));
-      border: 1px solid var(--border-box, var(--fallback-border));
+      background: var(--bg-main);
+      border: 1px solid var(--border-box);
       border-radius: 16px;
       padding: 25px;
       text-align: center;
@@ -113,11 +128,11 @@
       font-size: 1.1rem;
       font-weight: 600;
       margin-bottom: 8px;
-      color: var(--text-inverse, var(--fallback-text));
+      color: var(--text-inverse);
     }
 
     .feature-box p {
-      color: var(--text-muted, var(--fallback-text-muted));
+      color: var(--text-muted);
       font-size: 0.9rem;
       line-height: 1.5;
     }
@@ -133,8 +148,8 @@
       display: flex;
       gap: 16px;
       align-items: flex-start;
-      background: var(--bg-main, var(--fallback-bg-box));
-      border: 1px solid var(--border-box, var(--fallback-border));
+      background: var(--bg-main);
+      border: 1px solid var(--border-box);
       padding: 20px;
       border-radius: 14px;
       transition: background 0.3s ease, border 0.3s ease;
@@ -154,7 +169,7 @@
     }
 
     .step-item p {
-      color: var(--text-main, var(--fallback-text));
+      color: var(--text-main);
       font-size: 0.95rem;
       line-height: 1.6;
     }
@@ -164,7 +179,7 @@
       display: flex;
       justify-content: center;
       margin-top: 25px;
-      border-top: 1px solid var(--border-box, var(--fallback-border));
+      border-top: 1px solid var(--border-box);
       padding-top: 20px;
     }
 
@@ -173,9 +188,9 @@
       align-items: center;
       gap: 12px;
       width: auto;
-      background: var(--bg-main, var(--fallback-bg-box));
-      border: 1px solid var(--border-interactive, var(--fallback-border));
-      color: var(--text-main, var(--fallback-text));
+      background: var(--bg-main);
+      border: 1px solid var(--border-interactive);
+      color: var(--text-main);
       padding: 12px 24px;
       font-size: 0.95rem;
       border-radius: 30px;
@@ -185,8 +200,8 @@
     }
 
     .theme-inline-btn:hover {
-      background: var(--bg-input, var(--fallback-bg-input));
-      color: var(--text-inverse, var(--fallback-text));
+      background: var(--bg-input);
+      color: var(--text-inverse);
       transform: translateY(-1px);
     }
   </style>
@@ -194,9 +209,7 @@
 
 <body>
 
-<!-- Header Navigation Bar -->
 <div class="menu-container">
-  <!-- Fixed: Restored matching id="menuBtn" to align click event target listener parameters -->
   <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">⋮</button>
   <div class="menu" id="menu">
     <a href="index.html">Home</a>
@@ -221,17 +234,28 @@
     <div class="counter-box">
       <textarea id="jsonInput" placeholder='Paste your raw JSON text or structured object maps here...' spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"></textarea>
 
-      <!-- Action Grid Options Block -->
+      <!-- Hidden standard system file attachment port -->
+      <input type="file" id="jsonFileInput" accept=".json,.txt" style="display: none;" onchange="handleFileUpload(event)">
+
       <div class="action-grid">
+        <button class="btn btn-neutral" onclick="triggerFileSelect()">📁 Upload File</button>
         <button class="btn btn-accent" onclick="processJSON(true)">📄 Format JSON</button>
         <button class="btn btn-neutral" onclick="processJSON(false)">🗜 Minify JSON</button>
+        <button class="btn btn-neutral" onclick="exportJSON()">💾 Export File</button>
         <button class="btn btn-neutral" onclick="copyJSON()">📋 Copy Result</button>
         <button class="btn btn-neutral" onclick="clearJSON()">🗑 Clear</button>
       </div>
 
+      <div class="ad-wrapper">
+        <span class="ad-label">Sponsored</span>
+        <div class="ad-container-box">
+          <script async="async" data-cfasync="false" src="https://pl29654694.effectivecpmnetwork.com/6a875cdb30ed7e51fd4cbea9c261ab87/invoke.js"></script>
+          <div id="container-6a875cdb30ed7e51fd4cbea9c261ab87"></div>
+        </div>
+      </div>
+
       <div class="status-panel" id="statusPanel"></div>
 
-      <!-- Integrated Light and Dark Theme Access Bar -->
       <div class="theme-inline-container">
         <button class="theme-inline-btn" onclick="toggleTheme()">
           <span id="themeIcon">🌓</span>
@@ -244,7 +268,6 @@
       <a href="tool.html" class="btn btn-neutral">⬅ Back to Tools</a>
     </div>
 
-    <!-- Product Marketing Section Details -->
     <section class="content-box" style="text-align: left; margin-top: 50px;">
       <h2 class="section-title">Simple and Powerful Data Inspection</h2>
       <p class="subtitle" style="margin: 0 0 25px 0; text-align: left;">Analyze, validate, and clean up nested objects and arrays with clear, live formatting feedback.</p>
@@ -273,13 +296,12 @@
       </div>
     </section>
 
-    <!-- Operational Step-by-Step Instructions -->
     <section class="content-box" style="text-align: left; margin-top: 30px;">
       <h2 class="section-title">How To Use</h2>
       <div class="steps-container">
         <div class="step-item">
           <div class="step-number">1</div>
-          <p>Paste your JSON content directly into the text workspace field shown above.</p>
+          <p>Paste your JSON content directly into the text workspace field, or click <strong>Upload File</strong> to load a `.json` file from your device.</p>
         </div>
         <div class="step-item">
           <div class="step-number">2</div>
@@ -291,12 +313,11 @@
         </div>
         <div class="step-item">
           <div class="step-number">4</div>
-          <p>Click <strong>Copy Result</strong> to save the outputs instantly straight to your system clipboard.</p>
+          <p>Use <strong>Export File</strong> to download your workspace data as a local file instantly, or click <strong>Copy Result</strong>.</p>
         </div>
       </div>
     </section>
 
-    <!-- Context Overview Box -->
     <section class="content-box" style="text-align: left; margin-top: 30px;">
       <h2 class="section-title">Why Use This Tool?</h2>
       <p class="subtitle" style="margin: 0 0 15px 0; text-align: left;">JSON is the primary format used by web servers, apps, and databases around the world.</p>
@@ -309,7 +330,6 @@
   </footer>
 </div>
 
-<!-- Automation Pipeline Scripts -->
 <script>
 /* Menu Navigation Dropdown Controls Toggle Engine */
 function toggleMenu() {
@@ -347,34 +367,126 @@ function updateThemeButtonUI(theme) {
   }
 }
 
-/* Functional JSON Parser Core Logic Array */
+/* Functional JSON Parser Core Logic Array with Chunked Lazy Loading */
 const jsonInput = document.getElementById("jsonInput");
 const statusPanel = document.getElementById("statusPanel");
+const fileInput = document.getElementById("jsonFileInput");
 
 function reportStatus(text, classification) {
-  statusPanel.innerText = text;
-  statusPanel.className = "status-panel " + classification;
+  statusPanel.textContent = text;
+  if (classification) {
+    statusPanel.className = "status-panel " + classification;
+  } else {
+    statusPanel.className = "status-panel";
+  }
+}
+
+/* File Upload Management Routines */
+function triggerFileSelect() {
+  fileInput.click();
+}
+
+function handleFileUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  reportStatus("Reading file input locally...", "processing");
+  
+  const fileReader = new FileReader();
+  fileReader.onload = function(e) {
+    const textContent = e.target.result;
+    
+    // Check sizing boundary to use optimized streaming logic if needed
+    if (textContent.length > 150000) {
+      lazyStreamTextToWorkspace(textContent, "File imported successfully into workspace.");
+    } else {
+      jsonInput.value = textContent;
+      reportStatus("File imported successfully into workspace.", "success");
+    }
+    // Wipe file value so the same file can be uploaded back-to-back if edited
+    fileInput.value = "";
+  };
+  
+  fileReader.onerror = function() {
+    reportStatus("Failed to process your file entry. Make sure it is not corrupted.", "error");
+    fileInput.value = "";
+  };
+
+  fileReader.readAsText(file);
 }
 
 function processJSON(shouldBeautify) {
   const rawValue = jsonInput.value.trim();
   if (!rawValue) {
-    reportStatus("The input field is empty. Please paste your JSON text first.", "error");
+    reportStatus("The input field is empty. Please paste or upload your JSON text first.", "error");
     return;
   }
   
-  try {
-    const parsedData = JSON.parse(rawValue);
-    
-    if (shouldBeautify) {
-      jsonInput.value = JSON.stringify(parsedData, null, 2);
-      reportStatus("JSON formatted successfully.", "success");
-    } else {
-      jsonInput.value = JSON.stringify(parsedData);
-      reportStatus("JSON minified successfully.", "success");
+  reportStatus("Processing data and resolving structures...", "processing");
+
+  setTimeout(() => {
+    try {
+      const parsedData = JSON.parse(rawValue);
+      const targetString = shouldBeautify ? JSON.stringify(parsedData, null, 2) : JSON.stringify(parsedData);
+      
+      if (targetString.length > 150000) {
+        lazyStreamTextToWorkspace(targetString, shouldBeautify ? "JSON formatted successfully." : "JSON minified successfully.");
+      } else {
+        jsonInput.value = targetString;
+        reportStatus(shouldBeautify ? "JSON formatted successfully." : "JSON minified successfully.", "success");
+      }
+    } catch (error) {
+      reportStatus("Invalid JSON structure: " + error.message, "error");
     }
-  } catch (error) {
-    reportStatus("Invalid JSON structure: " + error.message, "error");
+  }, 40);
+}
+
+/* Chunked Text Assignment to Prevent DOM Freezing on Large Payload Strings */
+function lazyStreamTextToWorkspace(fullText, absoluteSuccessMessage) {
+  jsonInput.value = "";
+  const totalLength = fullText.length;
+  const chunkSize = 80000;
+  let currentOffset = 0;
+
+  function renderNextChunk() {
+    if (currentOffset < totalLength) {
+      const boundaryIndex = Math.min(currentOffset + chunkSize, totalLength);
+      jsonInput.value += fullText.substring(currentOffset, boundaryIndex);
+      currentOffset = boundaryIndex;
+      requestAnimationFrame(renderNextChunk);
+    } else {
+      reportStatus(absoluteSuccessMessage + " (Optimized Render)", "success");
+    }
+  }
+  
+  requestAnimationFrame(renderNextChunk);
+}
+
+/* Local Dynamic Blob File Export Stream Module */
+function exportJSON() {
+  const content = jsonInput.value.trim();
+  if (!content) {
+    reportStatus("There is no content in the box to export.", "error");
+    return;
+  }
+
+  try {
+    const fileBlob = new Blob([content], { type: "application/json;charset=utf-8;" });
+    const downloadLink = document.createElement("a");
+    const downloadUrl = URL.createObjectURL(fileBlob);
+    
+    downloadLink.href = downloadUrl;
+    downloadLink.download = "akeyup_formatted_data.json";
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    
+    document.body.removeChild(downloadLink);
+    URL.revokeObjectURL(downloadUrl);
+    
+    const currentClass = statusPanel.className.includes("error") ? "error" : "success";
+    reportStatus("File generated and exported successfully!", currentClass);
+  } catch (exportError) {
+    reportStatus("Export execution blocked: " + exportError.message, "error");
   }
 }
 
@@ -387,7 +499,6 @@ async function copyJSON() {
   
   try {
     await navigator.clipboard.writeText(content);
-    // Keep current class state context alive for seamless parsing UX feedback updates
     const currentClass = statusPanel.className.includes("error") ? "error" : "success";
     reportStatus("Text copied to clipboard successfully!", currentClass);
   } catch (err) {
