@@ -131,6 +131,27 @@
       margin-bottom: 30px;
       font-style: italic;
     }
+
+    /* Notice styling underneath download action targets */
+    .download-notice {
+      text-align: center;
+      color: #8e8e93;
+      font-size: 0.85rem;
+      margin-top: 12px;
+      line-height: 1.4;
+    }
+
+    /* Red links for Privacy/Terms references */
+    .legal-link-highlight {
+      color: #ff4444 !important;
+      text-decoration: none;
+      font-weight: 600;
+      transition: opacity 0.2s ease;
+    }
+    .legal-link-highlight:hover {
+      text-decoration: underline;
+      opacity: 0.85;
+    }
   </style>
 </head>
 
@@ -204,7 +225,7 @@
       <section id="hotkeys-software" class="content-box" style="scroll-margin-top: 40px; background: transparent; border: none; padding: 0;">
         <h2 class="section-title">AKeyUP Hotkeys for Windows</h2>
         <p style="text-align: center; color: #8e8e93; margin-top: -10px; margin-bottom: 30px; max-width: 680px; margin-left: auto; margin-right: auto;">
-          Our signature background launcher app maps custom system shortcuts directly to web addresses for ultra-fast navigation. (Note: This tool is designed exclusively for Windows environments).
+          Our AKeyUP HotKeys launch websites directly from Keyboard combinations. (Note: This tool is designed exclusively for Windows environments).
         </p>
 
         <div class="video-container">
@@ -215,14 +236,22 @@
         </div>
         <p class="video-disclaimer">This software demo references sites like ChatGPT for educational context. We are not affiliated with them.</p>
 
-        <div class="btn-container"> 
+        <div class="btn-container" style="flex-direction: column; align-items: center;"> 
           <a href="https://drive.google.com/uc?export=download&id=1N441YbTeQRj0euREYCPmuaEMePiacx66" target="_blank" class="btn btn-accent">Download AKeyUP Hotkeys for Windows</a> 
+          <p class="download-notice">
+            File Size: <strong>53MB</strong><br>
+            Note: You will need a <strong>Google Account or Google Drive access</strong> to authenticate and complete this download.
+          </p>
         </div>
       </section>
 
       <section class="content-box" style="margin-top: 60px; text-align: left; background: #0a0a0a; border: 1px solid #222222; border-radius: 24px; padding: 32px;">
-        <h2 class="section-title" style="text-align: left; margin-top: 0;">Built Around Total Privacy</h2>
-        <p style="margin: 0; text-align: left; color: #8e8e93; line-height: 1.6; font-size: 0.95rem;">Whether you are debugging developer payloads or launching web pages, your configuration data never hits external tracking servers. Everything executes securely on your machine, keeping your workspace confidential.</p>
+        <h2 class="section-title" style="text-align: left; margin-top: 0;">Privacy</h2>
+        <p style="margin: 0; text-align: left; color: #8e8e93; line-height: 1.6; font-size: 0.95rem;">
+          Whether you are debugging developer payloads or launching web pages, your configuration data never hits external tracking servers. Everything executes securely on your machine, keeping your workspace confidential. We highly encourage you to review our 
+          <a href="privacy-policy.html" class="legal-link-highlight">Privacy Policy</a> and 
+          <a href="terms.html" class="legal-link-highlight">Terms of Service</a>.
+        </p>
       </section>
 
     </main>
