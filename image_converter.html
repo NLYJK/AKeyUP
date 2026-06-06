@@ -1,42 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Convert your images instantly with the AKeyUP Image Converter. Supports JPG, PNG, WEBP, GIF, BMP, AVIF, TIFF and more directly inside your web browser.">
-  <meta name="keywords" content="image converter, convert png to jpg, webp converter, convert avif, free online image tool, privacy-focused image tool">
+  <meta name="description" content="Convert your images instantly with the AKeyUP Image Converter. Supports JPG, PNG, WEBP, GIF, BMP, AVIF, TIFF, and iOS HEIC/HEIF formats directly inside your web browser.">
+  <meta name="keywords" content="image converter, convert png to jpg, webp converter, convert avif, convert heic, ios image converter, free online image tool, privacy-focused image tool">
   <meta name="author" content="AKeyUP">
   <meta name="robots" content="index, follow">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591" crossorigin="anonymous"></script>
   <title>AKeyUP Image Converter - Free Online Image Conversion</title>
   
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="/favicon.ico?v=3">
 
-
-
   <style>
-    /* Theme fallbacks to ensure text visibility regardless of external style.css setup */
-    html[data-theme="light"] {
-      --fallback-bg-box: #f5f5f7;
-      --fallback-bg-input: #ffffff;
-      --fallback-text: #1d1d1f;
-      --fallback-text-muted: #86868b;
-      --fallback-border: #d2d2d7;
+    /* Force permanent pure black theme parameters across style.css overrides */
+    :root, html, html[data-theme="light"], html[data-theme="dark"] {
+      --bg-main: #000000 !important;
+      --bg-box: #0a0a0a !important;
+      --text-main: #f5f5f7 !important;
+      --text-muted: #8e8e93 !important;
+      --border-box: #222222 !important;
+      background-color: #000000 !important;
     }
-    html[data-theme="dark"] {
-      --fallback-bg-box: #1c1c1e;
-      --fallback-bg-input: #2c2c2e;
-      --fallback-text: #f5f5f7;
-      --fallback-text-muted: #8e8e93;
-      --fallback-border: #3a3a3c;
+
+    body {
+      background: #000000 !important;
+      color: #f5f5f7 !important;
     }
 
     label { 
       display: block; 
       margin-top: 15px; 
       margin-bottom: 6px; 
-      color: var(--text-inverse, var(--fallback-text)); 
+      color: var(--text-main); 
       font-size: 0.95rem; 
       font-weight: 600; 
       text-align: left; 
@@ -45,10 +41,10 @@
     select {
       width: 100%; 
       padding: 16px; 
-      border: 1px solid var(--border-box, var(--fallback-border)); 
+      border: 1px solid #222222; 
       border-radius: 16px;
-      background: var(--bg-input, var(--fallback-bg-input)); 
-      color: var(--text-main, var(--fallback-text)); 
+      background: #111111; 
+      color: #f5f5f7; 
       font-size: 1rem; 
       margin-top: 22px; 
       outline: none; 
@@ -76,10 +72,10 @@
 
     .upload-box {
       display: block;
-      border: 2px dashed var(--border-box, var(--fallback-border));
+      border: 2px dashed #222222;
       border-radius: 22px;
       padding: 40px 20px;
-      background: var(--bg-input, var(--fallback-bg-input));
+      background: #0a0a0a;
       text-align: center;
       transition: border-color 0.3s ease, background 0.3s ease;
       cursor: pointer;
@@ -96,7 +92,7 @@
     }
 
     .upload-text {
-      color: var(--text-inverse, var(--fallback-text));
+      color: #f5f5f7;
       font-weight: bold;
       font-size: 1.05rem;
       line-height: 1.5;
@@ -104,7 +100,7 @@
     }
 
     .upload-subtext {
-      color: var(--text-muted, var(--fallback-text-muted));
+      color: #8e8e93;
       font-size: 0.85rem;
       line-height: 1.5;
       margin-bottom: 15px;
@@ -114,19 +110,19 @@
     .upload-btn-mock {
       display: inline-block;
       padding: 10px 20px;
-      background: var(--bg-main, var(--fallback-bg-box));
-      border: 1px solid var(--border-box, var(--fallback-border));
+      background: #000000;
+      border: 1px solid #222222;
       border-radius: 12px;
       font-size: 0.9rem;
       font-weight: 600;
-      color: var(--text-main, var(--fallback-text));
+      color: #f5f5f7;
       transition: background 0.2s, color 0.2s;
       max-width: 100%;
       word-break: break-all;
     }
 
     .upload-box:hover .upload-btn-mock {
-      background: var(--border-box, var(--fallback-border));
+      background: #222222;
     }
 
     .hidden-file-input {
@@ -141,7 +137,7 @@
     }
 
     .preview-box {
-      background: var(--bg-input, var(--fallback-bg-input));
+      background: #0a0a0a;
       border-radius: 22px;
       padding: 20px;
       min-height: 400px;
@@ -150,12 +146,12 @@
       justify-content: center;
       flex-direction: column;
       text-align: center;
-      border: 1px solid var(--border-box, var(--fallback-border));
+      border: 1px solid #222222;
       transition: background 0.3s, border-color 0.3s;
     }
 
     .preview-placeholder {
-      color: var(--text-muted, var(--fallback-text-muted));
+      color: #8e8e93;
       line-height: 1.8;
     }
 
@@ -167,14 +163,14 @@
     }
     
     .article-section h3 { 
-      color: var(--text-inverse, var(--fallback-text)); 
+      color: #f5f5f7; 
       margin: 25px 0 10px 0; 
       font-size: 1.3rem; 
       font-weight: 600; 
     }
 
     .article-section p { 
-      color: var(--text-main, var(--fallback-text)); 
+      color: #8e8e93; 
       font-size: 1rem; 
       line-height: 1.8; 
       margin-bottom: 15px; 
@@ -182,7 +178,7 @@
     }
 
     .article-section ul {
-      color: var(--text-main, var(--fallback-text));
+      color: #8e8e93;
       margin-left: 20px;
       margin-bottom: 20px;
       text-align: left;
@@ -202,67 +198,63 @@
     }
 
     .disclaimer-panel h3 { color: #ff7777; margin-bottom: 8px; font-size: 1.1rem; }
-    html[data-theme="light"] .disclaimer-panel h3 { color: #cc0000; }
-    .disclaimer-panel p { color: var(--text-main, var(--fallback-text)); font-size: 0.88rem; line-height: 1.5; }
+    .disclaimer-panel p { color: #f5f5f7; font-size: 0.88rem; line-height: 1.5; }
 
     .feature-card {
-      background: var(--bg-main, var(--fallback-bg-box)); 
-      border: 1px solid var(--border-box, var(--fallback-border)); 
+      background: #0a0a0a; 
+      border: 1px solid #222222; 
       padding: 25px; 
       border-radius: 14px;
       transition: background 0.3s, border-color 0.3s;
     }
 
     .feature-card h4 {
-      color: var(--text-inverse, var(--fallback-text)); 
+      color: #f5f5f7; 
       margin-bottom: 8px;
     }
 
     .feature-card p {
-      color: var(--text-muted, var(--fallback-text-muted)); 
+      color: #8e8e93; 
       font-size: 0.9rem; 
       line-height: 1.5;
     }
 
-    /* Integrated Theme Controller Style Wrapper */
-    .theme-inline-container {
-      display: flex;
-      justify-content: center;
-      margin-top: 25px;
-      border-top: 1px solid var(--border-box, var(--fallback-border));
-      padding-top: 20px;
+    /* Mobile Responsive Ad Wrapper Styles */
+    .ad-wrapper {
+      text-align: center;
+      margin: 35px auto;
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
     }
 
-    .theme-inline-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      width: auto;
-      background: var(--bg-main, var(--fallback-bg-box));
-      border: 1px solid var(--border-interactive, var(--fallback-border));
-      color: var(--text-main, var(--fallback-text));
-      padding: 12px 24px;
-      font-size: 0.95rem;
-      border-radius: 30px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.2s ease;
+    .ad-label {
+      color: #555555;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+      display: block;
     }
 
-    .theme-inline-btn:hover {
-      background: var(--bg-input, var(--fallback-bg-input));
-      color: var(--text-inverse, var(--fallback-text));
-      transform: translateY(-1px);
+    .ad-container-box {
+      display: inline-block;
+      width: 100%;
+      max-width: 100%;
+      min-height: 90px; /* Pre-allocates native ad visibility container */
     }
 
-    @media(max-width: 768px) { .grid { grid-template-columns: 1fr; } }
+    @media(max-width: 768px) { 
+      .grid { grid-template-columns: 1fr; } 
+    }
   </style>
 </head>
-<script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
+
 <body>
 
   <div class="menu-container">
-    <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">⋮</button>
+    <button class="menu-btn" id="menuBtn">⋮</button>
     <div class="menu" id="menu">
       <a href="index.html">Home</a>
       <a href="blog.html">Blogs</a>
@@ -277,9 +269,9 @@
 
   <div class="wrapper">
 
-    <header>
+    <header style="text-align: center; margin-top: 50px; margin-bottom: 20px;">
       <h1 class="title">Image Converter</h1>
-      <p class="subtitle">
+      <p class="subtitle" style="color: #8e8e93;">
         Convert your image formats instantly and safely right inside your internet browser.
       </p>
     </header>
@@ -287,16 +279,16 @@
     <main>
       <div class="grid">
         
-        <section class="content-box" style="margin-bottom: 0;">
-          <h2 class="section-title" style="border-left:none; padding-left:0; margin-bottom:20px;">Upload & Convert</h2>
+        <section class="content-box" style="background: #0a0a0a; border: 1px solid #222222; border-radius: 24px; padding: 32px; margin-bottom: 0;">
+          <h2 class="section-title" style="border-left:none; padding-left:0; margin-bottom:20px; font-size: 1.5rem; color: #f5f5f7;">Upload & Convert</h2>
           
           <label class="upload-box" for="imageInput">
             <span class="upload-icon">📤</span>
             <span class="upload-text">Choose an image file</span>
-            <span class="upload-subtext">or drag and drop your image file here</span>
+            <span class="upload-subtext">Supports PNG, JPG, WEBP, and iOS HEIC/HEIF files</span>
             <div class="upload-btn-mock" id="uploadBtnText">Browse Files</div>
             
-            <input type="file" id="imageInput" class="hidden-file-input" accept="image/*">
+            <input type="file" id="imageInput" class="hidden-file-input" accept="image/*,.heic,.heif">
           </label>
 
           <label for="formatSelect">Convert To</label>
@@ -311,18 +303,11 @@
             <option value="tiff">TIFF (Tagged Image File Format)</option>
           </select>
 
-          <button class="btn btn-accent" style="margin-top: 28px; width: 100%;" onclick="convertImage()">Convert & Download</button>
-
-          <div class="theme-inline-container">
-            <button class="theme-inline-btn" onclick="toggleTheme()">
-              <span id="themeIcon">🌓</span>
-              <span id="themeText">Switch Theme</span>
-            </button>
-          </div>
+          <button class="btn btn-accent" style="margin-top: 28px; width: 100%;" id="convertBtn">Convert & Download</button>
         </section>
 
-        <section class="content-box" style="margin-bottom: 0;">
-          <h2 class="section-title" style="border-left:none; padding-left:0; margin-bottom:20px;">Image Preview</h2>
+        <section class="content-box" style="background: #0a0a0a; border: 1px solid #222222; border-radius: 24px; padding: 32px; margin-bottom: 0;">
+          <h2 class="section-title" style="border-left:none; padding-left:0; margin-bottom:20px; font-size: 1.5rem; color: #f5f5f7;">Image Preview</h2>
           <div class="preview-box">
             <img id="previewImage" class="preview-image" alt="Uploaded source image preview">
             <div class="preview-placeholder" id="previewPlaceholder">
@@ -337,8 +322,17 @@
 
       </div>
 
+      <!-- AD PLACEMENT #1: Mid-Page, directly beneath the main image converter panel grid -->
+      <div class="ad-wrapper">
+        <span class="ad-label">Sponsored</span>
+        <div class="ad-container-box">
+          <script async="async" data-cfasync="false" src="https://pl29654694.effectivecpmnetwork.com/6a875cdb30ed7e51fd4cbea9c261ab87/invoke.js"></script>
+          <div id="container-6a875cdb30ed7e51fd4cbea9c261ab87"></div>
+        </div>
+      </div>
+
       <h2 class="section-title">How Digital Image Formats Work</h2>
-      <section class="content-box article-section">
+      <section class="content-box article-section" style="background: #0a0a0a; border: 1px solid #222222; border-radius: 24px; padding: 32px;">
         <h3>How Images Are Formatted</h3>
         <p>Digital pictures are made out of millions of tiny squares called pixels. Every pixel holds information about its color and transparency. When you change an image from one format to another, you change how this pixel data is saved and stored on your device.</p>
         
@@ -346,15 +340,18 @@
         <p>Choosing the right format depends on whether you want to save space or keep original quality:</p>
         <ul>
           <li><strong>Lossless Formats (PNG, TIFF, BMP):</strong> These keep every single pixel exactly as it was originally made. They do not lose any quality, which makes them perfect for screenshots, text, and logos.</li>
-          <li><strong>Lossy Formats (JPEG, WEBP, AVIF):</strong> These make image files much smaller by removing minor color details that the human eye can barely see. This lets you save a lot of storage space while keeping the picture looking clear.</li>
-        </ul><br>
-    <div>
-    <script type="text/javascript">
-        aclib.runBanner({
-            zoneId: '11385258',
-        });
-    </script>
-</div><br>
+          <li><strong>Lossy Formats (JPEG, WEBP, AVIF, HEIC):</strong> These make image files much smaller by removing minor color details that the human eye can barely see. This lets you save a lot of storage space while keeping the picture looking clear.</li>
+        </ul>
+        
+        <!-- AD PLACEMENT #2: Native Inline Section within structural text article breakout -->
+        <div class="ad-wrapper">
+          <span class="ad-label">Sponsored</span>
+          <div class="ad-container-box">
+            <script async="async" data-cfasync="false" src="https://pl29654694.effectivecpmnetwork.com/6a875cdb30ed7e51fd4cbea9c261ab87/invoke.js"></script>
+            <div id="container-6a875cdb30ed7e51fd4cbea9c261ab87"></div>
+          </div>
+        </div>
+
         <h3>Why Modern Formats Are Better</h3>
         <p>Older formats like BMP or TIFF usually create massive files that take up too much storage and slow down websites. Switching to newer image styles like WEBP or AVIF can cut file sizes down by 30% to 50% compared to old JPEGs. This helps web pages load much faster and saves your internet data.</p>
 
@@ -383,74 +380,85 @@
       </div>
     </main>
 
-    <footer class="page-footer" style="text-align: center; margin-top: 40px; padding: 20px 0;">
+    <footer class="page-footer" style="color: #555555; text-align: center; margin-top: 40px; padding: 20px 0; border-top: 1px solid #222222;">
       © 2026-Present AKeyUP. All rights reserved.
     </footer>
 
   </div>
 
   <script>
-    /* Menu Navigation Dropdown Controls Toggle Engine */
-    function toggleMenu() {
-      document.getElementById("menu").classList.toggle("show");
-    }
-
-    document.addEventListener("click", function(event) {
-      const menu = document.getElementById("menu");
-      const button = document.getElementById("menuBtn");
-      if (menu && button && !menu.contains(event.target) && !button.contains(event.target)) {
-        menu.classList.remove("show");
-      }
-    });
-
-    /* Light / Dark Theme Switching Logic Modules */
-    function toggleTheme() {
-      const currentTheme = document.documentElement.getAttribute("data-theme");
-      const targetTheme = currentTheme === "light" ? "dark" : "light";
-      document.documentElement.setAttribute("data-theme", targetTheme);
-      localStorage.setItem("themePreference", targetTheme);
-      updateThemeButtonUI(targetTheme);
-    }
-
-    function updateThemeButtonUI(theme) {
-      const textNode = document.getElementById("themeText");
-      const iconNode = document.getElementById("themeIcon");
-      if (!textNode || !iconNode) return;
-
-      if (theme === "light") {
-        textNode.innerText = "Switch to Dark Mode";
-        iconNode.innerText = "🌙";
-      } else {
-        textNode.innerText = "Switch to Light Mode";
-        iconNode.innerText = "☀️";
-      }
-    }
-
-    /* Client-Side Image Transformation Logic Pipeline */
+    /* Global Element Hooks */
     const imageInput = document.getElementById("imageInput");
     const previewImage = document.getElementById("previewImage");
     const previewPlaceholder = document.getElementById("previewPlaceholder");
     const uploadBtnText = document.getElementById("uploadBtnText");
     let uploadedImage = null;
 
-    imageInput.addEventListener("change", function(event) {
+    /* Dropdown UI Toggle Logic */
+    function toggleMenu() {
+      const menu = document.getElementById("menu");
+      if (menu) {
+        menu.classList.toggle("show");
+      }
+    }
+
+    /* Rendering Pipeline Assistant */
+    function renderImageToPreview(dataUrl) {
+      uploadedImage = new Image();
+      uploadedImage.onload = function() {
+        previewImage.src = dataUrl;
+        previewImage.style.display = "block";
+        previewPlaceholder.style.display = "none";
+      };
+      uploadedImage.src = dataUrl;
+    }
+
+    /* Client-Side Image Transformation Logic Pipeline */
+    function handleFileSelection(event) {
       const file = event.target.files[0];
       if (!file) return;
 
-      uploadBtnText.innerText = "Selected: " + (file.name.length > 25 ? file.name.substring(0, 22) + "..." : file.name);
+      const cleanName = file.name.length > 25 ? file.name.substring(0, 22) + "..." : file.name;
+      uploadBtnText.textContent = "Selected: " + cleanName;
 
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        uploadedImage = new Image();
-        uploadedImage.onload = function() {
-          previewImage.src = e.target.result;
-          previewImage.style.display = "block";
-          previewPlaceholder.style.display = "none";
+      const fileExtension = file.name.split('.').pop().toLowerCase();
+
+      if (fileExtension === 'heic' || fileExtension === 'heif') {
+        uploadBtnText.textContent = "Processing iOS Image...";
+        
+        if (typeof heic2any === "undefined") {
+          alert("The iOS image conversion engine is currently loading or blocked by your browser network rules.");
+          uploadBtnText.textContent = "Browse Files";
+          return;
+        }
+
+        heic2any({
+          blob: file,
+          toType: "image/jpeg",
+          quality: 0.92
+        })
+        .then(function(convertedBlob) {
+          uploadBtnText.textContent = "Selected: " + cleanName;
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            renderImageToPreview(e.target.result);
+          };
+          reader.readAsDataURL(convertedBlob);
+        })
+        .catch(function(error) {
+          alert("Could not process this iOS file. Make sure it is a valid HEIC/HEIF image.");
+          uploadBtnText.textContent = "Browse Files";
+          console.error(error);
+        });
+
+      } else {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          renderImageToPreview(e.target.result);
         };
-        uploadedImage.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    });
+        reader.readAsDataURL(file);
+      }
+    }
 
     function convertImage() {
       if (!uploadedImage) {
@@ -492,11 +500,35 @@
       }
     }
 
-    /* Page Boot Setup Initialization Engine */
     window.addEventListener("DOMContentLoaded", function() {
-      const savedTheme = localStorage.getItem("themePreference") || "dark";
-      document.documentElement.setAttribute("data-theme", savedTheme);
-      updateThemeButtonUI(savedTheme);
+      const menu = document.getElementById("menu");
+      const menuToggleBtn = document.getElementById("menuBtn");
+
+      document.documentElement.setAttribute("data-theme", "dark");
+
+      if (menuToggleBtn) {
+        menuToggleBtn.addEventListener("click", function(event) {
+          event.stopPropagation();
+          toggleMenu();
+        });
+      }
+
+      document.addEventListener("click", function(event) {
+        if (menu && menu.classList.contains("show")) {
+          if (!menu.contains(event.target) && (!menuToggleBtn || !menuToggleBtn.contains(event.target))) {
+            menu.classList.remove("show");
+          }
+        }
+      });
+
+      if (imageInput) {
+        imageInput.addEventListener("change", handleFileSelection);
+      }
+      
+      const convertBtn = document.getElementById("convertBtn");
+      if (convertBtn) {
+        convertBtn.addEventListener("click", convertImage);
+      }
     });
   </script>
 </body>
