@@ -4,9 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <meta name="description"
-    content="Convert world currencies instantly with the AKeyUP Currency Converter. Supports USD, INR, EUR, GBP, JPY, AUD, CAD, exchange pairs and major international currencies with a fast, modern interface.">
+  <meta name="description" content="Convert world currencies instantly with the AKeyUP Currency Converter. Supports USD, INR, EUR, GBP, JPY, AUD, CAD, exchange pairs and major international currencies with a fast, modern interface.">
 
   <title>AKeyUP Currency Converter</title>
 
@@ -14,30 +12,11 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico?v=3">
 
   <style>
-    /* Theme fallbacks to ensure text visibility regardless of external style.css setup */
-    html[data-theme="light"] {
-      --fallback-bg-box: #f5f5f7;
-      --fallback-bg-input: #ffffff;
-      --fallback-text: #1d1d1f;
-      --fallback-text-muted: #86868b;
-      --fallback-border: #d2d2d7;
-      --fallback-result-bg: #e5e5ea;
-    }
-    html[data-theme="dark"] {
-      --fallback-bg-box: #1c1c1e;
-      --fallback-bg-input: #2c2c2e;
-      --fallback-text: #f5f5f7;
-      --fallback-text-muted: #8e8e93;
-      --fallback-border: #3a3a3c;
-      --fallback-result-bg: #0f0f0f;
-    }
-
     label {
       display: block;
       margin-top: 20px;
       margin-bottom: 8px;
-      color: var(--text-inverse, var(--fallback-text));
-      var(--text-main, var(--fallback-text));
+      color: var(--text-inverse);
       font-size: 0.95rem;
       font-weight: 600;
       text-align: left;
@@ -47,10 +26,10 @@
     input[type="number"] {
       width: 100%;
       padding: 15px 16px;
-      border: 1px solid var(--border-box, var(--fallback-border));
+      border: 1px solid var(--border-box);
       border-radius: 10px;
-      background: var(--bg-input, var(--fallback-bg-input));
-      color: var(--text-main, var(--fallback-text));
+      background: var(--bg-input);
+      color: var(--text-main);
       font-size: 1rem;
       outline: none;
       transition: border-color 0.2s ease, background 0.3s ease, color 0.3s ease;
@@ -81,15 +60,15 @@
 
     .result-display {
       margin-top: 22px;
-      background: var(--fallback-result-bg);
+      background: var(--bg-main);
       padding: 24px;
       border-radius: 14px;
       text-align: center;
-      border: 1px solid var(--border-box, var(--fallback-border));
+      border: 1px solid var(--border-box);
     }
 
     .result-display h3 {
-      color: var(--text-muted, var(--fallback-text-muted));
+      color: var(--text-muted);
       margin-bottom: 8px;
       font-size: 0.9rem;
       font-weight: 500;
@@ -108,7 +87,7 @@
 
     .privacy-note {
       font-size: 0.82rem;
-      color: var(--text-muted, var(--fallback-text-muted));
+      color: var(--text-muted);
       margin-top: 15px;
       line-height: 1.5;
       text-align: left;
@@ -120,12 +99,12 @@
       gap: 8px;
       margin-top: 10px;
       font-size: 0.8rem;
-      color: var(--text-muted, var(--fallback-text-muted));
+      color: var(--text-muted);
     }
 
     .feature-card {
-      background: var(--bg-main, var(--fallback-bg-box));
-      border: 1px solid var(--border-box, var(--fallback-border));
+      background: var(--bg-box);
+      border: 1px solid var(--border-box);
       padding: 25px;
       border-radius: 16px;
       transition: all 0.3s ease;
@@ -143,21 +122,21 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--bg-input, var(--fallback-bg-input));
+      background: var(--bg-input);
       border-radius: 12px;
       font-size: 1.5rem;
       margin-bottom: 15px;
-      border: 1px solid var(--border-box, var(--fallback-border));
+      border: 1px solid var(--border-box);
     }
 
     .feature-card h4 {
       margin-bottom: 8px;
-      color: var(--text-inverse, var(--fallback-text));
+      color: var(--text-inverse);
       font-size: 1.05rem;
     }
 
     .feature-card p {
-      color: var(--text-muted, var(--fallback-text-muted)) !important;
+      color: var(--text-muted) !important;
       line-height: 1.6;
       font-size: 0.92rem !important;
     }
@@ -170,11 +149,11 @@
     }
 
     .usage-tags span {
-      background: var(--bg-input, var(--fallback-bg-input));
-      border: 1px solid var(--border-box, var(--fallback-border));
+      background: var(--bg-input);
+      border: 1px solid var(--border-box);
       padding: 10px 16px;
       border-radius: 10px;
-      color: var(--text-main, var(--fallback-text));
+      color: var(--text-main);
       font-size: 0.9rem;
       transition: all 0.2s ease;
     }
@@ -187,7 +166,7 @@
     }
 
     .notice-box {
-      background: linear-gradient(145deg, rgba(255,68,68,0.1), rgba(255,68,68,0.05));
+      background: linear-gradient(145deg, rgba(255, 68, 68, 0.1), rgba(255, 68, 68, 0.05));
       border: 1px solid #442222;
       padding: 24px;
       border-radius: 16px;
@@ -205,7 +184,7 @@
     }
 
     .notice-box p {
-      color: var(--text-main, var(--fallback-text));
+      color: var(--text-main);
       font-size: 0.9rem;
       line-height: 1.6;
     }
@@ -223,32 +202,31 @@
     }
 
     .privacy-box {
-      background: var(--bg-box, var(--fallback-bg-box));
-      border: 1px solid var(--border-box, var(--fallback-border));
+      background: var(--bg-box);
+      border: 1px solid var(--border-box);
       width: min(420px, 100%);
       padding: 35px;
       border-radius: 24px;
       text-align: center;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 25px 50px var(--menu-shadow);
     }
 
     .privacy-box h2 {
       margin-bottom: 12px;
-      color: var(--text-inverse, var(--fallback-text));
+      color: var(--text-inverse);
     }
 
     .privacy-box p {
-      color: var(--text-muted, var(--fallback-text-muted));
+      color: var(--text-muted);
       line-height: 1.6;
       margin-bottom: 20px;
     }
 
-    /* Integrated Theme Controller Style Wrapper */
     .theme-inline-container {
       display: flex;
       justify-content: center;
       margin-top: 25px;
-      border-top: 1px solid var(--border-box, var(--fallback-border));
+      border-top: 1px solid var(--border-box);
       padding-top: 20px;
     }
 
@@ -257,9 +235,9 @@
       align-items: center;
       gap: 12px;
       width: auto;
-      background: var(--bg-main, var(--fallback-bg-box));
-      border: 1px solid var(--border-interactive, var(--fallback-border));
-      color: var(--text-main, var(--fallback-text));
+      background: var(--bg-main);
+      border: 1px solid var(--border-interactive);
+      color: var(--text-main);
       padding: 12px 24px;
       font-size: 0.95rem;
       border-radius: 30px;
@@ -269,12 +247,37 @@
     }
 
     .theme-inline-btn:hover {
-      background: var(--bg-input, var(--fallback-bg-input));
-      color: var(--text-inverse, var(--fallback-text));
+      background: var(--bg-input);
+      color: var(--text-inverse);
       transform: translateY(-1px);
     }
+
+    /* Mobile Responsive Ad Wrapper Styles */
+    .ad-wrapper {
+      text-align: center;
+      margin: 25px auto;
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    .ad-label {
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+      display: block;
+      opacity: 0.6;
+    }
+
+    .ad-container-box {
+      display: inline-block;
+      width: 100%;
+      max-width: 100%;
+      min-height: 100px;
+    }
   </style>
-<script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
 </head>
 
 <body>
@@ -436,22 +439,30 @@
             </p>
           </div>
 
+          <div class="ad-wrapper">
+            <span class="ad-label">Sponsored</span>
+            <div class="ad-container-box">
+              <script async="async" data-cfasync="false" src="https://pl29654694.effectivecpmnetwork.com/6a875cdb30ed7e51fd4cbea9c261ab87/invoke.js"></script>
+              <div id="container-6a875cdb30ed7e51fd4cbea9c261ab87"></div>
+            </div>
+          </div>
+
           <div class="notice-box">
             <h3>📢 Exchange Rate Notice</h3>
             <p>
               Exchange rates change frequently. Actual rates from banks, card providers, or payment apps may be slightly different.
             </p>
           </div>
-        </section><br>
-       <div>
-       <script type="text/javascript">
-          aclib.runBanner({
-              zoneId: '11385258',
-          });
-     </script>
-  </div><br>
+        </section>
 
+      </div>
 
+      <div class="ad-wrapper">
+        <span class="ad-label">Sponsored</span>
+        <div class="ad-container-box">
+          <script async="async" data-cfasync="false" src="https://pl29654694.effectivecpmnetwork.com/6a875cdb30ed7e51fd4cbea9c261ab87/invoke.js"></script>
+          <div id="container-6a875cdb30ed7e51fd4cbea9c261ab87"></div>
+        </div>
       </div>
 
       <h2 class="section-title">Features</h2>
