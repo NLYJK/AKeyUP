@@ -9,6 +9,13 @@
   <meta name="robots" content="index, follow">
   <title>AKeyUP Universal Unit Converter - Scientific & Engineering Matrix</title>
 
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem("themePreference") || "dark";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+    })();
+  </script>
+
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="/favicon.ico?v=3">
 
@@ -101,6 +108,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      cursor: pointer;
     }
 
     .theme-inline-btn:hover {
@@ -286,8 +294,11 @@
       }
     });
 
+    /* ==========================================================================
+       Global Unified Theme Switching Operations 
+       ========================================================================== */
     function toggleTheme() {
-      const currentTheme = document.documentElement.getAttribute("data-theme");
+      const currentTheme = document.documentElement.getAttribute("data-theme") || "dark";
       const targetTheme = currentTheme === "light" ? "dark" : "light";
       document.documentElement.setAttribute("data-theme", targetTheme);
       localStorage.setItem("themePreference", targetTheme);
@@ -297,6 +308,8 @@
     function updateThemeButtonUI(theme) {
       const textNode = document.getElementById("themeText");
       const iconNode = document.getElementById("themeIcon");
+      if (!textNode || !iconNode) return;
+
       if (theme === "light") {
         textNode.innerText = "Switch to Dark Mode";
         iconNode.innerText = "🌙";
