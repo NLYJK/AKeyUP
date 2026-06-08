@@ -10,23 +10,77 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico?v=3">
 
   <style>
-    /* Force permanent pure black theme parameters across style.css overrides */
-    :root, html, html[data-theme="light"], html[data-theme="dark"] {
-      --bg-main: #000000 !important;
-      --bg-box: #0a0a0a !important;
-      --text-main: #f5f5f7 !important;
-      --text-muted: #8e8e93 !important;
-      --border-box: #222222 !important;
-      background-color: #000000 !important;
+    /* ==========================================================================
+       Theme Override Token Extensions
+       ========================================================================== */
+    /* Dark Theme Token Enforcement Updates */
+    :root, html, html[data-theme="dark"] {
+      --bg-main: #000000;
+      --bg-box: #0a0a0a;
+      --text-main: #f5f5f7;
+      --text-muted: #8e8e93;
+      --border-box: #222222;
+      --border-input: #333333;
+      --bg-input: #111111;
+      --drop-zone-bg: rgba(20, 20, 20, 0.3);
+      --btn-neutral-bg: #222222;
+      --btn-neutral-hover: #333333;
     }
 
-    body {
-      background: #000000 !important;
-      color: #f5f5f7 !important;
+    /* Light Theme Token Enforcement Updates */
+    html[data-theme="light"] {
+      --bg-main: #f5f5f7;
+      --bg-box: #ffffff;
+      --text-main: #1d1d1f;
+      --text-muted: #86868b;
+      --border-box: #e5e5ea;
+      --border-input: #d2d2d7;
+      --bg-input: #fbfbfd;
+      --drop-zone-bg: rgba(0, 0, 0, 0.02);
+      --btn-neutral-bg: #e5e5ea;
+      --btn-neutral-hover: #d1d1d6;
     }
 
     /* ==========================================================================
-       Base64 Converter Specific Structural Layouts
+       Global Component Layout Fixes (Overriding style.css Gradients)
+       ========================================================================== */
+    html, body, .wrapper, .menu-container {
+      background: var(--bg-main) !important;
+      color: var(--text-main) !important;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    /* Neutralize the style.css background linear gradients */
+    .content-box {
+      background: var(--bg-box) !important; 
+      border: 1px solid var(--border-box) !important;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2) !important;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    /* Force section titles to shift between white/dark instead of locking red */
+    .content-section h2 {
+      color: var(--text-main) !important;
+      border: none !important;
+      padding: 0 !important;
+      margin-bottom: 12px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      text-align: left;
+    }
+
+    .subtitle, #dropZoneText {
+      color: var(--text-muted) !important;
+    }
+
+    hr {
+      border: 0;
+      border-top: 1px solid var(--border-box) !important;
+      margin: 20px 0;
+    }
+
+    /* ==========================================================================
+       Base64 Converter Layouts & Specific Structural Controls
        ========================================================================== */
     .converter-layout {
       display: flex;
@@ -46,52 +100,65 @@
       min-width: 140px;
     }
 
-    /* Core Form Input Control */
+    /* Input Textareas Control Layout */
     .textarea-control {
       width: 100%;
       min-height: 160px;
-      background: #111111;
-      border: 1px solid #333333;
+      background: var(--bg-input) !important;
+      border: 1px solid var(--border-input) !important;
       border-radius: 12px;
       padding: 16px;
-      color: #f5f5f7;
+      color: var(--text-main) !important;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       font-size: 0.95rem;
       resize: vertical;
       outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      box-sizing: border-box;
+      transition: border-color 0.2s, box-shadow 0.2s, background-color 0.3s, color 0.3s;
     }
 
     .textarea-control:focus {
-      border-color: #ff4444;
-      box-shadow: 0 0 0 3px rgba(255, 68, 68, 0.15);
+      border-color: #ff4444 !important;
+      box-shadow: 0 0 0 3px rgba(255, 68, 68, 0.15) !important;
     }
 
-    /* Drop Zone File Handler */
+    /* Drop Zone File Wrapper */
     .file-drop-zone {
-      border: 2px dashed #333333;
+      border: 2px dashed var(--border-input) !important;
       border-radius: 12px;
       padding: 24px;
       text-align: center;
-      background: rgba(20, 20, 20, 0.3);
-      color: #8e8e93;
+      background: var(--drop-zone-bg) !important;
+      color: var(--text-muted) !important;
       cursor: pointer;
-      transition: border-color 0.2s, background 0.2s, color 0.2s;
+      transition: border-color 0.2s, background 0.3s, color 0.2s;
       margin-bottom: 20px;
       display: block;
     }
 
     .file-drop-zone.dragover {
-      border-color: #ff4444;
-      background: rgba(255, 68, 68, 0.03);
-      color: #f5f5f7;
+      border-color: #ff4444 !important;
+      background: rgba(255, 68, 68, 0.05) !important;
+      color: var(--text-main) !important;
     }
 
     .file-drop-zone input {
       display: none;
     }
 
-    /* Status Notifications Panel */
+    /* Specialized Button Normalization Overrides */
+    .btn-neutral {
+      background: var(--btn-neutral-bg) !important;
+      color: var(--text-main) !important;
+      border: 1px solid var(--border-box) !important;
+    }
+
+    .btn-neutral:hover {
+      background: var(--btn-neutral-hover) !important;
+      color: var(--text-main) !important;
+    }
+
+    /* Status Notification Modals */
     .status-toast {
       border-radius: 8px;
       padding: 12px 16px;
@@ -114,25 +181,67 @@
       border: 1px solid rgba(0, 255, 153, 0.2);
     }
 
-    .legal-disclaimer {
-      color: #555555;
-      font-size: 0.85rem;
-      margin-top: 40px;
-      margin-bottom: 10px;
+    /* Theme Selector Button Adjustments */
+    .theme-inline-container {
+      margin-top: 25px;
       text-align: center;
     }
 
+    .theme-inline-btn {
+      background: transparent !important;
+      border: 1px solid var(--border-box) !important;
+      color: var(--text-muted) !important;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .theme-inline-btn:hover {
+      color: var(--text-main) !important;
+      border-color: var(--text-muted) !important;
+    }
+
+    /* ==========================================================================
+       Legal Alignment Fixes & Layout Structures
+       ========================================================================== */
+    .legal-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      margin-top: 40px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+
+    .legal-disclaimer {
+      color: var(--text-muted) !important;
+      font-size: 0.85rem;
+      margin: 0 auto !important;
+      text-align: center !important;
+      display: block !important;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
     .legal-disclaimer a {
-      color: #ff4444;
+      color: #ff4444 !important;
       text-decoration: none;
       font-weight: 600;
+      display: inline !important;
     }
 
     .legal-disclaimer a:hover {
-      text-decoration: underline;
+      text-decoration: underline !important;
     }
   </style>
-<script src="cookie-banner.js"></script>
+  <script src="cookie-banner.js"></script>
 </head>
 
 <body>
@@ -153,19 +262,19 @@
 
   <div class="wrapper wrapper-narrow">
 
-    <header style="text-align: center; margin-top: 50px; margin-bottom: 20px;">
+    <header>
       <h1 class="title">Base64 Converter</h1>
-      <p class="subtitle" style="color: #8e8e93;">Convert text or files to Base64 and decode Base64 back into readable text.</p>
+      <p class="subtitle">Convert text or files to Base64 and decode Base64 back into readable text.</p>
     </header>
 
     <main>
-      <div class="content-box" style="background: #0a0a0a; border: 1px solid #222222; border-radius: 24px; padding: 32px;">
+      <div class="content-box">
         <div class="converter-layout">
           
           <div class="status-toast" id="statusBox"></div>
 
           <div class="content-section">
-            <h2 style="border: none; padding: 0; margin-bottom: 12px; font-size: 1.3rem; color: #f5f5f7;">Input Plain Text / Base64 Payload</h2>
+            <h2>Input Plain Text / Base64 Payload</h2>
             <textarea class="textarea-control" id="rawInput" placeholder="Paste source contents or encoded strings here... (Ctrl + Enter to encode)"></textarea>
           </div>
 
@@ -179,10 +288,10 @@
             <button class="btn btn-accent" id="decodeBtn">🔓 Decode Base64</button>
           </div>
 
-          <hr style="border: 0; border-top: 1px solid #222222; margin: 10px 0;">
+          <hr>
 
           <div class="content-section">
-            <h2 style="border: none; padding: 0; margin-bottom: 12px; font-size: 1.3rem; color: #f5f5f7;">Output Results</h2>
+            <h2>Output Results</h2>
             <textarea class="textarea-control" id="rawOutput" placeholder="Your transformed output string will appear here..." readonly></textarea>
           </div>
 
@@ -192,24 +301,55 @@
           </div>
 
         </div>
+      </div> 
+
+      <div class="theme-inline-container">
+        <button class="theme-inline-btn" onclick="toggleTheme()">
+          <span id="themeIcon">🌓</span>
+          <span id="themeText">Switch Theme</span>
+        </button>
       </div>
 
-      <p class="legal-disclaimer">
-        By using any tool, you agree to our <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.
-      </p>
+      <div class="legal-container">
+        <p class="legal-disclaimer">
+          By using any tool, you agree to our <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.
+        </p>
+      </div>
 
-      <div class="btn-container" style="text-align: center; margin-top: 20px;">
+      <div class="btn-container">
         <a href="tool.html" class="btn btn-neutral">⬅ Back to Tools</a>
       </div>
     </main>
 
-    <footer class="page-footer" style="color: #555555; text-align: center; margin-top: 60px; padding: 20px 0; border-top: 1px solid #222222;">
+    <footer class="page-footer">
       © 2026-Present AKeyUP. All rights reserved.
     </footer>
 
   </div>
 
   <script>
+    /* Light / Dark Theme Switching Logic Modules */
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute("data-theme");
+      const targetTheme = currentTheme === "light" ? "dark" : "light";
+      
+      document.documentElement.setAttribute("data-theme", targetTheme);
+      localStorage.setItem("themePreference", targetTheme);
+      updateThemeButtonUI(targetTheme);
+    }
+
+    function updateThemeButtonUI(theme) {
+      const textNode = document.getElementById("themeText");
+      const iconNode = document.getElementById("themeIcon");
+      if (theme === "light") {
+        textNode.innerText = "Switch to Dark Mode";
+        iconNode.innerText = "🌙";
+      } else {
+        textNode.innerText = "Switch to Light Mode";
+        iconNode.innerText = "☀️";
+      }
+    }
+
     // Global Element Hooks
     const inputField = document.getElementById('rawInput');
     const outputField = document.getElementById('rawOutput');
@@ -243,13 +383,14 @@
       }
     }
 
+    // Format File sizes dynamically
     function formatFileSize(bytes) {
       if (bytes < 1024) return bytes + " B";
       if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
       return (bytes / (1024 * 1024)).toFixed(1) + " MB";
     }
 
-    /* Core Utility Conversions Engine */
+    /* Core Conversions Engines */
     function processEncode() {
       hideStatus();
       const str = inputField.value;
@@ -264,7 +405,6 @@
       }
     }
 
-    /* Safe Unicode Decode Handling */
     function processDecode() {
       hideStatus();
       const base64Str = inputField.value.trim().replace(/\s/g, '');
@@ -313,23 +453,23 @@
       dropZoneText.textContent = "Optional: Drag & drop a file here or click to upload to generate its Base64 Data URL";
     }
 
-    /* Secure Framework Initialization Routine */
+    /* Framework Initialization Lifecycle Hook */
     window.addEventListener("DOMContentLoaded", function(){
       const menu = document.getElementById("menu");
       const menuToggleBtn = document.querySelector(".menu-btn");
 
-      // 1. Force strict dark engine tokens explicitly across layout compiles
-      document.documentElement.setAttribute("data-theme", "dark");
+      // Pull theme preference from localStorage on page load
+      const savedTheme = localStorage.getItem("themePreference") || "dark";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+      updateThemeButtonUI(savedTheme);
 
-      // 2. Direct Navigation Click Event Binding
       if (menuToggleBtn) {
         menuToggleBtn.addEventListener("click", function(event) {
-          event.stopPropagation(); // Restricts immediate closure via global window bubbling limits
+          event.stopPropagation();
           toggleMenu();
         });
       }
 
-      // 3. Document Click-Away Closure Handler
       document.addEventListener("click", function(event) {
         if (menu && menu.classList.contains("show")) {
           if (!menu.contains(event.target) && (!menuToggleBtn || !menuToggleBtn.contains(event.target))) {
@@ -338,7 +478,7 @@
         }
       });
 
-      // 4. Converter Core Operational Component Routing Actions
+      // Interactive Click Event Listeners
       document.getElementById('encodeBtn').addEventListener('click', processEncode);
       document.getElementById('decodeBtn').addEventListener('click', processDecode);
       document.getElementById('copyBtn').addEventListener('click', copyOutput);
