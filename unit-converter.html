@@ -82,10 +82,12 @@
     }
 
     .terminal-output h2 {
-      font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+      font-size: clamp(1.1rem, 3.2vw, 1.7rem);
       font-weight: 700;
       color: #ff4444;
       margin-bottom: 8px;
+      word-wrap: break-word;
+      word-break: break-all;
     }
 
     .terminal-output p {
@@ -148,8 +150,21 @@
       border-color: #ff4444;
       color: var(--text-inverse);
     }
+
+    .privacy-popup {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-interactive);
+      border-radius: 12px;
+      padding: 20px;
+      max-width: 350px;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
   </style>
-<script src="cookie-banner.js"></script>
+  <script src="cookie-banner.js" defer></script>
 </head>
 
 <body>
@@ -240,7 +255,7 @@
         <div class="content-section">
           <h3>How Mathematical Transposition Scaling Works</h3>
           <p>To safely bridge the gap between divergent architectural paradigms, a converter environment must map every input directly into an immutable scientific baseline value. In our optimized framework, this baseline is called the <strong>Standard Vector Multiplier</strong>. </p>
-          <p>When translating a length value from Miles into Centimeters, the engine first scales the user's input parameter directly into standard Meters (the base SI unit), then divides that intermediary total by the strict target configuration value of a centimeter. This mathematical architecture prevents precision degradation across high-precision engineering calculations, handling floating-point configurations up to 12 decimal metrics deep.</p>
+          <p>When translating a length value from Miles into Centimeters, the engine first scales the user's input parameter directly into standard Meters (the base SI unit), then divides that intermediary total by the strict target configuration value of a centimeter. This mathematical architecture prevents precision degradation across high-precision engineering calculations, handling floating-point configurations smoothly deep into decimal arrays.</p>
         </div>
 
         <div class="content-section">
@@ -281,7 +296,7 @@
   <script>
     function toggleMenu() {
       const menu = document.getElementById("menu");
-      menu.classList.toggle("show");
+      if (menu) menu.classList.toggle("show");
     }
 
     document.addEventListener("click", function(event) {
@@ -319,16 +334,17 @@
       }
     }
 
+    // High-precision vector standard mappings tracking SI baselines cleanly
     const units = {
       length: { Nanometer: 1e-9, Micrometer: 1e-6, Millimeter: 0.001, Centimeter: 0.01, Meter: 1, Kilometer: 1000, Inch: 0.0254, Foot: 0.3048, Yard: 0.9144, Mile: 1609.344, "Nautical Mile": 1852 },
-      weight: { Milligram: 0.000001, Gram: 0.001, Kilogram: 1, Ton: 1000, Ounce: 0.0283495, Pound: 0.453592, Stone: 6.35029 },
+      weight: { Milligram: 0.000001, Gram: 0.001, Kilogram: 1, Ton: 1000, Ounce: 0.028349523125, Pound: 0.45359237, Stone: 6.35029318 },
       storage: { Bit: 0.125, Byte: 1, Kilobyte: 1024, Megabyte: 1024**2, Gigabyte: 1024**3, Terabyte: 1024**4, Petabyte: 1024**5, Exabyte: 1024**6, Zettabyte: 1024**7, Yottabyte: 1024**8 },
-      speed: { "Meters/Second": 1, "Kilometers/Hour": 0.277778, "Miles/Hour": 0.44704, Knot: 0.514444, Mach: 343 },
+      speed: { "Meters/Second": 1, "Kilometers/Hour": 0.2777777777777778, "Miles/Hour": 0.44704, Knot: 0.5144444444444445, Mach: 343 },
       time: { Millisecond: 0.001, Second: 1, Minute: 60, Hour: 3600, Day: 86400, Week: 604800, Month: 2628000, Year: 31536000 },
-      area: { "Square Millimeter": 0.000001, "Square Centimeter": 0.0001, "Square Meter": 1, Hectare: 10000, Acre: 4046.86, "Square Kilometer": 1000000, "Square Mile": 2589988.11 },
-      volume: { Milliliter: 0.001, Liter: 1, CubicMeter: 1000, Gallon: 3.78541, Pint: 0.473176 },
+      area: { "Square Millimeter": 0.000001, "Square Centimeter": 0.0001, "Square Meter": 1, Hectare: 10000, Acre: 4046.8564224, "Square Kilometer": 1000000, "Square Mile": 2589988.110336 },
+      volume: { Milliliter: 0.001, Liter: 1, CubicMeter: 1000, "US Gallon": 3.785411784, "US Pint": 0.473176473 },
       energy: { Joule: 1, Kilojoule: 1000, Calorie: 4.184, Kilocalorie: 4184, WattHour: 3600, KilowattHour: 3600000 },
-      pressure: { Pascal: 1, Kilopascal: 1000, Bar: 100000, PSI: 6894.76, Atmosphere: 101325 }
+      pressure: { Pascal: 1, Kilopascal: 1000, Bar: 100000, PSI: 6894.757293168, Atmosphere: 101325 }
     };
 
     const category = document.getElementById("category");
@@ -358,10 +374,10 @@
         });
       }
       
-      if (units[selected] && units[selected][prevFrom]) {
+      if (prevFrom && fromUnit.querySelector(`option[value="${prevFrom}"]`)) {
         fromUnit.value = prevFrom;
       }
-      if (units[selected] && units[selected][prevTo]) {
+      if (prevTo && toUnit.querySelector(`option[value="${prevTo}"]`)) {
         toUnit.value = prevTo;
       } else if(toUnit.options.length > 1) {
         toUnit.selectedIndex = 1;
@@ -378,7 +394,7 @@
       const from = fromUnit.value;
       const to = toUnit.value;
       
-      if (inputValue.value === "") {
+      if (inputValue.value === "" || inputValue.value === "-") {
         result.innerText = `0 ${to || ''}`;
         return;
       }
@@ -400,16 +416,35 @@
         else if (from === "Fahrenheit" && to === "Kelvin") converted = ((value - 32) * 5 / 9) + 273.15;
         else if (from === "Kelvin" && to === "Fahrenheit") converted = ((value - 273.15) * 9 / 5) + 32;
       } else {
-        converted = value * (units[selected][from] / units[selected][to]);
+        converted = (value * units[selected][from]) / units[selected][to];
       }
       
-      const formattedVal = value.toLocaleString(undefined, { maximumFractionDigits: 6 });
-      
-      let formattedConverted;
-      if (converted > 0 && converted < 1e-4) {
-        formattedConverted = converted.toFixed(16).replace(/\.?0+$/, "");
+      // Dynamic Input Vector Scaling Display Logic
+      let formattedVal;
+      const absInput = Math.abs(value);
+      if (value === 0) {
+        formattedVal = "0";
+      } else if (absInput >= 1e9 || absInput < 1e-4) {
+        formattedVal = value.toExponential(4);
       } else {
-        formattedConverted = converted.toLocaleString(undefined, { maximumFractionDigits: 12 });
+        formattedVal = value.toLocaleString(undefined, { maximumFractionDigits: 6 });
+      }
+      
+      // Dynamic High-Precision Output Precision Guard Configuration
+      let formattedConverted;
+      const absConverted = Math.abs(converted);
+
+      if (converted === 0) {
+        formattedConverted = "0";
+      } else if (absConverted < 1e-6 || absConverted >= 1e9) {
+        // Fall back cleanly to scientific exponential strings for extreme precision mismatches
+        formattedConverted = converted.toExponential(6);
+      } else {
+        // Retain up to 14 standard localized trailing fraction zeros smoothly
+        formattedConverted = converted.toLocaleString(undefined, { 
+          minimumFractionDigits: 0, 
+          maximumFractionDigits: 14 
+        });
       }
 
       result.innerText = `${formattedVal} ${from} = ${formattedConverted} ${to}`;
@@ -432,9 +467,8 @@
       document.getElementById("privacyPopup").style.display = "none"; 
     }
     
-    window.addEventListener("load", function() {
+    window.addEventListener("DOMContentLoaded", function() {
       const savedTheme = localStorage.getItem("themePreference") || "dark";
-      document.documentElement.setAttribute("data-theme", savedTheme);
       updateThemeButtonUI(savedTheme);
 
       if (localStorage.getItem("privacyAccepted") === "true") {
