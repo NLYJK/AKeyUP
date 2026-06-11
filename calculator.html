@@ -9,93 +9,99 @@
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="/favicon.ico?v=3">
   
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem("themePreference") || "dark";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+    })();
+  </script>
 
   <style>
-    /* Local Calculator Ecosystem Overrides */
+    /* Local Calculator Ecosystem Layout Overrides */
     .calculator-box {
       margin-top: 20px;
       position: relative;
     }
 
-    /* Screen UI Engine (Defaults to Premium Dark Screen) */
+    /* Screen UI Engine (Reads CSS Variables Custom Configurations) */
     .display-box {
-      background: #242424;
+      background: var(--bg-input, #242424);
       border-radius: 16px;
       padding: 20px;
       margin-bottom: 25px;
       border: 2px solid transparent;
-      transition: background-color 0.3s ease, border-color 0.2s ease, box-shadow 0.3s ease;
+      transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    /* Standardized Browser Sandbox Fallbacks */
+    [data-theme="light"] .display-box {
+      background: #ffffff;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
+      border: 1px solid var(--border-box, #ccc);
     }
 
     .display-box:focus-within {
-      border-color: #ff4444;
+      border-color: #ff4444 !important;
     }
 
     #display {
       width: 100%;
       border: none;
       background: transparent;
-      color: #ffffff;
+      color: var(--text-main, #ffffff);
       font-size: clamp(1.4rem, 4vw, 2.2rem);
       outline: none;
       text-align: right;
       font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-      transition: color 0.3s ease;
+      transition: color 0.2s ease;
+    }
+
+    [data-theme="light"] #display {
+      color: #111111;
     }
 
     #preview {
       text-align: right;
       margin-top: 10px;
-      color: #888;
+      color: var(--text-muted, #888);
       font-size: 1.05rem;
       min-height: 24px;
       font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-      transition: color 0.3s ease;
+      transition: color 0.2s ease;
     }
 
-    /* Interactive Interface Theme States */
-    .display-box.light-screen {
-      background: #ffffff !important;
-      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.15);
-    }
-    
-    .display-box.light-screen #display {
-      color: #111111 !important;
+    [data-theme="light"] #preview {
+      color: #666666;
     }
 
-    .display-box.light-screen #preview {
-      color: #666666 !important;
-    }
-
-    /* Layout Toggle Architecture Control */
-    .screen-toggle-container {
+    /* Central Layout Theme Toggle Container Mapping */
+    .theme-inline-container {
       display: flex;
-      justify-content: flex-end;
-      margin-bottom: 12px;
+      justify-content: center;
+      margin-top: 25px;
     }
 
-    .btn-screen-toggle {
-      background: #161616;
-      border: 1px solid #333;
-      color: #aaa;
-      padding: 6px 14px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      border-radius: 20px;
-      cursor: pointer;
+    .theme-inline-btn {
+      background: transparent;
+      border: 1px dashed var(--border-interactive, #333);
+      color: var(--text-light, #aaa);
+      font-size: 0.9rem;
+      padding: 10px 20px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 10px;
+      cursor: pointer;
+      border-radius: 8px;
       transition: all 0.2s ease;
     }
 
-    .btn-screen-toggle:hover {
-      background: #222;
-      color: #fff;
+    .theme-inline-btn:hover {
       border-color: #ff4444;
+      color: var(--text-inverse, #fff);
+      background: var(--bg-input, #222);
     }
 
-    /* Keypad Grid Overrides */
+    /* Keypad Grid Processing Matrix */
     .buttons-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -106,12 +112,18 @@
       border: none;
       border-radius: 12px;
       padding: 18px;
-      background: #242424;
-      color: white;
+      background: var(--bg-input, #242424);
+      color: var(--text-main, #ffffff);
       font-size: clamp(1rem, 2vw, 1.2rem);
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s ease;
+    }
+
+    [data-theme="light"] .buttons-grid button {
+      background: #e4e4e7;
+      color: #111111;
+      border: 1px solid #d4d4d8;
     }
 
     .buttons-grid button:hover {
@@ -119,13 +131,26 @@
       transform: translateY(-2px);
     }
 
+    [data-theme="light"] .buttons-grid button:hover {
+      background: #d4d4d8;
+    }
+
     .buttons-grid button.operator-key {
       background: #1e1e1e;
       color: #ff4444;
     }
 
+    [data-theme="light"] .buttons-grid button.operator-key {
+      background: #f4f4f5;
+      color: #ff4444;
+    }
+
     .buttons-grid button.operator-key:hover {
       background: #262626;
+    }
+
+    [data-theme="light"] .buttons-grid button.operator-key:hover {
+      background: #e4e4e7;
     }
 
     .buttons-grid button.action-key {
@@ -137,14 +162,18 @@
       background: #e03333;
     }
 
-    /* Session History Layout */
+    /* Session History Dynamic Layout */
     .history-box {
       margin-top: 35px;
       background: #0a0a0a;
-      border: 1px solid #1f1f1f;
+      border: 1px solid var(--border-box, #1f1f1f);
       border-radius: 16px;
       padding: 25px;
       text-align: left;
+    }
+
+    [data-theme="light"] .history-box {
+      background: #f4f4f5;
     }
 
     .history-header {
@@ -158,15 +187,19 @@
     .history-title {
       font-size: 1.15rem;
       font-weight: 700;
-      color: #fff;
+      color: var(--text-main, #fff);
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
+    [data-theme="light"] .history-title {
+      color: #111111;
+    }
+
     .history-subtitle {
       font-size: 0.85rem;
-      color: #666;
+      color: var(--text-muted, #666);
       margin-top: 2px;
     }
 
@@ -176,9 +209,9 @@
     }
 
     .btn-history-action {
-      background: #161616;
-      border: 1px solid #333;
-      color: #bbb;
+      background: var(--bg-input, #161616);
+      border: 1px solid var(--border-interactive, #333);
+      color: var(--text-light, #bbb);
       padding: 6px 12px;
       font-size: 0.85rem;
       border-radius: 6px;
@@ -193,6 +226,17 @@
       border-color: #555;
     }
 
+    [data-theme="light"] .btn-history-action {
+      background: #ffffff;
+      color: #333;
+      border-color: #ccc;
+    }
+
+    [data-theme="light"] .btn-history-action:hover {
+      background: #f4f4f5;
+      border-color: #ff4444;
+    }
+
     #history {
       max-height: 200px;
       overflow-y: auto;
@@ -201,8 +245,8 @@
 
     .history-item {
       padding: 10px 0;
-      border-bottom: 1px solid #161616;
-      color: #888;
+      border-bottom: 1px solid var(--border-box, #161616);
+      color: var(--text-muted, #888);
       font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
       font-size: 0.95rem;
       word-break: break-all;
@@ -212,7 +256,7 @@
       border-bottom: none;
     }
 
-    /* Media Adaptive Layout Rules */
+    /* Media Adaptive Layout Constraints */
     @media(max-width: 600px) {
       .buttons-grid { gap: 8px; }
       .buttons-grid button { padding: 14px; }
@@ -223,13 +267,13 @@
   </style>
   
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6438029552227591" crossorigin="anonymous"></script>
-<script src="cookie-banner.js"></script>
+  <script src="cookie-banner.js"></script>
 </head>
 
 <body>
 
 <div class="menu-container">
-  <button class="menu-btn" onclick="toggleMenu()" aria-label="Toggle Menu">⋮</button>
+  <button class="menu-btn" id="menuBtn" onclick="toggleMenu()" aria-label="Toggle Menu">⋮</button>
   <div class="menu" id="menu">
     <a href="index.html">Home</a>
     <a href="blog.html">Blog</a>
@@ -251,12 +295,6 @@
 
   <main>
     <div class="calculator-box">
-      
-      <div class="screen-toggle-container">
-        <button class="btn-screen-toggle" onclick="toggleScreenTheme()" id="screenToggleBtn">
-          <span>🌓</span> <span id="toggleText">Light Screen</span>
-        </button>
-      </div>
       
       <div class="display-box" id="calcDisplayContainer">
         <input type="text" id="display" placeholder="0" autocomplete="off" spellcheck="false">
@@ -297,6 +335,13 @@
         <button onclick="append('0')">0</button>
         <button onclick="append('.')">.</button>
         <button class="action-key" style="grid-column: span 2;" onclick="calculate()">=</button>
+      </div>
+
+      <div class="theme-inline-container">
+        <button class="theme-inline-btn" onclick="toggleTheme()">
+          <span id="themeIcon">🌓</span>
+          <span id="themeText">Switch Interface Theme</span>
+        </button>
       </div>
 
       <div class="history-box">
@@ -353,183 +398,201 @@
 </div>
 
 <script>
-function toggleMenu() {
-  document.getElementById("menu").classList.toggle("show");
-}
+(function() {
+  'use strict';
 
-window.onclick = function(event) {
-  if (!event.target.matches('.menu-btn')) {
+  let display, preview, historyDiv;
+  let historyLog = [];
+
+  const toRad = x => x * Math.PI / 180;
+
+  const math = {
+    sin: x => Math.sin(toRad(x)),
+    cos: x => Math.cos(toRad(x)),
+    tan: x => Math.tan(toRad(x)),
+    log: x => Math.log10(x),
+    sqrt: x => Math.sqrt(x)
+  };
+
+  function stripPrecisionError(num) {
+    if (num === null || isNaN(num) || !isFinite(num)) return num;
+    return parseFloat(Number(num).toPrecision(12));
+  }
+
+  window.toggleMenu = function() {
+    document.getElementById("menu").classList.toggle("show");
+  };
+
+  document.addEventListener("click", function(event) {
     const menu = document.getElementById("menu");
-    if (menu && menu.classList.contains("show")) {
+    const button = document.getElementById("menuBtn");
+    if (menu && button && !menu.contains(event.target) && !button.contains(event.target)) {
       menu.classList.remove("show");
     }
-  }
-}
-
-/* Screen Theme Switching Mechanics */
-function toggleScreenTheme() {
-  const container = document.getElementById("calcDisplayContainer");
-  const toggleText = document.getElementById("toggleText");
-  
-  if (container.classList.contains("light-screen")) {
-    container.classList.remove("light-screen");
-    toggleText.innerText = "Light Screen";
-  } else {
-    container.classList.add("light-screen");
-    toggleText.innerText = "Dark Screen";
-  }
-}
-
-const display = document.getElementById("display");
-const preview = document.getElementById("preview");
-const historyDiv = document.getElementById("history");
-let historyLog = [];
-
-function toRad(x) { return x * Math.PI / 180; }
-
-const math = {
-  sin: x => Math.sin(toRad(x)),
-  cos: x => Math.cos(toRad(x)),
-  tan: x => Math.tan(toRad(x)),
-  log: x => Math.log10(x),
-  sqrt: x => Math.sqrt(x)
-};
-
-// Safe Precision Formatter resolving standard float evaluation inaccuracies
-function stripPrecisionError(num) {
-  if (num === null || isNaN(num) || !isFinite(num)) return num;
-  return parseFloat(Number(num).toPrecision(12));
-}
-
-function append(value) {
-  display.value += value;
-  livePreview();
-}
-
-function clearDisplay() {
-  display.value = "";
-  preview.innerText = "";
-}
-
-function del() {
-  display.value = display.value.slice(0, -1);
-  livePreview();
-}
-
-function safeEval(expr) {
-  let cleanedExpr = expr.trim();
-  if (!cleanedExpr) return null;
-  
-  cleanedExpr = cleanedExpr.replace(/(sin|cos|tan|log|sqrt)\($/, '');
-  
-  const openBrackets = (cleanedExpr.match(/\(/g) || []).length;
-  const closeBrackets = (cleanedExpr.match(/\)/g) || []).length;
-  if (openBrackets > closeBrackets) {
-    cleanedExpr += ")".repeat(openBrackets - closeBrackets);
-  }
-
-  try {
-    const evaluator = new Function("math", `with(math){ return ${cleanedExpr} }`);
-    const rawResult = evaluator(math);
-    return stripPrecisionError(rawResult);
-  } catch {
-    return null;
-  }
-}
-
-function calculate() {
-  const expression = display.value;
-  if (!expression.trim()) return;
-
-  const result = safeEval(expression);
-
-  if (result !== null && !isNaN(result) && isFinite(result)) {
-    const itemText = `${expression} = ${result}`;
-    historyLog.unshift(itemText);
-
-    const historyItem = document.createElement("div");
-    historyItem.className = "history-item";
-    historyItem.innerText = itemText;
-    historyDiv.prepend(historyItem);
-    historyDiv.scrollTop = 0; 
-    
-    display.value = result;
-    preview.innerText = "";
-  } else {
-    display.value = "Error";
-    preview.innerText = "";
-  }
-}
-
-function livePreview() {
-  const result = safeEval(display.value);
-  preview.innerText = (result !== null && !isNaN(result) && isFinite(result)) ? result : "";
-}
-
-function copyHistory() {
-  if (historyLog.length === 0) {
-    alert("Your history log is currently empty.");
-    return;
-  }
-
-  const textToCopy = historyLog.join("\n");
-  const btnCopy = document.getElementById("btnCopy");
-
-  navigator.clipboard.writeText(textToCopy).then(() => {
-    const originalText = btnCopy.innerText;
-    btnCopy.innerText = "✅ Copied!";
-    btnCopy.style.borderColor = "#ff4444";
-    btnCopy.style.color = "#ff4444";
-    
-    setTimeout(() => {
-      btnCopy.innerText = originalText;
-      btnCopy.style.borderColor = "";
-      btnCopy.style.color = "";
-    }, 2000);
-  }).catch(err => {
-    alert("Could not copy text: " + err);
   });
-}
 
-function exportHistory() {
-  if (historyLog.length === 0) {
-    alert("Your history log is currently empty.");
-    return;
+  /* Unified Theme Engine Operation - Matches the Unit Converter Ecosystem */
+  window.toggleTheme = function() {
+    const currentTheme = document.documentElement.getAttribute("data-theme") || "dark";
+    const targetTheme = currentTheme === "light" ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", targetTheme);
+    localStorage.setItem("themePreference", targetTheme);
+    updateThemeButtonUI(targetTheme);
+  };
+
+  function updateThemeButtonUI(theme) {
+    const textNode = document.getElementById("themeText");
+    const iconNode = document.getElementById("themeIcon");
+    if (!textNode || !iconNode) return;
+
+    if (theme === "light") {
+      textNode.innerText = "Switch to Dark Mode";
+      iconNode.innerText = "🌙";
+    } else {
+      textNode.innerText = "Switch to Light Mode";
+      iconNode.innerText = "☀️";
+    }
   }
-  
-  const fileContent = "AKeyUP Calculator - Session History Log\n" + 
-                      "========================================\n\n" + 
-                      historyLog.join("\n");
-                      
-  const blob = new Blob([fileContent], { type: "text/plain;charset=utf-8" });
-  const tempLink = document.createElement("a");
-  tempLink.href = URL.createObjectURL(blob);
-  tempLink.download = "akeyup-calculator-history.txt";
-  
-  document.body.appendChild(tempLink);
-  tempLink.click();
-  document.body.removeChild(tempLink);
-}
 
-/* Key Routing Listeners */
-document.addEventListener("keydown", function(e) {
-  if ("0123456789+-*/().".includes(e.key)) {
-    e.preventDefault();
-    display.value += e.key;
-    livePreview();
-  } else if (e.key === "Enter") {
-    e.preventDefault();
-    calculate();
-  } else if (e.key === "Backspace") {
-    e.preventDefault();
-    del();
-  } else if (e.key === "Escape") {
-    e.preventDefault();
-    clearDisplay();
+  window.append = function(value) {
+    display.value += value;
+    window.livePreview();
+  };
+
+  window.clearDisplay = function() {
+    display.value = "";
+    preview.innerText = "";
+  };
+
+  window.del = function() {
+    display.value = display.value.slice(0, -1);
+    window.livePreview();
+  };
+
+  function safeEval(expr) {
+    let cleanedExpr = expr.trim();
+    if (!cleanedExpr) return null;
+    
+    cleanedExpr = cleanedExpr.replace(/(sin|cos|tan|log|sqrt)\($/, '');
+    
+    const openBrackets = (cleanedExpr.match(/\(/g) || []).length;
+    const closeBrackets = (cleanedExpr.match(/\)/g) || []).length;
+    if (openBrackets > closeBrackets) {
+      cleanedExpr += ")".repeat(openBrackets - closeBrackets);
+    }
+
+    try {
+      const evaluator = new Function("math", `with(math){ return ${cleanedExpr} }`);
+      const rawResult = evaluator(math);
+      return stripPrecisionError(rawResult);
+    } catch {
+      return null;
+    }
   }
-});
 
-display.addEventListener("input", livePreview);
+  window.calculate = function() {
+    const expression = display.value;
+    if (!expression.trim()) return;
+
+    const result = safeEval(expression);
+
+    if (result !== null && !isNaN(result) && isFinite(result)) {
+      const itemText = `${expression} = ${result}`;
+      historyLog.unshift(itemText);
+
+      const historyItem = document.createElement("div");
+      historyItem.className = "history-item";
+      historyItem.innerText = itemText;
+      historyDiv.prepend(historyItem);
+      historyDiv.scrollTop = 0; 
+      
+      display.value = result;
+      preview.innerText = "";
+    } else {
+      display.value = "Error";
+      preview.innerText = "";
+    }
+  };
+
+  window.livePreview = function() {
+    const result = safeEval(display.value);
+    preview.innerText = (result !== null && !isNaN(result) && isFinite(result)) ? result : "";
+  };
+
+  window.copyHistory = function() {
+    if (historyLog.length === 0) {
+      alert("Your history log is currently empty.");
+      return;
+    }
+
+    const textToCopy = historyLog.join("\n");
+    const btnCopy = document.getElementById("btnCopy");
+
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      const originalText = btnCopy.innerText;
+      btnCopy.innerText = "✅ Copied!";
+      btnCopy.style.borderColor = "#ff4444";
+      btnCopy.style.color = "#ff4444";
+      
+      setTimeout(() => {
+        btnCopy.innerText = originalText;
+        btnCopy.style.borderColor = "";
+        btnCopy.style.color = "";
+      }, 2000);
+    }).catch(err => {
+      alert("Could not copy text: " + err);
+    });
+  };
+
+  window.exportHistory = function() {
+    if (historyLog.length === 0) {
+      alert("Your history log is currently empty.");
+      return;
+    }
+    
+    const fileContent = "AKeyUP Calculator - Session History Log\n" + 
+                        "========================================\n\n" + 
+                        historyLog.join("\n");
+                        
+    const blob = new Blob([fileContent], { type: "text/plain;charset=utf-8" });
+    const tempLink = document.createElement("a");
+    tempLink.href = URL.createObjectURL(blob);
+    tempLink.download = "akeyup-calculator-history.txt";
+    
+    document.body.appendChild(tempLink);
+    tempLink.click();
+    document.body.removeChild(tempLink);
+  };
+
+  document.addEventListener("keydown", function(e) {
+    if (document.activeElement === display) return;
+    if ("0123456789+-*/().".includes(e.key)) {
+      e.preventDefault();
+      display.value += e.key;
+      window.livePreview();
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      window.calculate();
+    } else if (e.key === "Backspace") {
+      e.preventDefault();
+      window.del();
+    } else if (e.key === "Escape") {
+      e.preventDefault();
+      window.clearDisplay();
+    }
+  });
+
+  window.addEventListener("DOMContentLoaded", function() {
+    display = document.getElementById("display");
+    preview = document.getElementById("preview");
+    historyDiv = document.getElementById("history");
+
+    const savedTheme = localStorage.getItem("themePreference") || "dark";
+    updateThemeButtonUI(savedTheme);
+
+    display.addEventListener("input", window.livePreview);
+  });
+})();
 </script>
 
 </body>
