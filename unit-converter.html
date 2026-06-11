@@ -292,192 +292,177 @@
       <button class="btn btn-accent" style="margin-top: 25px;" onclick="acceptPrivacy()">Accept & Dismiss</button>
     </div>
   </div>
-
   <script>
-    function toggleMenu() {
-      const menu = document.getElementById("menu");
-      if (menu) menu.classList.toggle("show");
+(function() {
+  'use strict';
+
+  // Immutable baseline standard pivot mappings index 
+  const units = {
+    length: { Nanometer: 1e-9, Micrometer: 1e-6, Millimeter: 0.001, Centimeter: 0.01, Meter: 1, Kilometer: 1000, Inch: 0.0254, Foot: 0.3048, Yard: 0.9144, Mile: 1609.344, "Nautical Mile": 1852 },
+    weight: { Milligram: 1e-6, Gram: 0.001, Kilogram: 1, Ton: 1000, Ounce: 0.028349523125, Pound: 0.45359237, Stone: 6.35029318 },
+    storage: { Bit: 0.125, Byte: 1, Kilobyte: 1024, Megabyte: 1048576, Gigabyte: 1073741824, Terabyte: 1099511627776, Petabyte: 1125899906842624, Exabyte: 1152921504606847000, Zettabyte: 1180591620717411300000, Yottabyte: 1208925819614629200000000 },
+    speed: { "Meters/Second": 1, "Kilometers/Hour": 0.2777777777777778, "Miles/Hour": 0.44704, Knot: 0.5144444444444445, Mach: 343 },
+    time: { Millisecond: 0.001, Second: 1, Minute: 60, Hour: 3600, Day: 86400, Week: 604800, Month: 2628000, Year: 31536000 },
+    area: { "Square Millimeter": 1e-6, "Square Centimeter": 0.0001, "Square Meter": 1, Hectare: 10000, Acre: 4046.8564224, "Square Kilometer": 1000000, "Square Mile": 2589988.110336 },
+    volume: { Milliliter: 0.001, Liter: 1, CubicMeter: 1000, "US Gallon": 3.785411784, "US Pint": 0.473176473 },
+    energy: { Joule: 1, Kilojoule: 1000, Calorie: 4.184, Kilocalorie: 4184, WattHour: 3600, KilowattHour: 3600000 },
+    pressure: { Pascal: 1, Kilopascal: 1000, Bar: 100000, PSI: 6894.757293168, Atmosphere: 101325 }
+  };
+
+  // Cached DOM target tracking references
+  let category, fromUnit, toUnit, inputValue, result;
+
+  function initDOMReferences() {
+    category = document.getElementById("category");
+    fromUnit = document.getElementById("fromUnit");
+    toUnit = document.getElementById("toUnit");
+    inputValue = document.getElementById("inputValue");
+    result = document.getElementById("result");
+  }
+
+  window.toggleMenu = function() {
+    const menu = document.getElementById("menu");
+    if (menu) menu.classList.toggle("show");
+  };
+
+  document.addEventListener("click", function(event) {
+    const menu = document.getElementById("menu");
+    const button = document.getElementById("menuBtn");
+    if (menu && button && !menu.contains(event.target) && !button.contains(event.target)) {
+      menu.classList.remove("show");
     }
+  });
 
-    document.addEventListener("click", function(event) {
-      const menu = document.getElementById("menu");
-      const button = document.getElementById("menuBtn");
-      if (menu && button) {
-        if (!menu.contains(event.target) && !button.contains(event.target)) {
-          menu.classList.remove("show");
-        }
-      }
-    });
+  window.toggleTheme = function() {
+    const currentTheme = document.documentElement.getAttribute("data-theme") || "dark";
+    const targetTheme = currentTheme === "light" ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", targetTheme);
+    localStorage.setItem("themePreference", targetTheme);
+    updateThemeButtonUI(targetTheme);
+  };
 
-    /* ==========================================================================
-       Global Unified Theme Switching Operations 
-       ========================================================================== */
-    function toggleTheme() {
-      const currentTheme = document.documentElement.getAttribute("data-theme") || "dark";
-      const targetTheme = currentTheme === "light" ? "dark" : "light";
-      document.documentElement.setAttribute("data-theme", targetTheme);
-      localStorage.setItem("themePreference", targetTheme);
-      updateThemeButtonUI(targetTheme);
+  function updateThemeButtonUI(theme) {
+    const textNode = document.getElementById("themeText");
+    const iconNode = document.getElementById("themeIcon");
+    if (!textNode || !iconNode) return;
+
+    if (theme === "light") {
+      textNode.innerText = "Switch to Dark Mode";
+      iconNode.innerText = "🌙";
+    } else {
+      textNode.innerText = "Switch to Light Mode";
+      iconNode.innerText = "☀️";
     }
+  }
 
-    function updateThemeButtonUI(theme) {
-      const textNode = document.getElementById("themeText");
-      const iconNode = document.getElementById("themeIcon");
-      if (!textNode || !iconNode) return;
+  window.loadUnits = function() {
+    const selected = category.value; 
+    const prevFrom = fromUnit.value;
+    const prevTo = toUnit.value;
 
-      if (theme === "light") {
-        textNode.innerText = "Switch to Dark Mode";
-        iconNode.innerText = "🌙";
-      } else {
-        textNode.innerText = "Switch to Light Mode";
-        iconNode.innerText = "☀️";
-      }
-    }
-
-    // High-precision vector standard mappings tracking SI baselines cleanly
-    const units = {
-      length: { Nanometer: 1e-9, Micrometer: 1e-6, Millimeter: 0.001, Centimeter: 0.01, Meter: 1, Kilometer: 1000, Inch: 0.0254, Foot: 0.3048, Yard: 0.9144, Mile: 1609.344, "Nautical Mile": 1852 },
-      weight: { Milligram: 0.000001, Gram: 0.001, Kilogram: 1, Ton: 1000, Ounce: 0.028349523125, Pound: 0.45359237, Stone: 6.35029318 },
-      storage: { Bit: 0.125, Byte: 1, Kilobyte: 1024, Megabyte: 1024**2, Gigabyte: 1024**3, Terabyte: 1024**4, Petabyte: 1024**5, Exabyte: 1024**6, Zettabyte: 1024**7, Yottabyte: 1024**8 },
-      speed: { "Meters/Second": 1, "Kilometers/Hour": 0.2777777777777778, "Miles/Hour": 0.44704, Knot: 0.5144444444444445, Mach: 343 },
-      time: { Millisecond: 0.001, Second: 1, Minute: 60, Hour: 3600, Day: 86400, Week: 604800, Month: 2628000, Year: 31536000 },
-      area: { "Square Millimeter": 0.000001, "Square Centimeter": 0.0001, "Square Meter": 1, Hectare: 10000, Acre: 4046.8564224, "Square Kilometer": 1000000, "Square Mile": 2589988.110336 },
-      volume: { Milliliter: 0.001, Liter: 1, CubicMeter: 1000, "US Gallon": 3.785411784, "US Pint": 0.473176473 },
-      energy: { Joule: 1, Kilojoule: 1000, Calorie: 4.184, Kilocalorie: 4184, WattHour: 3600, KilowattHour: 3600000 },
-      pressure: { Pascal: 1, Kilopascal: 1000, Bar: 100000, PSI: 6894.757293168, Atmosphere: 101325 }
-    };
-
-    const category = document.getElementById("category");
-    const fromUnit = document.getElementById("fromUnit");
-    const toUnit = document.getElementById("toUnit");
-    const inputValue = document.getElementById("inputValue");
-    const result = document.getElementById("result");
-
-    function loadUnits() {
-      const selected = category.value; 
-      const prevFrom = fromUnit.value;
-      const prevTo = toUnit.value;
-
-      fromUnit.innerHTML = ""; 
-      toUnit.innerHTML = "";
-      
-      if (selected === "temperature") {
-        const tempUnits = ["Celsius", "Fahrenheit", "Kelvin"];
-        tempUnits.forEach(u => { 
-          fromUnit.innerHTML += `<option value="${u}">${u}</option>`; 
-          toUnit.innerHTML += `<option value="${u}">${u}</option>`; 
-        });
-      } else {
-        Object.keys(units[selected]).forEach(u => { 
-          fromUnit.innerHTML += `<option value="${u}">${u}</option>`; 
-          toUnit.innerHTML += `<option value="${u}">${u}</option>`; 
-        });
-      }
-      
-      if (prevFrom && fromUnit.querySelector(`option[value="${prevFrom}"]`)) {
-        fromUnit.value = prevFrom;
-      }
-      if (prevTo && toUnit.querySelector(`option[value="${prevTo}"]`)) {
-        toUnit.value = prevTo;
-      } else if(toUnit.options.length > 1) {
-        toUnit.selectedIndex = 1;
+    // Fixed Fragment Optimization: Builds raw layout string metrics cleanly in memory first
+    let optionsHtml = "";
+    
+    if (selected === "temperature") {
+      optionsHtml = `<option value="Celsius">Celsius</option>
+                     <option value="Fahrenheit">Fahrenheit</option>
+                     <option value="Kelvin">Kelvin</option>`;
+    } else {
+      const keys = Object.keys(units[selected]);
+      for (let i = 0; i < keys.length; i++) {
+        optionsHtml += `<option value="${keys[i]}">${keys[i]}</option>`;
       }
     }
 
-    function handleCategoryChange() {
-      loadUnits();
-      convertUnit();
+    fromUnit.innerHTML = optionsHtml;
+    toUnit.innerHTML = optionsHtml;
+    
+    if (prevFrom && fromUnit.querySelector(`option[value="${prevFrom}"]`)) {
+      fromUnit.value = prevFrom;
+    }
+    if (prevTo && toUnit.querySelector(`option[value="${prevTo}"]`)) {
+      toUnit.value = prevTo;
+    } else if(toUnit.options.length > 1) {
+      toUnit.selectedIndex = 1;
+    }
+  };
+
+  window.handleCategoryChange = function() {
+    window.loadUnits();
+    window.convertUnit();
+  };
+
+  window.convertUnit = function() {
+    const selected = category.value;
+    const from = fromUnit.value;
+    const to = toUnit.value;
+    
+    if (!inputValue || inputValue.value === "" || inputValue.value === "-") {
+      result.innerText = `0 ${to || ''}`;
+      return;
     }
 
-    function convertUnit() {
-      const selected = category.value;
-      const from = fromUnit.value;
-      const to = toUnit.value;
-      
-      if (inputValue.value === "" || inputValue.value === "-") {
-        result.innerText = `0 ${to || ''}`;
-        return;
-      }
-
-      let value = parseFloat(inputValue.value);
-      if (isNaN(value)) { 
-        result.innerText = "Enter a valid value"; 
-        return; 
-      }
-      if (!from || !to) return;
-
-      let converted;
-      if (selected === "temperature") {
-        if (from === to) converted = value;
-        else if (from === "Celsius" && to === "Fahrenheit") converted = (value * 9 / 5) + 32;
-        else if (from === "Fahrenheit" && to === "Celsius") converted = (value - 32) * 5 / 9;
-        else if (from === "Celsius" && to === "Kelvin") converted = value + 273.15;
-        else if (from === "Kelvin" && to === "Celsius") converted = value - 273.15;
-        else if (from === "Fahrenheit" && to === "Kelvin") converted = ((value - 32) * 5 / 9) + 273.15;
-        else if (from === "Kelvin" && to === "Fahrenheit") converted = ((value - 273.15) * 9 / 5) + 32;
-      } else {
-        converted = (value * units[selected][from]) / units[selected][to];
-      }
-      
-      // Dynamic Input Vector Scaling Display Logic
-      let formattedVal;
-      const absInput = Math.abs(value);
-      if (value === 0) {
-        formattedVal = "0";
-      } else if (absInput >= 1e9 || absInput < 1e-4) {
-        formattedVal = value.toExponential(4);
-      } else {
-        formattedVal = value.toLocaleString(undefined, { maximumFractionDigits: 6 });
-      }
-      
-      // Dynamic High-Precision Output Precision Guard Configuration
-      let formattedConverted;
-      const absConverted = Math.abs(converted);
-
-      if (converted === 0) {
-        formattedConverted = "0";
-      } else if (absConverted < 1e-6 || absConverted >= 1e9) {
-        // Fall back cleanly to scientific exponential strings for extreme precision mismatches
-        formattedConverted = converted.toExponential(6);
-      } else {
-        // Retain up to 14 standard localized trailing fraction zeros smoothly
-        formattedConverted = converted.toLocaleString(undefined, { 
-          minimumFractionDigits: 0, 
-          maximumFractionDigits: 14 
-        });
-      }
-
-      result.innerText = `${formattedVal} ${from} = ${formattedConverted} ${to}`;
+    const value = parseFloat(inputValue.value);
+    if (isNaN(value)) { 
+      result.innerText = "Enter a valid value"; 
+      return; 
     }
+    if (!from || !to) return;
 
-    function swapUnits() { 
-      const t = fromUnit.value; 
-      fromUnit.value = toUnit.value; 
-      toUnit.value = t; 
-      convertUnit(); 
+    let converted;
+    if (selected === "temperature") {
+      if (from === to) converted = value;
+      else if (from === "Celsius" && to === "Fahrenheit") converted = (value * 1.8) + 32;
+      else if (from === "Fahrenheit" && to === "Celsius") converted = (value - 32) / 1.8;
+      else if (from === "Celsius" && to === "Kelvin") converted = value + 273.15;
+      else if (from === "Kelvin" && to === "Celsius") converted = value - 273.15;
+      else if (from === "Fahrenheit" && to === "Kelvin") converted = ((value - 32) / 1.8) + 273.15;
+      else if (from === "Kelvin" && to === "Fahrenheit") converted = ((value - 273.15) * 1.8) + 32;
+    } else {
+      converted = (value * units[selected][from]) / units[selected][to];
     }
     
-    function clearAll() { 
-      inputValue.value = ""; 
-      result.innerText = "0"; 
-    }
+    let formattedVal = (value === 0) ? "0" : 
+                       (Math.abs(value) >= 1e9 || Math.abs(value) < 1e-4) ? value.toExponential(4) : 
+                       value.toLocaleString(undefined, { maximumFractionDigits: 6 });
     
-    function acceptPrivacy() { 
-      localStorage.setItem("privacyAccepted", "true"); 
-      document.getElementById("privacyPopup").style.display = "none"; 
-    }
-    
-    window.addEventListener("DOMContentLoaded", function() {
-      const savedTheme = localStorage.getItem("themePreference") || "dark";
-      updateThemeButtonUI(savedTheme);
+    let formattedConverted = (converted === 0) ? "0" : 
+                             (Math.abs(converted) < 1e-6 || Math.abs(converted) >= 1e9) ? converted.toExponential(6) : 
+                             converted.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 14 });
 
-      if (localStorage.getItem("privacyAccepted") === "true") {
-        document.getElementById("privacyPopup").style.display = "none";
-      }
-      
-      loadUnits(); 
-      convertUnit();
-    });
-  </script>
-</body>
+    result.innerText = `${formattedVal} ${from} = ${formattedConverted} ${to}`;
+  };
+
+  window.swapUnits = function() { 
+    const t = fromUnit.value; 
+    fromUnit.value = toUnit.value; 
+    toUnit.value = t; 
+    window.convertUnit(); 
+  };
+  
+  window.clearAll = function() { 
+    inputValue.value = ""; 
+    result.innerText = "0"; 
+  };
+  
+  window.acceptPrivacy = function() { 
+    localStorage.setItem("privacyAccepted", "true"); 
+    document.getElementById("privacyPopup").style.display = "none"; 
+  };
+  
+  window.addEventListener("DOMContentLoaded", function() {
+    initDOMReferences();
+    const savedTheme = localStorage.getItem("themePreference") || "dark";
+    updateThemeButtonUI(savedTheme);
+
+    if (localStorage.getItem("privacyAccepted") === "true") {
+      document.getElementById("privacyPopup").style.display = "none";
+    }
+    
+    window.loadUnits(); 
+    window.convertUnit();
+  });
+})();
+</script>
+  </body>
 </html>
