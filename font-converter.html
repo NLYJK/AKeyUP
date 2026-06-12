@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Instantly convert your text into stylish, fancy Unicode fonts for Instagram, TikTok, and Twitter bios. Fast, free, and privacy-friendly.">
+  <title>Fancy Font Converter - AKeyUP</title>
+  
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico?v=3">
+
+  <style>
+    /* Theme fallbacks to ensure structural visibility */
+    html[data-theme="light"] {
+      --fallback-bg-box: #f5f5f7;
+      --fallback-bg-input: #ffffff;
+      --fallback-text: #1d1d1f;
+      --fallback-text-muted: #86868b;
+      --fallback-border: #d2d2d7;
+    }
+    html[data-theme="dark"] {
+      --fallback-bg-box: #1c1c1e;
+      --fallback-bg-input: #2c2c2e;
+      --fallback-text: #f5f5f7;
+      --fallback-text-muted: #8e8e93;
+      --fallback-border: #3a3a3c;
+    }
+
+    /* Workspace Layout Configuration */
+    .counter-box {
+      background: var(--bg-box, var(--fallback-bg-box));
+      border: 1px solid var(--border-box, var(--fallback-border));
+      border-radius: 24px;
+      padding: clamp(20px, 4vw, 45px);
+      margin-top: 20px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+      transition: background 0.3s ease, border 0.3s ease;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 22px;
+      border: 2px solid var(--border-box, var(--fallback-border));
+      border-radius: 16px;
+      background: var(--bg-input, var(--fallback-bg-input));
+      color: var(--text-main, var(--fallback-text));
+      font-size: 1.1rem;
+      font-family: inherit;
+      resize: vertical;
+      outline: none;
+      line-height: 1.5;
+      transition: border-color 0.2s ease, background 0.3s ease, color 0.3s ease;
+      margin-bottom: 20px;
+    }
+
+    textarea:focus {
+      border-color: #ff4444;
+    }
+
+    /* Action Control */
+    .action-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-box, var(--fallback-border));
+    }
+
+    /* Dynamic Results Grid */
+    .results-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .result-card {
+      background: var(--bg-input, var(--fallback-bg-input));
+      border: 1px solid var(--border-box, var(--fallback-border));
+      border-radius: 14px;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: transform 0.2s ease;
+    }
+
+    .result-card:hover {
+      border-color: #ff4444;
+    }
+
+    .result-header {
+      font-size: 0.85rem;
+      color: var(--text-muted, var(--fallback-text-muted));
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+
+    .result-content-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .result-text {
+      font-size: 1.2rem;
+      color: var(--text-main, var(--fallback-text));
+      word-break: break-word;
+      flex-grow: 1;
+    }
+
+    .copy-btn {
+      background: rgba(255, 68, 68, 0.1);
+      color: #ff4444;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .copy-btn:hover {
+      background: #ff4444;
+      color: white;
+    }
+
+    .status-panel {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 0.95rem;
+      font-weight: 600;
+      min-height: 24px;
+      color: #00ff99;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .status-panel.show {
+      opacity: 1;
+    }
+
+    /* Integrated Inline Theme Switcher Module */
+    .theme-inline-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 35px;
+      border-top: 1px solid var(--border-box, var(--fallback-border));
+      padding-top: 20px;
+    }
+
+    .theme-inline-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      width: auto;
+      background: var(--bg-main, var(--fallback-bg-box));
+      border: 1px solid var(--border-box, var(--fallback-border));
+      color: var(--text-main, var(--fallback-text));
+      padding: 12px 24px;
+      font-size: 0.95rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .theme-inline-btn:hover {
+      background: var(--bg-input, var(--fallback-bg-input));
+      transform: translateY(-1px);
+    }
+    /* Updated Content Row to align items to the top when expanded */
+    .result-content-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start; /* Changed from center to flex-start */
+      gap: 15px;
+    }
+
+    /* Container to stack the text and the "Show More" button */
+    .result-text-container {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 0; /* Prevents flexbox overflow */
+    }
+
+    /* The actual text with Line Clamping applied */
+    .result-text {
+      font-size: 1.2rem;
+      color: var(--text-main, var(--fallback-text));
+      word-break: break-word;
+      
+      /* Default to collapsed state */
+      display: -webkit-box;
+      -webkit-line-clamp: 3; /* Show only 3 lines max */
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* When the user clicks Show More */
+    .result-text.expanded {
+      display: block;
+      -webkit-line-clamp: unset;
+    }
+
+    /* The Show More / Show Less button styles */
+    .toggle-text-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted, var(--fallback-text-muted));
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-align: left;
+      padding: 0;
+      cursor: pointer;
+      text-decoration: underline;
+      align-self: flex-start;
+      transition: color 0.2s ease;
+    }
+
+    .toggle-text-btn:hover {
+      color: var(--text-main, var(--fallback-text));
+    }
+  </style>
+  <script src="cookie-banner.js"></script>
+</head>
+
+<body>
+
+<div class="menu-container">
+  <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">⋮</button>
+  <div class="menu" id="menu">
+    <a href="index.html">Home</a>
+    <a href="blog.html">Blog</a>
+    <a href="tool.html">Tools</a>
+    <a href="donation.html">Donation</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</div>
+
+<div class="wrapper">
+
+  <header style="text-align: center; margin-top: 40px; margin-bottom: 40px;">
+    <h1 class="title">Fancy Font Converter</h1>
+    <p class="subtitle">Type your text below to instantly generate stylish fonts for your social media bios and posts.</p>
+  </header>
+
+  <main>
+    <div class="counter-box">
+      <textarea id="textInput" placeholder="Type your text here..." spellcheck="false"></textarea>
+
+      <div class="action-row">
+        <button class="btn btn-neutral" onclick="clearText()" style="background: transparent; border-color: var(--border-box, var(--fallback-border));">🗑 Clear Input</button>
+      </div>
+
+      <div class="results-container" id="resultsContainer">
+        </div>
+
+      <div class="status-panel" id="statusPanel">Copied to clipboard!</div>
+
+      <div class="theme-inline-container">
+        <button class="theme-inline-btn" onclick="toggleTheme()">
+          <span id="themeIcon">🌓</span>
+          <span id="themeText">Switch Theme</span>
+        </button>
+      </div>
+    </div>
+    <div class="ad-wrapper">
+<span class="ad-label">Sponsored</span>
+<div class="ad-container-box">
+<script async="async" data-cfasync="false" src="https://pl29654694.effectivecpmnetwork.com/6a875cdb30ed7e51fd4cbea9c261ab87/invoke.js"></script>
+<div id="container-6a875cdb30ed7e51fd4cbea9c261ab87"></div>
+</div>
+</div>
+
+    <div class="btn-container" style="text-align: center; margin-top: 30px;">
+      <a href="tool.html" class="btn btn-neutral">⬅ Back to Tools</a>
+    </div>
+
+    <section class="content-box" style="text-align: left; margin-top: 50px;">
+      <h2 class="section-title">How It Works</h2>
+      <p class="subtitle" style="margin: 0 0 15px 0; text-align: left;">This tool uses standard Unicode characters to create visually unique styles. Because these are actual text symbols (not image-based fonts), you can safely copy and paste them directly into platforms like Instagram, Twitter/X, TikTok, and Facebook without needing to install anything on your device.</p>
+    </section>
+  </main>
+
+  <footer>
+    © 2026-Present AKeyUP. All rights reserved.
+  </footer>
+</div>
+
+<script>
+/* Menu Navigation Logic */
+function toggleMenu() {
+  document.getElementById("menu").classList.toggle("show");
+}
+
+document.addEventListener("click", function(event) {
+  const menu = document.getElementById("menu");
+  const button = document.getElementById("menuBtn");
+  if (menu && button) {
+    if (!menu.contains(event.target) && !button.contains(event.target)) {
+      menu.classList.remove("show");
+    }
+  }
+});
+
+/* Theme Switching Logic */
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute("data-theme");
+  const targetTheme = currentTheme === "light" ? "dark" : "light";
+  document.documentElement.setAttribute("data-theme", targetTheme);
+  localStorage.setItem("themePreference", targetTheme);
+  updateThemeButtonUI(targetTheme);
+}
+
+function updateThemeButtonUI(theme) {
+  const textNode = document.getElementById("themeText");
+  const iconNode = document.getElementById("themeIcon");
+  if (theme === "light") {
+    textNode.innerText = "Switch to Dark Mode";
+    iconNode.innerText = "🌙";
+  } else {
+    textNode.innerText = "Switch to Light Mode";
+    iconNode.innerText = "☀️";
+  }
+}
+
+/* Font Generator Core Logic */
+const normalAlphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+// We use Array.from() in the rendering loop because standard JS strings 
+// do not correctly split Unicode characters (like bold mathematical symbols) natively.
+const stylesData = [
+  { name: "Bold", chars: "𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭" },
+  { name: "Italic", chars: "𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟𝘠𝘡" },
+  { name: "Bold Italic", chars: "𝙖𝙗𝙘𝙙𝙚𝙛𝙜𝙝𝙞𝙟𝙠𝙡𝙢𝙣𝙤𝙥𝙦𝙧𝙨𝙩𝙪𝙫𝙬𝙭𝙮𝙯𝘼𝘽𝘾𝘿𝙀𝙁𝙂𝙃𝙄𝙅𝙆𝙇𝙈𝙉𝙊𝙋𝙌𝙍𝙎𝙏𝙐𝙑𝙒𝙓𝙔𝙕" },
+  { name: "Cursive", chars: "𝒶𝒷𝒸𝒹𝑒𝒻𝑔𝒽𝒾𝒿𝓀𝓁𝓂𝓃𝑜𝓅𝓆𝓇𝓈𝓉𝓊𝓋𝓌𝓍𝓎𝓏𝒜𝐵𝒞𝒟𝐸𝐹𝒢𝐻𝐼𝒥𝒦𝐿𝑀𝒩𝒪𝒫𝒬𝑅𝒮𝒯𝒰𝒱𝒲𝒳𝒴𝒵" },
+  { name: "Monospace", chars: "𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉" },
+  { name: "Double Struck", chars: "𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫𝔸𝔹ℂ𝔻𝔼𝔽𝔾ℍ𝕀𝕁𝕂𝕃𝕄ℕ𝕆ℙℚℝ𝕊𝕋𝕌𝕍𝕎𝕏𝕐ℤ" },
+  { name: "Fraktur", chars: "𝔞𝔟𝔠𝔡𝔢𝔣𝔤𝔥𝔦𝔧𝔨𝔩𝔪𝔫𝔬𝔭𝔮𝔯𝔰𝔱𝔲𝔳𝔴𝔵𝔶𝔷𝔄𝔅ℭ𝔇𝔈𝔉𝔊ℌℑ𝔍𝔎𝔏𝔐𝔑𝔒𝔓𝔔ℜ𝔖𝔗𝔘𝔙𝔚𝔛𝔜ℨ" },
+  { name: "Circled", chars: "ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏ" }
+];
+
+const inputArea = document.getElementById("textInput");
+const resultsContainer = document.getElementById("resultsContainer");
+const statusPanel = document.getElementById("statusPanel");
+
+function convertString(text, targetAlphabet) {
+  const targetChars = Array.from(targetAlphabet);
+  return text.split('').map(char => {
+    const index = normalAlphabet.indexOf(char);
+    return index !== -1 ? targetChars[index] : char;
+  }).join('');
+}
+
+function renderResults() {
+  const text = inputArea.value;
+  resultsContainer.innerHTML = ""; // Clear existing
+
+  if (!text.trim()) {
+    return; // Leave grid empty if no text
+  }
+
+  stylesData.forEach(style => {
+    const convertedText = convertString(text, style.chars);
+    
+    // Build Card Structure
+    const card = document.createElement("div");
+    card.className = "result-card";
+    
+    const header = document.createElement("div");
+    header.className = "result-header";
+    header.innerText = style.name;
+
+    const row = document.createElement("div");
+    row.className = "result-content-row";
+
+    // Create a container just for the text and toggle button
+    const textContainer = document.createElement("div");
+    textContainer.className = "result-text-container";
+
+    const textDiv = document.createElement("div");
+    textDiv.className = "result-text";
+    textDiv.innerText = convertedText;
+    textContainer.appendChild(textDiv);
+
+    // Add "Show More" toggle if text is long
+    if (convertedText.length > 100) {
+      const toggleBtn = document.createElement("button");
+      toggleBtn.className = "toggle-text-btn";
+      toggleBtn.innerText = "Show More";
+      
+      toggleBtn.onclick = () => {
+        if (textDiv.classList.contains("expanded")) {
+          textDiv.classList.remove("expanded");
+          toggleBtn.innerText = "Show More";
+        } else {
+          textDiv.classList.add("expanded");
+          toggleBtn.innerText = "Show Less";
+        }
+      };
+      textContainer.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement("button");
+    copyBtn.className = "copy-btn";
+    copyBtn.innerText = "Copy";
+    copyBtn.onclick = () => copyToClipboard(convertedText, copyBtn);
+
+    row.appendChild(textContainer);
+    row.appendChild(copyBtn);
+    card.appendChild(header);
+    card.appendChild(row);
+    
+    resultsContainer.appendChild(card);
+  });
+}
+async function copyToClipboard(text, btnElement) {
+  try {
+    await navigator.clipboard.writeText(text);
+    
+    // Visual feedback on the specific button
+    const originalText = btnElement.innerText;
+    btnElement.innerText = "Copied!";
+    btnElement.style.background = "#ff4444";
+    btnElement.style.color = "white";
+    
+    // Status panel feedback
+    statusPanel.classList.add("show");
+
+    setTimeout(() => {
+      btnElement.innerText = originalText;
+      btnElement.style.background = "";
+      btnElement.style.color = "";
+      statusPanel.classList.remove("show");
+    }, 2000);
+  } catch (err) {
+    console.error("Failed to copy text: ", err);
+  }
+}
+
+function clearText() {
+  inputArea.value = "";
+  renderResults();
+  inputArea.focus();
+}
+
+// Event Listeners
+inputArea.addEventListener("input", renderResults);
+
+window.addEventListener("DOMContentLoaded", function(){
+  const savedTheme = localStorage.getItem("themePreference") || "dark";
+  document.documentElement.setAttribute("data-theme", savedTheme);
+  updateThemeButtonUI(savedTheme);
+  
+  // Initialize with empty state (or sample text if desired)
+  inputArea.value = "AKeyUP Web Utilities";
+  renderResults();
+});
+</script>
+
+</body>
+</html>
