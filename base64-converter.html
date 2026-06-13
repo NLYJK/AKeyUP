@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-
-<html data-theme="dark" lang="en">
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="Secure, client-side Base64 encoder and decoder utility by AKeyUP." name="description"/>
-<title>Base64 Encoder &amp; Decoder - AKeyUP Tools</title>
-<link href="style.css" rel="stylesheet"/>
-<link href="/favicon.ico?v=3" rel="icon" type="image/x-icon"/>
-<style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Secure, client-side Base64 encoder and decoder utility by AKeyUP.">
+  <title>Base64 Encoder & Decoder - AKeyUP Tools</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico?v=3">
+
+  <style>
     /* ==========================================================================
        Theme Override Token Extensions
        ========================================================================== */
@@ -240,76 +241,93 @@
       text-decoration: underline !important;
     }
   </style>
-<script src="cookie-banner.js"></script>
+  <script src="cookie-banner.js"></script>
 </head>
+
 <body>
-<div class="menu-container">
-<button aria-label="Toggle Menu" class="menu-btn">⋮</button>
-<div class="menu" id="menu">
-<a href="index.html">Home</a>
-<a href="blog.html">Blog</a>
-<a href="donation.html">Donation</a>
-<a href="tool.html">Tools</a>
-<a href="privacy-policy.html">Privacy Policy</a>
-<a href="terms.html">Terms of Service</a>
-<a href="about.html">About</a>
-<a href="contact.html">Contact</a>
-</div>
-</div>
-<div class="wrapper wrapper-narrow">
-<header>
-<h1 class="title">Base64 Converter</h1>
-<p class="subtitle">Convert text or files to Base64 and decode Base64 back into readable text.</p>
-</header>
-<main>
-<div class="content-box">
-<div class="converter-layout">
-<div class="status-toast" id="statusBox"></div>
-<div class="content-section">
-<h2>Input Plain Text / Base64 Payload</h2>
-<textarea class="textarea-control" id="rawInput" placeholder="Paste source contents or encoded strings here... (Ctrl + Enter to encode)"></textarea>
-</div>
-<label class="file-drop-zone" id="dropZone">
-<span id="dropZoneText">Optional: Drag &amp; drop a file here or click to upload to generate its Base64 Data URL</span>
-<input id="fileInput" type="file"/>
-</label>
-<div class="flex-group">
-<button class="btn btn-accent" id="encodeBtn">🔒 Encode Base64</button>
-<button class="btn btn-accent" id="decodeBtn">🔓 Decode Base64</button>
-</div>
-<hr/>
-<div class="content-section">
-<h2>Output Results</h2>
-<textarea class="textarea-control" id="rawOutput" placeholder="Your transformed output string will appear here..." readonly=""></textarea>
-</div>
-<div class="flex-group">
-<button class="btn btn-neutral" id="copyBtn">📋 Copy Output</button>
-<button class="btn btn-neutral" id="clearBtn">🗑️ Clear</button>
-</div>
-</div>
-</div>
 
-<div class="theme-inline-container">
-<button class="btn theme-inline-btn" onclick="toggleTheme()">
-<span id="themeIcon">🌓</span>
-<span id="themeText">Switch Interface Theme</span>
-</button>
-</div>
+  <div class="menu-container">
+    <button class="menu-btn" aria-label="Toggle Menu">⋮</button>
+    <div class="menu" id="menu">
+      <a href="index.html">Home</a>
+      <a href="blog.html">Blog</a>
+      <a href="donation.html">Donation</a>
+      <a href="tool.html">Tools</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
 
-<div class="legal-container">
-<p class="legal-disclaimer">
+  <div class="wrapper wrapper-narrow">
+
+    <header>
+      <h1 class="title">Base64 Converter</h1>
+      <p class="subtitle">Convert text or files to Base64 and decode Base64 back into readable text.</p>
+    </header>
+
+    <main>
+      <div class="content-box">
+        <div class="converter-layout">
+          
+          <div class="status-toast" id="statusBox"></div>
+
+          <div class="content-section">
+            <h2>Input Plain Text / Base64 Payload</h2>
+            <textarea class="textarea-control" id="rawInput" placeholder="Paste source contents or encoded strings here... (Ctrl + Enter to encode)"></textarea>
+          </div>
+
+          <label class="file-drop-zone" id="dropZone">
+            <span id="dropZoneText">Optional: Drag & drop a file here or click to upload to generate its Base64 Data URL</span>
+            <input type="file" id="fileInput">
+          </label>
+
+          <div class="flex-group">
+            <button class="btn btn-accent" id="encodeBtn">🔒 Encode Base64</button>
+            <button class="btn btn-accent" id="decodeBtn">🔓 Decode Base64</button>
+          </div>
+
+          <hr>
+
+          <div class="content-section">
+            <h2>Output Results</h2>
+            <textarea class="textarea-control" id="rawOutput" placeholder="Your transformed output string will appear here..." readonly></textarea>
+          </div>
+
+          <div class="flex-group">
+            <button class="btn btn-neutral" id="copyBtn">📋 Copy Output</button>
+            <button class="btn btn-neutral" id="clearBtn">🗑️ Clear</button>
+          </div>
+
+        </div>
+      </div> 
+
+      <div class="theme-inline-container">
+        <button class="theme-inline-btn" onclick="toggleTheme()">
+          <span id="themeIcon">🌓</span>
+          <span id="themeText">Switch Theme</span>
+        </button>
+      </div>
+
+      <div class="legal-container">
+        <p class="legal-disclaimer">
           By using any tool, you agree to our <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.
         </p>
-</div>
-<div class="btn-container">
-<a class="btn btn-neutral" href="tool.html">⬅ Back to Tools</a>
-</div>
-</main>
-<footer class="page-footer">
+      </div>
+
+      <div class="btn-container">
+        <a href="tool.html" class="btn btn-neutral">⬅ Back to Tools</a>
+      </div>
+    </main>
+
+    <footer class="page-footer">
       © 2026-Present AKeyUP. All rights reserved.
     </footer>
-</div>
-<script>
+
+  </div>
+
+  <script>
     /* Light / Dark Theme Switching Logic Modules */
     function toggleTheme() {
       const currentTheme = document.documentElement.getAttribute("data-theme");
@@ -496,5 +514,6 @@
       });
     });
   </script>
+
 </body>
 </html>
