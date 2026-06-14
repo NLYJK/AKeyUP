@@ -1,172 +1,129 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Secure, client-side Base64 encoder and decoder utility by AKeyUP.">
-  <title>Base64 Encoder & Decoder - AKeyUP Tools</title>
+  <meta name="keywords" content="base64 encoder, base64 decoder, base64 converter, online base64, encode decode, file to base64">
+  <meta name="author" content="AKeyUP">
+  <meta name="robots" content="index, follow">
+  <title>Base64 Encoder &amp; Decoder - AKeyUP Tools</title>
+
+  <script>
+    (function () {
+      const saved = localStorage.getItem("themePreference") || "dark";
+      document.documentElement.setAttribute("data-theme", saved);
+    })();
+  </script>
 
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="/favicon.ico?v=3">
 
   <style>
-    /* ==========================================================================
-       Theme Override Token Extensions
-       ========================================================================== */
-    /* Dark Theme Token Enforcement Updates */
-    :root, html, html[data-theme="dark"] {
-      --bg-main: #000000;
-      --bg-box: #0a0a0a;
-      --text-main: #f5f5f7;
-      --text-muted: #8e8e93;
-      --border-box: #222222;
-      --border-input: #333333;
-      --bg-input: #111111;
-      --drop-zone-bg: rgba(20, 20, 20, 0.3);
-      --btn-neutral-bg: #222222;
-      --btn-neutral-hover: #333333;
-    }
-
-    /* Light Theme Token Enforcement Updates */
-    html[data-theme="light"] {
-      --bg-main: #f5f5f7;
-      --bg-box: #ffffff;
-      --text-main: #1d1d1f;
-      --text-muted: #86868b;
-      --border-box: #e5e5ea;
-      --border-input: #d2d2d7;
-      --bg-input: #fbfbfd;
-      --drop-zone-bg: rgba(0, 0, 0, 0.02);
-      --btn-neutral-bg: #e5e5ea;
-      --btn-neutral-hover: #d1d1d6;
-    }
-
-    /* ==========================================================================
-       Global Component Layout Fixes (Overriding style.css Gradients)
-       ========================================================================== */
-    html, body, .wrapper{
-      background: var(--bg-main) !important;
-      color: var(--text-main) !important;
-      transition: background 0.3s ease, color 0.3s ease;
-    }
-
-    /* Neutralize the style.css background linear gradients */
-    .content-box {
-      background: var(--bg-box) !important; 
-      border: 1px solid var(--border-box) !important;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2) !important;
-      transition: background 0.3s ease, border-color 0.3s ease;
-    }
-
-    /* Force section titles to shift between white/dark instead of locking red */
-    .content-section h2 {
-      color: var(--text-main) !important;
-      border: none !important;
-      padding: 0 !important;
-      margin-bottom: 12px;
-      font-size: 1.3rem;
-      font-weight: 700;
-      text-align: left;
-    }
-
-    .subtitle, #dropZoneText {
-      color: var(--text-muted) !important;
-    }
-
-    hr {
-      border: 0;
-      border-top: 1px solid var(--border-box) !important;
-      margin: 20px 0;
-    }
-
-    /* ==========================================================================
-       Base64 Converter Layouts & Specific Structural Controls
-       ========================================================================== */
-    .converter-layout {
+    .converter-interface {
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 22px;
     }
 
-    .flex-group {
+    .converter-interface label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      color: var(--text-muted);
+    }
+
+    .textarea-control {
+      width: 100%;
+      min-height: 140px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-interactive);
+      border-radius: 10px;
+      padding: 14px;
+      color: var(--text-main);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9rem;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .textarea-control:focus {
+      border-color: #ff4444;
+      box-shadow: 0 0 0 2px rgba(255, 68, 68, 0.15);
+    }
+
+    .file-drop-zone {
+      border: 2px dashed var(--border-interactive);
+      border-radius: 10px;
+      padding: 22px 20px;
+      text-align: center;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+      display: block;
+      font-size: 0.9rem;
+    }
+
+    .file-drop-zone:hover,
+    .file-drop-zone.dragover {
+      border-color: #ff4444;
+      background: rgba(255, 68, 68, 0.04);
+      color: var(--text-main);
+    }
+
+    .file-drop-zone input { display: none; }
+
+    .action-row {
       display: flex;
-      gap: 16px;
-      margin-bottom: 12px;
       flex-wrap: wrap;
+      gap: 14px;
     }
 
-    .flex-group .btn {
+    .action-row .btn {
       flex: 1;
       min-width: 140px;
     }
 
-    /* Input Textareas Control Layout */
-    .textarea-control {
-      width: 100%;
-      min-height: 160px;
-      background: var(--bg-input) !important;
-      border: 1px solid var(--border-input) !important;
+    .terminal-output {
+      background: #050505;
+      border: 1px solid var(--border-box);
       border-radius: 12px;
-      padding: 16px;
-      color: var(--text-main) !important;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      font-size: 0.95rem;
-      resize: vertical;
-      outline: none;
-      box-sizing: border-box;
-      transition: border-color 0.2s, box-shadow 0.2s, background-color 0.3s, color 0.3s;
+      padding: 20px 25px 16px;
     }
 
-    .textarea-control:focus {
-      border-color: #ff4444 !important;
-      box-shadow: 0 0 0 3px rgba(255, 68, 68, 0.15) !important;
+    [data-theme="light"] .terminal-output {
+      background: #f0f0f2;
     }
 
-    /* Drop Zone File Wrapper */
-    .file-drop-zone {
-      border: 2px dashed var(--border-input) !important;
-      border-radius: 12px;
-      padding: 24px;
+    .terminal-output .textarea-control {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      min-height: 110px;
+    }
+
+    .terminal-output .textarea-control:focus {
+      box-shadow: none;
+    }
+
+    .terminal-output p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 8px;
       text-align: center;
-      background: var(--drop-zone-bg) !important;
-      color: var(--text-muted) !important;
-      cursor: pointer;
-      transition: border-color 0.2s, background 0.3s, color 0.2s;
-      margin-bottom: 20px;
-      display: block;
     }
 
-    .file-drop-zone.dragover {
-      border-color: #ff4444 !important;
-      background: rgba(255, 68, 68, 0.05) !important;
-      color: var(--text-main) !important;
-    }
-
-    .file-drop-zone input {
-      display: none;
-    }
-
-    /* Specialized Button Normalization Overrides */
-    .btn-neutral {
-      background: var(--btn-neutral-bg) !important;
-      color: var(--text-main) !important;
-      border: 1px solid var(--border-box) !important;
-    }
-
-    .btn-neutral:hover {
-      background: var(--btn-neutral-hover) !important;
-      color: var(--text-main) !important;
-    }
-
-    /* Status Notification Modals */
     .status-toast {
       border-radius: 8px;
       padding: 12px 16px;
       font-size: 0.9rem;
       font-weight: 600;
       display: none;
-      margin-bottom: 16px;
-      text-align: left;
     }
 
     .status-toast.error {
@@ -176,81 +133,63 @@
     }
 
     .status-toast.success {
-      color: #00ff99;
-      background: rgba(0, 255, 153, 0.08);
-      border: 1px solid rgba(0, 255, 153, 0.2);
+      color: #00e676;
+      background: rgba(0, 230, 118, 0.08);
+      border: 1px solid rgba(0, 230, 118, 0.2);
     }
 
-    /* Theme Selector Button Adjustments */
+    hr.section-divider {
+      border: 0;
+      border-top: 1px solid var(--border-box);
+    }
+
     .theme-inline-container {
-      margin-top: 25px;
-      text-align: center;
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
     }
 
     .theme-inline-btn {
-      background: transparent !important;
-      border: 1px solid var(--border-box) !important;
-      color: var(--text-muted) !important;
-      padding: 8px 16px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 0.88rem;
-      display: inline-flex;
+      background: transparent;
+      border: 1px dashed var(--border-interactive);
+      color: var(--text-light);
+      font-size: 0.9rem;
+      padding: 10px 20px;
+      display: flex;
       align-items: center;
-      gap: 6px;
-      transition: color 0.2s, border-color 0.2s;
+      gap: 10px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
     }
 
     .theme-inline-btn:hover {
-      color: var(--text-main) !important;
-      border-color: var(--text-muted) !important;
+      border-color: #ff4444;
+      color: var(--text-inverse);
+      background: var(--bg-input);
     }
 
-    /* ==========================================================================
-       Legal Alignment Fixes & Layout Structures
-       ========================================================================== */
-    .legal-container {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      margin-top: 40px;
-      margin-bottom: 10px;
-      box-sizing: border-box;
+    .btn-secondary {
+      background: var(--bg-input);
+      color: var(--text-main);
+      border: 1px solid var(--border-box);
     }
 
-    .legal-disclaimer {
-      color: var(--text-muted) !important;
-      font-size: 0.85rem;
-      margin: 0 auto !important;
-      text-align: center !important;
-      display: block !important;
-      max-width: 600px;
-      line-height: 1.6;
-    }
-
-    .legal-disclaimer a {
-      color: #ff4444 !important;
-      text-decoration: none;
-      font-weight: 600;
-      display: inline !important;
-    }
-
-    .legal-disclaimer a:hover {
-      text-decoration: underline !important;
+    .btn-secondary:hover {
+      border-color: #ff4444;
     }
   </style>
-  <script src="cookie-banner.js"></script>
+
+  <script src="cookie-banner.js" defer></script>
 </head>
 
 <body>
 
   <div class="menu-container">
-    <button class="menu-btn" aria-label="Toggle Menu">⋮</button>
+    <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">&#8942;</button>
     <div class="menu" id="menu">
       <a href="index.html">Home</a>
-      <a href="blog.html">Blog</a>
+      <a href="blog.html">Blogs</a>
       <a href="donation.html">Donation</a>
       <a href="tool.html">Tools</a>
       <a href="privacy-policy.html">Privacy Policy</a>
@@ -264,255 +203,254 @@
 
     <header>
       <h1 class="title">Base64 Converter</h1>
-      <p class="subtitle">Convert text or files to Base64 and decode Base64 back into readable text.</p>
+      <p class="subtitle">Encode text or files to Base64, and decode Base64 strings back to readable output &mdash; entirely inside your browser.</p>
     </header>
 
     <main>
-      <div class="content-box">
-        <div class="converter-layout">
-          
+      <section class="content-box">
+        <div class="converter-interface">
+
           <div class="status-toast" id="statusBox"></div>
 
-          <div class="content-section">
-            <h2>Input Plain Text / Base64 Payload</h2>
-            <textarea class="textarea-control" id="rawInput" placeholder="Paste source contents or encoded strings here... (Ctrl + Enter to encode)"></textarea>
+          <div>
+            <label for="rawInput">Input &mdash; Plain Text or Base64 Payload</label>
+            <textarea class="textarea-control" id="rawInput"
+              placeholder="Paste text to encode, or a Base64 string to decode... (Ctrl + Enter to encode)"></textarea>
           </div>
 
           <label class="file-drop-zone" id="dropZone">
-            <span id="dropZoneText">Optional: Drag & drop a file here or click to upload to generate its Base64 Data URL</span>
+            <span id="dropZoneText">Optional: drag &amp; drop a file here, or click to upload &mdash; generates a Base64 Data URL</span>
             <input type="file" id="fileInput">
           </label>
 
-          <div class="flex-group">
-            <button class="btn btn-accent" id="encodeBtn">🔒 Encode Base64</button>
+          <div class="action-row">
+            <button class="btn btn-accent" id="encodeBtn">🔒 Encode to Base64</button>
             <button class="btn btn-accent" id="decodeBtn">🔓 Decode Base64</button>
           </div>
 
-          <hr>
+          <hr class="section-divider">
 
-          <div class="content-section">
-            <h2>Output Results</h2>
-            <textarea class="textarea-control" id="rawOutput" placeholder="Your transformed output string will appear here..." readonly></textarea>
+          <div>
+            <label for="rawOutput">Output Results</label>
+            <div class="terminal-output">
+              <textarea class="textarea-control" id="rawOutput"
+                placeholder="Your converted output will appear here..."
+                readonly></textarea>
+              <p>All processing happens locally in your browser &mdash; no data is transmitted or stored.</p>
+            </div>
           </div>
 
-          <div class="flex-group">
+          <div class="action-row">
             <button class="btn btn-neutral" id="copyBtn">📋 Copy Output</button>
-            <button class="btn btn-neutral" id="clearBtn">🗑️ Clear</button>
+            <button class="btn btn-neutral" id="clearBtn">🗑️ Clear All</button>
           </div>
 
         </div>
-      </div> 
+      </section>
 
       <div class="theme-inline-container">
-        <button class="theme-inline-btn" onclick="toggleTheme()">
+        <button class="btn theme-inline-btn" onclick="toggleTheme()">
           <span id="themeIcon">🌓</span>
-          <span id="themeText">Switch Theme</span>
+          <span id="themeText">Switch Interface Theme</span>
         </button>
       </div>
 
-      <div class="legal-container">
-        <p class="legal-disclaimer">
-          By using any tool, you agree to our <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.
-        </p>
-      </div>
-
-      <div class="btn-container">
-        <a href="tool.html" class="btn btn-neutral">⬅ Back to Tools</a>
+      <div style="text-align: center; margin-top: 30px;">
+        <a href="tool.html" class="btn btn-secondary">&#x2B05; Back to Tools</a>
       </div>
     </main>
 
     <footer class="page-footer">
-      © 2026-Present AKeyUP. All rights reserved.
+      &copy; 2026-Present AKeyUP. All rights reserved.
     </footer>
 
   </div>
 
   <script>
-    /* Light / Dark Theme Switching Logic Modules */
-    function toggleTheme() {
-      const currentTheme = document.documentElement.getAttribute("data-theme");
-      const targetTheme = currentTheme === "light" ? "dark" : "light";
-      
-      document.documentElement.setAttribute("data-theme", targetTheme);
-      localStorage.setItem("themePreference", targetTheme);
-      updateThemeButtonUI(targetTheme);
-    }
+    (function () {
+      'use strict';
 
-    function updateThemeButtonUI(theme) {
-      const textNode = document.getElementById("themeText");
-      const iconNode = document.getElementById("themeIcon");
-      if (theme === "light") {
-        textNode.innerText = "Switch to Dark Mode";
-        iconNode.innerText = "🌙";
-      } else {
-        textNode.innerText = "Switch to Light Mode";
-        iconNode.innerText = "☀️";
-      }
-    }
+      /* ── Menu ─────────────────────────────────────────────────────── */
+      window.toggleMenu = function () {
+        document.getElementById("menu").classList.toggle("show");
+      };
 
-    // Global Element Hooks
-    const inputField = document.getElementById('rawInput');
-    const outputField = document.getElementById('rawOutput');
-    const statusBox = document.getElementById('statusBox');
-    const dropZone = document.getElementById('dropZone');
-    const fileInput = document.getElementById('fileInput');
-    const dropZoneText = document.getElementById('dropZoneText');
-
-    /* UI Status Notifications Contexts */
-    function showError(msg) {
-      statusBox.textContent = msg; 
-      statusBox.className = "status-toast error";
-      statusBox.style.display = 'block';
-    }
-
-    function showSuccess(msg) {
-      statusBox.textContent = msg; 
-      statusBox.className = "status-toast success";
-      statusBox.style.display = 'block';
-    }
-
-    function hideStatus() {
-      statusBox.style.display = 'none';
-    }
-
-    /* Dropdown UI Toggle Logic */
-    function toggleMenu() {
-      const menu = document.getElementById("menu");
-      if (menu) {
-        menu.classList.toggle("show");
-      }
-    }
-
-    // Format File sizes dynamically
-    function formatFileSize(bytes) {
-      if (bytes < 1024) return bytes + " B";
-      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
-      return (bytes / (1024 * 1024)).toFixed(1) + " MB";
-    }
-
-    /* Core Conversions Engines */
-    function processEncode() {
-      hideStatus();
-      const str = inputField.value;
-      if (!str) return;
-      try {
-        const bytes = new TextEncoder().encode(str);
-        let binString = "";
-        bytes.forEach(byte => binString += String.fromCharCode(byte));
-        outputField.value = btoa(binString);
-      } catch(err) {
-        showError("Failed to encode the text.");
-      }
-    }
-
-    function processDecode() {
-      hideStatus();
-      const base64Str = inputField.value.trim().replace(/\s/g, '');
-      if (!base64Str) return;
-      try {
-        const binString = atob(base64Str);
-        const bytes = new Uint8Array(binString.length);
-        for (let i = 0; i < binString.length; i++) {
-          bytes[i] = binString.charCodeAt(i);
+      document.addEventListener("click", function (e) {
+        const menu = document.getElementById("menu");
+        const btn  = document.getElementById("menuBtn");
+        if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) {
+          menu.classList.remove("show");
         }
-        outputField.value = new TextDecoder().decode(bytes);
-      } catch(err) {
-        showError("Invalid Base64 input.");
-        outputField.value = "";
-      }
-    }
+      });
 
-    function handleFile(file) {
-      if (!file) return;
-      hideStatus();
-      const reader = new FileReader();
-      dropZoneText.textContent = `File: ${file.name} (${formatFileSize(file.size)})`;
-      
-      reader.onload = function(e) {
-        inputField.value = `[File Target: ${file.name}]`;
-        outputField.value = e.target.result;
+      /* ── Theme ────────────────────────────────────────────────────── */
+      window.toggleTheme = function () {
+        const current = document.documentElement.getAttribute("data-theme");
+        const next    = current === "light" ? "dark" : "light";
+        document.documentElement.setAttribute("data-theme", next);
+        localStorage.setItem("themePreference", next);
+        updateThemeUI(next);
       };
-      reader.onerror = function() {
-        showError("Failed to parse local system files.");
-      };
-      reader.readAsDataURL(file);
-    }
 
-    function copyOutput() {
-      if (!outputField.value) return;
-      navigator.clipboard.writeText(outputField.value)
-        .then(() => showSuccess("Copied to clipboard."))
-        .catch(() => showError("System blocks restricted clipboard operations."));
-    }
-
-    function clearAll() {
-      hideStatus();
-      inputField.value = "";
-      outputField.value = "";
-      fileInput.value = "";
-      dropZoneText.textContent = "Optional: Drag & drop a file here or click to upload to generate its Base64 Data URL";
-    }
-
-    /* Framework Initialization Lifecycle Hook */
-    window.addEventListener("DOMContentLoaded", function(){
-      const menu = document.getElementById("menu");
-      const menuToggleBtn = document.querySelector(".menu-btn");
-
-      // Pull theme preference from localStorage on page load
-      const savedTheme = localStorage.getItem("themePreference") || "dark";
-      document.documentElement.setAttribute("data-theme", savedTheme);
-      updateThemeButtonUI(savedTheme);
-
-      if (menuToggleBtn) {
-        menuToggleBtn.addEventListener("click", function(event) {
-          event.stopPropagation();
-          toggleMenu();
-        });
+      function updateThemeUI(theme) {
+        const text = document.getElementById("themeText");
+        const icon = document.getElementById("themeIcon");
+        if (!text || !icon) return;
+        if (theme === "light") {
+          text.innerText = "Switch to Dark Mode";
+          icon.innerText = "🌙";
+        } else {
+          text.innerText = "Switch to Light Mode";
+          icon.innerText = "☀️";
+        }
       }
 
-      document.addEventListener("click", function(event) {
-        if (menu && menu.classList.contains("show")) {
-          if (!menu.contains(event.target) && (!menuToggleBtn || !menuToggleBtn.contains(event.target))) {
-            menu.classList.remove("show");
+      /* ── DOM refs ─────────────────────────────────────────────────── */
+      let inputField, outputField, statusBox, dropZone, fileInput, dropZoneText;
+      let pendingFileBase64 = null;
+
+      /* ── Status helpers ───────────────────────────────────────────── */
+      function showStatus(msg, type) {
+        statusBox.textContent   = msg;
+        statusBox.className     = "status-toast " + type;
+        statusBox.style.display = "block";
+      }
+      function showError(msg)   { showStatus(msg, "error"); }
+      function showSuccess(msg) { showStatus(msg, "success"); }
+      function hideStatus()     { statusBox.style.display = "none"; }
+
+      function formatFileSize(bytes) {
+        if (bytes < 1024)    return bytes + " B";
+        if (bytes < 1048576) return (bytes / 1024).toFixed(1) + " KB";
+        return (bytes / 1048576).toFixed(1) + " MB";
+      }
+
+      /* ── Encode ───────────────────────────────────────────────────── */
+      window.processEncode = function () {
+        hideStatus();
+        if (pendingFileBase64) {
+          outputField.value = pendingFileBase64;
+          showSuccess("File encoded to Base64 Data URL successfully.");
+          return;
+        }
+        const str = inputField.value;
+        if (!str) return;
+        try {
+          const bytes = new TextEncoder().encode(str);
+          let bin = "";
+          bytes.forEach(b => (bin += String.fromCharCode(b)));
+          outputField.value = btoa(bin);
+          showSuccess("Text encoded successfully.");
+        } catch (err) {
+          showError("Encode failed — ensure the input is valid UTF-8 text.");
+        }
+      };
+
+      /* ── Decode ───────────────────────────────────────────────────── */
+      window.processDecode = function () {
+        hideStatus();
+        let b64 = inputField.value.trim();
+        if (!b64) return;
+        try {
+          if (b64.startsWith("data:")) {
+            const comma = b64.indexOf(",");
+            if (comma !== -1) b64 = b64.substring(comma + 1);
           }
+          b64 = b64.replace(/\s/g, "");
+
+          const bin   = atob(b64);
+          const bytes = new Uint8Array(bin.length);
+          for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+
+          let isBinary = false;
+          for (let i = 0; i < Math.min(bytes.length, 100); i++) {
+            if (bytes[i] < 9 || (bytes[i] > 13 && bytes[i] < 32)) { isBinary = true; break; }
+          }
+
+          if (isBinary) {
+            const blob = new Blob([bytes], { type: "application/octet-stream" });
+            const url  = URL.createObjectURL(blob);
+            const a    = document.createElement("a");
+            a.href = url; a.download = "decoded_file.bin";
+            document.body.appendChild(a); a.click();
+            document.body.removeChild(a); URL.revokeObjectURL(url);
+            outputField.value = "[Binary file detected — download started automatically]";
+            showSuccess("Binary file decoded and downloaded.");
+          } else {
+            outputField.value = new TextDecoder().decode(bytes);
+            showSuccess("Base64 decoded to text successfully.");
+          }
+        } catch (err) {
+          showError("Invalid Base64 — check the input and try again.");
+          outputField.value = "";
         }
-      });
+      };
 
-      // Interactive Click Event Listeners
-      document.getElementById('encodeBtn').addEventListener('click', processEncode);
-      document.getElementById('decodeBtn').addEventListener('click', processDecode);
-      document.getElementById('copyBtn').addEventListener('click', copyOutput);
-      document.getElementById('clearBtn').addEventListener('click', clearAll);
+      /* ── File handling ────────────────────────────────────────────── */
+      function handleFile(file) {
+        if (!file) return;
+        hideStatus();
+        dropZoneText.textContent = "File ready: " + file.name + " (" + formatFileSize(file.size) + ")";
+        const reader = new FileReader();
+        reader.onload  = function (e) {
+          inputField.value  = "[File target: " + file.name + "]";
+          outputField.value = "";
+          pendingFileBase64 = e.target.result;
+        };
+        reader.onerror = function () { showError("Failed to read the file."); };
+        reader.readAsDataURL(file);
+      }
 
-      inputField.addEventListener("keydown", function(e) {
-        if (e.ctrlKey && e.key === "Enter") {
+      /* ── Copy & Clear ─────────────────────────────────────────────── */
+      function copyOutput() {
+        if (!outputField.value) return;
+        navigator.clipboard.writeText(outputField.value)
+          .then(function () { showSuccess("Copied to clipboard."); })
+          .catch(function () { showError("Clipboard access was denied by the browser."); });
+      }
+
+      function clearAll() {
+        hideStatus();
+        inputField.value  = "";
+        outputField.value = "";
+        fileInput.value   = "";
+        pendingFileBase64 = null;
+        dropZoneText.textContent = "Optional: drag & drop a file here, or click to upload — generates a Base64 Data URL";
+      }
+
+      /* ── Init ─────────────────────────────────────────────────────── */
+      window.addEventListener("DOMContentLoaded", function () {
+        inputField   = document.getElementById("rawInput");
+        outputField  = document.getElementById("rawOutput");
+        statusBox    = document.getElementById("statusBox");
+        dropZone     = document.getElementById("dropZone");
+        fileInput    = document.getElementById("fileInput");
+        dropZoneText = document.getElementById("dropZoneText");
+
+        const saved = localStorage.getItem("themePreference") || "dark";
+        updateThemeUI(saved);
+
+        document.getElementById("encodeBtn").addEventListener("click", window.processEncode);
+        document.getElementById("decodeBtn").addEventListener("click", window.processDecode);
+        document.getElementById("copyBtn").addEventListener("click",   copyOutput);
+        document.getElementById("clearBtn").addEventListener("click",  clearAll);
+
+        inputField.addEventListener("keydown", function (e) {
+          if (e.ctrlKey && e.key === "Enter") { e.preventDefault(); window.processEncode(); }
+        });
+
+        dropZone.addEventListener("click",     function (e) { if (e.target !== fileInput) fileInput.click(); });
+        fileInput.addEventListener("change",   function (e) { handleFile(e.target.files[0]); });
+        dropZone.addEventListener("dragover",  function (e) { e.preventDefault(); dropZone.classList.add("dragover"); });
+        dropZone.addEventListener("dragleave", function ()  { dropZone.classList.remove("dragover"); });
+        dropZone.addEventListener("drop", function (e) {
           e.preventDefault();
-          processEncode();
-        }
+          dropZone.classList.remove("dragover");
+          if (e.dataTransfer.files.length > 0) handleFile(e.dataTransfer.files[0]);
+        });
       });
 
-      // Drag Drop File Listeners
-      dropZone.addEventListener("click", (e) => {
-        if (e.target !== fileInput) {
-          fileInput.click();
-        }
-      });
-
-      fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
-      
-      dropZone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        dropZone.classList.add('dragover');
-      });
-      dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
-      dropZone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        dropZone.classList.remove('dragover');
-        if (e.dataTransfer.files.length > 0) {
-          handleFile(e.dataTransfer.files[0]);
-        }
-      });
-    });
+    })();
   </script>
 
 </body>

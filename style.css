@@ -302,3 +302,31 @@ footer, .page-footer {
   border-top: 1px solid var(--border-box);
   margin-top: 60px;
 }
+
+
+/* Mobile Responsive Ad Wrapper Styles */
+    .ad-wrapper {
+      text-align: center;
+      margin: 25px auto;
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    .ad-label {
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+      display: block;
+      opacity: 0.6;
+    }
+
+    .ad-container-box {
+      display: inline-block;
+      width: 100%;
+      max-width: 100%;
+      min-height: 100px;
+    }
+
