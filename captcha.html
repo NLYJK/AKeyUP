@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doge Flap!</title>
+    <style>
+        body {
+            background-color: #0b0e14;
+            color: #ffffff;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        h1 { 
+            margin-bottom: 5px; 
+            color: #f3ba2f; 
+            text-shadow: 0px 0px 10px rgba(243, 186, 47, 0.5); 
+            letter-spacing: 2px;
+        }
+        p { 
+            margin-top: 0; 
+            color: #a0aeb5; 
+        }
+        #gameContainer { 
+            position: relative; 
+            width: 400px; 
+            height: 500px; 
+            box-shadow: 0 0 40px rgba(243, 186, 47, 0.15);
+            border-radius: 8px;
+        }
+        canvas { 
+            background: #131722; /* TradingView dark theme background */
+            border: 3px solid #363c4e; 
+            border-radius: 8px; 
+            display: block; 
+        }
+        
+        /* Form overlay shown upon winning */
+        #formOverlay {
+            display: none;
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(19, 23, 34, 0.95);
+            border-radius: 8px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            border: 2px solid #00e676; /* Bullish green border */
+        }
+        input[type="email"] {
+            padding: 14px; 
+            font-size: 16px; 
+            border: 1px solid #363c4e; 
+            border-radius: 4px; 
+            width: 80%; 
+            margin-bottom: 15px;
+            background: #2a2e39;
+            color: #d1d4dc;
+            outline: none;
+            font-family: 'Courier New', Courier, monospace;
+            transition: border-color 0.2s;
+        }
+        input[type="email"]:focus {
+            border-color: #f3ba2f;
+        }
+        button {
+            padding: 14px 24px; 
+            font-size: 18px; 
+            background-color: #f3ba2f; 
+            border: none;
+            border-radius: 4px; 
+            color: #131722; 
+            font-weight: bold; 
+            font-family: 'Courier New', Courier, monospace;
+            cursor: pointer; 
+            width: 85%;
+            transition: background 0.2s, transform 0.1s;
+        }
+        button:hover { 
+            background-color: #f5c853; 
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🚀DOGE🚀</h1>
+    <p>Score 10 points to unlock the Giveaway Entry!</p>
+
+    <div id="gameContainer">
+        <canvas id="gameCanvas" width="400" height="500"></canvas>
+        
+        <div id="formOverlay">
+            <h2 style="color: #00e676; margin-bottom: 10px;">📈 TARGET HIT! 📈</h2>
+            <p>You survived the volatility! Enter your email to join the giveaway:</p>
+            <form id="giveawayForm">
+                <input type="email" id="playerEmail" placeholder="wallet@moon.com" required>
+                <button type="submit">Claim Entry</button>
+            </form>
+        </div>
+    </div>
+
+<script>
+// ⚠️ REPLACE THIS WITH YOUR LIVE CLOUDFLARE WORKER URL
+const WORKER_URL = "https://your-worker-subdomain.workers.dev"; 
+
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+const formOverlay = document.getElementById('formOverlay');
+const giveawayForm = document.getElementById('giveawayForm');
+
+// Game constants
+const TARGET_SCORE = 10;
+let sessionToken = null; 
+
+// VERY FORGIVING PHYSICS - Made easy for everyone
+let bird = { 
+    x: 50, 
+    y: 150, 
+    width: 32, 
+    height: 32, 
+    gravity: 0.15,  // Very slow fall
+    velocity: 0, 
+    jump: -3.5      // Gentle upward push
+};
+let pipes = [];
+let score = 0;
+let gameOver = false;
+let gameStarted = false;
+
+// Draw a Dogecoin with laser eyes
+function drawDogeCoin(x, y) {
+    // Coin base
+    ctx.fillStyle = '#f3ba2f';
+    ctx.beginPath();
+    ctx.arc(x + 16, y + 16, 16, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#c2921d';
+    ctx.stroke();
+
+    // The 'Ð' logo inside the coin
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 18px Arial';
+    ctx.fillText('Ð', x + 10, y + 22);
+
+    // Crypto Laser Eye
+    ctx.fillStyle = '#ff1744'; // Neon Red
+    ctx.shadowBlur = 15;
+    ctx.shadowColor = '#ff1744';
+    
+    // The eye
+    ctx.beginPath();
+    ctx.arc(x + 24, y + 12, 3, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // The laser beam
+    ctx.fillRect(x + 24, y + 11, 20, 2);
+    
+    ctx.shadowBlur = 0; // Reset glow
+}
+
+// Spawning Crypto Candlesticks
+function spawnPipe() {
+    let gap = 180; // MASSIVE gap to make it super easy
+    let minHeight = 40;
+    let maxHeight = canvas.height - gap - minHeight;
+    let height = Math.floor(Math.random() * (maxHeight - minHeight + 1)) + minHeight;
+    
+    // 50/50 chance for a Green (Bull) or Red (Bear) candle
+    let isBull = Math.random() > 0.5;
+    
+    pipes.push({
+        x: canvas.width,
+        top: height,
+        bottom: canvas.height - height - gap,
+        passed: false,
+        color: isBull ? '#00e676' : '#ff5252' // Green or Red
+    });
+}
+
+// Request a secure game session token from Cloudflare D1 before running
+async function resetGame() {
+    bird.y = 150;
+    bird.velocity = 0;
+    pipes = [];
+    score = 0;
+    gameOver = false;
+    
+    try {
+        const res = await fetch(`${WORKER_URL}/api/start`, { method: "POST" });
+        if (!res.ok) throw new Error("Server error");
+        
+        const data = await res.json();
+        sessionToken = data.token; // Keep the active verification session token
+        gameStarted = true;
+        spawnPipe();
+    } catch (e) {
+        alert("Failed to initialize secure connection to game server. Please check your Worker endpoint configuration.");
+    }
+}
+
+// Main Logic Loop
+function update() {
+    if (!gameStarted || gameOver) return;
+
+    // Apply soft physics
+    bird.velocity += bird.gravity;
+    bird.y += bird.velocity;
+
+    // Boundary collisions (Hit floor or ceiling)
+    if (bird.y + bird.height > canvas.height || bird.y < 0) {
+        gameOver = true;
+    }
+
+    // Candlestick logic & updates
+    for (let i = pipes.length - 1; i >= 0; i--) {
+        pipes[i].x -= 1.2; // Very slow horizontal speed
+
+        // Collision Check (Hitting the candles)
+        if (bird.x + bird.width > pipes[i].x && bird.x < pipes[i].x + 45) {
+            if (bird.y < pipes[i].top || bird.y + bird.height > canvas.height - pipes[i].bottom) {
+                gameOver = true;
+            }
+        }
+
+        // Score tracker
+        if (!pipes[i].passed && pipes[i].x + 45 < bird.x) {
+            pipes[i].passed = true;
+            score++;
+            
+            // Send scoring request event instantly to check timestamps against manipulation
+            fetch(`${WORKER_URL}/api/score`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ token: sessionToken })
+            }).then(res => {
+                if(!res.ok) {
+                    gameOver = true;
+                    alert("Session flagged by anti-cheat filters.");
+                }
+            });
+            
+            // Check if user hit the moon target!
+            if (score >= TARGET_SCORE) {
+                gameOver = true;
+                showGiveawayForm();
+                return;
+            }
+        }
+
+        // Remove offscreen candlesticks
+        if (pipes[i].x + 45 < 0) pipes.splice(i, 1);
+    }
+
+    // Spawn spacing control
+    if (pipes.length > 0 && pipes[pipes.length - 1].x < canvas.width - 250) {
+        spawnPipe();
+    }
+}
+
+function render() {
+    // Trading Terminal Background
+    ctx.fillStyle = '#131722';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Draw the "Moon" in the background
+    ctx.fillStyle = '#f3ba2f';
+    ctx.globalAlpha = 0.8;
+    ctx.beginPath();
+    ctx.arc(canvas.width - 60, 80, 40, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalAlpha = 1.0;
+
+    // Draw subtle grid lines (Trading chart vibe)
+    ctx.strokeStyle = '#2a2e39';
+    ctx.lineWidth = 1;
+    for(let i = 0; i < canvas.height; i += 50) {
+        ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(canvas.width, i); ctx.stroke();
+    }
+    for(let i = 0; i < canvas.width; i += 50) {
+        ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, canvas.height); ctx.stroke();
+    }
+
+    // Render Candlesticks
+    pipes.forEach(pipe => {
+        ctx.fillStyle = pipe.color;
+        ctx.strokeStyle = pipe.color;
+        ctx.lineWidth = 4;
+
+        // Top Candle Wick
+        ctx.beginPath();
+        ctx.moveTo(pipe.x + 22, 0);
+        ctx.lineTo(pipe.x + 22, pipe.top);
+        ctx.stroke();
+
+        // Top Candle Body
+        let topBodyHeight = pipe.top - 20 > 0 ? pipe.top - 20 : 0;
+        ctx.fillRect(pipe.x, 20, 45, topBodyHeight);
+        
+        // Bottom Candle Wick
+        ctx.beginPath();
+        ctx.moveTo(pipe.x + 22, canvas.height - pipe.bottom);
+        ctx.lineTo(pipe.x + 22, canvas.height);
+        ctx.stroke();
+
+        // Bottom Candle Body
+        let bottomBodyHeight = pipe.bottom - 20 > 0 ? pipe.bottom - 20 : 0;
+        ctx.fillRect(pipe.x, canvas.height - pipe.bottom, 45, bottomBodyHeight);
+    });
+
+    // Render Player
+    drawDogeCoin(bird.x, bird.y);
+
+    // Score display
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 24px monospace';
+    ctx.fillText(`PNL: +${score}`, 20, 40);
+
+    // UI Overlays
+    if (!gameStarted) {
+        ctx.fillStyle = 'rgba(19, 23, 34, 0.8)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#f3ba2f';
+        ctx.font = 'bold 20px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText('CLICK / TAP TO PUMP', canvas.width / 2, canvas.height / 2);
+    } else if (gameOver && score < TARGET_SCORE) {
+        ctx.fillStyle = 'rgba(19, 23, 34, 0.8)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#ff5252';
+        ctx.font = 'bold 28px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText('LIQUIDATED!', canvas.width / 2, canvas.height / 2 - 20);
+        ctx.fillStyle = '#d1d4dc';
+        ctx.font = '16px monospace';
+        ctx.fillText('Click or press SPACE to buy the dip', canvas.width / 2, canvas.height / 2 + 20);
+    }
+    ctx.textAlign = 'left'; // Reset alignment
+}
+
+function loop() {
+    update();
+    render();
+    requestAnimationFrame(loop);
+}
+
+function showGiveawayForm() {
+    formOverlay.style.display = 'flex';
+}
+
+// Inputs handling
+function handleAction() {
+    if (!gameStarted || (gameOver && score < TARGET_SCORE)) {
+        resetGame();
+    } else if (!gameOver) {
+        bird.velocity = bird.jump;
+    }
+}
+
+window.addEventListener('keydown', (e) => { if (e.code === 'Space') { e.preventDefault(); handleAction(); } });
+canvas.addEventListener('touchstart', (e) => { e.preventDefault(); handleAction(); });
+canvas.addEventListener('mousedown', () => { handleAction(); });
+
+// Form submission handling to backend server database tables
+giveawayForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('playerEmail').value;
+    
+    try {
+        const response = await fetch(`${WORKER_URL}/api/claim`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ token: sessionToken, email: email })
+        });
+        
+        const outcome = await response.json();
+        if (response.ok) {
+            alert(outcome.message); // Entry Successfully Logged to Cloudflare D1
+        } else {
+            alert("Submission error: " + outcome.error);
+        }
+    } catch (err) {
+        alert("Network communication failure. Could not commit request entry.");
+    }
+    
+    formOverlay.style.display = 'none';
+    gameStarted = false;
+    render();
+});
+
+// Start loop
+loop();
+</script>
+</body>
+</html>
