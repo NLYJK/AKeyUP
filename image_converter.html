@@ -1,23 +1,24 @@
 <!DOCTYPE html>
-
-<html data-theme="dark" lang="en">
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="Convert your images instantly with the AKeyUP Image Converter. Supports JPG, PNG, WEBP, GIF, BMP, AVIF, TIFF, and iOS HEIC/HEIF formats inside your web browser." name="description"/>
-<meta content="image converter, bulk image converter, convert png to jpg, webp converter, privacy-focused image tool" name="keywords"/>
-<meta content="AKeyUP" name="author"/>
-<meta content="index, follow" name="robots"/>
-<title>AKeyUP Image Converter - Free Online Image Conversion</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Convert your images instantly with the AKeyUP Image Converter. Supports JPG, PNG, WEBP, GIF, BMP, AVIF, TIFF,formats inside your web browser.">
+  <meta name="keywords" content="image converter, bulk image converter, convert png to jpg, webp converter, privacy-focused image tool">
+  <meta name="author" content="AKeyUP">
+  <meta name="robots" content="index, follow">
+  <title>AKeyUP Image Converter - Free Online Image Conversion</title>
 <script>
   (function() {
     const savedTheme = localStorage.getItem("user-theme") || "dark";
     document.documentElement.setAttribute("data-theme", savedTheme);
   })();
 </script>
-<link href="style.css" rel="stylesheet"/>
-<link href="/favicon.ico?v=3" rel="icon" type="image/x-icon"/>
-<style>
+  
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico?v=3">
+
+  <style>
     /* ==========================================================================
        Unified Theme Variable Tokens
        ========================================================================== */
@@ -457,138 +458,164 @@
       .grid { grid-template-columns: 1fr; } 
     }
   </style>
-<script src="cookie-banner.js"></script>
+  <script src="cookie-banner.js"></script>
 </head>
 <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
+
 <body>
-<div class="menu-container">
-<button class="menu-btn" id="menuBtn">⋮</button>
-<div class="menu" id="menu">
-<a href="index.html">Home</a>
-<a href="blog.html">Blogs</a>
-<a href="tool.html">Tools</a>
-<a href="donation.html">Donation</a>
-<a href="privacy-policy.html">Privacy Policy</a>
-<a href="terms.html">Terms of Service</a>
-<a href="about.html">About</a>
-<a href="contact.html">Contact</a>
-</div>
-</div>
-<div class="wrapper">
-<header>
-<h1 class="title">Image Converter</h1>
-<p class="subtitle">
+
+  <div class="menu-container">
+    <button class="menu-btn" id="menuBtn">⋮</button>
+    <div class="menu" id="menu">
+      <a href="index.html">Home</a>
+      <a href="blog.html">Blogs</a>
+      <a href="tool.html">Tools</a>
+      <a href="donation.html">Donation</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+
+  <div class="wrapper">
+
+    <header>
+      <h1 class="title">Image Converter</h1>
+      <p class="subtitle">
         Convert your image formats instantly and safely right inside your internet browser.
       </p>
-</header>
-<main>
-<div style="max-width: 400px; margin: 0 auto 10px auto;">
-<div class="mode-container">
-<button class="mode-btn active" id="modeSingleBtn">Single Image</button>
-<button class="mode-btn" id="modeBulkBtn">Bulk Conversion</button>
-</div>
-</div>
-<div class="grid">
-<section class="content-box" style="margin-bottom: 0;">
-<h2 class="section-title" id="panelTitle" style="border-left:none; padding-left:0; margin-bottom:20px; font-size: 1.5rem;">Upload &amp; Convert</h2>
-<label class="upload-box" for="imageInput">
-<span class="upload-icon">📤</span>
-<span class="upload-text" id="uploadMainText">Choose an image file</span>
-<span class="upload-subtext" id="uploadSubText">Supports PNG, JPG, WEBP, and iOS HEIC/HEIF files</span>
-<div class="upload-btn-mock" id="uploadBtnText">Browse Files</div>
-<input accept="image/*,.heic,.heif" class="hidden-file-input" id="imageInput" type="file"/>
-</label>
-<div class="system-alert" id="hardwareAlert">
-<h4>⚠️ Hardware Recommendation</h4>
-<p>Bulk image processing handles multiple operations at once. For a fast experience, devices with strong processors (laptops or computers) are recommended.</p>
-</div>
-<label for="formatSelect">Convert To</label>
-<select id="formatSelect">
-<option value="png">PNG (Portable Network Graphics)</option>
-<option value="jpeg">JPG / JPEG (Joint Photographic Experts Group)</option>
-<option value="webp">WEBP (Google Web Picture Format)</option>
-<option value="bmp">BMP (Windows Bitmap)</option>
-<option value="gif">GIF (Graphics Interchange Format)</option>
-<option value="avif">AVIF (AV1 Image File Format)</option>
-<option value="ico">ICO (Windows Icon Format)</option>
-<option value="tiff">TIFF (Tagged Image File Format)</option>
-</select>
-<button class="btn btn-accent" id="convertBtn" style="margin-top: 28px; width: 100%;">Convert &amp; Download</button>
-</section>
-<section class="content-box" style="margin-bottom: 0;">
-<h2 class="section-title" id="previewTitle" style="border-left:none; padding-left:0; margin-bottom:20px; font-size: 1.5rem;">Image Preview</h2>
-<div class="preview-box">
-<img alt="Uploaded source image preview" class="preview-image" id="previewImage"/>
-<div id="singleStats" style="display:none; margin-bottom:15px; text-align:center;"></div>
-<div class="bulk-list-container" id="bulkListQueue"></div>
-<div class="preview-placeholder" id="previewPlaceholder">
+    </header>
+
+    <main>
+      <div style="max-width: 400px; margin: 0 auto 10px auto;">
+        <div class="mode-container">
+          <button class="mode-btn active" id="modeSingleBtn">Single Image</button>
+          <button class="mode-btn" id="modeBulkBtn">Bulk Conversion</button>
+        </div>
+      </div>
+
+      <div class="grid">
+        
+        <section class="content-box" style="margin-bottom: 0;">
+          <h2 class="section-title" id="panelTitle" style="border-left:none; padding-left:0; margin-bottom:20px; font-size: 1.5rem;">Upload & Convert</h2>
+          
+          <label class="upload-box" for="imageInput">
+            <span class="upload-icon">📤</span>
+            <span class="upload-text" id="uploadMainText">Choose an image file</span>
+            <span class="upload-subtext" id="uploadSubText">Supports PNG, JPG, WEBP and more</span>
+            <div class="upload-btn-mock" id="uploadBtnText">Browse Files</div>
+            
+            <input type="file" id="imageInput" class="hidden-file-input" accept="image/*,.heic,.heif">
+          </label>
+
+          <div class="system-alert" id="hardwareAlert">
+            <h4>⚠️ Hardware Recommendation</h4>
+            <p>Bulk image processing handles multiple operations at once. For a fast experience, devices with strong processors (laptops or computers) are recommended.</p>
+          </div>
+
+          <label for="formatSelect">Convert To</label>
+          <select id="formatSelect">
+            <option value="png">PNG (Portable Network Graphics)</option>
+            <option value="jpeg">JPG / JPEG (Joint Photographic Experts Group)</option>
+            <option value="webp">WEBP (Google Web Picture Format)</option>
+            <option value="bmp">BMP (Windows Bitmap)</option>
+            <option value="gif">GIF (Graphics Interchange Format)</option>
+            <option value="avif">AVIF (AV1 Image File Format)</option>
+            <option value="ico">ICO (Windows Icon Format)</option>
+            <option value="tiff">TIFF (Tagged Image File Format)</option>
+          </select>
+
+          <button class="btn btn-accent" style="margin-top: 28px; width: 100%;" id="convertBtn">Convert & Download</button>
+        </section>
+
+        <section class="content-box" style="margin-bottom: 0;">
+          <h2 class="section-title" id="previewTitle" style="border-left:none; padding-left:0; margin-bottom:20px; font-size: 1.5rem;">Image Preview</h2>
+          <div class="preview-box">
+            <img id="previewImage" class="preview-image" alt="Uploaded source image preview">
+            <div id="singleStats" style="display:none; margin-bottom:15px; text-align:center;"></div>
+            
+            <div class="bulk-list-container" id="bulkListQueue"></div>
+
+            <div class="preview-placeholder" id="previewPlaceholder">
               Your uploaded image will show up here before you convert it.
             </div>
-</div>
-<div class="disclaimer-panel">
-<h3>📢 Browser Note</h3>
-<p>Saving files as AVIF or TIFF depends on your web browser. If your browser does not support these formats yet, the tool will automatically download your image as a high-quality PNG instead.</p>
-</div>
-</section>
-</div>
+          </div>
+          <div class="disclaimer-panel">
+            <h3>📢 Browser Note</h3>
+            <p>Saving files as AVIF or TIFF or others depends on your web browser. If your browser does not support these formats yet or there is issue with your browser or Operating System then , the tool will automatically download your image as a high-quality PNG instead.</p>
+          </div>
+        </section>
 
-<div class="theme-inline-container">
-<button class="btn theme-inline-btn" onclick="toggleTheme()">
-<span id="themeIcon">🌓</span>
-<span id="themeText">Switch Interface Theme</span>
-</button>
-</div>
+      </div>
 
-<div class="ad-wrapper">
-<span class="ad-label">Sponsored</span>
-<div class="ad-container-box">
-<script async="async" data-cfasync="false" src="https://pl29654694.effectivecpmnetwork.com/6a875cdb30ed7e51fd4cbea9c261ab87/invoke.js"></script>
-<div id="container-6a875cdb30ed7e51fd4cbea9c261ab87"></div>
-</div>
-</div>
-<h2 class="section-title">How Digital Image Formats Work</h2>
-<section class="content-box article-section">
-<h3>How Images Are Formatted</h3>
-<p>Digital pictures are made out of millions of tiny squares called pixels. Every pixel holds information about its color and transparency. When you change an image from one format to another, you change how this pixel data is saved and stored on your device.</p>
-<h3>Lossy vs. Lossless Formats</h3>
-<p>Choosing the right format depends on whether you want to save space or keep original quality:</p>
-<ul>
-<li><strong>Lossless Formats (PNG, TIFF, BMP):</strong> These keep every single pixel exactly as it was originally made. They do not lose any quality, which makes them perfect for screenshots, text, and logos.</li>
-<li><strong>Lossy Formats (JPEG, WEBP, AVIF, HEIC):</strong> These make image files much smaller by removing minor color details that the human eye can barely see. This lets you save a lot of storage space while keeping the picture looking clear.</li>
-</ul>
-<h3>Why Modern Formats Are Better</h3>
-<p>Older formats like BMP or TIFF usually create massive files that take up too much storage and slow down websites. Switching to newer image styles like WEBP or AVIF can cut file sizes down by 30% to 50% compared to old JPEGs. This helps web pages load much faster and saves your internet data.</p>
-<h3>Safe and Private Conversion</h3>
-<p>Most online converters make you upload your photos to their servers, which can put your privacy at risk. The AKeyUP image converter works 100% inside your own browser. Your files are never sent to the internet, keeping your personal photos private, safe, and completely secure.</p>
-</section>
-<h2 class="section-title">Features</h2>
-<div class="grid-auto" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
-<div class="feature-card">
-<h4>⚡ Super Fast</h4>
-<p>Converts image files instantly using your own device's hardware power.</p>
-</div>
-<div class="feature-card">
-<h4>🔒 100% Private</h4>
-<p>No tracking or history. Your files never leave your computer or phone.</p>
-</div>
-<div class="feature-card">
-<h4>🆓 Free to Use</h4>
-<p>Enjoy fully unlocked, unlimited access to image conversions without any hidden paywalls.</p>
-</div>
-</div>
-<div class="legal-container">
-<p class="legal-disclaimer">
+      <div class="theme-inline-container">
+        <button class="theme-inline-btn" id="inlineThemeBtn">
+          <span id="themeIcon">🌓</span>
+          <span id="themeText">Switch Theme</span>
+        </button>
+      </div>
+
+      <div class="ad-wrapper">
+        <span class="ad-label">Sponsored</span>
+        <div class="ad-container-box">
+          <script async="async" data-cfasync="false" src="https://pl29654694.effectivecpmnetwork.com/6a875cdb30ed7e51fd4cbea9c261ab87/invoke.js"></script>
+          <div id="container-6a875cdb30ed7e51fd4cbea9c261ab87"></div>
+        </div>
+      </div>
+
+      <h2 class="section-title">How Digital Image Formats Work</h2>
+      <section class="content-box article-section">
+        <h3>How Images Are Formatted</h3>
+        <p>Digital pictures are made out of millions of tiny squares called pixels. Every pixel holds information about its color and transparency. When you change an image from one format to another, you change how this pixel data is saved and stored on your device.</p>
+        
+        <h3>Lossy vs. Lossless Formats</h3>
+        <p>Choosing the right format depends on whether you want to save space or keep original quality:</p>
+        <ul>
+          <li><strong>Lossless Formats (PNG, TIFF, BMP):</strong> These keep every single pixel exactly as it was originally made. They do not lose any quality, which makes them perfect for screenshots, text, and logos.</li>
+          <li><strong>Lossy Formats (JPEG, WEBP, AVIF, HEIC):</strong> These make image files much smaller by removing minor color details that the human eye can barely see. This lets you save a lot of storage space while keeping the picture looking clear.</li>
+        </ul>
+        
+        <h3>Why Modern Formats Are Better</h3>
+        <p>Older formats like BMP or TIFF usually create massive files that take up too much storage and slow down websites. Switching to newer image styles like WEBP or AVIF can cut file sizes down by 30% to 50% compared to old JPEGs. This helps web pages load much faster and saves your internet data.</p>
+
+        <h3>Safe and Private Conversion</h3>
+        <p>Most online converters make you upload your photos to their servers, which can put your privacy at risk. The AKeyUP image converter works 100% inside your own browser. Your files are never sent to the internet, keeping your personal photos private, safe, and completely secure.</p>
+      </section>
+
+      <h2 class="section-title">Features</h2>
+      <div class="grid-auto" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+        <div class="feature-card">
+          <h4>⚡ Super Fast</h4>
+          <p>Converts image files instantly using your own device's hardware power.</p>
+        </div>
+        <div class="feature-card">
+          <h4>🔒 100% Private</h4>
+          <p>No tracking or history. Your files never leave your computer or phone.</p>
+        </div>
+        <div class="feature-card">
+          <h4>🆓 Free to Use</h4>
+          <p>Enjoy fully unlocked, unlimited access to image conversions without any hidden paywalls.</p>
+        </div>
+      </div>
+
+      <div class="legal-container">
+        <p class="legal-disclaimer">
           By using any tool, you agree to our <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.
         </p>
-</div>
-<div class="btn-container">
-<a class="btn btn-neutral" href="tool.html">⬅ Back to Tools</a>
-</div>
-</main>
-<footer class="page-footer" style="text-align: center; margin-top: 40px; padding: 20px 0; border-top: 1px solid var(--border-box);">
+      </div>
+
+      <div class="btn-container">
+        <a href="tool.html" class="btn btn-neutral">⬅ Back to Tools</a>
+      </div>
+    </main>
+
+    <footer class="page-footer" style="text-align: center; margin-top: 40px; padding: 20px 0; border-top: 1px solid var(--border-box);">
       © 2026-Present AKeyUP. All rights reserved.
     </footer>
-</div>
+
+  </div>
+
 <script>
     /* ==========================================================================
        Theme Storage & Flash Mitigation Initialization Engine (Unified Key)
