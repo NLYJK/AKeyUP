@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weightless Glider</title>
+    <meta name="description" content="Let go of stress with Weightless, a minimalist interactive tool by AKeyUP.">
+    <meta name="keywords" content="game, mindfulness apps, stress release, AKeyUP">
+    <meta name="author" content="AKeyUP">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0b0c16;
+            color: #f1f5f9;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            letter-spacing: -0.01em;
+        }
+        #game-container {
+            position: relative;
+            width: 800px;
+            height: 500px;
+            background: #0f1123;
+            border-radius: 24px;
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 
+                        0 0 0 1px rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+        }
+        .overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(10, 11, 22, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 10;
+            opacity: 1;
+        }
+        .hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(1.02);
+        }
+        input[type="text"] {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
+            color: #fff;
+            padding: 16px 24px;
+            font-size: 16px;
+            width: 320px;
+            outline: none;
+            margin-top: 24px;
+            text-align: center;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        input[type="text"]:focus {
+            border-color: #818cf8;
+            background: rgba(255, 255, 255, 0.07);
+            box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.25), inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        button {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 4px 20px rgba(79, 70, 229, 0.4), 
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        button:hover { 
+            transform: translateY(-1px);
+            box-shadow: 0 6px 24px rgba(79, 70, 229, 0.5), 
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, #818cf8, #6366f1);
+        }
+        button:active {
+            transform: translateY(1px);
+        }
+        h2 { 
+            margin: 0 0 12px 0; 
+            font-size: 32px;
+            font-weight: 700; 
+            letter-spacing: -0.02em;
+            background: linear-gradient(to right, #ffffff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        p { 
+            color: #94a3b8; 
+            margin: 0; 
+            text-align: center; 
+            max-width: 420px; 
+            line-height: 1.6;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <!-- Setup Screen -->
+    <div id="setup-screen" class="overlay">
+        <h2>Let it go.</h2>
+        <p>What is weighing heavily on your mind right now? Type it below to fasten it to the glider.</p>
+        <input type="text" id="worry-input" placeholder="Type a worry..." maxlength="40" autocomplete="off">
+        <button id="start-btn">Release & Glide</button>
+    </div>
+
+    <!-- Final Screen -->
+    <div id="end-screen" class="overlay hidden">
+        <h2>Weightless.</h2>
+        <p>Your worry has broken apart and dissolved into the wind. Breathe out. You are doing just fine.</p>
+        <button id="reset-btn">Breathe Again</button>
+    </div>
+
+    <canvas id="gameCanvas" width="800" height="500"></canvas>
+</div>
+
+<script>
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+
+// UI Elements
+const setupScreen = document.getElementById('setup-screen');
+const endScreen = document.getElementById('end-screen');
+const worryInput = document.getElementById('worry-input');
+const startBtn = document.getElementById('start-btn');
+const resetBtn = document.getElementById('reset-btn');
+
+// Game State
+let isPlaying = false;
+let worryText = "";
+let score = 0;
+const targetScore = 5; // Collect 5 lights to shatter the worry
+
+// Glider Object
+const glider = {
+    x: 150,
+    y: 200,
+    vy: 0,
+    gravity: 0.15,
+    lift: -4.5,
+    size: 20,
+    angle: 0
+};
+
+// Elements arrays
+let stars = [];
+let lights = [];
+
+// NEW VISUAL STATE: Dynamic visual elements handled completely within original schema
+// We stack wind line attributes within standard star tracking loop cleanly
+function initElements() {
+    stars = [];
+    lights = [];
+    score = 0;
+    glider.y = 200;
+    glider.vy = 0;
+    
+    // Generate background ambient stars + dynamic wind lines
+    for (let i = 0; i < 50; i++) {
+        stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 2 + 0.5,
+            speed: Math.random() * 0.8 + 0.2,
+            // Premium twinkling factor
+            twinkle: Math.random() * Math.PI
+        });
+    }
+    spawnLight();
+}
+
+function spawnLight() {
+    if (!isPlaying || score >= targetScore) return;
+    lights.push({
+        x: canvas.width + 50,
+        y: Math.random() * (canvas.height - 100) + 50,
+        size: 14,
+        pulse: Math.random() * 10
+    });
+    // Spawn another light in 2.5 seconds
+    setTimeout(spawnLight, 2500);
+}
+
+// Controls
+function handleBoost() {
+    if (isPlaying) {
+        glider.vy = glider.lift;
+    }
+}
+window.addEventListener('keydown', (e) => { if (e.code === 'Space') { handleBoost(); e.preventDefault(); } });
+canvas.addEventListener('touchstart', (e) => { handleBoost(); e.preventDefault(); });
+canvas.addEventListener('mousedown', handleBoost);
+
+startBtn.addEventListener('click', () => {
+    worryText = worryInput.value.trim() || "An unspoken weight";
+    setupScreen.classList.add('hidden');
+    isPlaying = true;
+    initElements();
+    animate();
+});
+
+resetBtn.addEventListener('click', () => {
+    worryInput.value = "";
+    endScreen.classList.add('hidden');
+    setupScreen.classList.remove('hidden');
+});
+
+// Main Loop
+function animate() {
+    if (!isPlaying) return;
+
+    // 1. CLEAR & BACKGROUND DRIFT
+    let progress = score / targetScore;
+    let bgGrad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+    
+    if (progress < 1) {
+        // High fidelity deep ambient space gradient transitions
+        bgGrad.addColorStop(0, `rgb(${11 + progress * 45}, ${13 + progress * 65}, ${26 + progress * 95})`);
+        bgGrad.addColorStop(0.5, `rgb(${14 + progress * 25}, ${16 + progress * 35}, ${33 + progress * 50})`);
+        bgGrad.addColorStop(1, `rgb(${8 + progress * 15}, ${9 + progress * 15}, ${19 + progress * 20})`);
+    } else {
+        // Beautiful bright atmospheric post-worry morning dawn sky
+        bgGrad.addColorStop(0, '#6366f1');
+        bgGrad.addColorStop(0.4, '#818cf8');
+        bgGrad.addColorStop(1, '#e0e7ff');
+    }
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Draw ambient organic twinkling stars & cinematic horizontal wind streaks
+    stars.forEach((star, index) => {
+        star.twinkle += 0.02;
+        let alpha = 0.3 + Math.abs(Math.sin(star.twinkle)) * 0.7;
+        
+        ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+        
+        // Every 5th element acts beautifully as a dynamic cinematic speed streak line
+        if (index % 5 === 0) {
+            ctx.fillStyle = `rgba(129, 140, 248, ${alpha * 0.25})`;
+            ctx.fillRect(star.x, star.y, star.size * 25, 1);
+        } else {
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        
+        // Adjust background speed dynamically based on weight presence
+        star.x -= score >= targetScore ? star.speed * 4 : star.speed;
+        if (star.x < -100) star.x = canvas.width + 50;
+    });
+
+    // 2. GLIDER PHYSICS
+    glider.vy += glider.gravity;
+    glider.y += glider.vy;
+    
+    // Bounds constraints (Smooth responsive cushioning)
+    if (glider.y > canvas.height - 40) { glider.y = canvas.height - 40; glider.vy = glider.vy * -0.1; }
+    if (glider.y < 20) { glider.y = 20; glider.vy = 0; }
+
+    // Calculate elegant pitch angle based on kinetic vertical velocity
+    glider.angle = Math.atan2(glider.vy, 6) * 0.6;
+
+    // Subtle atmospheric jet-stream engine trail effect behind glider tail
+    if (Math.random() > 0.4) {
+        ctx.fillStyle = "rgba(255, 255, 255, 0.15)";
+        ctx.fillRect(glider.x - 20 - (Math.random() * 10), glider.y + (Math.random() * 6 - 3), 4, 1);
+    }
+
+    // 3. DRAW GLIDER (Advanced 3D Isometric Polished Paper Wing Shader)
+    ctx.save();
+    ctx.translate(glider.x, glider.y);
+    ctx.rotate(glider.angle);
+    
+    // Drop subtle realistic canvas shadow underneath glider shape
+    ctx.shadowBlur = 15;
+    ctx.shadowColor = "rgba(0, 0, 0, 0.4)";
+    ctx.shadowOffsetY = 10;
+
+    // Main Left Wing Facet (Brightly lit from upper global sky source)
+    ctx.fillStyle = "#ffffff";
+    ctx.beginPath();
+    ctx.moveTo(28, 0);   // Nose
+    ctx.lineTo(-15, -14); // Top wing tip
+    ctx.lineTo(-4, 0);    // Tail center
+    ctx.closePath();
+    ctx.fill();
+    
+    // Main Right Wing Facet (Slight realistic 3D shadow depth drop)
+    ctx.fillStyle = "#e2e8f0";
+    ctx.beginPath();
+    ctx.moveTo(28, 0);   // Nose
+    ctx.lineTo(-15, 14);  // Bottom wing tip
+    ctx.lineTo(-4, 0);    // Tail center
+    ctx.closePath();
+    ctx.fill();
+
+    // Center structural fold stabilization layer crease line
+    ctx.strokeStyle = "#cbd5e1";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(28, 0);
+    ctx.lineTo(-4, 0);
+    ctx.stroke();
+
+    // 4. DRAW THE ATTACHED WEIGHT (Premium Glassmorphic Crystal Block)
+    if (score < targetScore) {
+        ctx.restore(); // Drop angle matrix state temporarily to keep text clean and perfectly upright
+        ctx.save();
+        ctx.translate(glider.x, glider.y);
+
+        // Elegant woven string connection line holding weight block
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.25)";
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(0, 4);
+        ctx.lineTo(0, 48);
+        ctx.stroke();
+
+        // Advanced internal Text dimension bounds measurements
+        ctx.font = "600 13px system-ui, sans-serif";
+        let textWidth = ctx.measureText(worryText).width + 28;
+        let rectWidth = Math.max(90, textWidth);
+        
+        // Render Premium Glassmorphic Inner Solid Box Glow Core
+        let weightGrad = ctx.createLinearGradient(-rectWidth/2, 48, rectWidth/2, 80);
+        weightGrad.addColorStop(0, "rgba(30, 41, 59, 0.85)");
+        weightGrad.addColorStop(1, "rgba(15, 23, 42, 0.95)");
+        
+        ctx.fillStyle = weightGrad;
+        ctx.strokeStyle = "rgba(129, 140, 248, 0.5)";
+        ctx.lineWidth = 1.5;
+        
+        ctx.beginPath();
+        ctx.roundRect(-rectWidth/2, 48, rectWidth, 32, 10);
+        ctx.fill();
+        ctx.stroke();
+
+        // High-contrast clean typography rendering inside the crystal block
+        ctx.fillStyle = "#f8fafc";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.shadowBlur = 0; // Clear text bounds crispness
+        ctx.shadowColor = "transparent";
+        ctx.fillText(worryText, 0, 65);
+    } else {
+        // Hyper-drive final speed acceleration transition sequences
+        glider.x += 5;
+        if (glider.x > canvas.width + 120) {
+            isPlaying = false;
+            endScreen.classList.remove('hidden');
+        }
+    }
+    ctx.restore();
+
+    // 5. MANAGE LIGHT CURRENT ENERGY PICKUPS
+    for (let i = lights.length - 1; i >= 0; i--) {
+        let light = lights[i];
+        light.x -= score >= targetScore ? 8 : 2.5; 
+        light.pulse += 0.06;
+
+        // Multi-layered cinematic stellar core bloom aura shader
+        let baseGlow = light.size + Math.sin(light.pulse) * 5;
+        
+        // 1st Layer: Large outer environmental atmospheric color blend plasma field
+        let outerRad = ctx.createRadialGradient(light.x, light.y, 1, light.x, light.y, baseGlow * 2);
+        outerRad.addColorStop(0, "rgba(99, 102, 241, 0.25)");
+        outerRad.addColorStop(1, "rgba(99, 102, 241, 0)");
+        ctx.fillStyle = outerRad;
+        ctx.beginPath();
+        ctx.arc(light.x, light.y, baseGlow * 2, 0, Math.PI * 2);
+        ctx.fill();
+
+        // 2nd Layer: High-density intense internal energy white core flare
+        let innerRad = ctx.createRadialGradient(light.x, light.y, 0, light.x, light.y, baseGlow * 0.8);
+        innerRad.addColorStop(0, "#ffffff");
+        innerRad.addColorStop(0.3, "rgba(165, 180, 252, 1)");
+        innerRad.addColorStop(1, "rgba(99, 102, 241, 0)");
+        ctx.fillStyle = innerRad;
+        ctx.beginPath();
+        ctx.arc(light.x, light.y, baseGlow * 0.8, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Precise circular math collision checks
+        let dx = glider.x - light.x;
+        let dy = glider.y - light.y;
+        let distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < glider.size + light.size) {
+            lights.splice(i, 1);
+            score++;
+            continue;
+        }
+
+        // Clean garbage collections for offscreen elements
+        if (light.x < -60) {
+            lights.splice(i, 1);
+        }
+    }
+
+    requestAnimationFrame(animate);
+}
+</script>
+
+</body>
+</html>
