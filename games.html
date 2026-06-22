@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AKeyUP Games section containing interactive, mindful experiences.">
+    <title>Games - AKeyUP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=3">
+
+    <style>
+        /* Theme fallbacks to ensure structural visibility regardless of external styles configuration */
+        html[data-theme="light"] {
+            --fallback-bg-box: #f5f5f7;
+            --fallback-bg-input: #ffffff;
+            --fallback-text: #1d1d1f;
+            --fallback-text-muted: #86868b;
+            --fallback-border: #d2d2d7;
+        }
+        html[data-theme="dark"] {
+            --fallback-bg-box: #1c1c1e;
+            --fallback-bg-input: #2c2c2e;
+            --fallback-text: #f5f5f7;
+            --fallback-text-muted: #8e8e93;
+            --fallback-border: #3a3a3c;
+        }
+
+        /* ==========================================================================
+           Page-Specific Layouts & Grid Optimizations
+           ========================================================================== */
+        
+        .game-group {
+            margin-bottom: 45px;
+        }
+
+        h2.section-title {
+            margin-top: 20px;
+            margin-bottom: 25px;
+        }
+
+        /* Override .card core flex centering safely to create beautiful dashboard rows */
+        .game-link {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            text-decoration: none !important;
+            padding: 18px 24px !important;
+        }
+
+        /* Premium index badge icon */
+        .game-badge {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ff4444;
+            background: rgba(255, 68, 68, 0.08);
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            margin-right: 20px;
+            border: 1px solid rgba(255, 68, 68, 0.15);
+            flex-shrink: 0;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        /* Dynamic interaction highlighting badge element */
+        .game-link:hover .game-badge {
+            background: #ff4444;
+            color: white;
+        }
+
+        .game-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-main, var(--fallback-text));
+            transition: color 0.2s;
+        }
+
+        .game-link:hover .game-title {
+            color: var(--text-inverse, var(--fallback-text));
+        }
+
+        /* Integrated Inline Theme Switcher Module */
+        .theme-inline-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 25px;
+            border-top: 1px solid var(--border-box, var(--fallback-border));
+            padding-top: 20px;
+        }
+
+        .theme-inline-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            width: auto;
+            background: var(--bg-main, var(--fallback-bg-box));
+            border: 1px solid var(--border-interactive, var(--fallback-border));
+            color: var(--text-main, var(--fallback-text));
+            padding: 12px 24px;
+            font-size: 0.95rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .theme-inline-btn:hover {
+            background: var(--bg-input, var(--fallback-bg-input));
+            transform: translateY(-1px);
+        }
+
+        /* Legal Notice Disclaimer Bar */
+        .legal-disclaimer {
+            color: var(--text-muted, var(--fallback-text-muted));
+            font-size: 0.85rem;
+            margin-top: 40px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .legal-disclaimer a {
+            color: #ff4444;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .legal-disclaimer a:hover {
+            text-decoration: underline;
+            color: #e03333;
+        }
+    </style>
+    <script src="cookie-banner.js"></script>
+</head>
+
+<body>
+
+<script>
+/* Menu Navigation Dropdown Controls Toggle Engine */
+function toggleMenu() {
+    const menu = document.getElementById("menu");
+    menu.classList.toggle("show");
+}
+
+document.addEventListener("click", function(event) {
+    const menu = document.getElementById("menu");
+    const button = document.querySelector(".menu-btn");
+    if (menu && button) {
+        if (!menu.contains(event.target) && !button.contains(event.target)) {
+            menu.classList.remove("show");
+        }
+    }
+});
+</script>
+
+<div class="menu-container">
+    <button class="menu-btn" onclick="toggleMenu()">⋮</button>
+    <div class="menu" id="menu">
+        <a href="index.html">Home</a>
+        <a href="blog.html">Blog</a>
+        <a href="donation.html">Donation</a>
+        <a href="tool.html">Tools</a>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </div>
+</div>
+
+<div class="wrapper">
+
+    <header>
+        <h1 class="title">Interactive Experiences</h1>
+        <p class="subtitle">
+        </p>
+    </header>
+    
+    <main>
+
+        <section class="game-group">
+            <h2 class="section-title">Mindfulness & Relaxation</h2>
+            <div class="grid-auto">
+                <a href="Games/glider.html" class="card game-link">
+                    <div class="game-badge">1</div>
+                    <div class="game-title">Weightless Glider</div>
+                </a>
+            </div>
+        </section>
+
+        <div class="theme-inline-container">
+            <button class="theme-inline-btn" onclick="toggleTheme()">
+                <span id="themeIcon">🌓</span>
+                <span id="themeText">Switch Theme</span>
+            </button>
+        </div>
+
+        <div class="ad-wrapper">
+            <span class="ad-label">Sponsored</span>
+            <div class="ad-container-box">
+                <script async="async" data-cfasync="false" src="https://pl29654694.effectivecpmnetwork.com/6a875cdb30ed7e51fd4cbea9c261ab87/invoke.js"></script>
+                <div id="container-6a875cdb30ed7e51fd4cbea9c261ab87"></div>
+            </div>
+        </div>
+
+        <p class="legal-disclaimer">
+            By using any game, you agree to our <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.
+        </p>
+
+        <div class="btn-container" style="margin-top: 20px;">
+            <a href="index.html" class="btn btn-neutral">⬅ Back to Home</a>
+        </div>
+
+    </main>
+
+    <footer>
+        © 2026-Present AKeyUP. All rights reserved.
+    </footer>
+
+</div>
+
+<script>
+    /* Light / Dark Theme Switching Logic Modules */
+    function toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute("data-theme");
+        const targetTheme = currentTheme === "light" ? "dark" : "light";
+        document.documentElement.setAttribute("data-theme", targetTheme);
+        localStorage.setItem("themePreference", targetTheme);
+        updateThemeButtonUI(targetTheme);
+    }
+
+    function updateThemeButtonUI(theme) {
+        const textNode = document.getElementById("themeText");
+        const iconNode = document.getElementById("themeIcon");
+        if (theme === "light") {
+            textNode.innerText = "Switch to Dark Mode";
+            iconNode.innerText = "🌙";
+        } else {
+            textNode.innerText = "Switch to Light Mode";
+            iconNode.innerText = "☀️";
+        }
+    }
+
+    /* Local Storage Theme Verification Initialization Routine */
+    window.addEventListener("DOMContentLoaded", function(){
+        const savedTheme = localStorage.getItem("themePreference") || "dark";
+        document.documentElement.setAttribute("data-theme", savedTheme);
+        updateThemeButtonUI(savedTheme);
+    });
+</script>
+
+</body>
+</html>
